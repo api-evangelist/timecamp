@@ -1,0 +1,227 @@
+aid: timecamp
+url: https://raw.githubusercontent.com/api-evangelist/timecamp/refs/heads/main/apis.yml
+name: TimeCamp
+kind: company
+description: TimeCamp is a time tracking and timesheet platform used by teams to
+  log billable hours, run attendance and time-off, approve timesheets, and measure
+  productivity across projects. Its documented REST API - free on every plan,
+  including the free tier - covers time entries, timers, tasks and projects, users
+  and groups, attendance, approvals, tags, billing rates, expenses, and computer
+  activity data, authenticated with a per-user API token sent as a bearer header.
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+tags:
+- Time Tracking
+- Timesheets
+- Productivity
+- Attendance
+- Project Management
+- Billing
+created: '2026-07-11'
+modified: '2026-07-11'
+specificationVersion: '0.19'
+apis:
+- aid: timecamp:timecamp-time-entries-api
+  name: TimeCamp Time Entries API
+  tags:
+  - Time Tracking
+  - Time Entries
+  - Timesheets
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://developer.timecamp.com/#/operations/get--entries
+  baseURL: https://app.timecamp.com/third_party/api
+  properties:
+  - url: https://developer.timecamp.com/
+    type: Documentation
+  - url: https://developer.timecamp.com/#/operations/get--entries
+    type: APIReference
+  - url: openapi/timecamp-openapi.yml
+    type: OpenAPI
+  description: Create, read, update, and delete time entries - the core timesheet
+    records. Filter entries by date range, users, tasks, and tags, merge duplicate
+    entries, track entry changes and deletions for sync, and pull logged time per
+    week. A v3 surface adds permission-aware entry listing and time entry
+    restrictions.
+- aid: timecamp:timecamp-timer-api
+  name: TimeCamp Timer API
+  tags:
+  - Timer
+  - Time Tracking
+  - Real Time
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://developer.timecamp.com/#/operations/post-timer
+  baseURL: https://app.timecamp.com/third_party/api
+  properties:
+  - url: https://developer.timecamp.com/#/operations/post-timer
+    type: APIReference
+  - url: openapi/timecamp-openapi.yml
+    type: OpenAPI
+  description: Start, stop, and inspect running timers. A single POST /timer
+    endpoint switches on an action parameter (start, stop, status), and GET
+    /timer_running returns all currently running timers so integrations can mirror
+    live tracking state.
+- aid: timecamp:timecamp-tasks-projects-api
+  name: TimeCamp Tasks and Projects API
+  tags:
+  - Tasks
+  - Projects
+  - Project Management
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://developer.timecamp.com/#/operations/get--tasks
+  baseURL: https://app.timecamp.com/third_party/api
+  properties:
+  - url: https://developer.timecamp.com/#/operations/get--tasks
+    type: APIReference
+  - url: openapi/timecamp-openapi.yml
+    type: OpenAPI
+  description: Manage the task and project tree that time is tracked against -
+    create, update, and delete tasks, fetch task details, set task colors and tags.
+    The v3 surface adds project listing and search, user assignment to projects,
+    task duplication, archiving and restoring in batches, moving worklogs, and
+    re-parenting tasks.
+- aid: timecamp:timecamp-users-groups-api
+  name: TimeCamp Users and Groups API
+  tags:
+  - Users
+  - Groups
+  - Administration
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://developer.timecamp.com/#/operations/get-users
+  baseURL: https://app.timecamp.com/third_party/api
+  properties:
+  - url: https://developer.timecamp.com/#/operations/get-users
+    type: APIReference
+  - url: openapi/timecamp-openapi.yml
+    type: OpenAPI
+  description: Administer the account - list all users, fetch your own profile
+    (/me), invite and update users, manage per-user settings, and organize users
+    into groups with group-level settings, schedulers, and roles and permissions
+    (tt_role).
+- aid: timecamp:timecamp-attendance-api
+  name: TimeCamp Attendance API
+  tags:
+  - Attendance
+  - Time Off
+  - Leave Management
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://developer.timecamp.com/#/operations/get--attendance
+  baseURL: https://app.timecamp.com/third_party/api
+  properties:
+  - url: https://developer.timecamp.com/#/operations/get--attendance
+    type: APIReference
+  - url: openapi/timecamp-openapi.yml
+    type: OpenAPI
+  description: Attendance and time-off surface - pull attendance records per
+    period, read and set per-user day types (working day, vacation, sick leave),
+    submit attendance requests, and use the v3 endpoints for predefined holiday
+    calendars per group and attendance calendar search.
+- aid: timecamp:timecamp-approvals-api
+  name: TimeCamp Timesheet Approvals API
+  tags:
+  - Approvals
+  - Timesheets
+  - Workflow
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://developer.timecamp.com/#/operations/get--approval
+  baseURL: https://app.timecamp.com/third_party/api
+  properties:
+  - url: https://developer.timecamp.com/#/operations/get--approval
+    type: APIReference
+  - url: openapi/timecamp-openapi.yml
+    type: OpenAPI
+  description: Timesheet approval workflow - fetch and create approvals for user
+    timesheet periods, list users subject to approval, and drive the v3 flow with
+    approval listing, status changes (single and bulk), approval activity history,
+    messages, and reminder sending.
+- aid: timecamp:timecamp-computer-activities-api
+  name: TimeCamp Computer Activities API
+  tags:
+  - Productivity
+  - Activity Tracking
+  - Monitoring
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://developer.timecamp.com/#/operations/get--activity
+  baseURL: https://app.timecamp.com/third_party/api
+  properties:
+  - url: https://developer.timecamp.com/#/operations/get--activity
+    type: APIReference
+  - url: openapi/timecamp-openapi.yml
+    type: OpenAPI
+  description: Read the desktop-agent productivity data - application and website
+    usage captured by the TimeCamp tracker - via GET /activity, plus v3 endpoints
+    for sites-and-apps activity logs, activity categories, and per-group
+    productivity classification of applications.
+- aid: timecamp:timecamp-tags-api
+  name: TimeCamp Tags API
+  tags:
+  - Tags
+  - Metadata
+  - Time Entries
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://developer.timecamp.com/#/operations/get--tag_list-
+  baseURL: https://app.timecamp.com/third_party/api
+  properties:
+  - url: https://developer.timecamp.com/#/operations/get--tag_list-
+    type: APIReference
+  - url: openapi/timecamp-openapi.yml
+    type: OpenAPI
+  description: Manage tag lists and tags used to slice time entries for reporting -
+    create and update tag lists, add tags, scope tags to groups, and attach or
+    remove tags on individual time entries and tasks.
+- aid: timecamp:timecamp-billing-rates-expenses-api
+  name: TimeCamp Billing Rates and Expenses API
+  tags:
+  - Billing
+  - Rates
+  - Expenses
+  - Invoicing
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://developer.timecamp.com/#/operations/get-task-task_id-rate
+  baseURL: https://app.timecamp.com/third_party/api
+  properties:
+  - url: https://developer.timecamp.com/#/operations/get-task-task_id-rate
+    type: APIReference
+  - url: openapi/timecamp-openapi.yml
+    type: OpenAPI
+  description: Monetize tracked time - get and set billing rates per task, per
+    user, per task-user pair, and per group, and manage expenses through the v3
+    endpoints including expense categories, attachments, and assigning expenses to
+    invoices.
+- aid: timecamp:timecamp-data-export-api
+  name: TimeCamp Data Export API
+  tags:
+  - Data Export
+  - Reporting
+  - Custom Fields
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://developer.timecamp.com/#/operations/get-data-export-exports
+  baseURL: https://app.timecamp.com/third_party/api
+  properties:
+  - url: https://developer.timecamp.com/#/operations/get-data-export-exports
+    type: APIReference
+  - url: openapi/timecamp-openapi.yml
+    type: OpenAPI
+  description: Bulk reporting surface on the v3 API - request dataset exports,
+    poll export status, check dataset availability, and download results, plus
+    custom field templates and values that enrich exported time and project data.
+common:
+- type: LinkedIn
+  url: https://www.linkedin.com/company/timecamp
+- type: Website
+  url: https://www.timecamp.com
+- type: Documentation
+  url: https://developer.timecamp.com/
+- type: Support
+  url: https://help.timecamp.com/help/api
+- type: Pricing
+  url: https://www.timecamp.com/pricing/
+- type: Blog
+  url: https://www.timecamp.com/blog/
+- type: Plans
+  url: plans/timecamp-plans-pricing.yml
+- type: RateLimits
+  url: rate-limits/timecamp-rate-limits.yml
+- type: FinOps
+  url: finops/timecamp-finops.yml
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com

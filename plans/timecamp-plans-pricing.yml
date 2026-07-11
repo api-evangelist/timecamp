@@ -1,0 +1,189 @@
+specification: API Commons Plans
+specificationVersion: '0.1'
+schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main/schema/api-commons.yml#/$defs/Plans
+provider: TimeCamp
+providerId: timecamp
+created: '2026-07-11'
+modified: '2026-07-11'
+reconciled: true
+tags:
+- Time Tracking
+- Timesheets
+- Productivity
+- Attendance
+- Plans
+description: >-
+  TimeCamp is priced per user per month across a free-forever tier and four
+  paid tiers, with a discount for annual billing. The API itself carries no
+  separate fee - TimeCamp states it is "available to all subscription plans
+  and is free of charge" - but API request limits scale with the plan, and
+  API endpoints operate against features gated to specific tiers (attendance
+  and invoicing from Starter; billable time and app/website tracking from
+  Premium; timesheet approvals, billing rates, expenses, custom fields, and
+  data export from Ultimate). Prices below were taken from the public pricing
+  page on the review date, in USD.
+notes: >-
+  Annual prices are per user per month billed annually; monthly prices are
+  the month-to-month rate. The free plan allows unlimited users and projects.
+  Enterprise pricing is on request and adds self-hosted / private-cloud
+  deployment, SLA support, audit logs, and data warehouse or pipeline access.
+sources:
+- https://www.timecamp.com/pricing/
+- https://help.timecamp.com/help/api
+plans:
+- id: timecamp-free
+  name: Free
+  type: free
+  description: >-
+    Free forever, with unlimited users and projects. Core time tracking -
+    timesheets, timer, manual entries, web/desktop/mobile apps, browser
+    plugin, auto tracking, idle time detection, GPS location tracking, and
+    10+ reports. API access is included with plan-based request limits.
+  entries:
+  - label: Per User
+    name: free_per_user
+    type: flat
+    metric: users
+    limit: -1
+    timeFrame: month
+    geo: global
+    unit: 1
+    price: '$0'
+    userMultiplied: true
+  elements:
+  - name: Unlimited Users and Projects
+  - name: Timesheets and Timer
+  - name: Desktop, Web, and Mobile Apps
+  - name: Auto and Idle Time Tracking
+  - name: API Access
+- id: timecamp-starter
+  name: Starter (Time & Billing)
+  type: paid
+  description: >-
+    Adds attendance tracking and calendar, time-off management, overtime
+    tracking, invoicing, Excel reports, unlimited tasks, bulk edit, and
+    adding time for others.
+  entries:
+  - label: Per User (Annual Billing)
+    name: starter_annual
+    type: flat
+    metric: users
+    limit: -1
+    timeFrame: month
+    geo: global
+    unit: 1
+    price: '$3.99 per user per month, billed annually'
+    userMultiplied: true
+  - label: Per User (Monthly Billing)
+    name: starter_monthly
+    type: flat
+    metric: users
+    limit: -1
+    timeFrame: month
+    geo: global
+    unit: 1
+    price: '$5.49 per user per month, billed monthly'
+    userMultiplied: true
+  elements:
+  - name: Attendance and Time-Off
+  - name: Overtime Tracking
+  - name: Invoicing
+  - name: Excel Reports
+  - name: Unlimited Tasks
+- id: timecamp-premium
+  name: Premium (Profit & Productivity)
+  type: paid
+  description: >-
+    Adds billable time, budgets and estimates, application and website
+    tracking, resource planner, management roles, one integration, private
+    time, scheduled email reports, and unlimited tags and subtasks.
+  entries:
+  - label: Per User (Annual Billing)
+    name: premium_annual
+    type: flat
+    metric: users
+    limit: -1
+    timeFrame: month
+    geo: global
+    unit: 1
+    price: '$6.99 per user per month, billed annually'
+    userMultiplied: true
+  - label: Per User (Monthly Billing)
+    name: premium_monthly
+    type: flat
+    metric: users
+    limit: -1
+    timeFrame: month
+    geo: global
+    unit: 1
+    price: '$9.99 per user per month, billed monthly'
+    userMultiplied: true
+  elements:
+  - name: Billable Time
+  - name: Budgets and Estimates
+  - name: App and Website Tracking
+  - name: Resource Planner
+  - name: Management Roles
+- id: timecamp-ultimate
+  name: Ultimate (Analytics & Collaboration)
+  type: paid
+  description: >-
+    The tier that unlocks most of the deeper API surface - timesheet
+    approvals, billing rates, expenses, custom fields, data export, pivot
+    tables, screenshots, labor costs, SSO, custom user roles, and unlimited
+    integrations.
+  entries:
+  - label: Per User (Annual Billing)
+    name: ultimate_annual
+    type: flat
+    metric: users
+    limit: -1
+    timeFrame: month
+    geo: global
+    unit: 1
+    price: '$9.99 per user per month, billed annually'
+    userMultiplied: true
+  - label: Per User (Monthly Billing)
+    name: ultimate_monthly
+    type: flat
+    metric: users
+    limit: -1
+    timeFrame: month
+    geo: global
+    unit: 1
+    price: '$13.99 per user per month, billed monthly'
+    userMultiplied: true
+  elements:
+  - name: Timesheet Approvals
+  - name: Billing Rates and Expenses
+  - name: Custom Fields
+  - name: Data Export
+  - name: SSO and Custom Roles
+- id: timecamp-enterprise
+  name: Enterprise (Management & Security)
+  type: enterprise
+  description: >-
+    Custom-priced tier adding self-hosted or private-cloud deployment,
+    enterprise support with SLA, audit logs, custom integrations and
+    reports, API templates, user directory sync, and data warehouse or
+    data pipeline access. Contact TimeCamp sales.
+  entries:
+  - label: Enterprise Agreement
+    name: enterprise
+    type: flat
+    metric: contract
+    limit: -1
+    timeFrame: year
+    geo: global
+    unit: 1
+    price: on request
+    userMultiplied: false
+  elements:
+  - name: Self-Hosted or Private Cloud
+  - name: SLA and Enterprise Support
+  - name: Audit Logs
+  - name: Data Warehouse and Pipeline Access
+  - name: User Directory Sync
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com

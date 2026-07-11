@@ -1,0 +1,55 @@
+specification: API Commons Rate Limits
+specificationVersion: '0.1'
+schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main/schema/api-commons.yml#/$defs/RateLimits
+provider: TimeCamp
+providerId: timecamp
+created: '2026-07-11'
+modified: '2026-07-11'
+reconciled: false
+tags:
+- Time Tracking
+- Timesheets
+- Rate Limiting
+- Quotas
+description: >-
+  TimeCamp rate limits the API per account and ties the allowance to the
+  subscription plan. The help center states that the "API requests limit is
+  based on the subscription plan of your account," and the API documentation
+  warns "Be aware that you can reach API calls limit. Once you do you will
+  get HTTP code 429 response." TimeCamp does not publish the exact numeric
+  per-minute or per-hour quotas for each plan on its public documentation,
+  so no fixed numbers are recorded here.
+notes: >-
+  Exact per-plan request quotas are not published in the developer portal or
+  help center as of the review date; third-party integration docs have cited
+  tiered per-minute/per-hour numbers, but these are unverified against
+  first-party sources and are intentionally omitted. Treat limits as
+  plan-based, implement backoff on 429, and contact TimeCamp support for the
+  current quota on a given plan.
+sources:
+- https://help.timecamp.com/help/api
+- https://developer.timecamp.com/
+- https://developer.timecamp.com/reference/dist/api-prod.yaml
+responseCodes:
+  throttled: 429
+limits:
+- name: API Requests
+  scope: account
+  metric: requests
+  limit: plan-based (exact numbers not published)
+  notes: Request allowance scales with the subscription plan (Free through Enterprise); exceeding it returns HTTP 429.
+- name: Data Export Jobs
+  scope: account
+  metric: exports
+  limit: not published
+  notes: v3 data-export requests are asynchronous jobs; concurrency and volume are governed server-side rather than by a documented cap.
+policies:
+- name: Plan-Tiered Limits
+  description: Higher subscription plans receive higher API request allowances; the free plan has the lowest allowance.
+- name: Throttling Response
+  description: Exceeding the request limit returns HTTP 429 Too Many Requests; clients should pause and retry rather than continue sending.
+- name: Backoff Strategy
+  description: Implement exponential backoff with jitter on 429 responses, and batch reads (date-range entry queries, v3 list endpoints) to reduce request volume.
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com

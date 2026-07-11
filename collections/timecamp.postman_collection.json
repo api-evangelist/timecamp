@@ -1,0 +1,3345 @@
+{
+ "item": [
+  {
+   "id": "96333576-a104-4de6-ba46-f67f3e74cf22",
+   "name": "Time Entries",
+   "description": {
+    "content": "",
+    "type": "text/plain"
+   },
+   "item": [
+    {
+     "id": "4a782f11-b078-4a3e-b839-b1f1d3b7d3ad",
+     "name": "Get time entries",
+     "request": {
+      "name": "Get time entries",
+      "description": {
+       "content": "Get time entry or entries.\n\nIf both `modify_from` and `modify_to` parameters are provided, `from` and `to` are not required.",
+       "type": "text/plain"
+      },
+      "url": {
+       "path": [
+        "entries"
+       ],
+       "host": [
+        "{{baseUrl}}"
+       ],
+       "query": [
+        {
+         "key": "billable",
+         "value": "<value>",
+         "description": "get billable entries",
+         "disabled": true
+        },
+        {
+         "key": "from",
+         "value": "<value>",
+         "description": "from date in `YYYY-MM-DD` format",
+         "disabled": false
+        },
+        {
+         "key": "to",
+         "value": "<value>",
+         "description": "to date in `YYYY-MM-DD` format",
+         "disabled": false
+        },
+        {
+         "key": "modify_from",
+         "value": "<value>",
+         "description": "minimal latest modification date in `YYYY-MM-DD` format",
+         "disabled": true
+        },
+        {
+         "key": "modify_to",
+         "value": "<value>",
+         "description": "maximal latest modification date in `YYYY-MM-DD` format",
+         "disabled": true
+        },
+        {
+         "key": "tags_filter[items][][tag]",
+         "value": "<value>",
+         "description": "filter entries with tag id",
+         "disabled": true
+        },
+        {
+         "key": "approvalMode",
+         "value": "<value>",
+         "description": "get only users that user has acl permissions for",
+         "disabled": true
+        },
+        {
+         "key": "opt_fields",
+         "value": "<value>",
+         "description": "include fields like `tags` or `breadcrumbs`",
+         "disabled": true
+        },
+        {
+         "key": "include_project",
+         "value": "<value>",
+         "description": "include project/task information",
+         "disabled": true
+        },
+        {
+         "key": "include_rates",
+         "value": "<value>",
+         "description": "include rates",
+         "disabled": true
+        },
+        {
+         "key": "with_subtasks",
+         "value": "<value>",
+         "description": "include subtasks",
+         "disabled": true
+        },
+        {
+         "key": "ignoreInvoiced",
+         "value": "<value>",
+         "description": "ignore invoiced entries",
+         "disabled": true
+        },
+        {
+         "key": "round_duration",
+         "value": "<value>",
+         "description": "round entry duration",
+         "disabled": true
+        },
+        {
+         "key": "active_only",
+         "value": "<value>",
+         "description": "return active entries only, only when `with_subtask` = `true`",
+         "disabled": true
+        },
+        {
+         "key": "user_ids",
+         "value": "<value>",
+         "description": "get entries of given user ids",
+         "disabled": true
+        }
+       ],
+       "variable": []
+      },
+      "header": [
+       {
+        "key": "Accept",
+        "value": "application/json"
+       }
+      ],
+      "method": "GET",
+      "auth": null
+     },
+     "response": []
+    },
+    {
+     "id": "8ac7038e-7d9c-4246-902f-685265db0ab7",
+     "name": "Create time entry",
+     "request": {
+      "name": "Create time entry",
+      "description": {
+       "content": "Create time entry.",
+       "type": "text/plain"
+      },
+      "url": {
+       "path": [
+        "entries"
+       ],
+       "host": [
+        "{{baseUrl}}"
+       ],
+       "query": [],
+       "variable": []
+      },
+      "header": [
+       {
+        "key": "Content-Type",
+        "value": "application/json"
+       },
+       {
+        "key": "Accept",
+        "value": "application/json"
+       }
+      ],
+      "method": "POST",
+      "auth": null,
+      "body": {
+       "mode": "raw",
+       "raw": "{}",
+       "options": {
+        "raw": {
+         "language": "json"
+        }
+       }
+      }
+     },
+     "response": []
+    },
+    {
+     "id": "3fbd57fe-6303-46e8-8079-4ca7c4edf570",
+     "name": "Update time entry",
+     "request": {
+      "name": "Update time entry",
+      "description": {
+       "content": "Update time entries.",
+       "type": "text/plain"
+      },
+      "url": {
+       "path": [
+        "entries"
+       ],
+       "host": [
+        "{{baseUrl}}"
+       ],
+       "query": [],
+       "variable": []
+      },
+      "header": [
+       {
+        "key": "Content-Type",
+        "value": "application/json"
+       },
+       {
+        "key": "Accept",
+        "value": "application/json"
+       }
+      ],
+      "method": "PUT",
+      "auth": null,
+      "body": {
+       "mode": "raw",
+       "raw": "{}",
+       "options": {
+        "raw": {
+         "language": "json"
+        }
+       }
+      }
+     },
+     "response": []
+    },
+    {
+     "id": "acf877ee-e734-45da-aa76-a517465b6c2f",
+     "name": "Delete time entry",
+     "request": {
+      "name": "Delete time entry",
+      "description": {
+       "content": "Delete time entries.",
+       "type": "text/plain"
+      },
+      "url": {
+       "path": [
+        "entries"
+       ],
+       "host": [
+        "{{baseUrl}}"
+       ],
+       "query": [],
+       "variable": []
+      },
+      "header": [
+       {
+        "key": "Accept",
+        "value": "application/json"
+       }
+      ],
+      "method": "DELETE",
+      "auth": null
+     },
+     "response": []
+    },
+    {
+     "id": "ffef294d-5f36-4343-b173-ca066b614924",
+     "name": "Get time entries changes",
+     "request": {
+      "name": "Get time entries changes",
+      "description": {
+       "content": "Get time enties changes.",
+       "type": "text/plain"
+      },
+      "url": {
+       "path": [
+        "entries_changes"
+       ],
+       "host": [
+        "{{baseUrl}}"
+       ],
+       "query": [
+        {
+         "key": "task_ids",
+         "value": "<value>",
+         "description": "entry task id or ids",
+         "disabled": true
+        },
+        {
+         "key": "user_ids",
+         "value": "<value>",
+         "description": "entry user id or ids",
+         "disabled": true
+        },
+        {
+         "key": "limit",
+         "value": "<value>",
+         "description": "number of results to get, if empty then get all of them",
+         "disabled": true
+        },
+        {
+         "key": "from",
+         "value": "<value>",
+         "description": "date in `YYYY-MM-DD` format",
+         "disabled": true
+        },
+        {
+         "key": "to",
+         "value": "<value>",
+         "description": "date in `YYYY-MM-DD` format",
+         "disabled": true
+        }
+       ],
+       "variable": []
+      },
+      "header": [
+       {
+        "key": "Accept",
+        "value": "application/json"
+       }
+      ],
+      "method": "GET",
+      "auth": null
+     },
+     "response": []
+    },
+    {
+     "id": "2f1bcaa4-a92d-4997-995e-cc55dc8105b6",
+     "name": "Get time entries deletions",
+     "request": {
+      "name": "Get time entries deletions",
+      "description": {
+       "content": "Get time enties deletions.",
+       "type": "text/plain"
+      },
+      "url": {
+       "path": [
+        "entries_deletions"
+       ],
+       "host": [
+        "{{baseUrl}}"
+       ],
+       "query": [
+        {
+         "key": "task_ids",
+         "value": "<value>",
+         "description": "entry task id or ids",
+         "disabled": true
+        },
+        {
+         "key": "user_ids",
+         "value": "<value>",
+         "description": "entry user id or ids",
+         "disabled": true
+        },
+        {
+         "key": "limit",
+         "value": "<value>",
+         "description": "number of results to get, if empty then get all of them",
+         "disabled": true
+        },
+        {
+         "key": "from",
+         "value": "<value>",
+         "description": "date in `YYYY-MM-DD` format",
+         "disabled": true
+        },
+        {
+         "key": "to",
+         "value": "<value>",
+         "description": "date in `YYYY-MM-DD` format",
+         "disabled": true
+        }
+       ],
+       "variable": []
+      },
+      "header": [
+       {
+        "key": "Accept",
+        "value": "application/json"
+       }
+      ],
+      "method": "GET",
+      "auth": null
+     },
+     "response": []
+    },
+    {
+     "id": "1e373c84-39d9-4ede-ab6e-05b6dde01a7f",
+     "name": "Merge time entries",
+     "request": {
+      "name": "Merge time entries",
+      "description": {
+       "content": "Merge two time entries into one.",
+       "type": "text/plain"
+      },
+      "url": {
+       "path": [
+        "entries_merge"
+       ],
+       "host": [
+        "{{baseUrl}}"
+       ],
+       "query": [],
+       "variable": []
+      },
+      "header": [
+       {
+        "key": "Content-Type",
+        "value": "application/json"
+       },
+       {
+        "key": "Accept",
+        "value": "application/json"
+       }
+      ],
+      "method": "POST",
+      "auth": null,
+      "body": {
+       "mode": "raw",
+       "raw": "{}",
+       "options": {
+        "raw": {
+         "language": "json"
+        }
+       }
+      }
+     },
+     "response": []
+    },
+    {
+     "id": "392103a3-f484-4fc9-b2c8-7d7063678f73",
+     "name": "Get logged time in a week",
+     "request": {
+      "name": "Get logged time in a week",
+      "description": {
+       "content": "This endpoint gets a `day` and returns array with summarized entries time per day for this week. The time is returned in seconds.",
+       "type": "text/plain"
+      },
+      "url": {
+       "path": [
+        "logged_time_in_week"
+       ],
+       "host": [
+        "{{baseUrl}}"
+       ],
+       "query": [
+        {
+         "key": "day",
+         "value": "<value>",
+         "description": "day in `YYYY-MM-DD` format",
+         "disabled": false
+        }
+       ],
+       "variable": []
+      },
+      "header": [
+       {
+        "key": "Accept",
+        "value": "application/json"
+       }
+      ],
+      "method": "GET",
+      "auth": null
+     },
+     "response": []
+    },
+    {
+     "id": "038abff8-6bed-4a01-aafc-0118609b7259",
+     "name": "Get time entries by user permissions",
+     "request": {
+      "name": "Get time entries by user permissions",
+      "description": {
+       "content": "Get time entries by user access and permissions.",
+       "type": "text/plain"
+      },
+      "url": {
+       "path": [
+        "v3",
+        "time-entries",
+        "list"
+       ],
+       "host": [
+        "{{baseUrl}}"
+       ],
+       "query": [],
+       "variable": []
+      },
+      "header": [
+       {
+        "key": "Content-Type",
+        "value": "application/json"
+       },
+       {
+        "key": "Accept",
+        "value": "application/json"
+       }
+      ],
+      "method": "POST",
+      "auth": null,
+      "body": {
+       "mode": "raw",
+       "raw": "{}",
+       "options": {
+        "raw": {
+         "language": "json"
+        }
+       }
+      }
+     },
+     "response": []
+    },
+    {
+     "id": "6fd017d9-1070-4583-8372-c7e9369139fc",
+     "name": "Create time entry",
+     "request": {
+      "name": "Create time entry",
+      "description": {
+       "content": "Create a time entry.",
+       "type": "text/plain"
+      },
+      "url": {
+       "path": [
+        "v3",
+        "time-entries",
+        "create"
+       ],
+       "host": [
+        "{{baseUrl}}"
+       ],
+       "query": [],
+       "variable": []
+      },
+      "header": [
+       {
+        "key": "Content-Type",
+        "value": "application/json"
+       },
+       {
+        "key": "Accept",
+        "value": "application/json"
+       }
+      ],
+      "method": "POST",
+      "auth": null,
+      "body": {
+       "mode": "raw",
+       "raw": "{}",
+       "options": {
+        "raw": {
+         "language": "json"
+        }
+       }
+      }
+     },
+     "response": []
+    },
+    {
+     "id": "c0c39ea6-a708-4b65-9e25-df9f8d75ee0e",
+     "name": "Update time entry",
+     "request": {
+      "name": "Update time entry",
+      "description": {
+       "content": "Update a time entry by id.",
+       "type": "text/plain"
+      },
+      "url": {
+       "path": [
+        "v3",
+        "time-entries",
+        ":id"
+       ],
+       "host": [
+        "{{baseUrl}}"
+       ],
+       "query": [],
+       "variable": []
+      },
+      "header": [
+       {
+        "key": "Content-Type",
+        "value": "application/json"
+       },
+       {
+        "key": "Accept",
+        "value": "application/json"
+       }
+      ],
+      "method": "PUT",
+      "auth": null,
+      "body": {
+       "mode": "raw",
+       "raw": "{}",
+       "options": {
+        "raw": {
+         "language": "json"
+        }
+       }
+      }
+     },
+     "response": []
+    },
+    {
+     "id": "16901e9f-02d7-474a-be3d-26c553addd14",
+     "name": "Delete time entry",
+     "request": {
+      "name": "Delete time entry",
+      "description": {
+       "content": "Delete a time entry by id.",
+       "type": "text/plain"
+      },
+      "url": {
+       "path": [
+        "v3",
+        "time-entries",
+        ":id"
+       ],
+       "host": [
+        "{{baseUrl}}"
+       ],
+       "query": [
+        {
+         "key": "source",
+         "value": "<value>",
+         "description": "Optional UI source for analytics context.",
+         "disabled": true
+        },
+        {
+         "key": "element",
+         "value": "<value>",
+         "description": "Optional UI element for analytics context.",
+         "disabled": true
+        }
+       ],
+       "variable": []
+      },
+      "header": [
+       {
+        "key": "Accept",
+        "value": "application/json"
+       }
+      ],
+      "method": "DELETE",
+      "auth": null
+     },
+     "response": []
+    }
+   ]
+  },
+  {
+   "id": "5321ef1a-193e-4f2c-ae88-8eb7418fdd8c",
+   "name": "Timer",
+   "description": {
+    "content": "",
+    "type": "text/plain"
+   },
+   "item": [
+    {
+     "id": "fd6d73e8-c5c8-45d1-a2fc-08360923fc71",
+     "name": "Start, stop, get timer",
+     "request": {
+      "name": "Start, stop, get timer",
+      "description": {
+       "content": "Get timer status, start new timer or stop one.",
+       "type": "text/plain"
+      },
+      "url": {
+       "path": [
+        "timer"
+       ],
+       "host": [
+        "{{baseUrl}}"
+       ],
+       "query": [],
+       "variable": []
+      },
+      "header": [
+       {
+        "key": "Content-Type",
+        "value": "application/json"
+       },
+       {
+        "key": "Accept",
+        "value": "application/json"
+       }
+      ],
+      "method": "POST",
+      "auth": null,
+      "body": {
+       "mode": "raw",
+       "raw": "{}",
+       "options": {
+        "raw": {
+         "language": "json"
+        }
+       }
+      }
+     },
+     "response": []
+    },
+    {
+     "id": "5f2865b5-68fd-4d3c-a3c0-de38230c0520",
+     "name": "Delete timer",
+     "request": {
+      "name": "Delete timer",
+      "description": {
+       "content": "Deletes timer without saving tracked time.",
+       "type": "text/plain"
+      },
+      "url": {
+       "path": [
+        "timer"
+       ],
+       "host": [
+        "{{baseUrl}}"
+       ],
+       "query": [],
+       "variable": []
+      },
+      "header": [
+       {
+        "key": "Accept",
+        "value": "application/json"
+       }
+      ],
+      "method": "DELETE",
+      "auth": null
+     },
+     "response": []
+    },
+    {
+     "id": "cdbfec50-421e-4a50-8f7c-d6f8bccee967",
+     "name": "Get information about running timer",
+     "request": {
+      "name": "Get information about running timer",
+      "description": {
+       "content": "Returns information about running timer.",
+       "type": "text/plain"
+      },
+      "url": {
+       "path": [
+        "timer_running"
+       ],
+       "host": [
+        "{{baseUrl}}"
+       ],
+       "query": [],
+       "variable": []
+      },
+      "header": [
+       {
+        "key": "Accept",
+        "value": "application/json"
+       }
+      ],
+      "method": "GET",
+      "auth": null
+     },
+     "response": []
+    }
+   ]
+  },
+  {
+   "id": "d357faa7-7290-45b5-bf28-87fa20e31281",
+   "name": "Tasks and Projects",
+   "description": {
+    "content": "",
+    "type": "text/plain"
+   },
+   "item": [
+    {
+     "id": "efaecfb7-97e7-49dd-ae64-4bd498daa44c",
+     "name": "Get task info",
+     "request": {
+      "name": "Get task info",
+      "description": {
+       "content": "Returns information about task or tasks.\n\nIf asked about specific task (`task_id` or `external_task_id` was provided) and no task was found it returns error status of `404 Not Found`.",
+       "type": "text/plain"
+      },
+      "url": {
+       "path": [
+        "tasks"
+       ],
+       "host": [
+        "{{baseUrl}}"
+       ],
+       "query": [
+        {
+         "key": "task_id",
+         "value": "<value>",
+         "description": "asks for specific task with `task_id` that is number, can be multiple tasks separated by ,",
+         "disabled": true
+        },
+        {
+         "key": "external_task_id",
+         "value": "<value>",
+         "description": "asks for specific task with `external_task_id`",
+         "disabled": true
+        },
+        {
+         "key": "perms",
+         "value": "<value>",
+         "description": "comma separated permission names to filter tasks by",
+         "disabled": true
+        },
+        {
+         "key": "exclude_archived",
+         "value": "<value>",
+         "description": "`0` -> show only archived, `1` -> show all tasks",
+         "disabled": true
+        },
+        {
+         "key": "status",
+         "value": "<value>",
+         "description": "filters tasks by status",
+         "disabled": true
+        },
+        {
+         "key": "minimal",
+         "value": "<value>",
+         "description": "returns minimal tasks info - works only if specific task **was not** requested",
+         "disabled": true
+        },
+        {
+         "key": "ignoreAdminRights",
+         "value": "<value>",
+         "description": "only return tasks that user would have access to regardless of being a time tracking admin",
+         "disabled": true
+        }
+       ],
+       "variable": []
+      },
+      "header": [
+       {
+        "key": "Accept",
+        "value": "application/json"
+       }
+      ],
+      "method": "GET",
+      "auth": null
+     },
+     "response": []
+    },
+    {
+     "id": "40e4eeb4-a73b-4174-a0df-2e2018542e65",
+     "name": "Create new task",
+     "request": {
+      "name": "Create new task",
+      "description": {
+       "content": "Create new task. To ceate new task you should have proper permissions.",
+       "type": "text/plain"
+      },
+      "url": {
+       "path": [
+        "tasks"
+       ],
+       "host": [
+        "{{baseUrl}}"
+       ],
+       "query": [],
+       "variable": []
+      },
+      "header": [
+       {
+        "key": "Content-Type",
+        "value": "application/json"
+       },
+       {
+        "key": "Accept",
+        "value": "application/json"
+       }
+      ],
+      "method": "POST",
+      "auth": null,
+      "body": {
+       "mode": "raw",
+       "raw": "{}",
+       "options": {
+        "raw": {
+         "language": "json"
+        }
+       }
+      }
+     },
+     "response": []
+    },
+    {
+     "id": "166e96b0-2aff-4f1b-8c3f-869e1671bc92",
+     "name": "Update task info",
+     "request": {
+      "name": "Update task info",
+      "description": {
+       "content": "Modify existing task. To modify a task you should have proper permissions.",
+       "type": "text/plain"
+      },
+      "url": {
+       "path": [
+        "tasks"
+       ],
+       "host": [
+        "{{baseUrl}}"
+       ],
+       "query": [],
+       "variable": []
+      },
+      "header": [
+       {
+        "key": "Content-Type",
+        "value": "application/json"
+       },
+       {
+        "key": "Accept",
+        "value": "application/json"
+       }
+      ],
+      "method": "PUT",
+      "auth": null,
+      "body": {
+       "mode": "raw",
+       "raw": "{}",
+       "options": {
+        "raw": {
+         "language": "json"
+        }
+       }
+      }
+     },
+     "response": []
+    },
+    {
+     "id": "98686fb9-d662-4439-b8a9-449bc283e3cb",
+     "name": "Delete task",
+     "request": {
+      "name": "Delete task",
+      "description": {
+       "content": ">Endpoint deprecated instead use <a href=\"/#/operations/post-task-remove\">this</a>\nDelete task. To delete a task you should have proper permissions. You need to include `task_id` in GET.",
+       "type": "text/plain"
+      },
+      "url": {
+       "path": [
+        "tasks"
+       ],
+       "host": [
+        "{{baseUrl}}"
+       ],
+       "query": [
+        {
+         "key": "task_id",
+         "value": "<value>",
+         "description": "task id to delete",
+         "disabled": false
+        }
+       ],
+       "variable": []
+      },
+      "header": [
+       {
+        "key": "Accept",
+        "value": "application/json"
+       }
+      ],
+      "method": "DELETE",
+      "auth": null
+     },
+     "response": []
+    },
+    {
+     "id": "3ab957b9-c160-48c5-aaaa-c8631ac221b8",
+     "name": "Get task details",
+     "request": {
+      "name": "Get task details",
+      "description": {
+       "content": "Get task details.",
+       "type": "text/plain"
+      },
+      "url": {
+       "path": [
+        "task_details"
+       ],
+       "host": [
+        "{{baseUrl}}"
+       ],
+       "query": [
+        {
+         "key": "tasks",
+         "value": "<value>",
+         "description": "comma separated tasks ids to get",
+         "disabled": false
+        }
+       ],
+       "variable": []
+      },
+      "header": [
+       {
+        "key": "Accept",
+        "value": "application/json"
+       }
+      ],
+      "method": "GET",
+      "auth": null
+     },
+     "response": []
+    },
+    {
+     "id": "d1e9bdae-4f5f-4503-80a6-23b68df7d4cd",
+     "name": "Add/change color in task",
+     "request": {
+      "name": "Add/change color in task",
+      "description": {
+       "content": "Creates job to add/change a task color (for everyone).",
+       "type": "text/plain"
+      },
+      "url": {
+       "path": [
+        "task_color"
+       ],
+       "host": [
+        "{{baseUrl}}"
+       ],
+       "query": [],
+       "variable": []
+      },
+      "header": [
+       {
+        "key": "Content-Type",
+        "value": "application/json"
+       },
+       {
+        "key": "Accept",
+        "value": "application/json"
+       }
+      ],
+      "method": "PUT",
+      "auth": null,
+      "body": {
+       "mode": "raw",
+       "raw": "{}",
+       "options": {
+        "raw": {
+         "language": "json"
+        }
+       }
+      }
+     },
+     "response": []
+    },
+    {
+     "id": "9038329f-df79-465e-88e6-355df7393040",
+     "name": "List projects tree",
+     "request": {
+      "name": "List projects tree",
+      "description": {
+       "content": "List projects tree",
+       "type": "text/plain"
+      },
+      "url": {
+       "path": [
+        "v3",
+        "projects"
+       ],
+       "host": [
+        "{{baseUrl}}"
+       ],
+       "query": [],
+       "variable": []
+      },
+      "header": [
+       {
+        "key": "Content-Type",
+        "value": "application/json"
+       },
+       {
+        "key": "Accept",
+        "value": "application/json"
+       }
+      ],
+      "method": "POST",
+      "auth": null,
+      "body": {
+       "mode": "raw",
+       "raw": "{}",
+       "options": {
+        "raw": {
+         "language": "json"
+        }
+       }
+      }
+     },
+     "response": []
+    },
+    {
+     "id": "6c5ff83c-e81e-4da0-baac-3a2f7e209699",
+     "name": "Search in projects tree",
+     "request": {
+      "name": "Search in projects tree",
+      "description": {
+       "content": "Search in projects tree",
+       "type": "text/plain"
+      },
+      "url": {
+       "path": [
+        "v3",
+        "projects",
+        "search"
+       ],
+       "host": [
+        "{{baseUrl}}"
+       ],
+       "query": [],
+       "variable": []
+      },
+      "header": [
+       {
+        "key": "Content-Type",
+        "value": "application/json"
+       },
+       {
+        "key": "Accept",
+        "value": "application/json"
+       }
+      ],
+      "method": "POST",
+      "auth": null,
+      "body": {
+       "mode": "raw",
+       "raw": "{}",
+       "options": {
+        "raw": {
+         "language": "json"
+        }
+       }
+      }
+     },
+     "response": []
+    },
+    {
+     "id": "2baba8d6-82b1-48a9-9678-8c0064c10ef9",
+     "name": "List assigned users for project task",
+     "request": {
+      "name": "List assigned users for project task",
+      "description": {
+       "content": "Returns active users assigned to a task, including inherited assignments metadata.",
+       "type": "text/plain"
+      },
+      "url": {
+       "path": [
+        "v3",
+        "projects",
+        ":taskId",
+        "assigned-users"
+       ],
+       "host": [
+        "{{baseUrl}}"
+       ],
+       "query": [],
+       "variable": []
+      },
+      "header": [
+       {
+        "key": "Accept",
+        "value": "application/json"
+       }
+      ],
+      "method": "GET",
+      "auth": null
+     },
+     "response": []
+    },
+    {
+     "id": "184267c4-5bd1-4e37-9533-59867ef82a9a",
+     "name": "Assign users to project task",
+     "request": {
+      "name": "Assign users to project task",
+      "description": {
+       "content": "Assigns one or more users to the selected project task with the provided project role.",
+       "type": "text/plain"
+      },
+      "url": {
+       "path": [
+        "v3",
+        "projects",
+        ":taskId",
+        "assign"
+       ],
+       "host": [
+        "{{baseUrl}}"
+       ],
+       "query": [],
+       "variable": []
+      },
+      "header": [
+       {
+        "key": "Content-Type",
+        "value": "application/json"
+       },
+       {
+        "key": "Accept",
+        "value": "application/json"
+       }
+      ],
+      "method": "PUT",
+      "auth": null,
+      "body": {
+       "mode": "raw",
+       "raw": "{}",
+       "options": {
+        "raw": {
+         "language": "json"
+        }
+       }
+      }
+     },
+     "response": []
+    },
+    {
+     "id": "e7e66722-308c-4ae6-b713-36600a665203",
+     "name": "Task duplicate",
+     "request": {
+      "name": "Task duplicate",
+      "description": {
+       "content": "Task duplicate",
+       "type": "text/plain"
+      },
+      "url": {
+       "path": [
+        "v3",
+        "task",
+        "duplicate"
+       ],
+       "host": [
+        "{{baseUrl}}"
+       ],
+       "query": [],
+       "variable": []
+      },
+      "header": [
+       {
+        "key": "Content-Type",
+        "value": "application/json"
+       },
+       {
+        "key": "Accept",
+        "value": "application/json"
+       }
+      ],
+      "method": "POST",
+      "auth": null,
+      "body": {
+       "mode": "raw",
+       "raw": "{}",
+       "options": {
+        "raw": {
+         "language": "json"
+        }
+       }
+      }
+     },
+     "response": []
+    },
+    {
+     "id": "bf498d93-51b5-460c-976e-71a9615d4da6",
+     "name": "Archive a batch of tasks",
+     "request": {
+      "name": "Archive a batch of tasks",
+      "description": {
+       "content": "Queues multiple active tasks for archiving. Tasks that are already archived are skipped.",
+       "type": "text/plain"
+      },
+      "url": {
+       "path": [
+        "v3",
+        "task-archive",
+        "archive-batch"
+       ],
+       "host": [
+        "{{baseUrl}}"
+       ],
+       "query": [],
+       "variable": []
+      },
+      "header": [
+       {
+        "key": "Content-Type",
+        "value": "application/json"
+       },
+       {
+        "key": "Accept",
+        "value": "application/json"
+       }
+      ],
+      "method": "PATCH",
+      "auth": null,
+      "body": {
+       "mode": "raw",
+       "raw": "{}",
+       "options": {
+        "raw": {
+         "language": "json"
+        }
+       }
+      }
+     },
+     "response": []
+    }
+   ]
+  },
+  {
+   "id": "a04778ac-24b8-44f1-a1a4-ba70fec3b5bc",
+   "name": "Users and Groups",
+   "description": {
+    "content": "",
+    "type": "text/plain"
+   },
+   "item": [
+    {
+     "id": "6956a8e6-043f-4a79-b552-7ab82ff7be36",
+     "name": "Get all users data",
+     "request": {
+      "name": "Get all users data",
+      "description": {
+       "content": "Retrieves information about all users in an account",
+       "type": "text/plain"
+      },
+      "url": {
+       "path": [
+        "users"
+       ],
+       "host": [
+        "{{baseUrl}}"
+       ],
+       "query": [
+        {
+         "key": "active_only",
+         "value": "<value>",
+         "description": "If true returns only active users",
+         "disabled": true
+        }
+       ],
+       "variable": []
+      },
+      "header": [
+       {
+        "key": "Accept",
+        "value": "application/json"
+       }
+      ],
+      "method": "GET",
+      "auth": null
+     },
+     "response": []
+    },
+    {
+     "id": "1a36e70b-bb11-42c0-88f8-d771899adc45",
+     "name": "Get your user data",
+     "request": {
+      "name": "Get your user data",
+      "description": {
+       "content": "Get your user data.",
+       "type": "text/plain"
+      },
+      "url": {
+       "path": [
+        "me"
+       ],
+       "host": [
+        "{{baseUrl}}"
+       ],
+       "query": [],
+       "variable": []
+      },
+      "header": [
+       {
+        "key": "Accept",
+        "value": "application/json"
+       }
+      ],
+      "method": "GET",
+      "auth": null
+     },
+     "response": []
+    },
+    {
+     "id": "a9171fd9-187d-45eb-b376-6b64c9a87693",
+     "name": "Update user",
+     "request": {
+      "name": "Update user",
+      "description": {
+       "content": "Update user's data. If `user_id` is not provided, the data for the user associated with the API key will be updated.",
+       "type": "text/plain"
+      },
+      "url": {
+       "path": [
+        "user"
+       ],
+       "host": [
+        "{{baseUrl}}"
+       ],
+       "query": [],
+       "variable": []
+      },
+      "header": [
+       {
+        "key": "Content-Type",
+        "value": "application/json"
+       },
+       {
+        "key": "Accept",
+        "value": "application/json"
+       }
+      ],
+      "method": "POST",
+      "auth": null,
+      "body": {
+       "mode": "raw",
+       "raw": "{}",
+       "options": {
+        "raw": {
+         "language": "json"
+        }
+       }
+      }
+     },
+     "response": []
+    },
+    {
+     "id": "416e76dc-c040-41ac-8ff3-1f5d595024fb",
+     "name": "Get user",
+     "request": {
+      "name": "Get user",
+      "description": {
+       "content": "Returns user's information. If `user_id` is not provided then returns current user data. Provide comma separated ids for multiple users ie. `132,423,456`.",
+       "type": "text/plain"
+      },
+      "url": {
+       "path": [
+        "user",
+        ":user_id"
+       ],
+       "host": [
+        "{{baseUrl}}"
+       ],
+       "query": [],
+       "variable": []
+      },
+      "header": [
+       {
+        "key": "Accept",
+        "value": "application/json"
+       }
+      ],
+      "method": "GET",
+      "auth": null
+     },
+     "response": []
+    },
+    {
+     "id": "b20bf43d-fd9f-4a8b-8964-89223df31529",
+     "name": "Get user setting",
+     "request": {
+      "name": "Get user setting",
+      "description": {
+       "content": "Return user's setting value.",
+       "type": "text/plain"
+      },
+      "url": {
+       "path": [
+        "user",
+        ":user_id",
+        "setting"
+       ],
+       "host": [
+        "{{baseUrl}}"
+       ],
+       "query": [
+        {
+         "key": "name",
+         "value": "<value>",
+         "description": "setting name",
+         "disabled": true
+        }
+       ],
+       "variable": []
+      },
+      "header": [
+       {
+        "key": "Accept",
+        "value": "application/json"
+       }
+      ],
+      "method": "GET",
+      "auth": null
+     },
+     "response": []
+    },
+    {
+     "id": "e8b46ef9-873f-48b8-97fd-cb6e323086f7",
+     "name": "Update user setting",
+     "request": {
+      "name": "Update user setting",
+      "description": {
+       "content": "Update user setting.",
+       "type": "text/plain"
+      },
+      "url": {
+       "path": [
+        "user",
+        ":user_id",
+        "setting"
+       ],
+       "host": [
+        "{{baseUrl}}"
+       ],
+       "query": [],
+       "variable": []
+      },
+      "header": [
+       {
+        "key": "Content-Type",
+        "value": "application/json"
+       },
+       {
+        "key": "Accept",
+        "value": "application/json"
+       }
+      ],
+      "method": "PUT",
+      "auth": null,
+      "body": {
+       "mode": "raw",
+       "raw": "{}",
+       "options": {
+        "raw": {
+         "language": "json"
+        }
+       }
+      }
+     },
+     "response": []
+    },
+    {
+     "id": "9390f116-7e11-4d5c-89f7-8f972d73aa40",
+     "name": "Get all groups",
+     "request": {
+      "name": "Get all groups",
+      "description": {
+       "content": "Get all groups.",
+       "type": "text/plain"
+      },
+      "url": {
+       "path": [
+        "group"
+       ],
+       "host": [
+        "{{baseUrl}}"
+       ],
+       "query": [],
+       "variable": []
+      },
+      "header": [
+       {
+        "key": "Accept",
+        "value": "application/json"
+       }
+      ],
+      "method": "GET",
+      "auth": null
+     },
+     "response": []
+    },
+    {
+     "id": "e9a9e6cc-bab6-46f6-9a59-f17413842c1c",
+     "name": "Update group",
+     "request": {
+      "name": "Update group",
+      "description": {
+       "content": "Modify existing group. Edit permission is required.\n\nWARNING: backend might not return a response, but changes will be applied!",
+       "type": "text/plain"
+      },
+      "url": {
+       "path": [
+        "group"
+       ],
+       "host": [
+        "{{baseUrl}}"
+       ],
+       "query": [],
+       "variable": []
+      },
+      "header": [
+       {
+        "key": "Content-Type",
+        "value": "application/json"
+       },
+       {
+        "key": "Accept",
+        "value": "application/json"
+       }
+      ],
+      "method": "POST",
+      "auth": null,
+      "body": {
+       "mode": "raw",
+       "raw": "{}",
+       "options": {
+        "raw": {
+         "language": "json"
+        }
+       }
+      }
+     },
+     "response": []
+    },
+    {
+     "id": "220e7fd2-67d8-4ea7-a8ac-742f23b0d8d5",
+     "name": "Get users in group",
+     "request": {
+      "name": "Get users in group",
+      "description": {
+       "content": "Get users from given group.",
+       "type": "text/plain"
+      },
+      "url": {
+       "path": [
+        "group",
+        ":group_id",
+        "user"
+       ],
+       "host": [
+        "{{baseUrl}}"
+       ],
+       "query": [],
+       "variable": []
+      },
+      "header": [
+       {
+        "key": "Accept",
+        "value": "application/json"
+       }
+      ],
+      "method": "GET",
+      "auth": null
+     },
+     "response": []
+    },
+    {
+     "id": "b9c62d2c-766b-4b7b-9c75-4e92b40bbefc",
+     "name": "Get time tracking roles",
+     "request": {
+      "name": "Get time tracking roles",
+      "description": {
+       "content": "Returns roles allowed for your root group with permissions.",
+       "type": "text/plain"
+      },
+      "url": {
+       "path": [
+        "tt_role"
+       ],
+       "host": [
+        "{{baseUrl}}"
+       ],
+       "query": [],
+       "variable": []
+      },
+      "header": [
+       {
+        "key": "Accept",
+        "value": "application/json"
+       }
+      ],
+      "method": "GET",
+      "auth": null
+     },
+     "response": []
+    }
+   ]
+  },
+  {
+   "id": "11402365-caa8-43f8-8f99-7294b4a3de3b",
+   "name": "Attendance",
+   "description": {
+    "content": "",
+    "type": "text/plain"
+   },
+   "item": [
+    {
+     "id": "bd470780-3fe3-4e47-96e9-d2ffca0f83cd",
+     "name": "Get attendance",
+     "request": {
+      "name": "Get attendance",
+      "description": {
+       "content": "Get attendance",
+       "type": "text/plain"
+      },
+      "url": {
+       "path": [
+        "attendance"
+       ],
+       "host": [
+        "{{baseUrl}}"
+       ],
+       "query": [
+        {
+         "key": "from",
+         "value": "<value>",
+         "description": "date in `YYYY-MM-DD` format",
+         "disabled": false
+        },
+        {
+         "key": "to",
+         "value": "<value>",
+         "description": "date in `YYYY-MM-DD` format",
+         "disabled": false
+        },
+        {
+         "key": "users",
+         "value": "<value>",
+         "description": "user Id's separated by coma",
+         "disabled": true
+        }
+       ],
+       "variable": []
+      },
+      "header": [
+       {
+        "key": "Accept",
+        "value": "application/json"
+       }
+      ],
+      "method": "GET",
+      "auth": null
+     },
+     "response": []
+    },
+    {
+     "id": "8e5db7b9-e096-48cf-908f-40cccb3e5526",
+     "name": "Retrieve all possible day types for attendance",
+     "request": {
+      "name": "Retrieve all possible day types for attendance",
+      "description": {
+       "content": "Returns a list of all possible day types to declare in attendance.",
+       "type": "text/plain"
+      },
+      "url": {
+       "path": [
+        "attendance",
+        "day_types"
+       ],
+       "host": [
+        "{{baseUrl}}"
+       ],
+       "query": [],
+       "variable": []
+      },
+      "header": [
+       {
+        "key": "Accept",
+        "value": "application/json"
+       }
+      ],
+      "method": "GET",
+      "auth": null
+     },
+     "response": []
+    },
+    {
+     "id": "bb525919-4bf3-4336-9633-1df6507e7aea",
+     "name": "Retrieve attendance data for a user within a date range",
+     "request": {
+      "name": "Retrieve attendance data for a user within a date range",
+      "description": {
+       "content": "Retrieve attendance data for a user within a date range",
+       "type": "text/plain"
+      },
+      "url": {
+       "path": [
+        "attendance",
+        ":userId",
+        "user"
+       ],
+       "host": [
+        "{{baseUrl}}"
+       ],
+       "query": [
+        {
+         "key": "start",
+         "value": "<value>",
+         "description": "Start date in YYYY-MM-DD format",
+         "disabled": false
+        },
+        {
+         "key": "end",
+         "value": "<value>",
+         "description": "End date in YYYY-MM-DD format",
+         "disabled": false
+        }
+       ],
+       "variable": []
+      },
+      "header": [
+       {
+        "key": "Accept",
+        "value": "application/json"
+       }
+      ],
+      "method": "GET",
+      "auth": null
+     },
+     "response": []
+    },
+    {
+     "id": "d874e02e-c32b-4f73-85ad-ec90902e060d",
+     "name": "Insert or update user attendance records",
+     "request": {
+      "name": "Insert or update user attendance records",
+      "description": {
+       "content": "Inserts or updates attendance records for a user. Each entry corresponds to one day.\nThe `shouldBe` and `vacationTime` fields are optional.\n\n**Important:** The date range constraint does not mean a limit of 100 entries, but rather that the maximum range between the earliest and latest dates in the payload must not exceed 100 days.",
+       "type": "text/plain"
+      },
+      "url": {
+       "path": [
+        "attendance",
+        ":userId",
+        "user"
+       ],
+       "host": [
+        "{{baseUrl}}"
+       ],
+       "query": [],
+       "variable": []
+      },
+      "header": [
+       {
+        "key": "Content-Type",
+        "value": "application/json"
+       },
+       {
+        "key": "Accept",
+        "value": "application/json"
+       }
+      ],
+      "method": "POST",
+      "auth": null,
+      "body": {
+       "mode": "raw",
+       "raw": "{}",
+       "options": {
+        "raw": {
+         "language": "json"
+        }
+       }
+      }
+     },
+     "response": []
+    },
+    {
+     "id": "16e193d8-7b8a-4309-81a8-e05f6d09bfe8",
+     "name": "Create attendance request [beta]",
+     "request": {
+      "name": "Create attendance request [beta]",
+      "description": {
+       "content": "Creates an attendance request for a specified user and date.\nThe request can be created by the user themselves or by an administrator/supervisor for another user.\nDepending on permissions and day type settings, the request may be auto-approved or require manual approval.\nNote: This is a beta version.",
+       "type": "text/plain"
+      },
+      "url": {
+       "path": [
+        "attendance-request"
+       ],
+       "host": [
+        "{{baseUrl}}"
+       ],
+       "query": [],
+       "variable": []
+      },
+      "header": [
+       {
+        "key": "Content-Type",
+        "value": "application/json"
+       },
+       {
+        "key": "Accept",
+        "value": "application/json"
+       }
+      ],
+      "method": "POST",
+      "auth": null,
+      "body": {
+       "mode": "raw",
+       "raw": "{}",
+       "options": {
+        "raw": {
+         "language": "json"
+        }
+       }
+      }
+     },
+     "response": []
+    },
+    {
+     "id": "954e33c2-b33c-4e5c-b75c-6a851987c753",
+     "name": "Has Pending Attendance Requests [beta]",
+     "request": {
+      "name": "Has Pending Attendance Requests [beta]",
+      "description": {
+       "content": "Checks if the current user has any pending attendance requests to process. Note: This is a beta version.",
+       "type": "text/plain"
+      },
+      "url": {
+       "path": [
+        "attendance-request",
+        "has-pending"
+       ],
+       "host": [
+        "{{baseUrl}}"
+       ],
+       "query": [],
+       "variable": []
+      },
+      "header": [
+       {
+        "key": "Accept",
+        "value": "application/json"
+       }
+      ],
+      "method": "GET",
+      "auth": null
+     },
+     "response": []
+    },
+    {
+     "id": "256c536e-0d3c-45a0-806d-8df1572925f8",
+     "name": "Attendance calendar search [beta]",
+     "request": {
+      "name": "Attendance calendar search [beta]",
+      "description": {
+       "content": "Returns attendance calendar data for users in a date range. Note: This is a beta version.",
+       "type": "text/plain"
+      },
+      "url": {
+       "path": [
+        "v3",
+        "attendance",
+        "calendar",
+        "search"
+       ],
+       "host": [
+        "{{baseUrl}}"
+       ],
+       "query": [],
+       "variable": []
+      },
+      "header": [
+       {
+        "key": "Content-Type",
+        "value": "application/json"
+       },
+       {
+        "key": "Accept",
+        "value": "application/json"
+       }
+      ],
+      "method": "POST",
+      "auth": null,
+      "body": {
+       "mode": "raw",
+       "raw": "{}",
+       "options": {
+        "raw": {
+         "language": "json"
+        }
+       }
+      }
+     },
+     "response": []
+    },
+    {
+     "id": "3e8211a3-40e7-473d-ada3-3b66d5d3564e",
+     "name": "Predefined Days Assigned To Group [beta]",
+     "request": {
+      "name": "Predefined Days Assigned To Group [beta]",
+      "description": {
+       "content": "List of all predefined days assigned directly to given group. Note: This is a beta version.",
+       "type": "text/plain"
+      },
+      "url": {
+       "path": [
+        "v3",
+        "attendance",
+        "predefined-days",
+        ":groupId"
+       ],
+       "host": [
+        "{{baseUrl}}"
+       ],
+       "query": [],
+       "variable": []
+      },
+      "header": [
+       {
+        "key": "Accept",
+        "value": "application/json"
+       }
+      ],
+      "method": "GET",
+      "auth": null
+     },
+     "response": []
+    }
+   ]
+  },
+  {
+   "id": "eaca2d6f-30ad-4ef6-8791-8f782d9d918a",
+   "name": "Timesheet Approvals",
+   "description": {
+    "content": "",
+    "type": "text/plain"
+   },
+   "item": [
+    {
+     "id": "ea4facae-6ddb-4af3-85f9-983fc95d36b8",
+     "name": "Get approvals",
+     "request": {
+      "name": "Get approvals",
+      "description": {
+       "content": "Get approval or approvals",
+       "type": "text/plain"
+      },
+      "url": {
+       "path": [
+        "approval"
+       ],
+       "host": [
+        "{{baseUrl}}"
+       ],
+       "query": [
+        {
+         "key": "from",
+         "value": "<value>",
+         "description": "date in `YYYY-MM-DD` format",
+         "disabled": true
+        },
+        {
+         "key": "to",
+         "value": "<value>",
+         "description": "date in `YYYY-MM-DD` format",
+         "disabled": true
+        },
+        {
+         "key": "with_attendance",
+         "value": "<value>",
+         "description": "return with attendance, default: 0",
+         "disabled": true
+        }
+       ],
+       "variable": []
+      },
+      "header": [
+       {
+        "key": "Accept",
+        "value": "application/json"
+       }
+      ],
+      "method": "GET",
+      "auth": null
+     },
+     "response": []
+    },
+    {
+     "id": "08fb792a-8d41-445d-91aa-b434ef9c1465",
+     "name": "Create/Update approval",
+     "request": {
+      "name": "Create/Update approval",
+      "description": {
+       "content": "Create new approval or update existing one.",
+       "type": "text/plain"
+      },
+      "url": {
+       "path": [
+        "approval"
+       ],
+       "host": [
+        "{{baseUrl}}"
+       ],
+       "query": [],
+       "variable": []
+      },
+      "header": [
+       {
+        "key": "Content-Type",
+        "value": "application/json"
+       },
+       {
+        "key": "Accept",
+        "value": "application/json"
+       }
+      ],
+      "method": "POST",
+      "auth": null,
+      "body": {
+       "mode": "raw",
+       "raw": "{}",
+       "options": {
+        "raw": {
+         "language": "json"
+        }
+       }
+      }
+     },
+     "response": []
+    },
+    {
+     "id": "34ef30cc-700e-4540-b58b-e79edbc81099",
+     "name": "Get approval users",
+     "request": {
+      "name": "Get approval users",
+      "description": {
+       "content": "Returns list with user ids which you are able to either approve or reject.",
+       "type": "text/plain"
+      },
+      "url": {
+       "path": [
+        "approval_users"
+       ],
+       "host": [
+        "{{baseUrl}}"
+       ],
+       "query": [],
+       "variable": []
+      },
+      "header": [
+       {
+        "key": "Accept",
+        "value": "application/json"
+       }
+      ],
+      "method": "GET",
+      "auth": null
+     },
+     "response": []
+    },
+    {
+     "id": "ac17ddeb-71cf-4c56-9e65-884091f71b3a",
+     "name": "List approval",
+     "request": {
+      "name": "List approval",
+      "description": {
+       "content": "Get approval list by filters",
+       "type": "text/plain"
+      },
+      "url": {
+       "path": [
+        "v3",
+        "approval",
+        "list"
+       ],
+       "host": [
+        "{{baseUrl}}"
+       ],
+       "query": [],
+       "variable": []
+      },
+      "header": [
+       {
+        "key": "Content-Type",
+        "value": "application/json"
+       },
+       {
+        "key": "Accept",
+        "value": "application/json"
+       }
+      ],
+      "method": "POST",
+      "auth": null,
+      "body": {
+       "mode": "raw",
+       "raw": "{}",
+       "options": {
+        "raw": {
+         "language": "json"
+        }
+       }
+      }
+     },
+     "response": []
+    },
+    {
+     "id": "7053910c-a7e4-476a-aace-c7e6b4b5f5d9",
+     "name": "Change status of approval",
+     "request": {
+      "name": "Change status of approval",
+      "description": {
+       "content": "Change status of approval",
+       "type": "text/plain"
+      },
+      "url": {
+       "path": [
+        "v3",
+        "approval",
+        ":id",
+        "change-status"
+       ],
+       "host": [
+        "{{baseUrl}}"
+       ],
+       "query": [],
+       "variable": []
+      },
+      "header": [
+       {
+        "key": "Content-Type",
+        "value": "application/json"
+       },
+       {
+        "key": "Accept",
+        "value": "application/json"
+       }
+      ],
+      "method": "PUT",
+      "auth": null,
+      "body": {
+       "mode": "raw",
+       "raw": "{}",
+       "options": {
+        "raw": {
+         "language": "json"
+        }
+       }
+      }
+     },
+     "response": []
+    },
+    {
+     "id": "72919fc4-ffb2-46e7-bd41-000b45c5ceaa",
+     "name": "Bulk change status of approval",
+     "request": {
+      "name": "Bulk change status of approval",
+      "description": {
+       "content": "Bulk change status of approval",
+       "type": "text/plain"
+      },
+      "url": {
+       "path": [
+        "v3",
+        "approval",
+        "bulk-change-status"
+       ],
+       "host": [
+        "{{baseUrl}}"
+       ],
+       "query": [],
+       "variable": []
+      },
+      "header": [
+       {
+        "key": "Content-Type",
+        "value": "application/json"
+       },
+       {
+        "key": "Accept",
+        "value": "application/json"
+       }
+      ],
+      "method": "PUT",
+      "auth": null,
+      "body": {
+       "mode": "raw",
+       "raw": "{}",
+       "options": {
+        "raw": {
+         "language": "json"
+        }
+       }
+      }
+     },
+     "response": []
+    },
+    {
+     "id": "30767238-f8f2-4cb8-827d-7a5cbfba92b5",
+     "name": "Send reminder",
+     "request": {
+      "name": "Send reminder",
+      "description": {
+       "content": "Send reminder",
+       "type": "text/plain"
+      },
+      "url": {
+       "path": [
+        "v3",
+        "approval",
+        "send-reminder"
+       ],
+       "host": [
+        "{{baseUrl}}"
+       ],
+       "query": [],
+       "variable": []
+      },
+      "header": [
+       {
+        "key": "Content-Type",
+        "value": "application/json"
+       },
+       {
+        "key": "Accept",
+        "value": "application/json"
+       }
+      ],
+      "method": "POST",
+      "auth": null,
+      "body": {
+       "mode": "raw",
+       "raw": "{}",
+       "options": {
+        "raw": {
+         "language": "json"
+        }
+       }
+      }
+     },
+     "response": []
+    }
+   ]
+  },
+  {
+   "id": "c9305c92-a97a-43ae-ab23-49695ad0bbb9",
+   "name": "Computer Activities",
+   "description": {
+    "content": "",
+    "type": "text/plain"
+   },
+   "item": [
+    {
+     "id": "5e0f440d-6d09-4a16-a4a1-975feb302e92",
+     "name": "Get computer activities",
+     "request": {
+      "name": "Get computer activities",
+      "description": {
+       "content": "Get computer activities.",
+       "type": "text/plain"
+      },
+      "url": {
+       "path": [
+        "activity"
+       ],
+       "host": [
+        "{{baseUrl}}"
+       ],
+       "query": [
+        {
+         "key": "user_id",
+         "value": "<value>",
+         "description": "user ids separated by commas",
+         "disabled": true
+        },
+        {
+         "key": "dates[]",
+         "value": "<value>",
+         "description": "dates (you can provide max 20 dates)",
+         "disabled": false
+        },
+        {
+         "key": "include",
+         "value": "<value>",
+         "description": "Join additional data to result, possible options are: application and window_title",
+         "disabled": true
+        }
+       ],
+       "variable": []
+      },
+      "header": [
+       {
+        "key": "Accept",
+        "value": "application/json"
+       }
+      ],
+      "method": "GET",
+      "auth": null
+     },
+     "response": []
+    },
+    {
+     "id": "7fbc074d-a1fa-43a8-80bc-e518e126d554",
+     "name": "List of sites and apps",
+     "request": {
+      "name": "List of sites and apps",
+      "description": {
+       "content": "List of sites and apps",
+       "type": "text/plain"
+      },
+      "url": {
+       "path": [
+        "v3",
+        "activity-log",
+        "sites-and-apps"
+       ],
+       "host": [
+        "{{baseUrl}}"
+       ],
+       "query": [],
+       "variable": []
+      },
+      "header": [
+       {
+        "key": "Content-Type",
+        "value": "application/json"
+       },
+       {
+        "key": "Accept",
+        "value": "application/json"
+       }
+      ],
+      "method": "POST",
+      "auth": null,
+      "body": {
+       "mode": "raw",
+       "raw": "{}",
+       "options": {
+        "raw": {
+         "language": "json"
+        }
+       }
+      }
+     },
+     "response": []
+    }
+   ]
+  },
+  {
+   "id": "e3e22b96-82c8-4ba7-9d15-7710547ebbf6",
+   "name": "Tags",
+   "description": {
+    "content": "",
+    "type": "text/plain"
+   },
+   "item": [
+    {
+     "id": "a48adae3-e4c9-4dcf-ac48-9e5a706e59d2",
+     "name": "Get tag list",
+     "request": {
+      "name": "Get tag list",
+      "description": {
+       "content": "Get tag list data.",
+       "type": "text/plain"
+      },
+      "url": {
+       "path": [
+        "tag_list"
+       ],
+       "host": [
+        "{{baseUrl}}"
+       ],
+       "query": [
+        {
+         "key": "task_id",
+         "value": "<value>",
+         "description": "get tag list data from task",
+         "disabled": true
+        },
+        {
+         "key": "archived",
+         "value": "<value>",
+         "description": "include archived tag lists",
+         "disabled": true
+        },
+        {
+         "key": "tags",
+         "value": "<value>",
+         "description": "include tags",
+         "disabled": true
+        },
+        {
+         "key": "exclude_empty_tag_lists",
+         "value": "<value>",
+         "description": "include empty tag lists",
+         "disabled": true
+        },
+        {
+         "key": "use_restrictions",
+         "value": "<value>",
+         "description": "get group tag list -> default option (1) or root group tag lists (0)",
+         "disabled": true
+        }
+       ],
+       "variable": []
+      },
+      "header": [
+       {
+        "key": "Accept",
+        "value": "application/json"
+       }
+      ],
+      "method": "GET",
+      "auth": null
+     },
+     "response": []
+    },
+    {
+     "id": "263f4e18-836f-474c-ba25-2c7db606ee90",
+     "name": "Create new tag list",
+     "request": {
+      "name": "Create new tag list",
+      "description": {
+       "content": "Create new tag list.",
+       "type": "text/plain"
+      },
+      "url": {
+       "path": [
+        "tag_list"
+       ],
+       "host": [
+        "{{baseUrl}}"
+       ],
+       "query": [],
+       "variable": []
+      },
+      "header": [
+       {
+        "key": "Content-Type",
+        "value": "application/json"
+       },
+       {
+        "key": "Accept",
+        "value": "application/json"
+       }
+      ],
+      "method": "POST",
+      "auth": null,
+      "body": {
+       "mode": "raw",
+       "raw": "{}",
+       "options": {
+        "raw": {
+         "language": "json"
+        }
+       }
+      }
+     },
+     "response": []
+    },
+    {
+     "id": "7917c10b-d9bc-4bb9-988b-81d94d5a5b7e",
+     "name": "Create tag",
+     "request": {
+      "name": "Create tag",
+      "description": {
+       "content": "Create tag. Do not provide `tag_id` in url, because while creating new tag a new, unique `tag_id` will be made. If you provide `tag_id` in url, a 400 HTTP response is returned.",
+       "type": "text/plain"
+      },
+      "url": {
+       "path": [
+        "tag"
+       ],
+       "host": [
+        "{{baseUrl}}"
+       ],
+       "query": [],
+       "variable": []
+      },
+      "header": [
+       {
+        "key": "Content-Type",
+        "value": "application/json"
+       },
+       {
+        "key": "Accept",
+        "value": "application/json"
+       }
+      ],
+      "method": "POST",
+      "auth": null,
+      "body": {
+       "mode": "raw",
+       "raw": "{}",
+       "options": {
+        "raw": {
+         "language": "json"
+        }
+       }
+      }
+     },
+     "response": []
+    },
+    {
+     "id": "1fa55ff1-e4f0-4baa-9744-6605857bc57b",
+     "name": "Get tag data",
+     "request": {
+      "name": "Get tag data",
+      "description": {
+       "content": "Get tag data.",
+       "type": "text/plain"
+      },
+      "url": {
+       "path": [
+        "tag",
+        ":tag_id"
+       ],
+       "host": [
+        "{{baseUrl}}"
+       ],
+       "query": [],
+       "variable": []
+      },
+      "header": [
+       {
+        "key": "Accept",
+        "value": "application/json"
+       }
+      ],
+      "method": "GET",
+      "auth": null
+     },
+     "response": []
+    },
+    {
+     "id": "75f775ab-0f29-4e9e-838a-3ffd04d197a1",
+     "name": "Get time entry tags",
+     "request": {
+      "name": "Get time entry tags",
+      "description": {
+       "content": "Get tags for a given time entry ID.",
+       "type": "text/plain"
+      },
+      "url": {
+       "path": [
+        "entries",
+        ":entry_id",
+        "tags"
+       ],
+       "host": [
+        "{{baseUrl}}"
+       ],
+       "query": [],
+       "variable": []
+      },
+      "header": [
+       {
+        "key": "Accept",
+        "value": "application/json"
+       }
+      ],
+      "method": "GET",
+      "auth": null
+     },
+     "response": []
+    },
+    {
+     "id": "7c5a3d2d-d016-4793-a87f-72c95b10c324",
+     "name": "Add tags to time entry",
+     "request": {
+      "name": "Add tags to time entry",
+      "description": {
+       "content": "Assing tags to time entry or entries.",
+       "type": "text/plain"
+      },
+      "url": {
+       "path": [
+        "entries",
+        ":entry_id",
+        "tags"
+       ],
+       "host": [
+        "{{baseUrl}}"
+       ],
+       "query": [],
+       "variable": []
+      },
+      "header": [
+       {
+        "key": "Content-Type",
+        "value": "application/json"
+       },
+       {
+        "key": "Accept",
+        "value": "application/json"
+       }
+      ],
+      "method": "PUT",
+      "auth": null,
+      "body": {
+       "mode": "raw",
+       "raw": "{}",
+       "options": {
+        "raw": {
+         "language": "json"
+        }
+       }
+      }
+     },
+     "response": []
+    }
+   ]
+  },
+  {
+   "id": "672b5885-2286-453a-b3e3-19126bc25a2e",
+   "name": "Billing Rates and Expenses",
+   "description": {
+    "content": "",
+    "type": "text/plain"
+   },
+   "item": [
+    {
+     "id": "d283d8e5-344d-47b3-9368-ef337d884e5b",
+     "name": "Get billing rate for task",
+     "request": {
+      "name": "Get billing rate for task",
+      "description": {
+       "content": "Returns all billing rates for given `task_id` or returns specific `rate_id` data for given `task_id`.",
+       "type": "text/plain"
+      },
+      "url": {
+       "path": [
+        "task",
+        ":task_id",
+        "rate"
+       ],
+       "host": [
+        "{{baseUrl}}"
+       ],
+       "query": [
+        {
+         "key": "rate_id",
+         "value": "<value>",
+         "description": "rateTypeId to get (can be empty, `all` or comma-separated)",
+         "disabled": true
+        }
+       ],
+       "variable": []
+      },
+      "header": [
+       {
+        "key": "Accept",
+        "value": "application/json"
+       }
+      ],
+      "method": "GET",
+      "auth": null
+     },
+     "response": []
+    },
+    {
+     "id": "696fc76c-c786-47a4-a0c8-c7571f685563",
+     "name": "Update/create billing rate for task",
+     "request": {
+      "name": "Update/create billing rate for task",
+      "description": {
+       "content": "This endpoint updates value or creates new rate for given `rateTypeId` and `task_id`.",
+       "type": "text/plain"
+      },
+      "url": {
+       "path": [
+        "task",
+        ":task_id",
+        "rate"
+       ],
+       "host": [
+        "{{baseUrl}}"
+       ],
+       "query": [],
+       "variable": []
+      },
+      "header": [
+       {
+        "key": "Content-Type",
+        "value": "application/json"
+       },
+       {
+        "key": "Accept",
+        "value": "application/json"
+       }
+      ],
+      "method": "POST",
+      "auth": null,
+      "body": {
+       "mode": "raw",
+       "raw": "{}",
+       "options": {
+        "raw": {
+         "language": "json"
+        }
+       }
+      }
+     },
+     "response": []
+    },
+    {
+     "id": "1683cb09-91e9-435e-a50b-ed5e5e6ba720",
+     "name": "Get billing rate for user",
+     "request": {
+      "name": "Get billing rate for user",
+      "description": {
+       "content": "Returns billing rate for given user or users.",
+       "type": "text/plain"
+      },
+      "url": {
+       "path": [
+        "user",
+        ":user_id",
+        "rate"
+       ],
+       "host": [
+        "{{baseUrl}}"
+       ],
+       "query": [
+        {
+         "key": "rate_id",
+         "value": "<value>",
+         "description": "rateTypeId or comma-separated rateTypeIds",
+         "disabled": true
+        }
+       ],
+       "variable": []
+      },
+      "header": [
+       {
+        "key": "Accept",
+        "value": "application/json"
+       }
+      ],
+      "method": "GET",
+      "auth": null
+     },
+     "response": []
+    },
+    {
+     "id": "8e5242ba-173c-4ead-aa9c-1154c8269669",
+     "name": "Update/create billing rate for user",
+     "request": {
+      "name": "Update/create billing rate for user",
+      "description": {
+       "content": "This endpoint updates value or creates new rate for given `rateTypeId` and `user_id`.",
+       "type": "text/plain"
+      },
+      "url": {
+       "path": [
+        "user",
+        ":user_id",
+        "rate"
+       ],
+       "host": [
+        "{{baseUrl}}"
+       ],
+       "query": [],
+       "variable": []
+      },
+      "header": [
+       {
+        "key": "Content-Type",
+        "value": "application/json"
+       },
+       {
+        "key": "Accept",
+        "value": "application/json"
+       }
+      ],
+      "method": "POST",
+      "auth": null,
+      "body": {
+       "mode": "raw",
+       "raw": "{}",
+       "options": {
+        "raw": {
+         "language": "json"
+        }
+       }
+      }
+     },
+     "response": []
+    },
+    {
+     "id": "cf2125c8-f01b-4d6f-add6-4ec2c8b66621",
+     "name": "Get billing rate for group",
+     "request": {
+      "name": "Get billing rate for group",
+      "description": {
+       "content": "Returns all billing rates for given `group_id` or returns specific `rate_id` data for given `group_id`.",
+       "type": "text/plain"
+      },
+      "url": {
+       "path": [
+        "group",
+        ":group_id",
+        "rate"
+       ],
+       "host": [
+        "{{baseUrl}}"
+       ],
+       "query": [
+        {
+         "key": "rate_id",
+         "value": "<value>",
+         "description": "rateTypeId to get (can be empty, `all` or comma-separated)",
+         "disabled": true
+        }
+       ],
+       "variable": []
+      },
+      "header": [
+       {
+        "key": "Accept",
+        "value": "application/json"
+       }
+      ],
+      "method": "GET",
+      "auth": null
+     },
+     "response": []
+    },
+    {
+     "id": "d3a54c5c-72f6-4bb4-b9ff-835b80a141db",
+     "name": "List expense",
+     "request": {
+      "name": "List expense",
+      "description": {
+       "content": "List expense",
+       "type": "text/plain"
+      },
+      "url": {
+       "path": [
+        "v3",
+        "expense",
+        "list"
+       ],
+       "host": [
+        "{{baseUrl}}"
+       ],
+       "query": [],
+       "variable": []
+      },
+      "header": [
+       {
+        "key": "Content-Type",
+        "value": "application/json"
+       },
+       {
+        "key": "Accept",
+        "value": "application/json"
+       }
+      ],
+      "method": "POST",
+      "auth": null,
+      "body": {
+       "mode": "raw",
+       "raw": "{}",
+       "options": {
+        "raw": {
+         "language": "json"
+        }
+       }
+      }
+     },
+     "response": []
+    },
+    {
+     "id": "bf52114e-2a70-4547-be17-8284e556ec3c",
+     "name": "Create expense",
+     "request": {
+      "name": "Create expense",
+      "description": {
+       "content": "Create expense",
+       "type": "text/plain"
+      },
+      "url": {
+       "path": [
+        "v3",
+        "expense"
+       ],
+       "host": [
+        "{{baseUrl}}"
+       ],
+       "query": [],
+       "variable": []
+      },
+      "header": [
+       {
+        "key": "Content-Type",
+        "value": "application/json"
+       },
+       {
+        "key": "Accept",
+        "value": "application/json"
+       }
+      ],
+      "method": "POST",
+      "auth": null,
+      "body": {
+       "mode": "raw",
+       "raw": "{}",
+       "options": {
+        "raw": {
+         "language": "json"
+        }
+       }
+      }
+     },
+     "response": []
+    },
+    {
+     "id": "c627af1d-5eb3-457c-98f3-8a33f4a8f19e",
+     "name": "Update expense",
+     "request": {
+      "name": "Update expense",
+      "description": {
+       "content": "Update expense",
+       "type": "text/plain"
+      },
+      "url": {
+       "path": [
+        "v3",
+        "expense",
+        ":id"
+       ],
+       "host": [
+        "{{baseUrl}}"
+       ],
+       "query": [],
+       "variable": []
+      },
+      "header": [
+       {
+        "key": "Content-Type",
+        "value": "application/json"
+       },
+       {
+        "key": "Accept",
+        "value": "application/json"
+       }
+      ],
+      "method": "PUT",
+      "auth": null,
+      "body": {
+       "mode": "raw",
+       "raw": "{}",
+       "options": {
+        "raw": {
+         "language": "json"
+        }
+       }
+      }
+     },
+     "response": []
+    },
+    {
+     "id": "d9a90860-ffb6-4216-b314-8804a96fec6d",
+     "name": "List expense category",
+     "request": {
+      "name": "List expense category",
+      "description": {
+       "content": "List expense category",
+       "type": "text/plain"
+      },
+      "url": {
+       "path": [
+        "v3",
+        "expense",
+        "category"
+       ],
+       "host": [
+        "{{baseUrl}}"
+       ],
+       "query": [],
+       "variable": []
+      },
+      "header": [
+       {
+        "key": "Accept",
+        "value": "application/json"
+       }
+      ],
+      "method": "GET",
+      "auth": null
+     },
+     "response": []
+    }
+   ]
+  },
+  {
+   "id": "b424eca9-0c8a-481b-8e09-e4e65cdea666",
+   "name": "Data Export and Custom Fields",
+   "description": {
+    "content": "",
+    "type": "text/plain"
+   },
+   "item": [
+    {
+     "id": "7662a9f6-f603-4e82-9186-275b5a7640dc",
+     "name": "Get exports",
+     "request": {
+      "name": "Get exports",
+      "description": {
+       "content": "Get exports",
+       "type": "text/plain"
+      },
+      "url": {
+       "path": [
+        "v3",
+        "data-export",
+        "exports"
+       ],
+       "host": [
+        "{{baseUrl}}"
+       ],
+       "query": [
+        {
+         "key": "limit",
+         "value": "<value>",
+         "description": "",
+         "disabled": true
+        },
+        {
+         "key": "page",
+         "value": "<value>",
+         "description": "",
+         "disabled": true
+        },
+        {
+         "key": "sortBy",
+         "value": "<value>",
+         "description": "",
+         "disabled": true
+        },
+        {
+         "key": "sortOrder",
+         "value": "<value>",
+         "description": "",
+         "disabled": true
+        }
+       ],
+       "variable": []
+      },
+      "header": [
+       {
+        "key": "Accept",
+        "value": "application/json"
+       }
+      ],
+      "method": "GET",
+      "auth": null
+     },
+     "response": []
+    },
+    {
+     "id": "7f2b83c9-155f-4578-9ea5-c9e4b9f53932",
+     "name": "Create export request",
+     "request": {
+      "name": "Create export request",
+      "description": {
+       "content": "Create export request",
+       "type": "text/plain"
+      },
+      "url": {
+       "path": [
+        "v3",
+        "export-request"
+       ],
+       "host": [
+        "{{baseUrl}}"
+       ],
+       "query": [],
+       "variable": []
+      },
+      "header": [
+       {
+        "key": "Content-Type",
+        "value": "application/json"
+       },
+       {
+        "key": "Accept",
+        "value": "application/json"
+       }
+      ],
+      "method": "POST",
+      "auth": null,
+      "body": {
+       "mode": "raw",
+       "raw": "{}",
+       "options": {
+        "raw": {
+         "language": "json"
+        }
+       }
+      }
+     },
+     "response": []
+    },
+    {
+     "id": "5817ad9a-34ba-4818-81e7-968e53a007e6",
+     "name": "Get export by ID",
+     "request": {
+      "name": "Get export by ID",
+      "description": {
+       "content": "Get export by ID",
+       "type": "text/plain"
+      },
+      "url": {
+       "path": [
+        "v3",
+        "data-export",
+        "export",
+        ":exportId"
+       ],
+       "host": [
+        "{{baseUrl}}"
+       ],
+       "query": [],
+       "variable": []
+      },
+      "header": [
+       {
+        "key": "Accept",
+        "value": "application/json"
+       }
+      ],
+      "method": "GET",
+      "auth": null
+     },
+     "response": []
+    },
+    {
+     "id": "ee144838-2d7f-4c06-b44c-d68c120f64cb",
+     "name": "Get list of dataset availability",
+     "request": {
+      "name": "Get list of dataset availability",
+      "description": {
+       "content": "Get list of dataset availability",
+       "type": "text/plain"
+      },
+      "url": {
+       "path": [
+        "v3",
+        "data-export",
+        "dataset-availability"
+       ],
+       "host": [
+        "{{baseUrl}}"
+       ],
+       "query": [],
+       "variable": []
+      },
+      "header": [
+       {
+        "key": "Accept",
+        "value": "application/json"
+       }
+      ],
+      "method": "GET",
+      "auth": null
+     },
+     "response": []
+    },
+    {
+     "id": "a8c896e9-44e6-4e98-84fb-6e91403c5870",
+     "name": "List Custom Field Templates",
+     "request": {
+      "name": "List Custom Field Templates",
+      "description": {
+       "content": "List Custom Field Templates",
+       "type": "text/plain"
+      },
+      "url": {
+       "path": [
+        "v3",
+        "custom-fields",
+        "template",
+        "list"
+       ],
+       "host": [
+        "{{baseUrl}}"
+       ],
+       "query": [],
+       "variable": []
+      },
+      "header": [
+       {
+        "key": "Accept",
+        "value": "application/json"
+       }
+      ],
+      "method": "GET",
+      "auth": null
+     },
+     "response": []
+    },
+    {
+     "id": "2c3f8e99-ac57-4ba9-b7f1-b709138ef98d",
+     "name": "Create Custom Field Template",
+     "request": {
+      "name": "Create Custom Field Template",
+      "description": {
+       "content": "Create Custom Field Template",
+       "type": "text/plain"
+      },
+      "url": {
+       "path": [
+        "v3",
+        "custom-fields",
+        "template",
+        "create"
+       ],
+       "host": [
+        "{{baseUrl}}"
+       ],
+       "query": [],
+       "variable": []
+      },
+      "header": [
+       {
+        "key": "Content-Type",
+        "value": "application/json"
+       },
+       {
+        "key": "Accept",
+        "value": "application/json"
+       }
+      ],
+      "method": "POST",
+      "auth": null,
+      "body": {
+       "mode": "raw",
+       "raw": "{}",
+       "options": {
+        "raw": {
+         "language": "json"
+        }
+       }
+      }
+     },
+     "response": []
+    }
+   ]
+  }
+ ],
+ "auth": {
+  "type": "bearer",
+  "bearer": [
+   {
+    "key": "token",
+    "value": "{{apiToken}}",
+    "type": "string"
+   }
+  ]
+ },
+ "event": [],
+ "variable": [
+  {
+   "key": "baseUrl",
+   "value": "https://app.timecamp.com/third_party/api",
+   "type": "string"
+  },
+  {
+   "key": "apiToken",
+   "value": "<your TimeCamp API token>",
+   "type": "string"
+  }
+ ],
+ "info": {
+  "_postman_id": "8df6b106-92fc-4aed-a4da-97efdc40dd49",
+  "name": "TimeCamp API",
+  "description": {
+   "content": "TimeCamp time tracking and timesheet REST API - time entries, timer, tasks and projects, users and groups, attendance, timesheet approvals, computer activities, tags, billing rates, expenses, and data export. Authenticate with your per-user API token (Profile Settings in the TimeCamp app) sent as a bearer token. Grounded in TimeCamp's published OpenAPI at https://developer.timecamp.com/reference/dist/api-prod.yaml.",
+   "type": "text/plain"
+  },
+  "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+ }
+}

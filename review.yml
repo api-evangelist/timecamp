@@ -1,0 +1,91 @@
+aid: timecamp
+name: TimeCamp
+review:
+  question: Does TimeCamp expose a documented public WebSocket API?
+  answer: false
+  date: '2026-07-11'
+  reviewer: API Evangelist
+  asyncapiSpecCreated: false
+  asyncapiScopeNote: |
+    No AsyncAPI document was created. TimeCamp's published OpenAPI 3.0
+    document (reference/dist/api-prod.yaml on developer.timecamp.com)
+    describes only synchronous HTTPS REST endpoints. No WebSocket,
+    Server-Sent Events, or other streaming transport is documented
+    anywhere in the developer portal or help center, so there is no
+    event-driven surface in scope for AsyncAPI modeling.
+findings:
+  summary: |
+    TimeCamp does not publish a documented public WebSocket API. The
+    entire documented surface is HTTPS REST, served from
+    https://app.timecamp.com/third_party/api (with
+    https://v4.api.timecamp.com listed as a second production server in
+    the published OpenAPI). The developer portal at
+    developer.timecamp.com is a Stoplight Elements site rendering
+    TimeCamp's own OpenAPI 3.0 document, which spans 122 paths across a
+    v1 surface (time entries, timer, tasks, users, groups, attendance,
+    approvals, tags, billing rates, computer activities) and a v3
+    surface (time entries, projects, approvals, expenses, data export,
+    custom fields, attendance calendars). Timer state is polled via GET
+    /timer_running rather than pushed; no ws:// or wss:// endpoint, no
+    SSE stream, and no webhook subscription API is documented.
+    Authentication is a per-user API token sent as an Authorization:
+    Bearer header (an OIDC scheme is also declared in the spec).
+  transports:
+    - protocol: REST
+      scheme: https
+      baseURL: https://app.timecamp.com/third_party/api
+      documented: true
+    - protocol: REST
+      scheme: https
+      baseURL: https://v4.api.timecamp.com
+      documented: true
+      note: Listed as a second PRODUCTION server in TimeCamp's published OpenAPI document.
+    - protocol: WebSocket
+      scheme: wss
+      documented: false
+      note: No WebSocket endpoint appears in the published OpenAPI, the developer portal, or the help center as of the review date.
+    - protocol: SSE
+      scheme: https
+      documented: false
+      note: No Server-Sent Events or streaming responses are documented.
+  endpointsConfirmedRest:
+    - GET  https://app.timecamp.com/third_party/api/entries
+    - POST https://app.timecamp.com/third_party/api/entries
+    - PUT  https://app.timecamp.com/third_party/api/entries
+    - DELETE https://app.timecamp.com/third_party/api/entries
+    - GET  https://app.timecamp.com/third_party/api/entries_changes
+    - POST https://app.timecamp.com/third_party/api/timer
+    - GET  https://app.timecamp.com/third_party/api/timer_running
+    - GET  https://app.timecamp.com/third_party/api/tasks
+    - POST https://app.timecamp.com/third_party/api/tasks
+    - GET  https://app.timecamp.com/third_party/api/users
+    - GET  https://app.timecamp.com/third_party/api/me
+    - GET  https://app.timecamp.com/third_party/api/attendance
+    - GET  https://app.timecamp.com/third_party/api/approval
+    - GET  https://app.timecamp.com/third_party/api/activity
+    - GET  https://app.timecamp.com/third_party/api/logged_time_in_week
+    - POST https://app.timecamp.com/third_party/api/v3/time-entries/list
+    - POST https://app.timecamp.com/third_party/api/v3/projects
+    - POST https://app.timecamp.com/third_party/api/v3/attendance/calendar/search
+    - GET  https://app.timecamp.com/third_party/api/v3/data-export/exports
+sources:
+  - url: https://developer.timecamp.com/
+    type: Documentation
+    note: Stoplight Elements portal rendering TimeCamp's published OpenAPI; all operations are HTTPS REST, no WebSocket mentioned.
+  - url: https://developer.timecamp.com/reference/dist/api-prod.yaml
+    type: OpenAPI
+    note: TimeCamp's own OpenAPI 3.0 document (122 paths, servers app.timecamp.com/third_party/api and v4.api.timecamp.com); mirrored in this repository at openapi/timecamp-openapi.yml.
+  - url: https://help.timecamp.com/help/api
+    type: Documentation
+    note: Help center API article - token location, "API is available to all subscription plans and is free of charge", plan-based request limits; no webhooks or WebSocket mentioned.
+  - url: https://www.timecamp.com/pricing/
+    type: Pricing
+    note: Plan tiers referenced for plan-gated API features and rate-limit tiers.
+actions:
+  asyncapiPath: null
+  apisYmlUpdated: true
+  reason: |
+    No WebSocket, SSE, or other event-driven protocol surface exists in
+    TimeCamp's public documentation, so no AsyncAPI document was
+    authored. The apis.yml indexes the REST surface only, grounded in
+    TimeCamp's published OpenAPI document.
