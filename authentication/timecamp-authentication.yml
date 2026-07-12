@@ -1,0 +1,18 @@
+generated: '2026-07-11'
+method: derived
+source: openapi/timecamp-openapi.yml
+summary:
+  types:
+  - http
+  - openIdConnect
+schemes:
+- name: api_key_in_header
+  type: http
+  scheme: bearer
+  sources:
+  - openapi/timecamp-openapi.yml
+- name: OIDC
+  type: openIdConnect
+  openIdConnectUrl: authenticate/oidc
+  sources:
+  - openapi/timecamp-openapi.yml
