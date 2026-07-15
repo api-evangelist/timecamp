@@ -204,6 +204,8 @@ apis:
     poll export status, check dataset availability, and download results, plus
     custom field templates and values that enrich exported time and project data.
 common:
+- type: AgenticAccess
+  url: agentic-access/timecamp-agentic-access.yml
 - type: DomainSecurity
   url: security/timecamp-domain-security.yml
 - type: Authentication
