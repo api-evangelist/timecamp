@@ -1,0 +1,187 @@
+openapi: 3.0.0
+info:
+  title: TimeCamp [v1] Approvals [v1] Approvals [v3] Task Archive API
+  version: '1.0'
+  contact:
+    email: support@timecamp.com
+  termsOfService: https://www.timecamp.com/terms-conditions/
+  description: 'Documentation for the TimeCamp system.
+
+
+    Get your API token here:
+
+    https://app.timecamp.com/app#/settings/users/me
+
+
+    Be aware that you can reach API calls limit. Once you do you will get HTTP code 429 response.
+
+
+    Request example:
+
+
+    ```
+
+    GET https://app.timecamp.com/third_party/api/user?user_id=1234567
+
+
+    Headers:
+
+    Authorization: Bearer 87c21299960a88888888fe123
+
+    Accept: application/json
+
+    ```
+
+    '
+servers:
+- url: https://app.timecamp.com/third_party/api
+  description: PRODUCTION
+- url: https://v4.api.timecamp.com
+  description: PRODUCTION
+tags:
+- name: '[v3] Task Archive'
+  x-displayName: Task Archive
+paths:
+  /v3/task-archive/archive-batch:
+    patch:
+      summary: Archive a batch of tasks
+      description: 'Queues multiple active tasks for archiving. Tasks that are already archived are skipped.
+
+        '
+      tags:
+      - '[v3] Task Archive'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                taskIds:
+                  type: array
+                  items:
+                    type: integer
+                  description: List of task IDs to archive.
+              required:
+              - taskIds
+            examples:
+              Example 1:
+                value:
+                  taskIds:
+                  - 1
+                  - 2
+                  - 3
+                  - 4
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+              examples:
+                Example 1:
+                  value:
+                    message: 4 tasks out of 4 has been queued for archiving
+      operationId: patch-task-archive-archive-batch
+      x-internal: false
+      security:
+      - api_key_in_header: []
+  /v3/task-archive/restore-batch:
+    patch:
+      summary: Restore a batch of archived tasks and their parent hierarchy
+      description: 'Restores a batch of archived tasks. When restoring tasks, their parent tasks (if archived) will also be restored to maintain task tree consistency. However, siblings of restored tasks will remain archived unless explicitly included in the batch. This endpoint ensures that the recalculation of the task tree hierarchy is performed once per batch, preventing inconsistencies and race conditions that may occur if multiple single-task restore requests are made concurrently.
+
+        '
+      tags:
+      - '[v3] Task Archive'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                taskIds:
+                  type: array
+                  items:
+                    type: integer
+                  description: List of archived task IDs to restore.
+              required:
+              - taskIds
+            examples:
+              Example 1:
+                value:
+                  taskIds:
+                  - 1
+                  - 2
+                  - 3
+                  - 4
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+              x-examples:
+                Example 1:
+                  message: ok
+              examples:
+                Example 1:
+                  value:
+                    message: ok
+      operationId: patch-task-archive-restore-batch
+      x-internal: false
+      security:
+      - api_key_in_header: []
+components:
+  securitySchemes:
+    api_key_in_header:
+      type: http
+      scheme: bearer
+      description: ''
+    OIDC:
+      type: openIdConnect
+      openIdConnectUrl: authenticate/oidc
+x-tagGroups:
+- name: TimeCamp API
+  tags:
+  - '[v1] User'
+  - '[v1] Entry'
+  - '[v1] Tags'
+  - '[v1] Group'
+  - '[v1] Approvals'
+  - '[v1] Computer Activities'
+  - '[v1] Timer'
+  - '[v1] Task'
+  - '[v1] Attendance'
+  - '[v1] Roles & Permissions'
+  - '[v1] Billing Rates'
+  - '[v1] Userlog'
+  - '[v1] Activity alert'
+  - '[v3] Timer'
+  - '[v3] Invoices'
+  - '[v3] Computer Activities'
+  - '[v3] Time Entry'
+  - '[v3] Task Archive'
+  - '[v3] Time Entry Restriction'
+  - '[v3] Expense'
+  - '[v3] Plan'
+  - '[v3] Storage'
+  - '[v3] Module'
+  - '[v3] Marketplace'
+  - '[v3] Remote work detection'
+  - '[v3] Data Export'
+  - '[v3] Custom Fields'
+  - '[v3] Approval'
+  - '[v3] Task'
+  - '[v3] Projects'
+  - '[v3] Attendance'
+  - '[v3] Attendance Requests'

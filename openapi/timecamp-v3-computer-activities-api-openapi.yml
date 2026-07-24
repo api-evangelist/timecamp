@@ -1,0 +1,152 @@
+openapi: 3.0.0
+info:
+  title: TimeCamp [v1] Approvals [v1] Approvals [v3] Computer Activities API
+  version: '1.0'
+  contact:
+    email: support@timecamp.com
+  termsOfService: https://www.timecamp.com/terms-conditions/
+  description: 'Documentation for the TimeCamp system.
+
+
+    Get your API token here:
+
+    https://app.timecamp.com/app#/settings/users/me
+
+
+    Be aware that you can reach API calls limit. Once you do you will get HTTP code 429 response.
+
+
+    Request example:
+
+
+    ```
+
+    GET https://app.timecamp.com/third_party/api/user?user_id=1234567
+
+
+    Headers:
+
+    Authorization: Bearer 87c21299960a88888888fe123
+
+    Accept: application/json
+
+    ```
+
+    '
+servers:
+- url: https://app.timecamp.com/third_party/api
+  description: PRODUCTION
+- url: https://v4.api.timecamp.com
+  description: PRODUCTION
+tags:
+- name: '[v3] Computer Activities'
+  x-displayName: Computer Activities
+paths:
+  /v3/activity-log/sites-and-apps:
+    post:
+      summary: List of sites and apps
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        name:
+                          type: string
+                        time:
+                          type: string
+                          description: Format according to settings
+                        time_seconds:
+                          type: integer
+                        time_percentage:
+                          type: integer
+                        category:
+                          type: string
+                        productivity:
+                          type: integer
+                        type:
+                          type: string
+                          description: 'One of: apps, www, offline'
+                        application_id:
+                          type: integer
+                        category_id:
+                          type: integer
+      operationId: post-activity-log-sites-and-apps
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - startDate
+              - endDate
+              properties:
+                startDate:
+                  type: string
+                  format: date
+                  example: '2025-03-01'
+                endDate:
+                  type: string
+                  format: date
+                  example: '2025-03-31'
+                userIds:
+                  type: array
+                  uniqueItems: true
+                  description: If not provided, the details of the user executing the request are returned.
+                  items:
+                    type: integer
+      tags:
+      - '[v3] Computer Activities'
+      security:
+      - api_key_in_header: []
+components:
+  securitySchemes:
+    api_key_in_header:
+      type: http
+      scheme: bearer
+      description: ''
+    OIDC:
+      type: openIdConnect
+      openIdConnectUrl: authenticate/oidc
+x-tagGroups:
+- name: TimeCamp API
+  tags:
+  - '[v1] User'
+  - '[v1] Entry'
+  - '[v1] Tags'
+  - '[v1] Group'
+  - '[v1] Approvals'
+  - '[v1] Computer Activities'
+  - '[v1] Timer'
+  - '[v1] Task'
+  - '[v1] Attendance'
+  - '[v1] Roles & Permissions'
+  - '[v1] Billing Rates'
+  - '[v1] Userlog'
+  - '[v1] Activity alert'
+  - '[v3] Timer'
+  - '[v3] Invoices'
+  - '[v3] Computer Activities'
+  - '[v3] Time Entry'
+  - '[v3] Task Archive'
+  - '[v3] Time Entry Restriction'
+  - '[v3] Expense'
+  - '[v3] Plan'
+  - '[v3] Storage'
+  - '[v3] Module'
+  - '[v3] Marketplace'
+  - '[v3] Remote work detection'
+  - '[v3] Data Export'
+  - '[v3] Custom Fields'
+  - '[v3] Approval'
+  - '[v3] Task'
+  - '[v3] Projects'
+  - '[v3] Attendance'
+  - '[v3] Attendance Requests'

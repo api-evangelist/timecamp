@@ -1,0 +1,316 @@
+openapi: 3.0.0
+info:
+  title: TimeCamp [v1] Approvals [v1] Approvals [v1] Timer API
+  version: '1.0'
+  contact:
+    email: support@timecamp.com
+  termsOfService: https://www.timecamp.com/terms-conditions/
+  description: 'Documentation for the TimeCamp system.
+
+
+    Get your API token here:
+
+    https://app.timecamp.com/app#/settings/users/me
+
+
+    Be aware that you can reach API calls limit. Once you do you will get HTTP code 429 response.
+
+
+    Request example:
+
+
+    ```
+
+    GET https://app.timecamp.com/third_party/api/user?user_id=1234567
+
+
+    Headers:
+
+    Authorization: Bearer 87c21299960a88888888fe123
+
+    Accept: application/json
+
+    ```
+
+    '
+servers:
+- url: https://app.timecamp.com/third_party/api
+  description: PRODUCTION
+- url: https://v4.api.timecamp.com
+  description: PRODUCTION
+tags:
+- name: '[v1] Timer'
+  x-displayName: Timer
+paths:
+  /timer_running:
+    get:
+      summary: Get information about running timer
+      tags:
+      - '[v1] Timer'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                description: ''
+                minItems: 1
+                uniqueItems: true
+                items:
+                  type: object
+                  properties:
+                    timer_id:
+                      oneOf:
+                      - type: string
+                      - type: number
+                      minLength: 1
+                    user_id:
+                      oneOf:
+                      - type: string
+                      - type: number
+                      minLength: 1
+                    task_id:
+                      oneOf:
+                      - type: number
+                      - type: string
+                      nullable: true
+                    started_at:
+                      type: string
+                      minLength: 1
+                    name:
+                      type: string
+                      nullable: true
+                  required:
+                  - timer_id
+                  - user_id
+                  - started_at
+              examples:
+                info about running timer with no task:
+                  value:
+                  - timer_id: '18'
+                    user_id: '123'
+                    task_id: null
+                    started_at: '2021-03-05 14:52:06'
+                    name: null
+      operationId: get-timer_running
+      description: Returns information about running timer.
+      security:
+      - api_key_in_header: []
+  /timer:
+    summary: Timer manipulation
+    post:
+      operationId: post-timer
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                description: ''
+                type: object
+                properties:
+                  isTimerRunning:
+                    type: boolean
+                  elapsed:
+                    type: number
+                  entry_id:
+                    oneOf:
+                    - type: number
+                    - type: string
+                  timer_id:
+                    oneOf:
+                    - type: number
+                    - type: string
+                  start_time:
+                    type: string
+                    minLength: 1
+              examples:
+                status when timer is stopped:
+                  value:
+                    isTimerRunning: false
+                    elapsed: 0
+                response to action start:
+                  value:
+                    new_timer_id: 2
+                    entry_id: 103217709
+                status when timer is running:
+                  value:
+                    isTimerRunning: true
+                    elapsed: 55
+                    entry_id: '103217709'
+                    timer_id: '2'
+                    start_time: '2020-01-01 12:34:56'
+                response to action stop:
+                  value:
+                    elapsed: 224
+                    entry_id: '103217709'
+                    entry_time: 224
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                description: ''
+                type: object
+                properties:
+                  message:
+                    type: string
+                required:
+                - message
+              examples:
+                bad request:
+                  value:
+                    message: This action is not allowed.
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                description: ''
+                type: object
+                properties:
+                  message:
+                    type: string
+                    minLength: 1
+                required:
+                - message
+              examples:
+                not permitted to task:
+                  value:
+                    message: You cannot track time to this task
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                description: ''
+                type: object
+                properties:
+                  message:
+                    type: string
+                    minLength: 1
+                required:
+                - message
+              examples:
+                task not found:
+                  value:
+                    message: No task with such ID
+      tags:
+      - '[v1] Timer'
+      description: Get timer status, start new timer or stop one.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                action:
+                  type: string
+                  description: either `status`, `start` or `stop`
+                  enum:
+                  - status
+                  - start
+                  - stop
+                  default: status
+                task_id:
+                  type: integer
+                  description: start a task with a given task
+                started_at:
+                  type: string
+                  description: timer will count time since this date only when `action` = `start`
+                  example: '2021-03-05 08:54:12'
+                stopped_at:
+                  type: string
+                  description: timer will count time to this date only when `action` = `stop`
+                  example: '2021-03-05 09:54:12'
+              required:
+              - action
+            examples:
+              status:
+                value:
+                  action: status
+              start:
+                value:
+                  action: start
+              stop:
+                value:
+                  action: stop
+              start with task:
+                value:
+                  action: start
+                  task_id: 12345
+              start with start date:
+                value:
+                  action: start
+                  started_at: '2021-03-05 08:54:12'
+              stop with stop date:
+                value:
+                  action: stop
+                  stopped_at: '2021-03-05 09:54:12'
+        description: ''
+      parameters: []
+      summary: Start, stop, get timer
+      security:
+      - api_key_in_header: []
+    delete:
+      summary: Delete timer
+      operationId: delete-timer
+      responses:
+        '200':
+          description: OK - response body is empty
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  '""': {}
+      description: Deletes timer without saving tracked time.
+      tags:
+      - '[v1] Timer'
+      security:
+      - api_key_in_header: []
+components:
+  securitySchemes:
+    api_key_in_header:
+      type: http
+      scheme: bearer
+      description: ''
+    OIDC:
+      type: openIdConnect
+      openIdConnectUrl: authenticate/oidc
+x-tagGroups:
+- name: TimeCamp API
+  tags:
+  - '[v1] User'
+  - '[v1] Entry'
+  - '[v1] Tags'
+  - '[v1] Group'
+  - '[v1] Approvals'
+  - '[v1] Computer Activities'
+  - '[v1] Timer'
+  - '[v1] Task'
+  - '[v1] Attendance'
+  - '[v1] Roles & Permissions'
+  - '[v1] Billing Rates'
+  - '[v1] Userlog'
+  - '[v1] Activity alert'
+  - '[v3] Timer'
+  - '[v3] Invoices'
+  - '[v3] Computer Activities'
+  - '[v3] Time Entry'
+  - '[v3] Task Archive'
+  - '[v3] Time Entry Restriction'
+  - '[v3] Expense'
+  - '[v3] Plan'
+  - '[v3] Storage'
+  - '[v3] Module'
+  - '[v3] Marketplace'
+  - '[v3] Remote work detection'
+  - '[v3] Data Export'
+  - '[v3] Custom Fields'
+  - '[v3] Approval'
+  - '[v3] Task'
+  - '[v3] Projects'
+  - '[v3] Attendance'
+  - '[v3] Attendance Requests'

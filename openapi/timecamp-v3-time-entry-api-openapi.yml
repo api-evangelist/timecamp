@@ -1,0 +1,1175 @@
+openapi: 3.0.0
+info:
+  title: TimeCamp [v1] Approvals [v1] Approvals [v3] Time Entry API
+  version: '1.0'
+  contact:
+    email: support@timecamp.com
+  termsOfService: https://www.timecamp.com/terms-conditions/
+  description: 'Documentation for the TimeCamp system.
+
+
+    Get your API token here:
+
+    https://app.timecamp.com/app#/settings/users/me
+
+
+    Be aware that you can reach API calls limit. Once you do you will get HTTP code 429 response.
+
+
+    Request example:
+
+
+    ```
+
+    GET https://app.timecamp.com/third_party/api/user?user_id=1234567
+
+
+    Headers:
+
+    Authorization: Bearer 87c21299960a88888888fe123
+
+    Accept: application/json
+
+    ```
+
+    '
+servers:
+- url: https://app.timecamp.com/third_party/api
+  description: PRODUCTION
+- url: https://v4.api.timecamp.com
+  description: PRODUCTION
+tags:
+- name: '[v3] Time Entry'
+  x-displayName: Time Entry
+paths:
+  /v3/time-entries:
+    parameters: []
+    post:
+      operationId: tc2--get--time--entries
+      deprecated: true
+      description: 'Deprecated. This endpoint is being moved to `/time-entries/list`.
+
+        Get time entries by user access and permissions.
+
+        '
+      summary: Get time entries by user permissions
+      security:
+      - api_key_in_header: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              description: ''
+              type: object
+              x-examples:
+                example-1:
+                  startDate: '2021-12-01'
+                  endDate: '2022-01-31'
+                  userIds:
+                  - 640
+                  - 1961631
+                  taskIds:
+                  - 85753039
+                  tagIds:
+                  - 1
+              properties:
+                startDate:
+                  type: string
+                  description: Start date
+                  format: date
+                  example: '2022-01-01'
+                endDate:
+                  type: string
+                  description: End date
+                  format: date
+                  example: '2022-01-31'
+                userIds:
+                  type: array
+                  uniqueItems: true
+                  description: Array of user ids
+                  items:
+                    type: integer
+                    example: 0
+                taskIds:
+                  type: array
+                  uniqueItems: true
+                  description: Array of task ids
+                  items:
+                    type: integer
+                    example: 0
+                    default: 0
+                tagIds:
+                  type: array
+                  uniqueItems: true
+                  description: Array of tag ids
+                  items:
+                    type: integer
+                    example: 0
+              required:
+              - startDate
+              - endDate
+            examples:
+              'Example #1':
+                value:
+                  startDate: '2022-01-01'
+                  endDate: '2022-01-31'
+              'Example #2':
+                value:
+                  startDate: '2022-01-01'
+                  endDate: '2022-01-31'
+                  userIds:
+                  - 1
+                  - 2
+                  - 3
+                  taskIds:
+                  - 1
+                  - 10
+                  tagIds:
+                  - 5
+      responses:
+        '200':
+          description: OK response
+          content:
+            application/json:
+              schema:
+                type: array
+                description: Array of time entry objects
+                minItems: 0
+                uniqueItems: true
+                x-examples:
+                  example-1:
+                  - id: 1
+                    duration: 4210
+                    invoice_id: 0
+                    last_modify: '2022-01-01 14:28:30'
+                    date: '2022-01-01'
+                    start_time: '10:54'
+                    end_time: '12:28'
+                    billable: true
+                    description: null
+                    user:
+                      id: 1
+                      email: john.doe@timecamp.com
+                      display_name: John Doe
+                    task:
+                      id: 1
+                      name: First task
+                      color: '#4DC2E8'
+                      billable: true
+                    tags: []
+                items:
+                  type: object
+                  description: Time entry object
+                  properties:
+                    id:
+                      type: integer
+                      description: Entry id
+                      example: 1
+                      format: int32
+                    duration:
+                      type: integer
+                      description: Duration in seconds
+                      format: int32
+                      example: 300
+                    invoice_id:
+                      type: integer
+                      description: Invoice id
+                      format: int32
+                      example: 1
+                    last_modify:
+                      type: string
+                      format: date-time
+                      example: '2022-01-01 10:05:00'
+                      description: Last modify date
+                    date:
+                      type: string
+                      format: date
+                      example: '2022-01-01'
+                      description: Time entry date
+                    start_time:
+                      type: string
+                      example: '15:00'
+                      description: Start time
+                    end_time:
+                      type: string
+                      description: End time
+                      example: '16:00'
+                    billable:
+                      type: boolean
+                      description: Is billable
+                    description:
+                      type: string
+                      description: Time entry description
+                      nullable: true
+                    user:
+                      type: object
+                      description: Related user data
+                      nullable: true
+                      properties:
+                        id:
+                          type: integer
+                          description: User id
+                          example: 1
+                        email:
+                          type: string
+                          description: User email
+                          example: john.doe@example.com
+                        display_name:
+                          type: string
+                          description: User display name
+                          example: John Doe
+                    task:
+                      type: object
+                      description: Related task data
+                      nullable: true
+                      properties:
+                        id:
+                          type: number
+                          description: Task id
+                          example: 1
+                        name:
+                          type: string
+                          description: Task name
+                          example: My task
+                        color:
+                          type: string
+                          description: Task color
+                          example: '#000000'
+                        billable:
+                          type: boolean
+                          description: Task is billable
+                    tags:
+                      type: array
+                      description: Related tags data
+                      items:
+                        type: object
+                        properties:
+                          id:
+                            type: integer
+                            description: Tag id
+                            example: 1
+                          name:
+                            type: string
+                            description: Tag name
+                            example: My first tag
+                          tag_list:
+                            type: object
+                            properties:
+                              id:
+                                type: integer
+                                description: Tag list id
+                                example: 1
+                              name:
+                                type: string
+                                description: Tag list name
+                                example: Tag list
+                  required:
+                  - id
+                  - duration
+                  - invoice_id
+                  - last_modify
+                  - date
+                  - start_time
+                  - end_time
+                  - billable
+                  - user
+                  - task
+                  - tags
+              examples:
+                'Example #1':
+                  value:
+                  - id: 1
+                    duration: 4210
+                    invoice_id: 0
+                    last_modify: '2022-01-01 14:28:30'
+                    date: '2022-01-01'
+                    start_time: '10:54'
+                    end_time: '12:28'
+                    billable: true
+                    description: null
+                    user:
+                      id: 1
+                      email: john.doe@timecamp.com
+                      display_name: John Doe
+                    task:
+                      id: 1
+                      name: First task
+                      color: '#4DC2E8'
+                      billable: true
+                    tags:
+                    - id: 1
+                      name: My first tag
+                      tag_list:
+                        id: 1
+                        name: My tag list
+                'Example #2':
+                  value:
+                  - id: 2
+                    duration: 900
+                    invoice_id: 0
+                    last_modify: '2022-01-01 16:00:00'
+                    date: '2022-01-01'
+                    start_time: '13:00'
+                    end_time: '13:15'
+                    billable: true
+                    description: null
+                    user:
+                      id: 1
+                      email: john.doe@timecamp.com
+                      display_name: John Doe
+                    task: null
+                    tags: []
+                'Example #3':
+                  value: []
+          headers:
+            Content-Type:
+              schema:
+                type: string
+              description: application/json
+      tags:
+      - '[v3] Time Entry'
+  /v3/time-entries/list:
+    parameters: []
+    post:
+      operationId: tc2--get--time--entries-list
+      description: Get time entries by user access and permissions.
+      summary: Get time entries by user permissions
+      security:
+      - api_key_in_header: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              description: ''
+              type: object
+              x-examples:
+                example-1:
+                  startDate: '2021-12-01'
+                  endDate: '2022-01-31'
+                  userIds:
+                  - 640
+                  - 1961631
+                  taskIds:
+                  - 85753039
+                  tagIds:
+                  - 1
+              properties:
+                startDate:
+                  type: string
+                  description: Start date
+                  format: date
+                  example: '2022-01-01'
+                endDate:
+                  type: string
+                  description: End date
+                  format: date
+                  example: '2022-01-31'
+                userIds:
+                  type: array
+                  uniqueItems: true
+                  description: Array of user ids
+                  items:
+                    type: integer
+                    example: 0
+                taskIds:
+                  type: array
+                  uniqueItems: true
+                  description: Array of task ids
+                  items:
+                    type: integer
+                    example: 0
+                    default: 0
+                tagIds:
+                  type: array
+                  uniqueItems: true
+                  description: Array of tag ids
+                  items:
+                    type: integer
+                    example: 0
+              required:
+              - startDate
+              - endDate
+            examples:
+              'Example #1':
+                value:
+                  startDate: '2022-01-01'
+                  endDate: '2022-01-31'
+              'Example #2':
+                value:
+                  startDate: '2022-01-01'
+                  endDate: '2022-01-31'
+                  userIds:
+                  - 1
+                  - 2
+                  - 3
+                  taskIds:
+                  - 1
+                  - 10
+                  tagIds:
+                  - 5
+      responses:
+        '200':
+          description: OK response
+          content:
+            application/json:
+              schema:
+                type: array
+                description: Array of time entry objects
+                minItems: 0
+                uniqueItems: true
+                x-examples:
+                  example-1:
+                  - id: 1
+                    duration: 4210
+                    invoice_id: 0
+                    last_modify: '2022-01-01 14:28:30'
+                    date: '2022-01-01'
+                    start_time: '10:54'
+                    end_time: '12:28'
+                    billable: true
+                    description: null
+                    user:
+                      id: 1
+                      email: john.doe@timecamp.com
+                      display_name: John Doe
+                    task:
+                      id: 1
+                      name: First task
+                      color: '#4DC2E8'
+                      billable: true
+                    tags: []
+                items:
+                  type: object
+                  description: Time entry object
+                  properties:
+                    id:
+                      type: integer
+                      description: Entry id
+                      example: 1
+                      format: int32
+                    duration:
+                      type: integer
+                      description: Duration in seconds
+                      format: int32
+                      example: 300
+                    invoice_id:
+                      type: integer
+                      description: Invoice id
+                      format: int32
+                      example: 1
+                    last_modify:
+                      type: string
+                      format: date-time
+                      example: '2022-01-01 10:05:00'
+                      description: Last modify date
+                    date:
+                      type: string
+                      format: date
+                      example: '2022-01-01'
+                      description: Time entry date
+                    start_time:
+                      type: string
+                      example: '15:00'
+                      description: Start time
+                    end_time:
+                      type: string
+                      description: End time
+                      example: '16:00'
+                    billable:
+                      type: boolean
+                      description: Is billable
+                    description:
+                      type: string
+                      description: Time entry description
+                      nullable: true
+                    user:
+                      type: object
+                      description: Related user data
+                      nullable: true
+                      properties:
+                        id:
+                          type: integer
+                          description: User id
+                          example: 1
+                        email:
+                          type: string
+                          description: User email
+                          example: john.doe@example.com
+                        display_name:
+                          type: string
+                          description: User display name
+                          example: John Doe
+                    task:
+                      type: object
+                      description: Related task data
+                      nullable: true
+                      properties:
+                        id:
+                          type: number
+                          description: Task id
+                          example: 1
+                        name:
+                          type: string
+                          description: Task name
+                          example: My task
+                        color:
+                          type: string
+                          description: Task color
+                          example: '#000000'
+                        billable:
+                          type: boolean
+                          description: Task is billable
+                    tags:
+                      type: array
+                      description: Related tags data
+                      items:
+                        type: object
+                        properties:
+                          id:
+                            type: integer
+                            description: Tag id
+                            example: 1
+                          name:
+                            type: string
+                            description: Tag name
+                            example: My first tag
+                          tag_list:
+                            type: object
+                            properties:
+                              id:
+                                type: integer
+                                description: Tag list id
+                                example: 1
+                              name:
+                                type: string
+                                description: Tag list name
+                                example: Tag list
+                  required:
+                  - id
+                  - duration
+                  - invoice_id
+                  - last_modify
+                  - date
+                  - start_time
+                  - end_time
+                  - billable
+                  - user
+                  - task
+                  - tags
+              examples:
+                'Example #1':
+                  value:
+                  - id: 1
+                    duration: 4210
+                    invoice_id: 0
+                    last_modify: '2022-01-01 14:28:30'
+                    date: '2022-01-01'
+                    start_time: '10:54'
+                    end_time: '12:28'
+                    billable: true
+                    description: null
+                    user:
+                      id: 1
+                      email: john.doe@timecamp.com
+                      display_name: John Doe
+                    task:
+                      id: 1
+                      name: First task
+                      color: '#4DC2E8'
+                      billable: true
+                    tags:
+                    - id: 1
+                      name: My first tag
+                      tag_list:
+                        id: 1
+                        name: My tag list
+                'Example #2':
+                  value:
+                  - id: 2
+                    duration: 900
+                    invoice_id: 0
+                    last_modify: '2022-01-01 16:00:00'
+                    date: '2022-01-01'
+                    start_time: '13:00'
+                    end_time: '13:15'
+                    billable: true
+                    description: null
+                    user:
+                      id: 1
+                      email: john.doe@timecamp.com
+                      display_name: John Doe
+                    task: null
+                    tags: []
+                'Example #3':
+                  value: []
+          headers:
+            Content-Type:
+              schema:
+                type: string
+              description: application/json
+      tags:
+      - '[v3] Time Entry'
+  /v3/time-entries/create:
+    post:
+      summary: Create time entry
+      description: Create a time entry.
+      tags:
+      - '[v3] Time Entry'
+      operationId: create-time-entry
+      security:
+      - api_key_in_header: []
+      parameters:
+      - schema:
+          type: string
+          example: application/json
+        in: header
+        name: Accept
+      - schema:
+          type: string
+          example: tc_web
+        in: header
+        name: Tc-service
+        description: Optional service name used for activity and analytics context.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - date
+              properties:
+                date:
+                  type: string
+                  format: date
+                  example: '2026-06-18'
+                startTime:
+                  type: string
+                  example: 09:00:00
+                endTime:
+                  type: string
+                  example: '10:00:00'
+                duration:
+                  type: integer
+                  format: int32
+                  description: Duration in seconds. If omitted, duration is calculated from start and end.
+                  example: 3600
+                taskId:
+                  type: integer
+                  format: int32
+                  example: 123
+                externalTaskId:
+                  type: string
+                  example: card_123
+                assignedUserId:
+                  type: integer
+                  format: int32
+                  example: 456
+                userEmail:
+                  type: string
+                  format: email
+                  example: user@example.com
+                taskNameSearch:
+                  type: string
+                  example: Project task
+                note:
+                  type: string
+                  example: Work note
+                description:
+                  type: string
+                  example: Work note
+                customId:
+                  type: string
+                  example: EXT-123
+                billable:
+                  type: boolean
+                  example: true
+                tags:
+                  type: array
+                  items:
+                    oneOf:
+                    - type: integer
+                    - type: object
+                      properties:
+                        tagId:
+                          type: integer
+                baseEntryId:
+                  type: integer
+                  format: int32
+                  example: 100
+                place:
+                  type: string
+                  example: timesheet
+            examples:
+              Create:
+                value:
+                  date: '2026-06-18'
+                  startTime: 09:00:00
+                  endTime: '10:00:00'
+                  taskId: 123
+                  note: Work note
+                  billable: true
+      responses:
+        '201':
+          description: Time entry created.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      id:
+                        type: integer
+                        format: int32
+                        example: 123
+                      duration:
+                        type: integer
+                        format: int32
+                        example: 3600
+                      userId:
+                        type: integer
+                        format: int32
+                        example: 456
+                      taskId:
+                        type: integer
+                        format: int32
+                        example: 123
+                      date:
+                        type: string
+                        format: date
+                        example: '2026-06-18'
+                      startTime:
+                        type: string
+                        example: 09:00:00
+                      endTime:
+                        type: string
+                        example: '10:00:00'
+                      description:
+                        type: string
+                        nullable: true
+                        example: Work note
+                      billable:
+                        type: boolean
+                        example: true
+                      tags:
+                        type: array
+                        nullable: true
+                        items:
+                          type: integer
+                          format: int32
+                          example: 7
+                  meta:
+                    type: object
+                    properties:
+                      tags:
+                        type: array
+                        description: Tag metadata for tags assigned to the created time entry.
+                        items:
+                          type: object
+                          required:
+                          - id
+                          - name
+                          properties:
+                            id:
+                              type: integer
+                              format: int32
+                              example: 7
+                            name:
+                              type: string
+                              example: My tag
+              examples:
+                Success Response:
+                  value:
+                    data:
+                      id: 123
+                      duration: 3600
+                      userId: 456
+                      taskId: 123
+                      date: '2026-06-18'
+                      startTime: 09:00:00
+                      endTime: '10:00:00'
+                      description: Work note
+                      billable: true
+                      tags:
+                      - 7
+                    meta:
+                      tags:
+                      - id: 7
+                        name: My tag
+        '400':
+          description: Invalid request payload.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+        '401':
+          description: Unauthorized.
+        '403':
+          description: Forbidden.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+  /v3/time-entries/{id}:
+    put:
+      summary: Update time entry
+      description: Update a time entry by id.
+      tags:
+      - '[v3] Time Entry'
+      operationId: update-time-entry
+      security:
+      - api_key_in_header: []
+      parameters:
+      - schema:
+          type: string
+          example: application/json
+        in: header
+        name: Accept
+      - schema:
+          type: string
+          example: tc_web
+        in: header
+        name: Tc-service
+        description: Optional service name used for activity and analytics context.
+      - schema:
+          type: integer
+          minimum: 1
+          example: 123
+        in: path
+        required: true
+        name: id
+        description: Time entry id.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              minProperties: 1
+              properties:
+                date:
+                  type: string
+                  format: date
+                  example: '2026-06-18'
+                startTime:
+                  type: string
+                  example: 09:00:00
+                endTime:
+                  type: string
+                  example: '10:00:00'
+                duration:
+                  type: integer
+                  format: int32
+                  description: Duration in seconds.
+                  example: 3600
+                increase:
+                  type: boolean
+                  description: When true, adds duration to the current time entry duration instead of replacing it.
+                  example: false
+                note:
+                  type: string
+                  description: Time entry note. Takes precedence over description when both are provided.
+                  example: Updated work note
+                description:
+                  type: string
+                  description: Time entry description. Used when note is not provided.
+                  example: Updated work note
+                billable:
+                  type: boolean
+                  example: true
+                invoiceId:
+                  type: integer
+                  format: int32
+                  example: 44
+                taskId:
+                  type: integer
+                  format: int32
+                  example: 123
+                analyticsPlace:
+                  type: string
+                  example: report_detailed
+                analyticsElement:
+                  type: string
+                  example: duration
+            examples:
+              Update:
+                value:
+                  date: '2026-06-18'
+                  startTime: 09:00:00
+                  endTime: '10:00:00'
+                  duration: 3600
+                  increase: false
+                  taskId: 123
+                  note: Updated work note
+                  billable: true
+      responses:
+        '200':
+          description: Time entry updated successfully.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    additionalProperties: true
+                    properties:
+                      entry_id:
+                        type: integer
+                        format: int32
+                        example: 123
+                      task_id:
+                        type: integer
+                        format: int32
+                        example: 456
+                      time_span:
+                        type: integer
+                        format: int32
+                        description: Duration in seconds.
+                        example: 3600
+                      user_id:
+                        type: integer
+                        format: int32
+                        example: 789
+                      date:
+                        type: string
+                        format: date
+                        example: '2026-06-18'
+                      start_time_hour:
+                        type: string
+                        example: 09:00:00
+                      end_time_hour:
+                        type: string
+                        example: '10:00:00'
+                      note:
+                        type: string
+                        nullable: true
+                        example: Updated work note
+                      billable:
+                        type: boolean
+                        example: true
+                      invoiceId:
+                        type: integer
+                        format: int32
+                        example: 44
+                      color:
+                        type: string
+                        nullable: true
+                        example: '#4DC2E8'
+                      tags:
+                        type: array
+                        items:
+                          type: integer
+                          format: int32
+                          example: 7
+                  meta:
+                    type: object
+                    properties:
+                      tags:
+                        type: array
+                        description: Tag metadata for tags assigned to the updated time entry.
+                        items:
+                          type: object
+                          required:
+                          - id
+                          - name
+                          properties:
+                            id:
+                              type: integer
+                              format: int32
+                              example: 7
+                            name:
+                              type: string
+                              example: My tag
+              examples:
+                Success Response:
+                  value:
+                    data:
+                      entry_id: 123
+                      task_id: 456
+                      time_span: 3600
+                      user_id: 789
+                      date: '2026-06-18'
+                      start_time_hour: 09:00:00
+                      end_time_hour: '10:00:00'
+                      note: Updated work note
+                      billable: true
+                      invoiceId: 44
+                      color: '#4DC2E8'
+                      tags:
+                      - 7
+                    meta:
+                      tags:
+                      - id: 7
+                        name: My tag
+        '400':
+          description: Invalid request payload.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+              examples:
+                Bad Request:
+                  value:
+                    message: unrecognized date or time format
+        '401':
+          description: Unauthorized.
+        '403':
+          description: Forbidden.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+              examples:
+                Forbidden:
+                  value:
+                    message: You do not have permission to update this time entry.
+        '404':
+          description: Time entry not found.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+              examples:
+                Not Found:
+                  value:
+                    message: No entry found
+      x-internal: false
+    delete:
+      summary: Delete time entry
+      description: Delete a time entry by id.
+      tags:
+      - '[v3] Time Entry'
+      operationId: delete-time-entry
+      parameters:
+      - schema:
+          type: string
+          example: application/json
+        in: header
+        name: Accept
+      - schema:
+          type: string
+          example: tc_web
+        in: header
+        name: Tc-service
+        description: Optional service name used for activity and analytics context.
+      - schema:
+          type: integer
+          minimum: 1
+          example: 123
+        in: path
+        required: true
+        name: id
+        description: Time entry id.
+      - schema:
+          type: string
+          example: report_detailed
+        in: query
+        required: false
+        name: source
+        description: Optional UI source for analytics context.
+      - schema:
+          type: string
+          example: tracked_time
+        in: query
+        required: false
+        name: element
+        description: Optional UI element for analytics context.
+      responses:
+        '200':
+          description: Time entry deleted successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: removed
+              examples:
+                Success Response:
+                  value:
+                    message: removed
+        '204':
+          description: Time entry does not exist or was already deleted.
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+              examples:
+                Forbidden:
+                  value:
+                    message: You do not have permission to delete this time entry.
+      x-internal: false
+      security:
+      - api_key_in_header: []
+components:
+  securitySchemes:
+    api_key_in_header:
+      type: http
+      scheme: bearer
+      description: ''
+    OIDC:
+      type: openIdConnect
+      openIdConnectUrl: authenticate/oidc
+x-tagGroups:
+- name: TimeCamp API
+  tags:
+  - '[v1] User'
+  - '[v1] Entry'
+  - '[v1] Tags'
+  - '[v1] Group'
+  - '[v1] Approvals'
+  - '[v1] Computer Activities'
+  - '[v1] Timer'
+  - '[v1] Task'
+  - '[v1] Attendance'
+  - '[v1] Roles & Permissions'
+  - '[v1] Billing Rates'
+  - '[v1] Userlog'
+  - '[v1] Activity alert'
+  - '[v3] Timer'
+  - '[v3] Invoices'
+  - '[v3] Computer Activities'
+  - '[v3] Time Entry'
+  - '[v3] Task Archive'
+  - '[v3] Time Entry Restriction'
+  - '[v3] Expense'
+  - '[v3] Plan'
+  - '[v3] Storage'
+  - '[v3] Module'
+  - '[v3] Marketplace'
+  - '[v3] Remote work detection'
+  - '[v3] Data Export'
+  - '[v3] Custom Fields'
+  - '[v3] Approval'
+  - '[v3] Task'
+  - '[v3] Projects'
+  - '[v3] Attendance'
+  - '[v3] Attendance Requests'

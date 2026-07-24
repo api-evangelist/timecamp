@@ -1,0 +1,422 @@
+openapi: 3.0.0
+info:
+  title: TimeCamp [v1] Approvals [v1] Approvals [v3] Invoices API
+  version: '1.0'
+  contact:
+    email: support@timecamp.com
+  termsOfService: https://www.timecamp.com/terms-conditions/
+  description: 'Documentation for the TimeCamp system.
+
+
+    Get your API token here:
+
+    https://app.timecamp.com/app#/settings/users/me
+
+
+    Be aware that you can reach API calls limit. Once you do you will get HTTP code 429 response.
+
+
+    Request example:
+
+
+    ```
+
+    GET https://app.timecamp.com/third_party/api/user?user_id=1234567
+
+
+    Headers:
+
+    Authorization: Bearer 87c21299960a88888888fe123
+
+    Accept: application/json
+
+    ```
+
+    '
+servers:
+- url: https://app.timecamp.com/third_party/api
+  description: PRODUCTION
+- url: https://v4.api.timecamp.com
+  description: PRODUCTION
+tags:
+- name: '[v3] Invoices'
+  x-displayName: Invoices
+paths:
+  /v3/expense/invoice/unassign:
+    put:
+      summary: Invoice unassign from expense
+      tags:
+      - '[v3] Invoices'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                x-examples:
+                  Example 1:
+                    message: ok
+                    data:
+                    - id: 74
+                      currencyId: 2
+                      expenseCategory:
+                        id: 50
+                        name: My category
+                        color: '#4DC2E8'
+                        unitPrice: 1000
+                        unitName: my unit
+                        currencyId: 2
+                        createdAt: '2023-10-23 16:06:01'
+                        updatedAt: '2023-10-27 09:18:31'
+                      taskId: 868
+                      amount: 2522
+                      description: ABCD
+                      status: 0
+                      isBillable: true
+                      invoiceId: null
+                      madeBy: 640
+                      madeAt: '2023-09-12 10:32:22'
+                      createdBy: 640
+                      updatedBy: 640
+                      createdAt: '2023-10-27 09:41:33'
+                      updatedAt: '2023-10-27 09:47:51'
+                properties:
+                  message:
+                    type: string
+                  data:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: integer
+                        currencyId:
+                          type: integer
+                        expenseCategory:
+                          $ref: '#/components/schemas/Expense-response'
+                        taskId:
+                          type: integer
+                        amount:
+                          type: integer
+                        description:
+                          type: string
+                        status:
+                          type: integer
+                        isBillable:
+                          type: boolean
+                        invoiceId:
+                          type: integer
+                          nullable: true
+                        madeBy:
+                          type: integer
+                        madeAt:
+                          type: string
+                        createdBy:
+                          type: integer
+                        updatedBy:
+                          type: integer
+                        createdAt:
+                          type: string
+                        updatedAt:
+                          type: string
+              examples:
+                Example 1:
+                  value:
+                    message: ok
+                    data:
+                      id: 74
+                      currencyId: 2
+                      expenseCategory:
+                        id: 53
+                        name: My category
+                        color: '#4DC2E8'
+                        unitPrice: 1000
+                        unitName: my unit
+                        currencyId: 2
+                        createdAt: '2023-09-07 12:26:34'
+                        updatedAt: null
+                      taskId: 512
+                      amount: 2522
+                      description: My description...
+                      status: 0
+                      isBillable: true
+                      invoiceId: null
+                      madeBy: 256
+                      madeAt: '2023-09-12 10:32:22'
+                      createdBy: 256
+                      updatedBy: 256
+                      createdAt: '2023-10-21 09:41:33'
+                      updatedAt: '2023-10-21 09:41:41'
+      operationId: put-expense-invoice-unassign
+      x-internal: false
+      security:
+      - api_key_in_header: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                expenseIds:
+                  type: array
+                  items:
+                    type: integer
+              x-examples:
+                Example 1:
+                  expenseIds:
+                  - 45
+                  - 46
+            examples:
+              Example 1:
+                value:
+                  expenseIds:
+                  - 45
+                  - 46
+  /v3/expense/invoice/assign:
+    put:
+      summary: Invoice assign to expense
+      tags:
+      - '[v3] Invoices'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                x-examples:
+                  Example 1:
+                    message: ok
+                    data:
+                      id: 74
+                      currencyId: 2
+                      expenseCategory:
+                        id: 53
+                        name: My category
+                        color: '#4DC2E8'
+                        unitPrice: 1000
+                        unitName: my unit
+                        currencyId: 2
+                        createdAt: '2023-09-07 12:26:34'
+                        updatedAt: null
+                      taskId: 512
+                      amount: 2522
+                      description: My description...
+                      status: 0
+                      isBillable: true
+                      invoiceId: null
+                      madeBy: 256
+                      madeAt: '2023-09-12 10:32:22'
+                      createdBy: 256
+                      updatedBy: 256
+                      createdAt: '2023-10-21 09:41:33'
+                      updatedAt: '2023-10-21 09:41:41'
+                properties:
+                  message:
+                    type: string
+                  data:
+                    $ref: '#/components/schemas/Expense-response'
+              examples:
+                Example 1:
+                  value:
+                    message: ok
+                    data:
+                      id: 74
+                      currencyId: 2
+                      expenseCategory:
+                        id: 53
+                        name: My category
+                        color: '#4DC2E8'
+                        unitPrice: 1000
+                        unitName: my unit
+                        currencyId: 2
+                        createdAt: '2023-09-07 12:26:34'
+                        updatedAt: null
+                      taskId: 512
+                      amount: 2522
+                      description: My description...
+                      status: 0
+                      isBillable: true
+                      invoiceId: 236
+                      madeBy: 256
+                      madeAt: '2023-09-12 10:32:22'
+                      createdBy: 256
+                      updatedBy: 256
+                      createdAt: '2023-10-21 09:41:33'
+                      updatedAt: '2023-10-21 09:41:41'
+      operationId: put-expense-invoice-assign
+      security:
+      - api_key_in_header: []
+      x-internal: false
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                invoiceId:
+                  type: integer
+                expenseIds:
+                  type: array
+                  items:
+                    type: integer
+              x-examples:
+                Example 1:
+                  invoiceId: 236
+                  expenseIds:
+                  - 45
+                  - 46
+            examples:
+              Example 1:
+                value:
+                  invoiceId: 236
+                  expenseIds:
+                  - 45
+                  - 46
+components:
+  schemas:
+    Expense-response:
+      type: object
+      x-examples:
+        Example 1:
+          message: ok
+          data:
+            id: 74
+            currencyId: 2
+            expenseCategory:
+              id: 53
+              name: My category
+              color: '#4DC2E8'
+              unitPrice: 1000
+              unitName: my unit
+              currencyId: 2
+              createdAt: '2023-09-07 12:26:34'
+              updatedAt: null
+            taskId: 512
+            amount: 2522
+            description: My description...
+            status: 0
+            isBillable: true
+            invoiceId: null
+            madeBy: 256
+            madeAt: '2023-09-12 10:32:22'
+            createdBy: 256
+            updatedBy: 256
+            createdAt: '2023-10-21 09:41:33'
+            updatedAt: '2023-10-21 09:41:41'
+      x-internal: false
+      properties:
+        id:
+          type: integer
+        currencyId:
+          type: integer
+        expenseCategory:
+          $ref: '#/components/schemas/Expense-category-response'
+        taskId:
+          type: integer
+        amount:
+          type: integer
+        description:
+          type: string
+          nullable: true
+        status:
+          type: integer
+        isBillable:
+          type: boolean
+        invoiceId:
+          type: integer
+          nullable: true
+        madeBy:
+          type: integer
+        madeAt:
+          type: string
+        createdBy:
+          type: integer
+        updatedBy:
+          type: integer
+          nullable: true
+        createdAt:
+          type: string
+        updatedAt:
+          type: string
+          nullable: true
+    Expense-category-response:
+      type: object
+      x-examples:
+        Example 1:
+          id: 53
+          name: My category
+          color: '#4DC2E8'
+          unitPrice: 1000
+          unitName: my unit
+          currencyId: 2
+          createdAt: '2023-09-07 12:26:34'
+          updatedAt: null
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        color:
+          type: string
+        unitPrice:
+          type: integer
+          nullable: true
+        unitName:
+          type: string
+          nullable: true
+        currencyId:
+          type: integer
+        createdAt:
+          type: string
+        updatedAt:
+          type: string
+          nullable: true
+      x-internal: false
+      title: Expense-category response
+      x-tags:
+      - Expense
+  securitySchemes:
+    api_key_in_header:
+      type: http
+      scheme: bearer
+      description: ''
+    OIDC:
+      type: openIdConnect
+      openIdConnectUrl: authenticate/oidc
+x-tagGroups:
+- name: TimeCamp API
+  tags:
+  - '[v1] User'
+  - '[v1] Entry'
+  - '[v1] Tags'
+  - '[v1] Group'
+  - '[v1] Approvals'
+  - '[v1] Computer Activities'
+  - '[v1] Timer'
+  - '[v1] Task'
+  - '[v1] Attendance'
+  - '[v1] Roles & Permissions'
+  - '[v1] Billing Rates'
+  - '[v1] Userlog'
+  - '[v1] Activity alert'
+  - '[v3] Timer'
+  - '[v3] Invoices'
+  - '[v3] Computer Activities'
+  - '[v3] Time Entry'
+  - '[v3] Task Archive'
+  - '[v3] Time Entry Restriction'
+  - '[v3] Expense'
+  - '[v3] Plan'
+  - '[v3] Storage'
+  - '[v3] Module'
+  - '[v3] Marketplace'
+  - '[v3] Remote work detection'
+  - '[v3] Data Export'
+  - '[v3] Custom Fields'
+  - '[v3] Approval'
+  - '[v3] Task'
+  - '[v3] Projects'
+  - '[v3] Attendance'
+  - '[v3] Attendance Requests'

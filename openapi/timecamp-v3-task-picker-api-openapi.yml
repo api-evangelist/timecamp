@@ -1,0 +1,334 @@
+openapi: 3.0.0
+info:
+  title: TimeCamp [v1] Approvals [v1] Approvals [v3] Task Picker API
+  version: '1.0'
+  contact:
+    email: support@timecamp.com
+  termsOfService: https://www.timecamp.com/terms-conditions/
+  description: 'Documentation for the TimeCamp system.
+
+
+    Get your API token here:
+
+    https://app.timecamp.com/app#/settings/users/me
+
+
+    Be aware that you can reach API calls limit. Once you do you will get HTTP code 429 response.
+
+
+    Request example:
+
+
+    ```
+
+    GET https://app.timecamp.com/third_party/api/user?user_id=1234567
+
+
+    Headers:
+
+    Authorization: Bearer 87c21299960a88888888fe123
+
+    Accept: application/json
+
+    ```
+
+    '
+servers:
+- url: https://app.timecamp.com/third_party/api
+  description: PRODUCTION
+- url: https://v4.api.timecamp.com
+  description: PRODUCTION
+tags:
+- name: '[v3] Task Picker'
+  x-displayName: TaskPicker
+paths:
+  /v3/taskPicker/favourites:
+    get:
+      summary: List of favorite tasks
+      tags:
+      - '[v3] Task Picker'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      favourites:
+                        type: array
+                        items:
+                          $ref: '#/components/schemas/TaskPicker-favourite-list-response'
+                      suggested:
+                        type: array
+                  message:
+                    type: string
+                  meta:
+                    type: object
+                    properties:
+                      favourites:
+                        type: object
+                        properties:
+                          limit:
+                            type: integer
+              examples:
+                Example 1:
+                  value:
+                    data:
+                      favourites:
+                      - taskId: 123456
+                        name: My task
+                        parentId: 98765
+                        level: 3
+                        note: my note
+                        rootGroupId: integer
+                        archived: 0
+                        billable: false,
+                        color: '#4DC2E8'
+                        hasChildren: false
+                        disabled: false
+                        disableReason: ''
+                        isMatched: true
+                      suggested: []
+                    message: ok
+                    meta:
+                      favourites:
+                        limit: 10
+          headers: {}
+      operationId: get-task-picker-favourite-list
+      security:
+      - api_key_in_header: []
+  /v3/taskPicker/favourites/add/{taskId}:
+    post:
+      summary: Add task to favorite tasks list
+      tags:
+      - '[v3] Task Picker'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      favourites:
+                        type: array
+                        items:
+                          $ref: '#/components/schemas/TaskPicker-favourite-list-response'
+                      suggested:
+                        type: array
+                  message:
+                    type: string
+                  meta:
+                    type: object
+                    properties:
+                      favourites:
+                        type: object
+                        properties:
+                          limit:
+                            type: integer
+              examples:
+                Example 1:
+                  value:
+                    data:
+                      favourites:
+                      - taskId: 123456
+                        name: My task
+                        parentId: 98765
+                        level: 3
+                        note: my note
+                        rootGroupId: integer
+                        archived: 0
+                        billable: false,
+                        color: '#4DC2E8'
+                        hasChildren: false
+                        disabled: false
+                        disableReason: ''
+                        isMatched: true
+                      suggested: []
+                    message: ok
+                    meta:
+                      favourites:
+                        limit: 10
+          headers: {}
+      operationId: post-task-picker-favourite-add
+      security:
+      - api_key_in_header: []
+      parameters:
+      - schema:
+          type: integer
+          example: 123456
+        name: taskId
+        in: path
+        required: true
+  /v3/taskPicker/favourites/delete/{taskId}:
+    delete:
+      summary: Delete task from favorite tasks list
+      tags:
+      - '[v3] Task Picker'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      favourites:
+                        type: array
+                        items:
+                          $ref: '#/components/schemas/TaskPicker-favourite-list-response'
+                      suggested:
+                        type: array
+                  message:
+                    type: string
+                  meta:
+                    type: object
+                    properties:
+                      favourites:
+                        type: object
+                        properties:
+                          limit:
+                            type: integer
+              examples:
+                Example 1:
+                  value:
+                    data:
+                      favourites:
+                      - taskId: 123456
+                        name: My task
+                        parentId: 98765
+                        level: 3
+                        note: my note
+                        rootGroupId: integer
+                        archived: 0
+                        billable: false,
+                        color: '#4DC2E8'
+                        hasChildren: false
+                        disabled: false
+                        disableReason: ''
+                        isMatched: true
+                      suggested: []
+                    message: ok
+                    meta:
+                      favourites:
+                        limit: 10
+          headers: {}
+      operationId: delete-task-picker-favourite-delete
+      security:
+      - api_key_in_header: []
+      parameters:
+      - schema:
+          type: integer
+          example: 123456
+        name: taskId
+        in: path
+        required: true
+components:
+  schemas:
+    TaskPicker-favourite-list-response:
+      type: object
+      x-examples:
+        Example 1:
+          data:
+            favourites:
+            - taskId: 123456
+              name: My task
+              parentId: 98765
+              level: 3
+              note: my note
+              rootGroupId: integer
+              archived: 0
+              billable: false,
+              color: '#4DC2E8'
+              hasChildren: false
+              disabled: false
+              disableReason: ''
+              isMatched: true
+            suggested: []
+          message: ok
+          meta:
+            favourites:
+              limit: 10
+      properties:
+        taskId:
+          type: integer
+        name:
+          type: string
+        parentId:
+          type: integer
+        level:
+          type: integer
+        note:
+          type: string
+        rootGroupId:
+          type: integer
+        archived:
+          type: integer
+        billable:
+          type: boolean
+        color:
+          type: string
+        hasChildren:
+          type: boolean
+        disabled:
+          type: boolean
+        disableReason:
+          type: string
+        isMatched:
+          type: boolean
+      title: Favourite task
+      x-tags:
+      - TaskPicker
+  securitySchemes:
+    api_key_in_header:
+      type: http
+      scheme: bearer
+      description: ''
+    OIDC:
+      type: openIdConnect
+      openIdConnectUrl: authenticate/oidc
+x-tagGroups:
+- name: TimeCamp API
+  tags:
+  - '[v1] User'
+  - '[v1] Entry'
+  - '[v1] Tags'
+  - '[v1] Group'
+  - '[v1] Approvals'
+  - '[v1] Computer Activities'
+  - '[v1] Timer'
+  - '[v1] Task'
+  - '[v1] Attendance'
+  - '[v1] Roles & Permissions'
+  - '[v1] Billing Rates'
+  - '[v1] Userlog'
+  - '[v1] Activity alert'
+  - '[v3] Timer'
+  - '[v3] Invoices'
+  - '[v3] Computer Activities'
+  - '[v3] Time Entry'
+  - '[v3] Task Archive'
+  - '[v3] Time Entry Restriction'
+  - '[v3] Expense'
+  - '[v3] Plan'
+  - '[v3] Storage'
+  - '[v3] Module'
+  - '[v3] Marketplace'
+  - '[v3] Remote work detection'
+  - '[v3] Data Export'
+  - '[v3] Custom Fields'
+  - '[v3] Approval'
+  - '[v3] Task'
+  - '[v3] Projects'
+  - '[v3] Attendance'
+  - '[v3] Attendance Requests'

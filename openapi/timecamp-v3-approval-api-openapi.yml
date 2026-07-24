@@ -1,0 +1,796 @@
+openapi: 3.0.0
+info:
+  title: TimeCamp [v1] Approvals [v1] Approvals [v3] Approval API
+  version: '1.0'
+  contact:
+    email: support@timecamp.com
+  termsOfService: https://www.timecamp.com/terms-conditions/
+  description: 'Documentation for the TimeCamp system.
+
+
+    Get your API token here:
+
+    https://app.timecamp.com/app#/settings/users/me
+
+
+    Be aware that you can reach API calls limit. Once you do you will get HTTP code 429 response.
+
+
+    Request example:
+
+
+    ```
+
+    GET https://app.timecamp.com/third_party/api/user?user_id=1234567
+
+
+    Headers:
+
+    Authorization: Bearer 87c21299960a88888888fe123
+
+    Accept: application/json
+
+    ```
+
+    '
+servers:
+- url: https://app.timecamp.com/third_party/api
+  description: PRODUCTION
+- url: https://v4.api.timecamp.com
+  description: PRODUCTION
+tags:
+- name: '[v3] Approval'
+  x-displayName: Approval
+paths:
+  /v3/approval/{resourceId}:
+    get:
+      summary: Get approval
+      description: Get approval by id
+      tags:
+      - '[v3] Approval'
+      operationId: get-approval
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      approvalId:
+                        type: integer
+                      status:
+                        type: integer
+                      addTime:
+                        type: string
+                      approvalTime:
+                        type: string
+                      modificationTime:
+                        type: string
+                      approvedBy:
+                        type: integer
+                      from:
+                        type: string
+                      to:
+                        type: string
+                      userId:
+                        type: integer
+                      projects:
+                        type: string
+                      rootGroupId:
+                        type: integer
+                      auto:
+                        type: string
+                      approvedBy2:
+                        type: integer
+                      messages:
+                        type: array
+                        items:
+                          type: object
+                          properties:
+                            id:
+                              type: integer
+                            approvalId:
+                              type: integer
+                            userId:
+                              type: integer
+                            message:
+                              type: string
+                            event:
+                              type: integer
+                            addTime:
+                              type: string
+              examples:
+                Example 1:
+                  value:
+                    data:
+                      approvalId: 34523534
+                      status: 0
+                      addTime: '2025-06-09 00:00:00'
+                      approvalTime: ''
+                      modificationTime: ''
+                      approvedBy: 0
+                      from: '2025-06-09'
+                      to: '2025-06-15'
+                      userId: 364263
+                      projects: ''
+                      rootGroupId: 264933
+                      auto: '0'
+                      approvedBy2: 0
+                      messages:
+                      - id: 124234
+                        approvalId: 34523534
+                        userId: 2217515
+                        message: My message
+                        event: 0
+                        addTime: '2025-06-09 00:00:00'
+                      - id: 124235
+                        approvalId: 34523534
+                        userId: 2217515
+                        message: My other message
+                        event: 0
+                        addTime: '2025-06-10 00:00:00'
+        default:
+          description: Default
+      parameters:
+      - schema:
+          type: integer
+          example: 254954325
+        in: path
+        required: true
+        name: resourceId
+      - schema:
+          type: string
+          example: application/json
+        in: header
+        name: Accept
+      - schema:
+          type: string
+          example: application/json
+        in: header
+        name: Content-Type
+      security:
+      - api_key_in_header: []
+  /v3/approval/list:
+    post:
+      summary: List approval
+      description: Get approval list by filters
+      tags:
+      - '[v3] Approval'
+      operationId: list-approval
+      parameters:
+      - schema:
+          type: string
+          example: application/json
+        in: header
+        name: Accept
+      - schema:
+          type: string
+          example: application/json
+        in: header
+        name: Content-Type
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - from
+              - to
+              properties:
+                from:
+                  type: string
+                  description: Date of start
+                  example: '2025-06-09'
+                to:
+                  type: string
+                  description: Date of end
+                  example: '2025-06-15'
+                userIds:
+                  type: array
+                  description: List of user IDs to filter
+                  example: []
+                statuses:
+                  type: array
+                  description: List of approval statuses to filter
+                  enum:
+                  - 0
+                  - 1
+                  - 2
+                  - 3
+                  - 5
+                  - 6
+                  - 7
+                  example: []
+                page:
+                  type: integer
+                  description: Page number for pagination
+                  example: 1
+                limit:
+                  type: integer
+                  description: Number of items per page
+                  example: 25
+            examples:
+              Example:
+                value:
+                  from: '2025-06-09'
+                  to: '2025-06-15'
+                  userIds:
+                  - 23145
+                  statuses: []
+                  page: 1
+                  limit: 25
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        approvalId:
+                          type: integer
+                        status:
+                          type: integer
+                        addTime:
+                          type: string
+                        approvalTime:
+                          type: string|null
+                        modificationTime:
+                          type: string|null
+                        approvedBy:
+                          type: integer
+                        from:
+                          type: string
+                        to:
+                          type: string
+                        userId:
+                          type: integer
+                        projects:
+                          type: string
+                        rootGroupId:
+                          type: integer
+                        auto:
+                          type: string
+                        approvedBy2:
+                          type: integer
+                        totalTime:
+                          type: integer
+                  pagination:
+                    type: object
+                    properties:
+                      page:
+                        type: integer
+                      totalPages:
+                        type: integer
+              examples:
+                Example 1:
+                  value:
+                    data:
+                    - approvalId: 34523534
+                      status: 0
+                      addTime: '2025-06-09 00:00:00'
+                      approvalTime: ''
+                      modificationTime: '2025-06-10 15:24:33'
+                      approvedBy: 0
+                      from: '2025-06-09'
+                      to: '2025-06-15'
+                      userId: 364263
+                      projects: ''
+                      rootGroupId: 264933
+                      auto: '0'
+                      approvedBy2: 0
+                      totalTime: 1231
+                    pagination:
+                      page: 1
+                      totalPages: 5
+        default:
+          description: Default
+      security:
+      - api_key_in_header: []
+  /v3/approval/{id}/change-status:
+    put:
+      summary: Change status of approval
+      description: Change status of approval
+      tags:
+      - '[v3] Approval'
+      operationId: change-approval-status
+      parameters:
+      - schema:
+          type: string
+          example: '74356654'
+        name: id
+        in: path
+        required: true
+      - schema:
+          type: string
+          example: application/json
+        in: header
+        name: Accept
+      - schema:
+          type: string
+          example: application/json
+        in: header
+        name: Content-Type
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - status
+              properties:
+                status:
+                  type: integer
+                  description: 'New status:
+
+
+                    0 - Open
+
+
+                    1 - Approved
+
+
+                    2 - Pending
+
+
+                    3 - Rejected
+
+                    '
+                  example: 1
+                message:
+                  type: string
+                  description: Comment send in mail
+                  example: this is message
+            examples:
+              Example:
+                value:
+                  status: 1
+                  message: this is message
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        approvalId:
+                          type: integer
+                        status:
+                          type: integer
+                        modificationTime:
+                          type: string
+                        approvedBy:
+                          type: integer
+                        approvedBy2:
+                          type: integer
+              examples:
+                Example 1:
+                  value:
+                    data:
+                    - approvalId: 34523534
+                      status: 0
+                      modificationTime: '2025-06-09 00:00:00'
+                      approvedBy: 234522
+                      approvedBy2: 0
+        default:
+          description: Default
+      security:
+      - api_key_in_header: []
+  /v3/approval/bulk-change-status:
+    put:
+      summary: Bulk change status of approval
+      description: Bulk change status of approval
+      tags:
+      - '[v3] Approval'
+      operationId: bulk-change-approval-status
+      parameters:
+      - schema:
+          type: string
+          example: application/json
+        in: header
+        name: Accept
+      - schema:
+          type: string
+          example: application/json
+        in: header
+        name: Content-Type
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - approvalIds
+              - status
+              properties:
+                approvalIds:
+                  type: array
+                  description: Array of approval ids
+                  example:
+                  - 34523534
+                  - 34535345
+                status:
+                  type: integer
+                  description: 'New status:
+
+
+                    0 - Open
+
+
+                    1 - Approved
+
+
+                    2 - Pending
+
+
+                    3 - Rejected
+
+                    '
+                  example: 1
+            examples:
+              Example:
+                value:
+                  status: 1
+                  approvalIds:
+                  - 34523534
+                  - 34535345
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      bulkItemsChanged:
+                        type: array
+                        items:
+                          type: object
+                          properties:
+                            approvalId:
+                              type: integer
+                            status:
+                              type: integer
+                            modificationTime:
+                              type: string
+                            approvedBy:
+                              type: integer
+                            approvedBy2:
+                              type: integer
+              examples:
+                Example 1:
+                  value:
+                    data:
+                      bulkItemsChanged:
+                      - approvalId: 34523534
+                        status: 1
+                        modificationTime: '2025-06-09 00:00:00'
+                        approvedBy: 234522
+                        approvedBy2: 0
+                      - approvalId: 34535345
+                        status: 1
+                        modificationTime: '2025-06-09 00:00:00'
+                        approvedBy: 234522
+                        approvedBy2: 0
+        default:
+          description: Default
+      security:
+      - api_key_in_header: []
+  /v3/approval/{id}/activities:
+    post:
+      summary: List approval activities
+      description: Get approval activities by filters
+      tags:
+      - '[v3] Approval'
+      operationId: approval-activity-list
+      parameters:
+      - schema:
+          type: string
+          example: '74356654'
+        name: id
+        in: path
+        required: true
+      - schema:
+          type: string
+          example: application/json
+        in: header
+        name: Accept
+      - schema:
+          type: string
+          example: application/json
+        in: header
+        name: Content-Type
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                page:
+                  type: integer
+                  description: Page number for pagination
+                  example: 1
+                limit:
+                  type: integer
+                  description: Number of items per page
+                  example: 25
+            examples:
+              Example:
+                value:
+                  page: 1
+                  limit: 25
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: integer
+                        actionTime:
+                          type: string
+                        userId:
+                          type: integer
+                        approvalId:
+                          type: integer
+                        activity:
+                          type: string
+                  pagination:
+                    type: object
+                    properties:
+                      page:
+                        type: integer
+                      totalPages:
+                        type: integer
+              examples:
+                Example 1:
+                  value:
+                    data:
+                    - id: 123
+                      actionTime: '2025-06-09 00:00:00'
+                      userId: 364263
+                      approvalId: 456789
+                      activity: '0'
+                    pagination:
+                      page: 1
+                      totalPages: 5
+        default:
+          description: Default
+      security:
+      - api_key_in_header: []
+  /v3/approval/{id}/create-message:
+    post:
+      summary: Create approval message
+      description: Create approval message
+      tags:
+      - '[v3] Approval'
+      operationId: create-approval-message
+      parameters:
+      - schema:
+          type: string
+          example: '74356654'
+        name: id
+        in: path
+        required: true
+      - schema:
+          type: string
+          example: application/json
+        in: header
+        name: Accept
+      - schema:
+          type: string
+          example: application/json
+        in: header
+        name: Content-Type
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - from
+              - to
+              properties:
+                message:
+                  type: string
+                  description: message
+                  example: this is example message
+                event:
+                  type: integer
+                  description: '0 - Open
+
+
+                    1 - Approved
+
+
+                    2 - Pending
+
+
+                    3 - Rejected
+
+                    '
+                  enum:
+                  - 0
+                  - 1
+                  - 2
+                  - 3
+                  example: 2
+            examples:
+              Example:
+                value:
+                  message: some message
+                  event: 2
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      id:
+                        type: integer
+                      approvalId:
+                        type: integer
+                      userId:
+                        type: integer
+                      message:
+                        type: string
+                      event:
+                        type: integer
+                      addTime:
+                        type: string
+              examples:
+                Example 1:
+                  value:
+                    data:
+                    - id: 1323435
+                      approvalId: 34523534
+                      userId: 2346445
+                      message: some message
+                      event: 2
+                      addTime: '2025-06-09 00:00:00'
+        default:
+          description: Default
+      security:
+      - api_key_in_header: []
+  /v3/approval/send-reminder:
+    post:
+      summary: Send reminder
+      description: Send reminder
+      tags:
+      - '[v3] Approval'
+      operationId: send-reminder
+      parameters:
+      - schema:
+          type: string
+          example: application/json
+        in: header
+        name: Accept
+      - schema:
+          type: string
+          example: application/json
+        in: header
+        name: Content-Type
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - approvalIds
+              properties:
+                approvalIds:
+                  type: array
+                  description: Array of approval ids
+                  example:
+                  - 34523534
+                  - 34535345
+                message:
+                  type: string
+                  description: Comment send in mail
+                  example: this is message
+            examples:
+              Example:
+                value:
+                  approvalIds:
+                  - 34523534
+                  - 34535345
+                  message: this is message
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: ok
+              examples:
+                Example 1:
+                  value:
+                    message: ok
+        default:
+          description: Default
+      security:
+      - api_key_in_header: []
+components:
+  securitySchemes:
+    api_key_in_header:
+      type: http
+      scheme: bearer
+      description: ''
+    OIDC:
+      type: openIdConnect
+      openIdConnectUrl: authenticate/oidc
+x-tagGroups:
+- name: TimeCamp API
+  tags:
+  - '[v1] User'
+  - '[v1] Entry'
+  - '[v1] Tags'
+  - '[v1] Group'
+  - '[v1] Approvals'
+  - '[v1] Computer Activities'
+  - '[v1] Timer'
+  - '[v1] Task'
+  - '[v1] Attendance'
+  - '[v1] Roles & Permissions'
+  - '[v1] Billing Rates'
+  - '[v1] Userlog'
+  - '[v1] Activity alert'
+  - '[v3] Timer'
+  - '[v3] Invoices'
+  - '[v3] Computer Activities'
+  - '[v3] Time Entry'
+  - '[v3] Task Archive'
+  - '[v3] Time Entry Restriction'
+  - '[v3] Expense'
+  - '[v3] Plan'
+  - '[v3] Storage'
+  - '[v3] Module'
+  - '[v3] Marketplace'
+  - '[v3] Remote work detection'
+  - '[v3] Data Export'
+  - '[v3] Custom Fields'
+  - '[v3] Approval'
+  - '[v3] Task'
+  - '[v3] Projects'
+  - '[v3] Attendance'
+  - '[v3] Attendance Requests'

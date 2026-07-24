@@ -1,0 +1,1126 @@
+openapi: 3.0.0
+info:
+  title: TimeCamp [v1] Approvals [v1] Approvals [v1] Tags API
+  version: '1.0'
+  contact:
+    email: support@timecamp.com
+  termsOfService: https://www.timecamp.com/terms-conditions/
+  description: 'Documentation for the TimeCamp system.
+
+
+    Get your API token here:
+
+    https://app.timecamp.com/app#/settings/users/me
+
+
+    Be aware that you can reach API calls limit. Once you do you will get HTTP code 429 response.
+
+
+    Request example:
+
+
+    ```
+
+    GET https://app.timecamp.com/third_party/api/user?user_id=1234567
+
+
+    Headers:
+
+    Authorization: Bearer 87c21299960a88888888fe123
+
+    Accept: application/json
+
+    ```
+
+    '
+servers:
+- url: https://app.timecamp.com/third_party/api
+  description: PRODUCTION
+- url: https://v4.api.timecamp.com
+  description: PRODUCTION
+tags:
+- name: '[v1] Tags'
+  x-displayName: Tags
+paths:
+  /tag:
+    post:
+      operationId: post--tag
+      description: Create tag. Do not provide `tag_id` in url, because while creating new tag a new, unique `tag_id` will be made. If you provide `tag_id` in url, a 400 HTTP response is returned.
+      parameters: []
+      responses:
+        '200':
+          description: OK Response returns newly created tag id.
+          content:
+            application/json:
+              schema:
+                type: integer
+              examples:
+                created tag:
+                  value: 16
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                description: ''
+                type: object
+                properties:
+                  message:
+                    type: string
+                    minLength: 1
+                required:
+                - message
+              examples:
+                tag_id provided in url:
+                  value:
+                    message: Bad request.
+                tag list does not exists:
+                  value:
+                    message: Tag list does not exist.
+                name not provided:
+                  value:
+                    message: You can't create new tag list. Name is empty.
+      tags:
+      - '[v1] Tags'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                list:
+                  oneOf:
+                  - type: string
+                  - type: integer
+                  description: tag list id - to this list a newly created tag will be added
+                  example: 52
+                name:
+                  type: string
+                  description: tag name
+                  example: Development
+              required:
+              - list
+              - name
+      summary: Create tag
+      security:
+      - api_key_in_header: []
+  /tag/{tag_id}:
+    parameters: []
+    get:
+      summary: Get tag data
+      operationId: get-tag
+      responses:
+        '200':
+          description: OK response
+          content:
+            application/json:
+              schema:
+                description: ''
+                type: object
+                properties:
+                  id:
+                    oneOf:
+                    - type: string
+                    - type: integer
+                    minLength: 1
+                  name:
+                    type: string
+                    minLength: 1
+                  archived:
+                    oneOf:
+                    - type: string
+                    - type: integer
+                    minLength: 1
+                  tagListId:
+                    oneOf:
+                    - type: string
+                    - type: integer
+                    minLength: 1
+                  hasGroupRestrictions:
+                    oneOf:
+                    - type: string
+                    - type: integer
+                    minLength: 1
+              examples:
+                returned tag info:
+                  value:
+                    id: '13'
+                    name: '111'
+                    archived: '0'
+                    tagListId: '8'
+                    hasGroupRestrictions: '0'
+        '400':
+          description: Bad Request is returned when tag_id is not provided or tag does not exist.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+              examples:
+                tag id no provided:
+                  value:
+                    message: Bad request.
+                tag doesnt exist:
+                  value:
+                    message: Tag does not exist.
+      description: Get tag data.
+      parameters:
+      - in: path
+        required: true
+        name: tag_id
+        description: tag id
+        schema:
+          type: integer
+      tags:
+      - '[v1] Tags'
+      security:
+      - api_key_in_header: []
+    put:
+      summary: Update tag
+      operationId: put-tag-tag_id
+      parameters:
+      - in: path
+        required: true
+        name: tag_id
+        description: tag id
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: OK - tag updated
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+              examples:
+                updated tag data:
+                  value:
+                    message: OK
+        '201':
+          description: Created
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+              examples:
+                tag id not provided:
+                  value:
+                    message: Bad request.
+                tag not found:
+                  value:
+                    message: Tag with id 123 not found
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+              examples:
+                tag is in active integration:
+                  value:
+                    message: You cannot edit tag from active integration
+      description: Modify tag data.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  description: new tag name
+                archived:
+                  oneOf:
+                  - type: string
+                  - type: integer
+                  description: set if tag is archived
+      tags:
+      - '[v1] Tags'
+      security:
+      - api_key_in_header: []
+  /tag/{tag_id}/groups:
+    parameters:
+    - in: path
+      required: true
+      name: tag_id
+      description: tag id
+      schema:
+        type: integer
+    get:
+      operationId: get--tag-groups
+      description: 'Get tag allowed groups
+
+
+        Returns tags available in a group'
+      responses:
+        '200':
+          description: OK Response
+          content:
+            application/json:
+              schema:
+                description: ''
+                type: object
+                properties:
+                  ? ''
+                  : type: object
+                    required:
+                    - id
+                    - name
+                    - hasSubgroups
+                    properties:
+                      id:
+                        type: string
+                        minLength: 1
+                      name:
+                        type: string
+                        minLength: 1
+                      hasSubgroups:
+                        type: string
+                        minLength: 1
+                required:
+                - ''
+              examples:
+                returned data:
+                  value:
+                    '5525':
+                      id: '5525'
+                      name: TimeCamp / Development
+                      hasSubgroups: '0'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                description: ''
+                type: object
+                properties:
+                  message:
+                    type: string
+                    minLength: 1
+                required:
+                - message
+              examples:
+                tag does not exist:
+                  value:
+                    message: Tag does not exist.
+      tags:
+      - '[v1] Tags'
+      summary: Get tag allowed groups
+      security:
+      - api_key_in_header: []
+  /tag/{tag_id}/group/{group_id}:
+    parameters:
+    - in: path
+      required: true
+      name: tag_id
+      description: tag id
+      schema:
+        type: integer
+    - schema:
+        type: integer
+      name: group_id
+      in: path
+      required: true
+      description: group id to delete (only for DELETE option)
+    post:
+      operationId: post--tag-group
+      description: Add allowed group to tag. Do not provide `group_id` in url.
+      responses:
+        '200':
+          description: OK Response
+          content:
+            application/json:
+              schema:
+                description: ''
+                type: object
+                properties:
+                  message:
+                    type: string
+                    minLength: 1
+                required:
+                - message
+              examples:
+                added allowed gropu to tag:
+                  value:
+                    message: OK
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+              examples:
+                example:
+                  value:
+                    message: Bad request.
+      tags:
+      - '[v1] Tags'
+      summary: Add allowed group to tag
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                group:
+                  oneOf:
+                  - type: string
+                  - type: integer
+                  description: group id which will be allowed to use given tag
+      security:
+      - api_key_in_header: []
+    delete:
+      operationId: delete--tag-group
+      description: Delete allowed group from tag.
+      responses:
+        '200':
+          description: OK Response
+          content:
+            application/json:
+              schema:
+                description: ''
+                type: object
+                properties:
+                  message:
+                    type: string
+                    minLength: 1
+                required:
+                - message
+              examples:
+                deleted group from tag:
+                  value:
+                    message: OK
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+              examples:
+                wrong parameters:
+                  value:
+                    message: Bad request.
+                delete fails:
+                  value:
+                    message: Delete fails
+      tags:
+      - '[v1] Tags'
+      summary: Delete allowed group from tag
+      security:
+      - api_key_in_header: []
+  /tag_list:
+    get:
+      operationId: get--tag_list-
+      description: Get tag list data.
+      responses:
+        '200':
+          description: OK Response - returns array of tag lists.
+          content:
+            application/json:
+              schema:
+                description: ''
+                type: object
+                properties:
+                  '[id]':
+                    type: object
+                    properties:
+                      id:
+                        oneOf:
+                        - type: string
+                        - type: integer
+                        minLength: 1
+                      name:
+                        type: string
+                        minLength: 1
+                      archived:
+                        oneOf:
+                        - type: string
+                        - type: integer
+                        minLength: 1
+              examples:
+                Example:
+                  value:
+                    '3':
+                      id: '3'
+                      name: Tags 1
+                      archived: '0'
+                    '4':
+                      id: '4'
+                      name: Tags 2
+                      archived: '0'
+                    '5':
+                      id: '5'
+                      name: Tags 3
+                      archived: '0'
+                    '8':
+                      id: '8'
+                      name: Other tag list
+                      archived: '0'
+      tags:
+      - '[v1] Tags'
+      summary: Get tag list
+      parameters:
+      - schema:
+          type: integer
+          example: 523
+        in: query
+        name: task_id
+        description: get tag list data from task
+      - schema:
+          type: integer
+          enum:
+          - 0
+          - 1
+        in: query
+        name: archived
+        description: include archived tag lists
+      - schema:
+          type: integer
+          enum:
+          - 0
+          - 1
+        in: query
+        name: tags
+        description: include tags
+      - schema:
+          type: integer
+          enum:
+          - 0
+          - 1
+        in: query
+        name: exclude_empty_tag_lists
+        description: include empty tag lists
+      - schema:
+          type: integer
+          enum:
+          - 0
+          - 1
+        in: query
+        name: use_restrictions
+        description: get group tag list -> default option (1) or root group tag lists (0)
+      security:
+      - api_key_in_header: []
+    post:
+      operationId: post--tag_list-
+      description: Create new tag list.
+      responses:
+        '200':
+          description: OK Response - returns tag list id
+          content:
+            application/json:
+              schema:
+                oneOf:
+                - type: string
+                - type: integer
+              examples:
+                created new tag list:
+                  value: 15
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                description: ''
+                type: object
+                properties:
+                  message:
+                    type: string
+                    minLength: 1
+              examples:
+                name not provided:
+                  value:
+                    message: You can't create new tag list. Name is empty.
+      tags:
+      - '[v1] Tags'
+      summary: Create new tag list
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  description: tag list name
+                  example: tag list
+        description: ''
+      security:
+      - api_key_in_header: []
+  /tag_list/{tag_list_id}:
+    parameters:
+    - in: path
+      required: true
+      name: tag_list_id
+      description: tag list id
+      schema:
+        type: integer
+    get:
+      operationId: get--tag_list
+      description: Get tag list tags.
+      responses:
+        '200':
+          description: OK Response, `tags` is an array of tags included in tag list.
+          content:
+            application/json:
+              schema:
+                description: ''
+                type: object
+                properties:
+                  id:
+                    oneOf:
+                    - type: string
+                    - type: integer
+                    minLength: 1
+                  name:
+                    type: string
+                    minLength: 1
+                  archived:
+                    oneOf:
+                    - type: string
+                    - type: integer
+                    minLength: 1
+                  tags:
+                    type: object
+                    properties:
+                      ? ''
+                      : type: object
+                        properties:
+                          id:
+                            oneOf:
+                            - type: string
+                            - type: integer
+                            minLength: 1
+                          name:
+                            type: string
+                            minLength: 1
+                          archived:
+                            oneOf:
+                            - type: string
+                            - type: integer
+                            minLength: 1
+                          hasGroupRestrictions:
+                            oneOf:
+                            - type: string
+                            - type: integer
+                            minLength: 1
+              examples:
+                Example response:
+                  value:
+                    id: '8'
+                    name: My tag list
+                    archived: '0'
+                    tags:
+                      '13':
+                        id: '13'
+                        name: First tag
+                        archived: '0'
+                        hasGroupRestrictions: '0'
+                      '14':
+                        id: '14'
+                        name: Second Tag
+                        archived: '0'
+                        hasGroupRestrictions: '0'
+                      '15':
+                        id: '15'
+                        name: Third Tag
+                        archived: '0'
+                        hasGroupRestrictions: '0'
+                      '16':
+                        id: '16'
+                        name: Fourth Tag
+                        archived: '0'
+                        hasGroupRestrictions: '0'
+                Tag list not found:
+                  value: []
+      tags:
+      - '[v1] Tags'
+      summary: Get tag list with tags
+      security:
+      - api_key_in_header: []
+    put:
+      operationId: put--tag_list
+      description: Update tag list data.
+      tags:
+      - '[v1] Tags'
+      responses:
+        '200':
+          description: OK Response
+          content:
+            application/json:
+              schema:
+                description: ''
+                type: object
+                properties:
+                  message:
+                    type: string
+                    minLength: 1
+                required:
+                - message
+              examples:
+                updated tag list:
+                  value:
+                    message: OK
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                description: ''
+                type: object
+                properties:
+                  message:
+                    type: string
+                    minLength: 1
+                required:
+                - message
+              examples:
+                tag list not found:
+                  value:
+                    message: Tag list does not exist.
+      summary: Update tag list data
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  description: Newer Tag list
+                  example: New tag list name
+                archived:
+                  type: integer
+                  description: set archived status
+                  enum:
+                  - 0
+                  - 1
+        description: ''
+      security:
+      - api_key_in_header: []
+  /tag_list/{tag_list_id}/tags:
+    parameters:
+    - schema:
+        type: integer
+      name: tag_list_id
+      in: path
+      required: true
+      description: tag list id
+    get:
+      operationId: get--tag_list-tags
+      description: 'Get tags from a specific tag list.
+
+        '
+      responses:
+        '200':
+          description: OK Response
+          content:
+            application/json:
+              schema:
+                description: ''
+                type: object
+                properties:
+                  ? ''
+                  : type: object
+                    properties:
+                      id:
+                        oneOf:
+                        - type: string
+                        - type: integer
+                        minLength: 1
+                      name:
+                        type: string
+                        minLength: 1
+                      archived:
+                        oneOf:
+                        - type: string
+                        - type: integer
+                        minLength: 1
+                      hasGroupRestrictions:
+                        oneOf:
+                        - type: string
+                        - type: integer
+                        minLength: 1
+              examples:
+                Returned tags:
+                  value:
+                    '13':
+                      id: '13'
+                      name: First tag
+                      archived: '0'
+                      hasGroupRestrictions: '0'
+                    '14':
+                      id: '14'
+                      name: Second Tag
+                      archived: '0'
+                      hasGroupRestrictions: '0'
+                    '15':
+                      id: '15'
+                      name: Third tag
+                      archived: '0'
+                      hasGroupRestrictions: '0'
+                    '16':
+                      id: '16'
+                      name: Fourth Tag
+                      archived: '0'
+                      hasGroupRestrictions: '0'
+                Tag list not found:
+                  value: []
+      tags:
+      - '[v1] Tags'
+      summary: Get only tags of a tag list
+      security:
+      - api_key_in_header: []
+  /entries/{entry_id}/tags:
+    parameters:
+    - schema:
+        type: integer
+        example: 52512
+      name: entry_id
+      in: path
+      required: true
+      description: entry id, possible multiple in GET method ie. `123,124,125`
+    get:
+      operationId: get--entries-tags
+      description: Get tags for a given time entry ID.
+      responses:
+        '200':
+          description: An object with entry ID as key and an array of tag-objects
+          content:
+            application/json:
+              schema:
+                description: ''
+                type: object
+                properties:
+                  '101434259':
+                    type: array
+                    uniqueItems: true
+                    minItems: 1
+                    items:
+                      type: object
+                      properties:
+                        tagListName:
+                          type: string
+                          minLength: 1
+                        tagListId:
+                          oneOf:
+                          - type: string
+                          - type: integer
+                          minLength: 1
+                        tagId:
+                          oneOf:
+                          - type: string
+                          - type: integer
+                          nullable: true
+                          minLength: 1
+                        name:
+                          oneOf:
+                          - type: string
+                          - type: integer
+                          nullable: true
+                          minLength: 1
+                        mandatory:
+                          oneOf:
+                          - type: string
+                          - type: integer
+                          minLength: 1
+              examples:
+                example response:
+                  value:
+                    '101434259':
+                    - tagListName: Not important tags
+                      tagListId: '8'
+                      tagId: '13'
+                      name: '111'
+                      mandatory: '0'
+      tags:
+      - '[v1] Tags'
+      parameters: []
+      summary: Get time entry tags
+      security:
+      - api_key_in_header: []
+    put:
+      operationId: put--entries-tags
+      description: Assing tags to time entry or entries.
+      tags:
+      - '[v1] Tags'
+      responses:
+        '200':
+          description: OK response is returned when successfully added tag and when given tag id or tag ids are not found.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  oneOf:
+                  - type: string
+                  - type: integer
+              examples:
+                successfully added tag to entry:
+                  value:
+                  - '13'
+                given tags not found:
+                  value: []
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: string
+              examples:
+                no tags provided:
+                  value: Empty tags
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                tags:
+                  type: string
+                  description: tag ids to set
+                  example: 21 or 21,214,123 if multiple
+      summary: Add tags to time entry
+      security:
+      - api_key_in_header: []
+    delete:
+      operationId: delete--entries-tags
+      description: Delete tags from time entry.
+      tags:
+      - '[v1] Tags'
+      responses:
+        '200':
+          description: OK response is returned when successfully removed tags from time entry and when given tag id or tag ids are not found.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  oneOf:
+                  - type: string
+                  - type: integer
+              examples:
+                successfully deleted tag from entry:
+                  value:
+                  - '15'
+                given tags not found:
+                  value: []
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: string
+              examples:
+                no tags provided:
+                  value: Empty tags
+      summary: Delete tags from time entry
+      security:
+      - api_key_in_header: []
+  /task/{task_id}/tag:
+    parameters:
+    - schema:
+        type: string
+      name: task_id
+      in: path
+      required: true
+    delete:
+      summary: Remove tags from task
+      tags:
+      - '[v1] Tags'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+      operationId: delete-task-task_id-tag
+      security:
+      - api_key_in_header: []
+    post:
+      summary: Add tags to task
+      tags:
+      - '[v1] Tags'
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+      operationId: post-task-task_id-tag
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                tags:
+                  type: array
+                  description: "{\n    \"tag_id\": integer,\n    \"mandatory\" boolean\n}"
+                  items: {}
+            examples:
+              Example 1:
+                value:
+                  tags:
+                  - tag_id: 1
+                    mandatory: 'false'
+      security:
+      - api_key_in_header: []
+    put:
+      summary: Edit tags assignment type
+      tags:
+      - '[v1] Tags'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+      operationId: put-task-task_id-tag
+      description: ''
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                tags:
+                  type: array
+                  description: "{\n    \"tag_id\": integer,\n    \"mandatory\" boolean\n}"
+                  items: {}
+            examples:
+              Example 1:
+                value:
+                  tags:
+                  - tag_id: 1
+                    mandatory: true
+      security:
+      - api_key_in_header: []
+components:
+  securitySchemes:
+    api_key_in_header:
+      type: http
+      scheme: bearer
+      description: ''
+    OIDC:
+      type: openIdConnect
+      openIdConnectUrl: authenticate/oidc
+x-tagGroups:
+- name: TimeCamp API
+  tags:
+  - '[v1] User'
+  - '[v1] Entry'
+  - '[v1] Tags'
+  - '[v1] Group'
+  - '[v1] Approvals'
+  - '[v1] Computer Activities'
+  - '[v1] Timer'
+  - '[v1] Task'
+  - '[v1] Attendance'
+  - '[v1] Roles & Permissions'
+  - '[v1] Billing Rates'
+  - '[v1] Userlog'
+  - '[v1] Activity alert'
+  - '[v3] Timer'
+  - '[v3] Invoices'
+  - '[v3] Computer Activities'
+  - '[v3] Time Entry'
+  - '[v3] Task Archive'
+  - '[v3] Time Entry Restriction'
+  - '[v3] Expense'
+  - '[v3] Plan'
+  - '[v3] Storage'
+  - '[v3] Module'
+  - '[v3] Marketplace'
+  - '[v3] Remote work detection'
+  - '[v3] Data Export'
+  - '[v3] Custom Fields'
+  - '[v3] Approval'
+  - '[v3] Task'
+  - '[v3] Projects'
+  - '[v3] Attendance'
+  - '[v3] Attendance Requests'

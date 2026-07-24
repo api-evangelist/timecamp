@@ -1,0 +1,465 @@
+openapi: 3.0.0
+info:
+  title: TimeCamp [v1] Approvals [v1] Approvals [v1] Attendance API
+  version: '1.0'
+  contact:
+    email: support@timecamp.com
+  termsOfService: https://www.timecamp.com/terms-conditions/
+  description: 'Documentation for the TimeCamp system.
+
+
+    Get your API token here:
+
+    https://app.timecamp.com/app#/settings/users/me
+
+
+    Be aware that you can reach API calls limit. Once you do you will get HTTP code 429 response.
+
+
+    Request example:
+
+
+    ```
+
+    GET https://app.timecamp.com/third_party/api/user?user_id=1234567
+
+
+    Headers:
+
+    Authorization: Bearer 87c21299960a88888888fe123
+
+    Accept: application/json
+
+    ```
+
+    '
+servers:
+- url: https://app.timecamp.com/third_party/api
+  description: PRODUCTION
+- url: https://v4.api.timecamp.com
+  description: PRODUCTION
+tags:
+- name: '[v1] Attendance'
+  x-displayName: Attendance
+paths:
+  /attendance:
+    parameters: []
+    get:
+      operationId: get--attendance
+      description: Get attendance
+      responses:
+        '200':
+          description: OK - even if no attendance match given filters, an empty array is returned
+          content:
+            application/json:
+              schema:
+                type: array
+                description: ''
+                minItems: 1
+                uniqueItems: true
+                items:
+                  type: object
+                  properties:
+                    user_id:
+                      type: string
+                    user_name:
+                      type: string
+                    start_time:
+                      type: string
+                    end_time:
+                      type: string
+                    total_time:
+                      type: string
+                    date:
+                      type: string
+                    approved:
+                      type: boolean
+              examples:
+                example response:
+                  value:
+                  - user_id: '640'
+                    user_name: Test User
+                    start_time: '12:38:05'
+                    end_time: '17:46:45'
+                    total_time: '2717'
+                    date: '2021-12-01'
+                  - user_id: '1933'
+                    user_name: Test User2
+                    start_time: 08:24:31
+                    end_time: '18:10:37'
+                    total_time: '27359'
+                    date: '2021-12-01'
+      summary: Get attendance
+      parameters:
+      - schema:
+          type: string
+          example: '2021-03-01'
+        in: query
+        name: from
+        description: date in `YYYY-MM-DD` format
+        required: true
+      - schema:
+          type: string
+          example: '2021-03-05'
+        in: query
+        name: to
+        description: date in `YYYY-MM-DD` format
+        required: true
+      - schema:
+          type: string
+          example: 1234,321,4567
+        in: query
+        name: users
+        description: user Id's separated by coma
+      - schema:
+          type: string
+          example: application/json
+        in: header
+        name: Accept
+        description: Header for json data format
+      security:
+      - api_key_in_header: []
+      tags:
+      - '[v1] Attendance'
+  /attendance/day_type:
+    get:
+      summary: Retrieves day types declared by users in given timeframe
+      tags:
+      - '[v1] Attendance'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                x-examples:
+                  Example 1:
+                    '1700567':
+                      '2022-10-10':
+                        day_type: Remote work
+                properties:
+                  userId:
+                    type: object
+                    properties:
+                      date:
+                        type: object
+                        properties:
+                          day_type:
+                            type: string
+                      ? ''
+                      : type: string
+              examples:
+                Example 1:
+                  value: {}
+            application/xml:
+              examples:
+                Example 1:
+                  value: "{\n    \"userId\": {\n        \"2022-10-10\": {\n            \"day_type\": \"Remote work\"\n        },\n    }\n}"
+            multipart/form-data:
+              schema:
+                type: object
+                properties: {}
+      operationId: get-attendance-day_type
+      parameters:
+      - schema:
+          type: string
+        in: query
+        name: from
+        description: date in `YYYY-MM-DD` format
+        required: true
+      - schema:
+          type: string
+        in: query
+        name: to
+        description: date in `YYYY-MM-DD` format
+        required: true
+      - schema:
+          type: string
+        in: header
+        name: Accept
+        description: Header for json data format
+      - schema:
+          type: string
+        in: query
+        name: usersIds
+        description: user Id's separated by comma
+      description: Get day types for giver period for team
+      security:
+      - api_key_in_header: []
+  /attendance/{userId}/user:
+    get:
+      operationId: get-attendance-for-user
+      summary: Retrieve attendance data for a user within a date range
+      parameters:
+      - name: userId
+        in: path
+        required: true
+        description: ID of the user whose attendance is being retrieved
+        schema:
+          type: integer
+      - name: start
+        in: query
+        required: true
+        description: Start date in YYYY-MM-DD format
+        schema:
+          type: string
+          format: date
+      - name: end
+        in: query
+        required: true
+        description: End date in YYYY-MM-DD format
+        schema:
+          type: string
+          format: date
+      responses:
+        '200':
+          description: Successfully retrieved attendance data
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    additionalProperties:
+                      type: object
+                      properties:
+                        userId:
+                          type: integer
+                        day:
+                          type: string
+                          format: date
+                        dayTypeId:
+                          type: integer
+                        dayType:
+                          type: string
+                        shouldBe:
+                          type: integer
+                        vacationTime:
+                          type: integer
+        '400':
+          description: Bad request due to missing or invalid parameters
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  error:
+                    type: string
+        '403':
+          description: Forbidden access due to permissions or disabled module
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  error:
+                    type: string
+        '404':
+          description: User not found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  error:
+                    type: string
+      security:
+      - api_key_in_header: []
+      tags:
+      - '[v1] Attendance'
+    post:
+      summary: Insert or update user attendance records
+      operationId: post-attendance-for-user
+      description: 'Inserts or updates attendance records for a user. Each entry corresponds to one day.
+
+        The `shouldBe` and `vacationTime` fields are optional.
+
+
+        **Important:** The date range constraint does not mean a limit of 100 entries, but rather that the maximum range between the earliest and latest dates in the payload must not exceed 100 days.
+
+        '
+      parameters:
+      - name: userId
+        in: path
+        required: true
+        schema:
+          type: integer
+        description: ID of the user whose attendance is being updated
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                type: object
+                properties:
+                  day:
+                    type: string
+                    format: date
+                    example: '2025-03-01'
+                  dayTypeId:
+                    type: integer
+                    example: 12
+                  shouldBe:
+                    type: integer
+                    example: 480
+                    description: Optional - expected working time in minutes
+                  vacationTime:
+                    type: integer
+                    example: 0
+                    description: Optional - vacation time in minutes
+              description: List of attendance records to insert or update
+      responses:
+        '200':
+          description: Attendance was updated successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Attendance was updated successfully.
+        '400':
+          description: Bad Request - Invalid payload
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Invalid payload.
+                  error:
+                    type: string
+                    example: 'The provided date range exceeds the allowed limit of 100 days. Given range: 385 days.'
+        '403':
+          description: Forbidden - Not allowed to modify attendance or attendance module is disabled
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+        '404':
+          description: Not Found - User was not found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+      security:
+      - api_key_in_header: []
+      tags:
+      - '[v1] Attendance'
+  /attendance/day_types:
+    get:
+      operationId: get-attendance-day-types
+      summary: Retrieve all possible day types for attendance
+      description: Returns a list of all possible day types to declare in attendance.
+      responses:
+        '200':
+          description: A list of day types.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    additionalProperties:
+                      type: object
+                      properties:
+                        id:
+                          type: integer
+                          example: 12
+                        slug:
+                          type: string
+                          example: normal
+                        name:
+                          type: string
+                          example: Working Day
+                        isDayOff:
+                          type: boolean
+                          example: false
+                        isDefault:
+                          type: boolean
+                          example: true
+                        isActive:
+                          type: boolean
+                          example: true
+                        options:
+                          type: object
+                          properties:
+                            color:
+                              type: string
+                              example: eeeeee
+        '403':
+          description: Forbidden - Attendance module is not enabled
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+      security:
+      - api_key_in_header: []
+      tags:
+      - '[v1] Attendance'
+components:
+  securitySchemes:
+    api_key_in_header:
+      type: http
+      scheme: bearer
+      description: ''
+    OIDC:
+      type: openIdConnect
+      openIdConnectUrl: authenticate/oidc
+x-tagGroups:
+- name: TimeCamp API
+  tags:
+  - '[v1] User'
+  - '[v1] Entry'
+  - '[v1] Tags'
+  - '[v1] Group'
+  - '[v1] Approvals'
+  - '[v1] Computer Activities'
+  - '[v1] Timer'
+  - '[v1] Task'
+  - '[v1] Attendance'
+  - '[v1] Roles & Permissions'
+  - '[v1] Billing Rates'
+  - '[v1] Userlog'
+  - '[v1] Activity alert'
+  - '[v3] Timer'
+  - '[v3] Invoices'
+  - '[v3] Computer Activities'
+  - '[v3] Time Entry'
+  - '[v3] Task Archive'
+  - '[v3] Time Entry Restriction'
+  - '[v3] Expense'
+  - '[v3] Plan'
+  - '[v3] Storage'
+  - '[v3] Module'
+  - '[v3] Marketplace'
+  - '[v3] Remote work detection'
+  - '[v3] Data Export'
+  - '[v3] Custom Fields'
+  - '[v3] Approval'
+  - '[v3] Task'
+  - '[v3] Projects'
+  - '[v3] Attendance'
+  - '[v3] Attendance Requests'

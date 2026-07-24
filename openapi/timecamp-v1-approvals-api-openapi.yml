@@ -1,0 +1,400 @@
+openapi: 3.0.0
+info:
+  title: TimeCamp [v1] Approvals [v1] Approvals [v1] Approvals API
+  version: '1.0'
+  contact:
+    email: support@timecamp.com
+  termsOfService: https://www.timecamp.com/terms-conditions/
+  description: 'Documentation for the TimeCamp system.
+
+
+    Get your API token here:
+
+    https://app.timecamp.com/app#/settings/users/me
+
+
+    Be aware that you can reach API calls limit. Once you do you will get HTTP code 429 response.
+
+
+    Request example:
+
+
+    ```
+
+    GET https://app.timecamp.com/third_party/api/user?user_id=1234567
+
+
+    Headers:
+
+    Authorization: Bearer 87c21299960a88888888fe123
+
+    Accept: application/json
+
+    ```
+
+    '
+servers:
+- url: https://app.timecamp.com/third_party/api
+  description: PRODUCTION
+- url: https://v4.api.timecamp.com
+  description: PRODUCTION
+tags:
+- name: '[v1] Approvals'
+  x-displayName: Approvals
+paths:
+  /approval:
+    get:
+      operationId: get--approval
+      description: Get approval or approvals
+      responses:
+        '200':
+          description: OK - even if no approvals match given filters, an empty array is returned
+          content:
+            application/json:
+              schema:
+                type: array
+                description: ''
+                minItems: 1
+                uniqueItems: true
+                items:
+                  type: object
+                  properties:
+                    id:
+                      oneOf:
+                      - type: string
+                      - type: integer
+                      minLength: 1
+                    status:
+                      oneOf:
+                      - type: string
+                      - type: integer
+                      minLength: 1
+                    for:
+                      oneOf:
+                      - type: string
+                      - type: integer
+                      minLength: 1
+                    by:
+                      oneOf:
+                      - type: string
+                      - type: integer
+                      minLength: 1
+                    from:
+                      type: string
+                      minLength: 1
+                    to:
+                      type: string
+                      minLength: 1
+                    projects:
+                      type: string
+                      nullable: true
+                    auto:
+                      oneOf:
+                      - type: string
+                      - type: integer
+                      minLength: 1
+                    comments:
+                      type: string
+                      nullable: true
+                    attendance:
+                      type: object
+                      properties:
+                        '[date]':
+                          type: object
+                          properties:
+                            should_be:
+                              oneOf:
+                              - type: string
+                              - type: integer
+                              minLength: 1
+                            day_type:
+                              oneOf:
+                              - type: string
+                              - type: integer
+                              minLength: 1
+              examples:
+                Response with attendance:
+                  value:
+                  - id: '87769'
+                    status: '0'
+                    for: '1234'
+                    by: '0'
+                    from: '2020-01-01'
+                    to: '2020-01-01'
+                    projects: null
+                    auto: '0'
+                    comments: null
+                    attendance:
+                      '2020-01-01':
+                        should_be: '480'
+                        day_type: normal
+      tags:
+      - '[v1] Approvals'
+      summary: Get approvals
+      parameters:
+      - schema:
+          type: string
+          example: '2021-03-01'
+        in: query
+        name: from
+        description: date in `YYYY-MM-DD` format
+      - schema:
+          type: string
+          example: '2021-03-05'
+        in: query
+        name: to
+        description: date in `YYYY-MM-DD` format
+      - schema:
+          type: integer
+          enum:
+          - 0
+          - 1
+        in: query
+        name: with_attendance
+        description: 'return with attendance, default: 0'
+      security:
+      - api_key_in_header: []
+    post:
+      operationId: post--approval
+      description: Create new approval or update existing one.
+      tags:
+      - '[v1] Approvals'
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                description: ''
+                type: object
+                properties:
+                  id:
+                    oneOf:
+                    - type: string
+                    - type: integer
+                    minLength: 1
+                  approval_id:
+                    oneOf:
+                    - type: string
+                    - type: integer
+                    minLength: 1
+                  status:
+                    oneOf:
+                    - type: string
+                    - type: integer
+                    minLength: 1
+                  for:
+                    oneOf:
+                    - type: string
+                    - type: integer
+                    minLength: 1
+                  by:
+                    oneOf:
+                    - type: string
+                    - type: integer
+                    nullable: true
+                  from:
+                    type: string
+                    minLength: 1
+                  to:
+                    type: string
+                    minLength: 1
+                  projects:
+                    type: string
+                    minLength: 1
+                  comments:
+                    type: array
+                    uniqueItems: true
+                    minItems: 1
+                    items:
+                      type: object
+                      properties:
+                        approval_comment_id:
+                          oneOf:
+                          - type: string
+                          - type: integer
+                          minLength: 1
+                        user_date_time:
+                          type: string
+                          minLength: 1
+                        user_id:
+                          oneOf:
+                          - type: string
+                          - type: integer
+                          minLength: 1
+                        comment:
+                          type: string
+                          minLength: 1
+                        approval_id:
+                          oneOf:
+                          - type: string
+                          - type: integer
+                          minLength: 1
+                        event:
+                          oneOf:
+                          - type: string
+                          - type: integer
+                          minLength: 1
+              examples:
+                created/modified approval:
+                  value:
+                    id: '176189'
+                    approval_id: '176189'
+                    status: '0'
+                    for: '552'
+                    by: null
+                    from: '2021-03-18'
+                    to: '2021-03-18'
+                    projects: '0'
+                    comments:
+                    - approval_comment_id: '2'
+                      user_date_time: '2021-03-02 15:19:07'
+                      user_id: '225'
+                      comment: comment by approver
+                      approval_id: '176189'
+                      event: '3'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                description: ''
+                type: object
+                properties:
+                  message:
+                    type: string
+                    minLength: 1
+              examples:
+                not permitted for this user:
+                  value:
+                    message: you dont have permissions to change timesheet for this user
+                approval does not exist:
+                  value:
+                    message: there is no timesheet approval with id [id]
+                approvals for this user are disabled:
+                  value:
+                    message: Timesheet approvals for requested user are disabled
+      summary: Create/Update approval
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                from:
+                  type: string
+                  description: date in `YYYY-MM-DD` format
+                  example: '2021-03-04'
+                to:
+                  type: string
+                  description: date in `YYYY-MM-DD` format
+                  example: '2021-03-15'
+                status:
+                  type: integer
+                  description: approval status
+                  enum:
+                  - 0 - open
+                  - 1 - approved
+                  - 2 - pending
+                  - 3 - rejected
+                user_id:
+                  type: string
+                  description: user id which approval is for
+                  example: '32'
+              required:
+              - from
+              - to
+              - status
+              - user_id
+            examples:
+              create approved approval:
+                value:
+                  user_id: 522
+                  from: '2021-03-17'
+                  to: '2021-03-17'
+                  status: 1
+              update approval status:
+                value:
+                  approval_id: 176189
+                  user_id: 522
+                  from: '2021-03-18'
+                  to: '2021-03-18'
+                  status: 3
+        description: When updating approval you must provide all the fields, otherwise they will be empty.
+      security:
+      - api_key_in_header: []
+  /approval_users:
+    get:
+      operationId: get--approval_users
+      description: Returns list with user ids which you are able to either approve or reject.
+      responses:
+        '200':
+          description: 'OK '
+          content:
+            application/json:
+              schema:
+                description: ''
+                type: object
+                properties:
+                  '[user_id]':
+                    oneOf:
+                    - type: string
+                    - type: integer
+                    minLength: 1
+              examples:
+                Example:
+                  value:
+                    '552525': '552525'
+                    '552526': '552526'
+                    '552527': '552527'
+                    '552528': '552528'
+                    '552529': '552529'
+      tags:
+      - '[v1] Approvals'
+      summary: Get approval users
+      security:
+      - api_key_in_header: []
+components:
+  securitySchemes:
+    api_key_in_header:
+      type: http
+      scheme: bearer
+      description: ''
+    OIDC:
+      type: openIdConnect
+      openIdConnectUrl: authenticate/oidc
+x-tagGroups:
+- name: TimeCamp API
+  tags:
+  - '[v1] User'
+  - '[v1] Entry'
+  - '[v1] Tags'
+  - '[v1] Group'
+  - '[v1] Approvals'
+  - '[v1] Computer Activities'
+  - '[v1] Timer'
+  - '[v1] Task'
+  - '[v1] Attendance'
+  - '[v1] Roles & Permissions'
+  - '[v1] Billing Rates'
+  - '[v1] Userlog'
+  - '[v1] Activity alert'
+  - '[v3] Timer'
+  - '[v3] Invoices'
+  - '[v3] Computer Activities'
+  - '[v3] Time Entry'
+  - '[v3] Task Archive'
+  - '[v3] Time Entry Restriction'
+  - '[v3] Expense'
+  - '[v3] Plan'
+  - '[v3] Storage'
+  - '[v3] Module'
+  - '[v3] Marketplace'
+  - '[v3] Remote work detection'
+  - '[v3] Data Export'
+  - '[v3] Custom Fields'
+  - '[v3] Approval'
+  - '[v3] Task'
+  - '[v3] Projects'
+  - '[v3] Attendance'
+  - '[v3] Attendance Requests'

@@ -1,0 +1,403 @@
+openapi: 3.0.0
+info:
+  title: TimeCamp [v1] Approvals [v1] Approvals [v1] Roles & Permissions API
+  version: '1.0'
+  contact:
+    email: support@timecamp.com
+  termsOfService: https://www.timecamp.com/terms-conditions/
+  description: 'Documentation for the TimeCamp system.
+
+
+    Get your API token here:
+
+    https://app.timecamp.com/app#/settings/users/me
+
+
+    Be aware that you can reach API calls limit. Once you do you will get HTTP code 429 response.
+
+
+    Request example:
+
+
+    ```
+
+    GET https://app.timecamp.com/third_party/api/user?user_id=1234567
+
+
+    Headers:
+
+    Authorization: Bearer 87c21299960a88888888fe123
+
+    Accept: application/json
+
+    ```
+
+    '
+servers:
+- url: https://app.timecamp.com/third_party/api
+  description: PRODUCTION
+- url: https://v4.api.timecamp.com
+  description: PRODUCTION
+tags:
+- name: '[v1] Roles & Permissions'
+  x-displayName: Roles & Permissions
+paths:
+  /tt_role:
+    get:
+      operationId: get--tt_role
+      description: Returns roles allowed for your root group with permissions.
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                description: ''
+                type: object
+                properties:
+                  '[tt_role_id]':
+                    type: object
+                    properties:
+                      tt_role_id:
+                        oneOf:
+                        - type: string
+                        - type: integer
+                        minLength: 1
+                      tt_role_name:
+                        type: string
+                        minLength: 1
+                      overridden_role_id:
+                        oneOf:
+                        - type: string
+                        - type: integer
+                        minLength: 1
+                      root_group_id:
+                        oneOf:
+                        - type: string
+                        - type: integer
+                        minLength: 1
+                      tt_role_sort:
+                        type: integer
+                      perms:
+                        type: object
+                        description: array of permissions
+                        properties:
+                          '[tt_perm_id]':
+                            type: object
+                            description: ''
+                            properties:
+                              tt_perm_id:
+                                oneOf:
+                                - type: string
+                                - type: integer
+                                minLength: 1
+                              tt_perm_text:
+                                type: string
+                                minLength: 1
+              examples:
+                returned role with permissions:
+                  value:
+                    '1':
+                      tt_role_id: '1'
+                      tt_role_name: Project Manager
+                      overridden_role_id: '0'
+                      root_group_id: '0'
+                      tt_role_sort: 0
+                      perms:
+                        '1':
+                          tt_perm_id: '1'
+                          tt_perm_text: create subtasks
+                        '2':
+                          tt_perm_id: '2'
+                          tt_perm_text: edit task
+                        '3':
+                          tt_perm_id: '3'
+                          tt_perm_text: track time
+                        '5':
+                          tt_perm_id: '5'
+                          tt_perm_text: see other people time in reports
+                        '6':
+                          tt_perm_id: '6'
+                          tt_perm_text: change inherited role to lower
+                        '7':
+                          tt_perm_id: '7'
+                          tt_perm_text: create invoice
+                    '3':
+                      tt_role_id: '3'
+                      tt_role_name: Regular User
+                      overridden_role_id: '0'
+                      root_group_id: '0'
+                      tt_role_sort: 2
+                      perms:
+                        '3':
+                          tt_perm_id: '3'
+                          tt_perm_text: track time
+                    '4':
+                      tt_role_id: '4'
+                      tt_role_name: Guest
+                      overridden_role_id: '0'
+                      root_group_id: '0'
+                      tt_role_sort: 3
+                      perms:
+                        '5':
+                          tt_perm_id: '5'
+                          tt_perm_text: see other people time in reports
+      summary: Get time tracking roles
+      tags:
+      - '[v1] Roles & Permissions'
+      security:
+      - api_key_in_header: []
+    delete:
+      operationId: delete--tt_role
+      description: Delete time tracking role.
+      responses:
+        '200':
+          description: OK - returns all roles (before update), just like in GET option.
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+              examples:
+                users assigned:
+                  value:
+                    message: You can not delete role because there are users assigned to tasks with that role.
+                cannot delete:
+                  value:
+                    message: You can not delete this role!
+                not permitted:
+                  value:
+                    message: Role couldn't be saved
+      summary: Delete time tracking role
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                tt_role_id:
+                  type: integer
+                  description: role it to delete
+              required:
+              - tt_role_id
+      tags:
+      - '[v1] Roles & Permissions'
+      security:
+      - api_key_in_header: []
+    post:
+      operationId: post--tt_role
+      description: Create time tracking role.
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                description: ''
+                type: object
+                properties:
+                  tt_role_id:
+                    oneOf:
+                    - type: string
+                    - type: integer
+                    minLength: 1
+                  tt_role_name:
+                    type: string
+                    minLength: 1
+                  root_group_id:
+                    oneOf:
+                    - type: string
+                    - type: integer
+                    minLength: 1
+                  overridden_role_id:
+                    oneOf:
+                    - type: string
+                    - type: integer
+                    minLength: 1
+                  tt_role_sort:
+                    type: integer
+              examples:
+                created role:
+                  value:
+                    tt_role_id: '7159'
+                    tt_role_name: New role created by api
+                    root_group_id: '5262'
+                    overridden_role_id: '0'
+                    tt_role_sort: 4
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+              examples:
+                could not save new role:
+                  value:
+                    message: Role could not be saved
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+              examples:
+                role exists:
+                  value:
+                    message: This role already exists
+                not permitted:
+                  value:
+                    message: Role couldn't be saved
+      summary: Create time tracking role
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                tt_role_name:
+                  type: string
+                  description: name of the role
+                tt_role_sort:
+                  type: integer
+                  description: role priority (lower number means higher priority)
+                perms:
+                  type: object
+                  description: array of permissions to add to role
+                  properties:
+                    '[perm_id]':
+                      type: integer
+                      description: '[perm-id] as key and `1` as value to add given [perm-id] to role'
+            examples:
+              creating new role with some permissions:
+                value:
+                  tt_role_name: New role created by api
+                  tt_role_sort: 4
+                  perms:
+                    '6': 1
+                    '7': 1
+      tags:
+      - '[v1] Roles & Permissions'
+      security:
+      - api_key_in_header: []
+    put:
+      operationId: put--tt_role
+      description: Update time tracking role. Note you can't edit `Regular User` role.
+      responses:
+        '200':
+          description: OK - returns all roles (before update), just like in GET option.
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+              examples:
+                not permitted:
+                  value:
+                    message: Role couldn't be saved
+                editing regular user role:
+                  value:
+                    message: You can't modify regular user role!
+        '406':
+          description: Not Acceptable
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+              examples:
+                setting priority failed:
+                  value:
+                    message: Error while setting priority.
+      summary: Update time tracking role
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                tt_role_id:
+                  type: integer
+                  description: role id to update
+                tt_role_sort:
+                  type: integer
+                  description: role priority (lower number means higher priority)
+                perms:
+                  type: object
+                  description: array of permissions to add to role
+                  properties:
+                    '[perm_id]':
+                      type: integer
+                      description: '[perm-id] as key and `1` as value to add given [perm-id] to role'
+            examples:
+              add two permissions to role and set role priority:
+                value:
+                  tt_role_id: 7157
+                  tt_role_sort: 4
+                  perms:
+                    '6': 1
+                    '7': 1
+        description: ''
+      tags:
+      - '[v1] Roles & Permissions'
+      security:
+      - api_key_in_header: []
+components:
+  securitySchemes:
+    api_key_in_header:
+      type: http
+      scheme: bearer
+      description: ''
+    OIDC:
+      type: openIdConnect
+      openIdConnectUrl: authenticate/oidc
+x-tagGroups:
+- name: TimeCamp API
+  tags:
+  - '[v1] User'
+  - '[v1] Entry'
+  - '[v1] Tags'
+  - '[v1] Group'
+  - '[v1] Approvals'
+  - '[v1] Computer Activities'
+  - '[v1] Timer'
+  - '[v1] Task'
+  - '[v1] Attendance'
+  - '[v1] Roles & Permissions'
+  - '[v1] Billing Rates'
+  - '[v1] Userlog'
+  - '[v1] Activity alert'
+  - '[v3] Timer'
+  - '[v3] Invoices'
+  - '[v3] Computer Activities'
+  - '[v3] Time Entry'
+  - '[v3] Task Archive'
+  - '[v3] Time Entry Restriction'
+  - '[v3] Expense'
+  - '[v3] Plan'
+  - '[v3] Storage'
+  - '[v3] Module'
+  - '[v3] Marketplace'
+  - '[v3] Remote work detection'
+  - '[v3] Data Export'
+  - '[v3] Custom Fields'
+  - '[v3] Approval'
+  - '[v3] Task'
+  - '[v3] Projects'
+  - '[v3] Attendance'
+  - '[v3] Attendance Requests'

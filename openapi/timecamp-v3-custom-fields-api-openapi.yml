@@ -1,0 +1,1047 @@
+openapi: 3.0.0
+info:
+  title: TimeCamp [v1] Approvals [v1] Approvals [v3] Custom Fields API
+  version: '1.0'
+  contact:
+    email: support@timecamp.com
+  termsOfService: https://www.timecamp.com/terms-conditions/
+  description: 'Documentation for the TimeCamp system.
+
+
+    Get your API token here:
+
+    https://app.timecamp.com/app#/settings/users/me
+
+
+    Be aware that you can reach API calls limit. Once you do you will get HTTP code 429 response.
+
+
+    Request example:
+
+
+    ```
+
+    GET https://app.timecamp.com/third_party/api/user?user_id=1234567
+
+
+    Headers:
+
+    Authorization: Bearer 87c21299960a88888888fe123
+
+    Accept: application/json
+
+    ```
+
+    '
+servers:
+- url: https://app.timecamp.com/third_party/api
+  description: PRODUCTION
+- url: https://v4.api.timecamp.com
+  description: PRODUCTION
+tags:
+- name: '[v3] Custom Fields'
+  x-displayName: Custom Fields
+paths:
+  /v3/custom-fields/template/list:
+    get:
+      summary: List Custom Field Templates
+      description: List Custom Field Templates
+      tags:
+      - '[v3] Custom Fields'
+      operationId: get-custom-fields-template-list
+      parameters:
+      - schema:
+          type: string
+          example: application/json
+        in: header
+        name: Accept
+      - schema:
+          type: string
+          example: application/json
+        in: header
+        name: Content-Type
+      responses:
+        '200':
+          description: List of active custom fields templates
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      properties:
+                        id:
+                          type: integer
+                          description: ID of the created template
+                        name:
+                          type: string
+                          description: Name of the template
+                        resourceType:
+                          type: string
+                          description: Resource type
+                        required:
+                          type: boolean
+                          description: Whether the field is required
+                        status:
+                          type: integer
+                          description: Template status
+                        fieldType:
+                          type: string
+                          description: Field type
+                        defaultValue:
+                          type: string
+                          nullable: true
+                          description: Default value
+                        fieldOptions:
+                          type: array
+                          nullable: true
+                          description: Field options
+                          items:
+                            type: object
+              examples:
+                Success Response:
+                  value:
+                    data:
+                    - id: 15
+                      name: Customer Priority
+                      resourceType: user
+                      required: true
+                      status: 1
+                      fieldType: string
+                      defaultValue: Medium
+                      fieldOptions: []
+                    - id: 16
+                      name: Customer Category
+                      resourceType: user
+                      required: false
+                      status: 1
+                      fieldType: string
+                      defaultValue: null
+                      fieldOptions: []
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+      x-internal: false
+      security:
+      - api_key_in_header: []
+  /v3/custom-fields/template/create:
+    post:
+      summary: Create Custom Field Template
+      description: Create Custom Field Template
+      tags:
+      - '[v3] Custom Fields'
+      operationId: post-custom-fields-template-create
+      parameters:
+      - schema:
+          type: string
+          example: application/json
+        in: header
+        name: Accept
+      - schema:
+          type: string
+          example: application/json
+        in: header
+        name: Content-Type
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - name
+              - resourceType
+              - fieldType
+              properties:
+                name:
+                  type: string
+                  description: Name of the custom field template
+                  example: Customer Priority
+                resourceType:
+                  type: string
+                  description: Key of the resource type this template applies to
+                  enum:
+                  - user
+                  - task
+                  - entry
+                  example: user
+                required:
+                  type: boolean
+                  description: Whether this field is required
+                  default: false
+                  example: true
+                status:
+                  type: integer
+                  description: Status of the template
+                  example: 0
+                fieldType:
+                  type: string
+                  description: Type of the custom field
+                  enum:
+                  - number
+                  - string
+                  example: number
+                defaultValue:
+                  type: string
+                  nullable: true
+                  description: Default value for the field (must match field type), must be provided if field is required
+                  example: Medium
+                fieldOptions:
+                  type: array
+                  nullable: true
+                  description: Configuration options for the field
+                  items:
+                    type: object
+                  example: []
+            examples:
+              Text Field Example:
+                value:
+                  name: Customer Notes
+                  resourceType: user
+                  required: false
+                  status: 0
+                  fieldType: string
+                  defaultValue: ''
+                  fieldOptions: []
+              Required Number Field:
+                value:
+                  name: Priority Score
+                  resourceType: task
+                  required: true
+                  status: 0
+                  fieldType: number
+                  defaultValue: '5'
+                  fieldOptions: []
+      responses:
+        '200':
+          description: Custom field template created successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      id:
+                        type: integer
+                        description: ID of the created template
+                      name:
+                        type: string
+                        description: Name of the template
+                      resourceType:
+                        type: string
+                        description: Resource type
+                      required:
+                        type: boolean
+                        description: Whether the field is required
+                      status:
+                        type: integer
+                        description: Template status
+                      fieldType:
+                        type: string
+                        description: Field type
+                      defaultValue:
+                        type: string
+                        nullable: true
+                        description: Default value
+                      fieldOptions:
+                        type: array
+                        nullable: true
+                        description: Field options
+                        items:
+                          type: object
+              examples:
+                Success Response:
+                  value:
+                    data:
+                      id: 15
+                      name: Customer Priority
+                      resourceType: user
+                      required: true
+                      status: 1
+                      fieldType: text
+                      defaultValue: Medium
+                      fieldOptions: []
+        '400':
+          description: Bad Request - Validation errors
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        field:
+                          type: string
+                        message:
+                          type: string
+              examples:
+                Validation Error:
+                  value:
+                    errors:
+                    - field: name
+                      message: This value should not be blank.
+                    - field: fieldType
+                      message: Choose a valid type
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+      x-internal: false
+      security:
+      - api_key_in_header: []
+  /v3/custom-fields/template/{templateId}/modify:
+    put:
+      summary: Modify Custom Field Template
+      description: Modify Custom Field Template
+      tags:
+      - '[v3] Custom Fields'
+      operationId: put-custom-fields-template-modify
+      parameters:
+      - schema:
+          type: string
+          example: application/json
+        in: header
+        name: Accept
+      - schema:
+          type: string
+          example: application/json
+        in: header
+        name: Content-Type
+      - schema:
+          type: integer
+          example: 1
+        in: path
+        required: true
+        name: templateId
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  description: Name of the custom field template
+                  example: Customer Priority
+                required:
+                  type: boolean
+                  description: Whether this field is required
+                  default: false
+                  example: true
+                status:
+                  type: integer
+                  description: Status of the template
+                  example: 0
+                defaultValue:
+                  type: string
+                  nullable: true
+                  description: Default value for the field (must match field type), must be provided if field is required
+                  example: Medium
+                fieldOptions:
+                  type: array
+                  nullable: true
+                  description: Configuration options for the field
+                  items:
+                    type: object
+                  example: []
+            examples:
+              Text Field Example:
+                value:
+                  name: Customer Notes
+                  required: false
+                  status: 0
+                  defaultValue: ''
+                  fieldOptions: []
+              Required Number Field:
+                value:
+                  name: Priority Score
+                  required: true
+                  status: 0
+                  defaultValue: '5'
+                  fieldOptions: []
+      responses:
+        '200':
+          description: Custom field template modified successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      id:
+                        type: integer
+                        description: ID of the created template
+                      name:
+                        type: string
+                        description: Name of the template
+                      resourceType:
+                        type: string
+                        description: Resource type
+                      required:
+                        type: boolean
+                        description: Whether the field is required
+                      status:
+                        type: integer
+                        description: Template status
+                      fieldType:
+                        type: string
+                        description: Field type
+                      defaultValue:
+                        type: string
+                        nullable: true
+                        description: Default value
+                      fieldOptions:
+                        type: array
+                        nullable: true
+                        description: Field options
+                        items:
+                          type: object
+              examples:
+                Success Response:
+                  value:
+                    data:
+                      id: 15
+                      name: Customer Priority
+                      resourceType: user
+                      required: true
+                      status: 1
+                      fieldType: text
+                      defaultValue: Medium
+                      fieldOptions: []
+        '400':
+          description: Bad Request - Validation errors
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        field:
+                          type: string
+                        message:
+                          type: string
+              examples:
+                Validation Error:
+                  value:
+                    errors:
+                    - field: defaultValue
+                      message: 'Value NULL is not valid for this field (Type: number, Required: true)'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+      x-internal: false
+      security:
+      - api_key_in_header: []
+  /v3/custom-fields/template/{templateId}/remove:
+    delete:
+      summary: Remove Custom Field Template
+      description: Remove Custom Field Template
+      tags:
+      - '[v3] Custom Fields'
+      operationId: delete-custom-fields-template-remove
+      parameters:
+      - schema:
+          type: string
+          example: application/json
+        in: header
+        name: Accept
+      - schema:
+          type: string
+          example: application/json
+        in: header
+        name: Content-Type
+      - schema:
+          type: integer
+          example: 1
+        in: path
+        required: true
+        name: templateId
+      responses:
+        '200':
+          description: Custom field template removed successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: string
+              examples:
+                Success Response:
+                  value:
+                    data: ok
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+      x-internal: false
+      security:
+      - api_key_in_header: []
+  /v3/custom-fields/{templateId}/assign/{resourceId}:
+    post:
+      summary: Assign value to custom fields
+      description: Assign value to custom fields
+      tags:
+      - '[v3] Custom Fields'
+      operationId: post-custom-fields-resource-assign
+      parameters:
+      - schema:
+          type: string
+          example: application/json
+        in: header
+        name: Accept
+      - schema:
+          type: string
+          example: application/json
+        in: header
+        name: Content-Type
+      - schema:
+          type: integer
+          example: 1
+        in: path
+        required: true
+        name: templateId
+      - schema:
+          type: integer
+          example: 1
+        in: path
+        required: true
+        name: resourceId
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - value
+              properties:
+                value:
+                  type: string
+                  description: New value for this custom field in a resource
+                  example: In Progress
+            examples:
+              Assigned Value:
+                value:
+                  value: In Progress
+      responses:
+        '200':
+          description: Custom field value assigned successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      id:
+                        type: integer
+                        description: Unique identifier for the custom field assignment
+                        example: 66
+                      resourceId:
+                        type: integer
+                        description: ID of the resource this custom field is assigned to
+                        example: 610
+                      resourceType:
+                        type: string
+                        description: Type of the resource
+                        example: user
+                      required:
+                        type: boolean
+                        description: Whether this custom field is required
+                        example: true
+                      value:
+                        type: string
+                        description: The assigned value for this custom field
+                        example: In Progress
+                      fieldType:
+                        type: string
+                        description: Type of the custom field
+                        example: string
+                      startDate:
+                        type: string
+                        format: date-time
+                        description: Start date for the custom field assignment
+                        example: '2025-07-08 10:45:15'
+                      endDate:
+                        type: string
+                        format: date-time
+                        nullable: true
+                        description: End date for the custom field assignment (null means it's active value, date is for values in the past)
+                        example: null
+                      createdBy:
+                        type: integer
+                        description: ID of the user who created this assignment
+                        example: 610
+                      createdAt:
+                        type: string
+                        format: date-time
+                        description: DateTime when the assignment was created
+                        example: '2025-07-08 10:45:15'
+                      updatedAt:
+                        type: string
+                        format: date-time
+                        description: DateTime when the assignment was last updated
+                        example: '2025-07-08 10:45:15'
+              examples:
+                Success Response:
+                  value:
+                    data:
+                      id: 66
+                      resourceId: 610
+                      resourceType: user
+                      required: true
+                      value: In Progress
+                      fieldType: string
+                      startDate: '2025-07-08 10:45:15'
+                      endDate: null
+                      createdBy: 610
+                      createdAt: '2025-07-08 10:45:15'
+                      updatedAt: '2025-07-08 10:45:15'
+        '400':
+          description: Bad Request - Validation errors
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        field:
+                          type: string
+                        message:
+                          type: string
+              examples:
+                Validation Error:
+                  value:
+                    errors:
+                    - field: value
+                      message: 'Value NULL is not valid for this field (Type: number, Required: true)'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+      x-internal: false
+      security:
+      - api_key_in_header: []
+  /v3/custom-fields/{templateId}/unassign/{resourceId}:
+    delete:
+      summary: Unassign value from custom fields
+      description: Unassign value from custom fields
+      tags:
+      - '[v3] Custom Fields'
+      operationId: delete-custom-fields-resource-unassign
+      parameters:
+      - schema:
+          type: string
+          example: application/json
+        in: header
+        name: Accept
+      - schema:
+          type: string
+          example: application/json
+        in: header
+        name: Content-Type
+      - schema:
+          type: integer
+          example: 1
+        in: path
+        required: true
+        name: templateId
+      - schema:
+          type: integer
+          example: 1
+        in: path
+        required: true
+        name: resourceId
+      responses:
+        '200':
+          description: Custom field value was unassigned successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      id:
+                        type: integer
+                        description: Unique identifier for the custom field assignment
+                        example: 66
+                      resourceId:
+                        type: integer
+                        description: ID of the resource this custom field is assigned to
+                        example: 610
+                      resourceType:
+                        type: string
+                        description: Type of the resource
+                        example: user
+                      required:
+                        type: boolean
+                        description: Whether this custom field is required
+                        example: true
+                      value:
+                        type: string
+                        description: The assigned value for this custom field
+                        example: In Progress
+                      fieldType:
+                        type: string
+                        description: Type of the custom field
+                        example: string
+                      startDate:
+                        type: string
+                        format: date-time
+                        description: Start date for the custom field assignment
+                        example: '2025-07-08 10:45:15'
+                      endDate:
+                        type: string
+                        format: date-time
+                        nullable: true
+                        description: End date for the custom field assignment (null means it's active value, date is for values in the past)
+                        example: '2025-07-08 12:45:15'
+                      createdBy:
+                        type: integer
+                        description: ID of the user who created this assignment
+                        example: 610
+                      createdAt:
+                        type: string
+                        format: date-time
+                        description: DateTime when the assignment was created
+                        example: '2025-07-08 10:45:15'
+                      updatedAt:
+                        type: string
+                        format: date-time
+                        description: DateTime when the assignment was last updated
+                        example: '2025-07-08 10:45:15'
+              examples:
+                Success Response:
+                  value:
+                    data:
+                      id: 66
+                      resourceId: 610
+                      resourceType: user
+                      required: true
+                      value: In Progress
+                      fieldType: string
+                      startDate: '2025-07-08 10:45:15'
+                      endDate: '2025-07-08 12:45:15'
+                      createdBy: 610
+                      createdAt: '2025-07-08 10:45:15'
+                      updatedAt: '2025-07-08 10:45:15'
+        '400':
+          description: Bad Request - Validation errors
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        field:
+                          type: string
+                        message:
+                          type: string
+              examples:
+                Validation Error:
+                  value:
+                    errors:
+                    - field: value
+                      message: 'Value NULL is not valid for this field (Type: number, Required: true)'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+      x-internal: false
+      security:
+      - api_key_in_header: []
+  /v3/custom-fields/{templateId}/value/{resourceId}:
+    get:
+      summary: Retrieve value for custom field in resource
+      description: Retrieve value for custom field in resource
+      tags:
+      - '[v3] Custom Fields'
+      operationId: get-custom-fields-resource-value
+      parameters:
+      - schema:
+          type: string
+          example: application/json
+        in: header
+        name: Accept
+      - schema:
+          type: string
+          example: application/json
+        in: header
+        name: Content-Type
+      - schema:
+          type: integer
+          example: 1
+        in: path
+        required: true
+        name: templateId
+      - schema:
+          type: integer
+          example: 1
+        in: path
+        required: true
+        name: resourceId
+      responses:
+        '200':
+          description: Value of the custom field
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      id:
+                        type: integer
+                        description: Unique identifier for the custom field assignment
+                        example: 66
+                      resourceId:
+                        type: integer
+                        description: ID of the resource this custom field is assigned to
+                        example: 610
+                      resourceType:
+                        type: string
+                        description: Type of the resource
+                        example: user
+                      required:
+                        type: boolean
+                        description: Whether this custom field is required
+                        example: true
+                      value:
+                        type: string
+                        description: The assigned value for this custom field
+                        example: In Progress
+                      fieldType:
+                        type: string
+                        description: Type of the custom field
+                        example: string
+                      startDate:
+                        type: string
+                        format: date-time
+                        description: Start date for the custom field assignment
+                        example: '2025-07-08 10:45:15'
+                      endDate:
+                        type: string
+                        format: date-time
+                        nullable: true
+                        description: End date for the custom field assignment (null means it's active value, date is for values in the past)
+                        example: null
+                      createdBy:
+                        type: integer
+                        description: ID of the user who created this assignment
+                        example: 610
+                      createdAt:
+                        type: string
+                        format: date-time
+                        description: DateTime when the assignment was created
+                        example: '2025-07-08 10:45:15'
+                      updatedAt:
+                        type: string
+                        format: date-time
+                        description: DateTime when the assignment was last updated
+                        example: '2025-07-08 10:45:15'
+              examples:
+                Success Response:
+                  value:
+                    data:
+                      id: 66
+                      resourceId: 610
+                      resourceType: user
+                      required: true
+                      value: In Progress
+                      fieldType: string
+                      startDate: '2025-07-08 10:45:15'
+                      endDate: null
+                      createdBy: 610
+                      createdAt: '2025-07-08 10:45:15'
+                      updatedAt: '2025-07-08 10:45:15'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+      x-internal: false
+      security:
+      - api_key_in_header: []
+  /v3/custom-fields/values/resource/{resourceId}/type/{resourceType}:
+    get:
+      summary: Retrieve values for all custom fields in resource
+      description: Retrieve values for all custom fields in resource
+      tags:
+      - '[v3] Custom Fields'
+      operationId: get-custom-fields-resource-values
+      parameters:
+      - schema:
+          type: string
+          example: application/json
+        in: header
+        name: Accept
+      - schema:
+          type: string
+          example: application/json
+        in: header
+        name: Content-Type
+      - schema:
+          type: string
+          example: user
+        in: path
+        required: true
+        name: resourceType
+      - schema:
+          type: integer
+          example: 1
+        in: path
+        required: true
+        name: resourceId
+      responses:
+        '200':
+          description: Custom Fields values for the resource
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      properties:
+                        templateId:
+                          type: integer
+                          description: ID of the Custom Field template this value corresponds to
+                          example: 66
+                        name:
+                          type: string
+                          description: Name of the Custom Field Template
+                          example: Client Status
+                        resourceType:
+                          type: string
+                          description: Type of the resource
+                          example: user
+                        required:
+                          type: boolean
+                          description: Whether this custom field value is required
+                          example: true
+                        fieldType:
+                          type: string
+                          description: Type of the custom field
+                          example: string
+                        defaultValue:
+                          type: string
+                          description: Default value for this Custom Field if none was provided and field is required
+                          example: In Progress
+                        value:
+                          type: string
+                          description: The assigned value for this custom field (if field is required and there was no assignment yet it'll show defaultValue)
+                          example: In Progress
+              examples:
+                Success Response:
+                  value:
+                    data:
+                    - templateId: 66
+                      name: Client Status
+                      resourceType: user
+                      required: true
+                      fieldType: string
+                      defaultValue: In Progress
+                      value: In Progress
+                    - templateId: 69
+                      name: Progress
+                      resourceType: user
+                      required: false
+                      fieldType: number
+                      defaultValue: null
+                      value: '75'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+      x-internal: false
+      security:
+      - api_key_in_header: []
+components:
+  securitySchemes:
+    api_key_in_header:
+      type: http
+      scheme: bearer
+      description: ''
+    OIDC:
+      type: openIdConnect
+      openIdConnectUrl: authenticate/oidc
+x-tagGroups:
+- name: TimeCamp API
+  tags:
+  - '[v1] User'
+  - '[v1] Entry'
+  - '[v1] Tags'
+  - '[v1] Group'
+  - '[v1] Approvals'
+  - '[v1] Computer Activities'
+  - '[v1] Timer'
+  - '[v1] Task'
+  - '[v1] Attendance'
+  - '[v1] Roles & Permissions'
+  - '[v1] Billing Rates'
+  - '[v1] Userlog'
+  - '[v1] Activity alert'
+  - '[v3] Timer'
+  - '[v3] Invoices'
+  - '[v3] Computer Activities'
+  - '[v3] Time Entry'
+  - '[v3] Task Archive'
+  - '[v3] Time Entry Restriction'
+  - '[v3] Expense'
+  - '[v3] Plan'
+  - '[v3] Storage'
+  - '[v3] Module'
+  - '[v3] Marketplace'
+  - '[v3] Remote work detection'
+  - '[v3] Data Export'
+  - '[v3] Custom Fields'
+  - '[v3] Approval'
+  - '[v3] Task'
+  - '[v3] Projects'
+  - '[v3] Attendance'
+  - '[v3] Attendance Requests'

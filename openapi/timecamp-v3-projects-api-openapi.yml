@@ -1,0 +1,785 @@
+openapi: 3.0.0
+info:
+  title: TimeCamp [v1] Approvals [v1] Approvals [v3] Projects API
+  version: '1.0'
+  contact:
+    email: support@timecamp.com
+  termsOfService: https://www.timecamp.com/terms-conditions/
+  description: 'Documentation for the TimeCamp system.
+
+
+    Get your API token here:
+
+    https://app.timecamp.com/app#/settings/users/me
+
+
+    Be aware that you can reach API calls limit. Once you do you will get HTTP code 429 response.
+
+
+    Request example:
+
+
+    ```
+
+    GET https://app.timecamp.com/third_party/api/user?user_id=1234567
+
+
+    Headers:
+
+    Authorization: Bearer 87c21299960a88888888fe123
+
+    Accept: application/json
+
+    ```
+
+    '
+servers:
+- url: https://app.timecamp.com/third_party/api
+  description: PRODUCTION
+- url: https://v4.api.timecamp.com
+  description: PRODUCTION
+tags:
+- name: '[v3] Projects'
+  x-displayName: Projects
+paths:
+  /v3/projects:
+    post:
+      summary: List projects tree
+      description: List projects tree
+      tags:
+      - '[v3] Projects'
+      operationId: projects-list
+      parameters:
+      - schema:
+          type: string
+          example: application/json
+        in: header
+        name: Accept
+      - schema:
+          type: string
+          example: application/json
+        in: header
+        name: Content-Type
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - parentId
+              - status
+              properties:
+                parentId:
+                  type: integer
+                  description: Parent ID to search (0 for root task)
+                  example: 0
+                status:
+                  type: string
+                  description: Filter tasks by status
+                  enum:
+                  - all
+                  - active
+                  example: active
+                context:
+                  type: string
+                  description: Project tree context
+                  enum:
+                  - invoice
+                  - time_tracking
+                  - reports
+                  - edit_settings
+                  - create_subtask
+                  default: reports
+                  example: time_tracking
+                include:
+                  type: array
+                  description: List of additional fields to include. The users field contains active assigned users only.
+                  enum:
+                  - color
+                  - users
+                  - groups
+                  - last_used
+                  example:
+                  - color
+                  - users
+                page:
+                  type: integer
+                  description: Page number for pagination
+                  example: 1
+                limit:
+                  type: integer
+                  description: Number of items per page
+                  example: 25
+            examples:
+              Example:
+                value:
+                  parentId: 0
+                  status: active
+                  context: reports
+                  include:
+                  - color
+                  - users
+                  page: 1
+                  limit: 25
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      type: object
+                      $ref: '#/components/schemas/Projects-item'
+                  pagination:
+                    type: object
+                    properties:
+                      page:
+                        type: integer
+                      totalPages:
+                        type: integer
+              examples:
+                Example 1:
+                  value:
+                    data:
+                    - taskId: 34523534
+                      name: Calendars
+                      parentId: 0
+                      level: 1
+                      note: Personal calendars
+                      rootGroupId: 66
+                      archived: 0
+                      billable: true
+                      hasChildren: false
+                      children: []
+                      disabled: false
+                      disableReason: ''
+                    pagination:
+                      page: 1
+                      totalPages: 5
+        default:
+          description: Default
+      security:
+      - api_key_in_header: []
+  /v3/projects/search:
+    post:
+      summary: Search in projects tree
+      description: Search in projects tree
+      tags:
+      - '[v3] Projects'
+      operationId: projects-search
+      parameters:
+      - schema:
+          type: string
+          example: application/json
+        in: header
+        name: Accept
+      - schema:
+          type: string
+          example: application/json
+        in: header
+        name: Content-Type
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - status
+              properties:
+                searchText:
+                  type: string
+                  description: Phrase to search for. At least one of `searchText` or `userIds` is required.
+                  minLength: 2
+                  example: searching for this
+                userIds:
+                  type: array
+                  description: User IDs directly assigned to returned projects. At least one of `searchText` or `userIds` is required.
+                  minItems: 1
+                  maxItems: 500
+                  items:
+                    type: integer
+                  example:
+                  - 123
+                  - 456
+                status:
+                  type: string
+                  description: Filter tasks by status
+                  enum:
+                  - all
+                  - active
+                  example: active
+                context:
+                  type: string
+                  description: Project tree context
+                  enum:
+                  - invoice
+                  - time_tracking
+                  - reports
+                  - edit_settings
+                  - create_subtask
+                  default: reports
+                  example: time_tracking
+                include:
+                  type: array
+                  description: List of additional fields to include
+                  items:
+                    type: string
+                    enum:
+                    - color
+                    - users
+                    - groups
+                    - last_used
+                  example:
+                  - color
+                  - users
+            examples:
+              Example:
+                value:
+                  status: active
+                  searchText: searching for this
+                  context: reports
+                  include:
+                  - color
+                  - users
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      type: object
+                      $ref: '#/components/schemas/Projects-item'
+                  meta:
+                    type: object
+                  searchInfo:
+                    type: object
+                    properties:
+                      items:
+                        type: integer
+                      total:
+                        type: integer
+              examples:
+                Example 1:
+                  value:
+                    data:
+                    - taskId: 34523534
+                      name: Calendars
+                      parentId: 0
+                      level: 1
+                      note: Personal calendars
+                      rootGroupId: 66
+                      archived: 0
+                      billable: true
+                      hasChildren: false
+                      children: []
+                      disabled: false
+                      disableReason: ''
+                      isMatching: true
+                    meta: {}
+                    searchInfo:
+                      items: 1
+                      total: 5
+        default:
+          description: Default
+      security:
+      - api_key_in_header: []
+  /v3/projects/{taskId}/assigned-users:
+    get:
+      summary: List assigned users for project task
+      description: Returns active users assigned to a task, including inherited assignments metadata.
+      tags:
+      - '[v3] Projects'
+      operationId: projects-assigned-users
+      parameters:
+      - schema:
+          type: integer
+          example: 34523534
+        in: path
+        required: true
+        name: taskId
+      - schema:
+          type: string
+          example: application/json
+        in: header
+        name: Accept
+      - schema:
+          type: string
+          example: application/json
+        in: header
+        name: Content-Type
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        userId:
+                          type: integer
+                        displayName:
+                          type: string
+                        email:
+                          type: string
+                        roleId:
+                          type: integer
+                        taskId:
+                          type: integer
+                          nullable: true
+                  meta:
+                    type: object
+                    properties:
+                      roles:
+                        type: array
+                        items:
+                          type: object
+                          properties:
+                            roleId:
+                              type: integer
+                            name:
+                              type: string
+                            sort:
+                              type: integer
+                      tasks:
+                        type: array
+                        items:
+                          type: object
+                          properties:
+                            taskId:
+                              type: integer
+                            name:
+                              type: string
+              examples:
+                Example 1:
+                  value:
+                    data:
+                    - userId: 364263
+                      displayName: John Smith
+                      email: john.smith@example.com
+                      roleId: 2
+                      taskId: null
+                    - userId: 364264
+                      displayName: Jane Doe
+                      email: jane.doe@example.com
+                      roleId: 3
+                      taskId: 123456
+                    meta:
+                      roles:
+                      - roleId: 2
+                        name: Manager
+                        sort: 10
+                      - roleId: 3
+                        name: Member
+                        sort: 20
+                      tasks:
+                      - taskId: 123456
+                        name: Parent task
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+              examples:
+                Example 1:
+                  value:
+                    message: You are not allowed to use this endpoint.
+      security:
+      - api_key_in_header: []
+  /v3/projects/{taskId}/assign:
+    put:
+      summary: Assign users to project task
+      description: Assigns one or more users to the selected project task with the provided project role.
+      tags:
+      - '[v3] Projects'
+      operationId: projects-assign-users
+      parameters:
+      - schema:
+          type: integer
+          example: 34523534
+        in: path
+        required: true
+        name: taskId
+      - schema:
+          type: string
+          example: application/json
+        in: header
+        name: Accept
+      - schema:
+          type: string
+          example: application/json
+        in: header
+        name: Content-Type
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - userIds
+              - roleId
+              properties:
+                userIds:
+                  type: array
+                  description: List of user IDs to assign to the task.
+                  minItems: 1
+                  items:
+                    type: integer
+                    minimum: 1
+                roleId:
+                  type: integer
+                  description: Project role ID to assign to all listed users.
+                  minimum: 1
+            examples:
+              Example 1:
+                value:
+                  userIds:
+                  - 364263
+                  - 364264
+                  roleId: 3
+      responses:
+        '200':
+          description: Users assigned successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: string
+                    example: ok
+              examples:
+                Example 1:
+                  value:
+                    data: ok
+        '400':
+          description: Bad request or exposed business error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  message_code:
+                    type: string
+                  message_params:
+                    type: object
+                    additionalProperties: true
+                  errors:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        property:
+                          type: string
+                        message:
+                          type: string
+              examples:
+                Validation error:
+                  value:
+                    message: Request validation failed
+                    errors:
+                    - property: userIds
+                      message: This value should not be blank.
+                User does not exist:
+                  value:
+                    message: At least one of users provided in payload does not exist
+                    message_code: projects.error.user_does_not_exist
+                    message_params: []
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  message_code:
+                    type: string
+                  message_params:
+                    type: object
+                    additionalProperties: true
+              examples:
+                No endpoint access:
+                  value:
+                    message: You are not allowed to use this endpoint.
+                Access to task denied:
+                  value:
+                    message: You have no rights in task 34523534
+                    message_code: projects.error.assign.access_to_task_denied
+                    message_params:
+                      task_id: 34523534
+                Role higher than owned:
+                  value:
+                    message: You can not set role 4 as this role is higher than your own
+                    message_code: projects.error.assign.permission_higher_than_owned
+                    message_params:
+                      role_id: 4
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+              examples:
+                Example 1:
+                  value:
+                    message: An unspecified error occurred.
+      security:
+      - api_key_in_header: []
+  /v3/projects/{taskId}/unassign:
+    put:
+      summary: Unassign users from project task
+      description: Removes direct user assignments from the selected project task.
+      tags:
+      - '[v3] Projects'
+      operationId: projects-unassign-users
+      parameters:
+      - schema:
+          type: integer
+          example: 34523534
+        in: path
+        required: true
+        name: taskId
+      - schema:
+          type: string
+          example: application/json
+        in: header
+        name: Accept
+      - schema:
+          type: string
+          example: application/json
+        in: header
+        name: Content-Type
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - userIds
+              properties:
+                userIds:
+                  type: array
+                  description: List of user IDs to unassign from the task.
+                  minItems: 1
+                  items:
+                    type: integer
+                    minimum: 1
+            examples:
+              Example 1:
+                value:
+                  userIds:
+                  - 364263
+                  - 364264
+      responses:
+        '200':
+          description: Users unassigned successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: string
+                    example: ok
+              examples:
+                Example 1:
+                  value:
+                    data: ok
+        '400':
+          description: Bad request or exposed business error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  message_code:
+                    type: string
+                  message_params:
+                    type: object
+                    additionalProperties: true
+                  errors:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        property:
+                          type: string
+                        message:
+                          type: string
+              examples:
+                Validation error:
+                  value:
+                    message: Request validation failed
+                    errors:
+                    - property: userIds
+                      message: This value should not be blank.
+                User does not exist:
+                  value:
+                    message: At least one of users provided in payload does not exist
+                    message_code: projects.error.user_does_not_exist
+                    message_params: []
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  message_code:
+                    type: string
+                  message_params:
+                    type: object
+                    additionalProperties: true
+              examples:
+                No endpoint access:
+                  value:
+                    message: You are not allowed to use this endpoint.
+                Access to task denied:
+                  value:
+                    message: You have no rights in task 34523534
+                    message_code: projects.error.assign.access_to_task_denied
+                    message_params:
+                      task_id: 34523534
+                Cannot override role:
+                  value:
+                    message: Cannot override role for user John Smith
+                    message_code: projects.error.assign.cannot_override_role_for_user
+                    message_params:
+                      user_display_name: John Smith
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+              examples:
+                Example 1:
+                  value:
+                    message: An unspecified error occurred.
+      security:
+      - api_key_in_header: []
+components:
+  schemas:
+    Projects-item:
+      x-examples:
+        Example 1:
+          taskId: 123456
+          name: My task
+          parentId: 98765
+          level: 3
+          note: my note
+          rootGroupId: 66
+          archived: 0
+          billable: false
+          hasChildren: false
+          children: []
+          disabled: false
+          disableReason: ''
+          isMatched: true
+      type: object
+      properties:
+        taskId:
+          type: integer
+        name:
+          type: string
+        parentId:
+          type: integer
+        level:
+          type: integer
+        note:
+          type: string|null
+        rootGroupId:
+          type: integer
+        archived:
+          type: integer
+        billable:
+          type: bool
+        hasChildren:
+          type: bool
+        children:
+          type: array
+        disabled:
+          type: bool
+        disableReason:
+          type: string
+      title: Project Item
+      x-tags:
+      - Projects
+  securitySchemes:
+    api_key_in_header:
+      type: http
+      scheme: bearer
+      description: ''
+    OIDC:
+      type: openIdConnect
+      openIdConnectUrl: authenticate/oidc
+x-tagGroups:
+- name: TimeCamp API
+  tags:
+  - '[v1] User'
+  - '[v1] Entry'
+  - '[v1] Tags'
+  - '[v1] Group'
+  - '[v1] Approvals'
+  - '[v1] Computer Activities'
+  - '[v1] Timer'
+  - '[v1] Task'
+  - '[v1] Attendance'
+  - '[v1] Roles & Permissions'
+  - '[v1] Billing Rates'
+  - '[v1] Userlog'
+  - '[v1] Activity alert'
+  - '[v3] Timer'
+  - '[v3] Invoices'
+  - '[v3] Computer Activities'
+  - '[v3] Time Entry'
+  - '[v3] Task Archive'
+  - '[v3] Time Entry Restriction'
+  - '[v3] Expense'
+  - '[v3] Plan'
+  - '[v3] Storage'
+  - '[v3] Module'
+  - '[v3] Marketplace'
+  - '[v3] Remote work detection'
+  - '[v3] Data Export'
+  - '[v3] Custom Fields'
+  - '[v3] Approval'
+  - '[v3] Task'
+  - '[v3] Projects'
+  - '[v3] Attendance'
+  - '[v3] Attendance Requests'

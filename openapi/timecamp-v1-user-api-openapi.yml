@@ -1,0 +1,556 @@
+openapi: 3.0.0
+info:
+  title: TimeCamp [v1] Approvals [v1] Approvals [v1] User API
+  version: '1.0'
+  contact:
+    email: support@timecamp.com
+  termsOfService: https://www.timecamp.com/terms-conditions/
+  description: 'Documentation for the TimeCamp system.
+
+
+    Get your API token here:
+
+    https://app.timecamp.com/app#/settings/users/me
+
+
+    Be aware that you can reach API calls limit. Once you do you will get HTTP code 429 response.
+
+
+    Request example:
+
+
+    ```
+
+    GET https://app.timecamp.com/third_party/api/user?user_id=1234567
+
+
+    Headers:
+
+    Authorization: Bearer 87c21299960a88888888fe123
+
+    Accept: application/json
+
+    ```
+
+    '
+servers:
+- url: https://app.timecamp.com/third_party/api
+  description: PRODUCTION
+- url: https://v4.api.timecamp.com
+  description: PRODUCTION
+tags:
+- name: '[v1] User'
+  x-displayName: User
+paths:
+  /users:
+    get:
+      summary: Get all users data
+      tags:
+      - '[v1] User'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                description: ''
+                minItems: 1
+                uniqueItems: true
+                items:
+                  type: object
+                  properties:
+                    group_id:
+                      oneOf:
+                      - type: string
+                      - type: integer
+                      minLength: 1
+                    user_id:
+                      oneOf:
+                      - type: string
+                      - type: integer
+                      minLength: 1
+                    email:
+                      type: string
+                      minLength: 1
+                    login_count:
+                      oneOf:
+                      - type: string
+                      - type: integer
+                      minLength: 1
+                    login_time:
+                      type: string
+                      minLength: 1
+                      description: last login time
+                    display_name:
+                      type: string
+                      minLength: 1
+                    synch_time:
+                      type: string
+                      minLength: 1
+                      description: last desktop app synch time
+              examples:
+                example:
+                  value:
+                  - group_id: '1234'
+                    user_id: '1231456'
+                    email: mr@smith.com
+                    login_count: '1402'
+                    login_time: '2020-12-21 17:15:22'
+                    display_name: Agent Smith
+                    synch_time: '2020-12-21 17:10:21'
+                  - group_id: '1234'
+                    user_id: '1235213'
+                    email: mrs@smith.com
+                    login_count: '22084'
+                    login_time: '2021-03-11 10:21:15'
+                    display_name: Jan Kowalski
+                    synch_time: '2020-12-21 23:29:09'
+                  - group_id: '1234'
+                    user_id: '5123213'
+                    email: some@example.com
+                    login_count: '1775'
+                    login_time: '2020-12-21 13:43:12'
+                    display_name: Example Name
+                    synch_time: '2020-12-21 14:00:45'
+          headers: {}
+      operationId: get-users
+      description: Retrieves information about all users in an account
+      parameters:
+      - schema:
+          type: boolean
+        in: query
+        name: active_only
+        description: If true returns only active users
+      security:
+      - api_key_in_header: []
+  /user/{user_id}/setting:
+    parameters:
+    - in: path
+      required: true
+      name: user_id
+      description: user id
+      schema:
+        type: integer
+    get:
+      operationId: get-user-setting
+      description: Return user's setting value.
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                description: ''
+                type: object
+                properties:
+                  userId:
+                    oneOf:
+                    - type: string
+                    - type: integer
+                    minLength: 1
+                  name:
+                    type: string
+                    minLength: 1
+                  value:
+                    oneOf:
+                    - type: string
+                    - type: integer
+                    minLength: 1
+              examples:
+                getting tt_global_admin setting:
+                  value:
+                    userId: '123'
+                    name: tt_global_admin
+                    value: '1'
+        '404':
+          description: Not Found - if provided empty or non-existent setting an empty array is returned.
+          content:
+            application/json:
+              schema:
+                type: array
+                items: {}
+              examples:
+                Example:
+                  value: []
+      tags:
+      - '[v1] User'
+      summary: Get user setting
+      parameters:
+      - schema:
+          type: string
+        in: query
+        name: name
+        description: setting name
+      security:
+      - api_key_in_header: []
+    put:
+      summary: Update user setting
+      operationId: put-user-user_id-setting
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                description: ''
+                type: object
+                properties:
+                  userId:
+                    oneOf:
+                    - type: string
+                    - type: integer
+                    minLength: 1
+                  name:
+                    type: string
+                    minLength: 1
+                  value:
+                    oneOf:
+                    - type: string
+                    - type: integer
+              examples:
+                changed setting value to empty:
+                  value:
+                    userId: '123'
+                    name: tt_long_tracking_reminder
+                    value: ''
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                description: ''
+                type: object
+                properties:
+                  message:
+                    type: string
+                    minLength: 1
+                required:
+                - message
+              examples:
+                bad setting name or cannot change this setting:
+                  value:
+                    message: Setting ss cannot be changed
+      description: Update user setting.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  description: setting name
+                value:
+                  oneOf:
+                  - type: string
+                  - type: integer
+                  description: setting value
+              required:
+              - name
+      tags:
+      - '[v1] User'
+      security:
+      - api_key_in_header: []
+    delete:
+      summary: Delete user setting
+      operationId: delete-user-user_id-setting
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                description: ''
+                type: object
+                properties:
+                  userId:
+                    oneOf:
+                    - type: string
+                    - type: integer
+                    minLength: 1
+                  name:
+                    type: string
+                    minLength: 1
+                  value:
+                    type: string
+                    minLength: 1
+              examples:
+                deleted setting:
+                  value:
+                    userId: '552'
+                    name: hideChatWidget
+                    value: '0'
+      description: Delete user setting.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  description: setting name to delete
+                  example: hideChatWidget
+            examples:
+              delete setting:
+                value:
+                  name: hideChatWidget
+      tags:
+      - '[v1] User'
+      security:
+      - api_key_in_header: []
+  /me:
+    get:
+      operationId: get--me
+      description: Get your user data.
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                description: ''
+                type: object
+                properties:
+                  user_id:
+                    oneOf:
+                    - type: string
+                    - type: integer
+                    minLength: 1
+                  email:
+                    type: string
+                    minLength: 1
+                  register_time:
+                    type: string
+                    minLength: 1
+                  display_name:
+                    type: string
+                    nullable: true
+                  synch_time:
+                    type: string
+                    nullable: true
+                  root_group_id:
+                    oneOf:
+                    - type: string
+                    - type: integer
+                    minLength: 1
+                  permissions:
+                    type: object
+                    properties:
+                      time_tracking_admin:
+                        type: boolean
+                      create_projects:
+                        type: boolean
+                      can_view_rates:
+                        type: boolean
+              examples:
+                example:
+                  value:
+                    user_id: '1234123'
+                    email: john@smith.com
+                    register_time: '2021-03-25 11:35:52'
+                    display_name: John Smith
+                    synch_time: '2020-12-21 23:29:09'
+                    root_group_id: '552'
+                    permissions:
+                      time_tracking_admin: true
+                      create_projects: true
+                      can_view_rates: true
+      tags:
+      - '[v1] User'
+      summary: Get your user data
+      security:
+      - api_key_in_header: []
+  /user:
+    parameters: []
+    post:
+      summary: Update user
+      operationId: post-user-user_id
+      responses:
+        '200':
+          description: OK - returns empty response when everything went ok
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                description: ''
+                type: object
+                properties:
+                  message:
+                    type: string
+                    minLength: 1
+              examples:
+                no data to update provided:
+                  value:
+                    message: 'You must send valid group fields to change: language, display_name, email, time_zone, current_password, new_password, confirm_new_password, summary'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                description: ''
+                type: object
+                properties:
+                  message:
+                    type: string
+                    minLength: 1
+                required:
+                - message
+              examples:
+                cant edit multiple users:
+                  value:
+                    message: You can change one user at time
+                not permitted to edit user or user does not exist:
+                  value:
+                    message: You can not change this user
+      description: 'Update user''s data. If `user_id` is not provided, the data for the user associated with the API key will be updated.
+
+        '
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                get_users:
+                  type: boolean
+                  description: if provided then returns users data
+                user_id:
+                  type: string
+                  description: user id to update or comma-separated user ids to get if `get_users` is `true`
+                  example: '13'
+                display_name:
+                  type: string
+                  description: user display name, typically name and surname
+        description: ''
+      tags:
+      - '[v1] User'
+      security:
+      - api_key_in_header: []
+  /user/{user_id}:
+    parameters:
+    - schema:
+        type: integer
+      name: user_id
+      in: path
+      required: true
+      description: user id
+    get:
+      summary: Get user
+      tags:
+      - '[v1] User'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                description: ''
+                type: object
+                properties:
+                  user_id:
+                    oneOf:
+                    - type: string
+                    - type: integer
+                    minLength: 1
+                  language:
+                    oneOf:
+                    - type: string
+                    - type: integer
+                    minLength: 1
+                  email:
+                    type: string
+                    minLength: 1
+                  login_count:
+                    oneOf:
+                    - type: string
+                    - type: integer
+                    minLength: 1
+                  login_time:
+                    type: string
+                    minLength: 1
+                  display_name:
+                    type: string
+                    minLength: 1
+                  time_zone:
+                    type: string
+                    minLength: 1
+                  root_group_id:
+                    oneOf:
+                    - type: string
+                    - type: integer
+                    minLength: 1
+                  summary:
+                    oneOf:
+                    - type: string
+                    - type: integer
+                    minLength: 1
+                  agent:
+                    type: string
+                    minLength: 1
+                  primary_group_id:
+                    type: integer
+              examples:
+                Example:
+                  value:
+                    user_id: '4213'
+                    language: '0'
+                    email: example@email.com
+                    login_count: '22084'
+                    login_time: '2021-03-11 10:21:15'
+                    display_name: John Smith
+                    time_zone: '0'
+                    root_group_id: '552'
+                    summary: '1'
+                    agent: 1.7.1.2|
+                    primary_group_id: 552
+      operationId: get-user-s
+      description: Returns user's information. If `user_id` is not provided then returns current user data. Provide comma separated ids for multiple users ie. `132,423,456`.
+      security:
+      - api_key_in_header: []
+components:
+  securitySchemes:
+    api_key_in_header:
+      type: http
+      scheme: bearer
+      description: ''
+    OIDC:
+      type: openIdConnect
+      openIdConnectUrl: authenticate/oidc
+x-tagGroups:
+- name: TimeCamp API
+  tags:
+  - '[v1] User'
+  - '[v1] Entry'
+  - '[v1] Tags'
+  - '[v1] Group'
+  - '[v1] Approvals'
+  - '[v1] Computer Activities'
+  - '[v1] Timer'
+  - '[v1] Task'
+  - '[v1] Attendance'
+  - '[v1] Roles & Permissions'
+  - '[v1] Billing Rates'
+  - '[v1] Userlog'
+  - '[v1] Activity alert'
+  - '[v3] Timer'
+  - '[v3] Invoices'
+  - '[v3] Computer Activities'
+  - '[v3] Time Entry'
+  - '[v3] Task Archive'
+  - '[v3] Time Entry Restriction'
+  - '[v3] Expense'
+  - '[v3] Plan'
+  - '[v3] Storage'
+  - '[v3] Module'
+  - '[v3] Marketplace'
+  - '[v3] Remote work detection'
+  - '[v3] Data Export'
+  - '[v3] Custom Fields'
+  - '[v3] Approval'
+  - '[v3] Task'
+  - '[v3] Projects'
+  - '[v3] Attendance'
+  - '[v3] Attendance Requests'

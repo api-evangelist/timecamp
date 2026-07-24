@@ -1,0 +1,270 @@
+openapi: 3.0.0
+info:
+  title: TimeCamp [v1] Approvals [v1] Approvals [v3] Time Entry Restriction API
+  version: '1.0'
+  contact:
+    email: support@timecamp.com
+  termsOfService: https://www.timecamp.com/terms-conditions/
+  description: 'Documentation for the TimeCamp system.
+
+
+    Get your API token here:
+
+    https://app.timecamp.com/app#/settings/users/me
+
+
+    Be aware that you can reach API calls limit. Once you do you will get HTTP code 429 response.
+
+
+    Request example:
+
+
+    ```
+
+    GET https://app.timecamp.com/third_party/api/user?user_id=1234567
+
+
+    Headers:
+
+    Authorization: Bearer 87c21299960a88888888fe123
+
+    Accept: application/json
+
+    ```
+
+    '
+servers:
+- url: https://app.timecamp.com/third_party/api
+  description: PRODUCTION
+- url: https://v4.api.timecamp.com
+  description: PRODUCTION
+tags:
+- name: '[v3] Time Entry Restriction'
+  x-displayName: Time Entry Restriction
+paths:
+  /v3/time-entry-restriction/list:
+    parameters: []
+    post:
+      summary: List restrictions
+      operationId: post-time-entry-restriction-list
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: integer
+                        restrictionType:
+                          type: string
+                        restrictedEntityType:
+                          type: string
+                        restrictedEntityId:
+                          type: integer
+                        rootGroupId:
+                          type: integer
+                        endDate:
+                          type: string
+                        getRestrictionApplyOffset:
+                          type: integer
+                  pagination:
+                    type: object
+                    properties:
+                      page:
+                        type: integer
+                      limit:
+                        type: integer
+                      total:
+                        type: integer
+                x-examples:
+                  Example 1:
+                    data:
+                    - id: 1
+                      restrictionType: customPeriod
+                      restrictedEntityType: group
+                      restrictedEntityId: 1208
+                      rootGroupId: 1208
+                      endDate: '2023-12-06T00:00:00+01:00'
+                      getRestrictionApplyOffset: 1
+                    - id: 2
+                      restrictionType: customPeriod
+                      restrictedEntityType: group
+                      restrictedEntityId: 1208
+                      rootGroupId: 1208
+                      endDate: '2023-12-05T00:00:00+01:00'
+                      getRestrictionApplyOffset: 0
+                    - id: 3
+                      restrictionType: customPeriod
+                      restrictedEntityType: group
+                      restrictedEntityId: 1208
+                      rootGroupId: 1208
+                      endDate: '2023-12-05T00:00:00+01:00'
+                      getRestrictionApplyOffset: 0
+                    - id: 4
+                      restrictionType: customPeriod
+                      restrictedEntityType: group
+                      restrictedEntityId: 1208
+                      rootGroupId: 1208
+                      endDate: '2023-12-05T00:00:00+01:00'
+                      getRestrictionApplyOffset: 0
+                    pagination:
+                      page: 1
+                      limit: 10
+                      total: 4
+      description: List all time entry restriction filtered by given params. An additional setting must be enabled for this endpoint to work - please contact support if you would like us to enable it.
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                restrictionType:
+                  enum:
+                  - customPeriod
+                restrictedEntityType:
+                  enum:
+                  - group
+                restrictedEntityId:
+                  type: integer
+                page:
+                  type: integer
+                  description: default 1
+                limit:
+                  type: number
+                  description: default 10
+                restrictionData:
+                  type: object
+                  minProperties: 0
+                  description: You have to specify restrictionType to  set additional filters
+                  properties:
+                    fromEndDate:
+                      type: string
+                      description: only in ``customPeriod`` restrictionType
+                      pattern: YYYY-mm-dd
+                      example: '2023-06-06'
+                    toEndDate:
+                      type: string
+                      pattern: YYYY-mm-dd
+                      example: '2023-06-06'
+                      description: only in ``customPeriod`` restrictionType
+      tags:
+      - '[v3] Time Entry Restriction'
+      security:
+      - api_key_in_header: []
+  /v3/time-entry-restriction:
+    post:
+      summary: Create Time Entry restriction
+      description: Create specific restriction. An additional setting must be enabled for this endpoint to work - please contact support if you would like us to enable it.
+      operationId: post-time-entry-restriction
+      responses:
+        '200':
+          description: OK
+        '403':
+          description: Forbidden
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                restrictionType:
+                  enum:
+                  - customPeriod
+                restrictedEntityType:
+                  enum:
+                  - group
+                restrictedEntityId:
+                  type: integer
+                restrictionData:
+                  type: object
+                  properties:
+                    endDate:
+                      type: string
+                      description: only in ``customPeriod`` restrictionType, tells, about date till which entries won't be allowed to be modified, required in this restrictionType
+                      pattern: YYYY-mm-dd
+                    restrictionApplyOffset:
+                      type: number
+                      description: only in ``customPeriod`` restrictionType, tells, how much days timesheet is available to modifying after endDate required in this restrictionType
+              required:
+              - restrictionType
+              - restrictedEntityType
+              - restrictedEntityId
+              - restrictionData
+      tags:
+      - '[v3] Time Entry Restriction'
+      parameters: []
+      security:
+      - api_key_in_header: []
+  /v3/time-entry-restriction/{id}:
+    parameters:
+    - schema:
+        type: number
+      name: id
+      in: path
+      required: true
+    delete:
+      summary: Delete Time Entry restriction
+      operationId: delete-time-entry-restriction
+      responses:
+        '200':
+          description: OK
+        '403':
+          description: Forbidden
+      parameters: []
+      description: Delete specific restriction. If you don't know id of restriction you want to delete see time-entry-restriction/list endpoint. An additional setting must be enabled for this endpoint to work - please contact support if you would like us to enable it.
+      tags:
+      - '[v3] Time Entry Restriction'
+      security:
+      - api_key_in_header: []
+components:
+  securitySchemes:
+    api_key_in_header:
+      type: http
+      scheme: bearer
+      description: ''
+    OIDC:
+      type: openIdConnect
+      openIdConnectUrl: authenticate/oidc
+x-tagGroups:
+- name: TimeCamp API
+  tags:
+  - '[v1] User'
+  - '[v1] Entry'
+  - '[v1] Tags'
+  - '[v1] Group'
+  - '[v1] Approvals'
+  - '[v1] Computer Activities'
+  - '[v1] Timer'
+  - '[v1] Task'
+  - '[v1] Attendance'
+  - '[v1] Roles & Permissions'
+  - '[v1] Billing Rates'
+  - '[v1] Userlog'
+  - '[v1] Activity alert'
+  - '[v3] Timer'
+  - '[v3] Invoices'
+  - '[v3] Computer Activities'
+  - '[v3] Time Entry'
+  - '[v3] Task Archive'
+  - '[v3] Time Entry Restriction'
+  - '[v3] Expense'
+  - '[v3] Plan'
+  - '[v3] Storage'
+  - '[v3] Module'
+  - '[v3] Marketplace'
+  - '[v3] Remote work detection'
+  - '[v3] Data Export'
+  - '[v3] Custom Fields'
+  - '[v3] Approval'
+  - '[v3] Task'
+  - '[v3] Projects'
+  - '[v3] Attendance'
+  - '[v3] Attendance Requests'

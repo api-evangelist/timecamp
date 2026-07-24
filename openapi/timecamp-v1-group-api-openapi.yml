@@ -1,0 +1,1364 @@
+openapi: 3.0.0
+info:
+  title: TimeCamp [v1] Approvals [v1] Approvals [v1] Group API
+  version: '1.0'
+  contact:
+    email: support@timecamp.com
+  termsOfService: https://www.timecamp.com/terms-conditions/
+  description: 'Documentation for the TimeCamp system.
+
+
+    Get your API token here:
+
+    https://app.timecamp.com/app#/settings/users/me
+
+
+    Be aware that you can reach API calls limit. Once you do you will get HTTP code 429 response.
+
+
+    Request example:
+
+
+    ```
+
+    GET https://app.timecamp.com/third_party/api/user?user_id=1234567
+
+
+    Headers:
+
+    Authorization: Bearer 87c21299960a88888888fe123
+
+    Accept: application/json
+
+    ```
+
+    '
+servers:
+- url: https://app.timecamp.com/third_party/api
+  description: PRODUCTION
+- url: https://v4.api.timecamp.com
+  description: PRODUCTION
+tags:
+- name: '[v1] Group'
+  x-displayName: Group
+paths:
+  /group:
+    get:
+      operationId: get--group
+      description: Get all groups.
+      responses:
+        '200':
+          description: OK - Array of groups
+          content:
+            application/json:
+              schema:
+                type: array
+                description: ''
+                minItems: 1
+                uniqueItems: true
+                items:
+                  type: object
+                  properties:
+                    group_id:
+                      oneOf:
+                      - type: string
+                      - type: integer
+                      minLength: 1
+                    name:
+                      type: string
+                      minLength: 1
+                    parent_id:
+                      oneOf:
+                      - type: string
+                      - type: integer
+                      minLength: 1
+                  required:
+                  - group_id
+                  - name
+                  - parent_id
+              examples:
+                example response:
+                  value:
+                  - group_id: '530222'
+                    name: People
+                    parent_id: '0'
+                  - group_id: '1764'
+                    name: '[Inactive]'
+                    parent_id: '1208'
+      tags:
+      - '[v1] Group'
+      summary: Get all groups
+      security:
+      - api_key_in_header: []
+    post:
+      operationId: post--group
+      description: 'Modify existing group. Edit permission is required.
+
+
+        WARNING: backend might not return a response, but changes will be applied!'
+      responses:
+        '200':
+          description: OK - returns empty response.
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                description: ''
+                type: object
+                properties:
+                  message:
+                    type: string
+              examples:
+                group fields not provided:
+                  value:
+                    message: 'You must send valid group fields to change: name, parent_id'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                description: ''
+                type: object
+                properties:
+                  message:
+                    type: string
+                    minLength: 1
+                required:
+                - message
+              examples:
+                group id not provided or you are not permitted:
+                  value:
+                    message: You can not change this group
+      tags:
+      - '[v1] Group'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              description: ''
+              type: object
+              properties:
+                group_id:
+                  oneOf:
+                  - type: string
+                  - type: integer
+                  description: group id to modify
+                  example: 421
+                name:
+                  type: string
+                  description: group name to set
+                  example: NewName
+                parent_id:
+                  type: string
+                  description: parent_id to set
+                  example: '11'
+              required:
+              - group_id
+            examples:
+              change group name:
+                value:
+                  group_id: 390672
+                  name: NewName
+      summary: Update group
+      security:
+      - api_key_in_header: []
+    delete:
+      operationId: delete--group
+      description: 'Delete a group. Edit permission is required.
+
+
+        Root Group (`parent_id == 0`) cannot be deleted.
+
+
+        All subgroups of deleted group have their `parent_id` changed to `root_group_id`.
+
+
+
+        WARNING: backend might not return a response, but changes will be applied!'
+      tags:
+      - '[v1] Group'
+      responses:
+        '200':
+          description: OK - empty response is returned.
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+              examples:
+                not permitted to delete this group:
+                  value:
+                    message: You can not remove this group
+      requestBody:
+        content:
+          application/json:
+            schema:
+              description: ''
+              type: object
+              properties:
+                group_id:
+                  type: number
+                  description: group id to delete
+                  example: 390673
+              required:
+              - group_id
+            examples:
+              example:
+                value:
+                  group_id: 390673
+      summary: Delete group
+      security:
+      - api_key_in_header: []
+    put:
+      operationId: put--group
+      description: 'Add new group. Edit permission is required.
+
+
+
+        There cannot be more than one root group (with parent_id = 0).
+
+        Maximum group tree depth is 4 levels.
+
+
+        If you get an error 403 `You can not change this group` try to wait about one minute and retry.'
+      tags:
+      - '[v1] Group'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                description: ''
+                type: object
+                properties:
+                  group_id:
+                    oneOf:
+                    - type: string
+                    - type: integer
+                    minLength: 1
+                  name:
+                    type: string
+                    minLength: 1
+                  admin_id:
+                    oneOf:
+                    - type: string
+                    - type: integer
+                    minLength: 1
+                  parent_id:
+                    oneOf:
+                    - type: string
+                    - type: integer
+                    minLength: 1
+                  root_group_id:
+                    oneOf:
+                    - type: string
+                    - type: integer
+                    minLength: 1
+              examples:
+                created group:
+                  value:
+                    group_id: '390673'
+                    name: Name of New Group
+                    admin_id: '0'
+                    parent_id: '390672'
+                    root_group_id: '390672'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+              examples:
+                not permitted to create group:
+                  value:
+                    message: You can not change this group
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+              examples:
+                create group too far:
+                  value:
+                    message: You can create groups only up to level 4
+      requestBody:
+        content:
+          application/json:
+            schema:
+              description: ''
+              type: object
+              properties:
+                parent_id:
+                  oneOf:
+                  - type: string
+                  - type: integer
+                  description: group parent id
+                  example: 421
+                name:
+                  type: string
+                  description: group name
+                  example: NewName
+              required:
+              - name
+            examples:
+              create group:
+                value:
+                  parent_id: 390672
+                  name: Name of New Group
+              create root group:
+                value:
+                  parent_id: 0
+                  name: Name of New Root Group
+      summary: Create group
+      security:
+      - api_key_in_header: []
+  /group/{group_id}/setting:
+    parameters:
+    - in: path
+      name: group_id
+      schema:
+        type: integer
+      description: group id
+      required: true
+    get:
+      operationId: get--group-setting
+      description: Returns setting for given group_id.
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                description: ''
+                type: object
+                properties:
+                  groupId:
+                    oneOf:
+                    - type: string
+                    - type: integer
+                    minLength: 1
+                  name:
+                    type: string
+                    minLength: 1
+                  value:
+                    type: string
+                    minLength: 1
+                  inherited:
+                    type: boolean
+                  inheritedFromGroup:
+                    type: integer
+              examples:
+                companyAddress setting:
+                  value:
+                    groupId: '521'
+                    name: companyAddress
+                    value: 'Some Street 24
+
+                      51-521 City, Country
+
+                      VAT EU: PL1231231212'
+                    inherited: true
+                    inheritedFromGroup: 0
+        '404':
+          description: Not Found - returns empty array when setting not found.
+          content:
+            application/json:
+              schema:
+                type: array
+                items: {}
+              examples:
+                Example:
+                  value: []
+      tags:
+      - '[v1] Group'
+      summary: Get group setting
+      parameters:
+      - schema:
+          type: string
+          example: companyAddress
+        in: query
+        name: name
+        description: name of setting to get
+        required: true
+      security:
+      - api_key_in_header: []
+    put:
+      operationId: put--group-setting
+      description: Update group setting.
+      tags:
+      - '[v1] Group'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                description: ''
+                type: object
+                properties:
+                  groupId:
+                    oneOf:
+                    - type: string
+                    - type: integer
+                    minLength: 1
+                  name:
+                    type: string
+                    minLength: 1
+                  value:
+                    type: string
+                    minLength: 1
+                  inherited:
+                    type: boolean
+                  inheritedFromGroup:
+                    type: integer
+              examples:
+                changed company address:
+                  value:
+                    groupId: '521'
+                    name: companyAddress
+                    value: Some...new...adress
+                    inherited: true
+                    inheritedFromGroup: 0
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+              examples:
+                cannot change this setting:
+                  value:
+                    message: Setting [setting_name] cannot be changed
+                your plan limits you:
+                  value:
+                    message: You can't use this feature due to your plan.
+      summary: Update group setting
+      requestBody:
+        content:
+          application/json:
+            schema:
+              description: ''
+              type: object
+              properties:
+                name:
+                  type: string
+                  description: name of setting to be updated
+                  example: companyAddress
+                value:
+                  oneOf:
+                  - type: string
+                  - type: integer
+                  description: new value
+                  example: NewAddress
+              required:
+              - name
+              - value
+            examples:
+              change companyAddress:
+                value:
+                  name: companyAddress
+                  value: Some...new...adress
+        description: ''
+      security:
+      - api_key_in_header: []
+    delete:
+      operationId: delete--group-setting
+      description: Delete group setting.
+      tags:
+      - '[v1] Group'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                description: ''
+                type: object
+                properties:
+                  groupId:
+                    oneOf:
+                    - type: string
+                    - type: integer
+                    minLength: 1
+                  name:
+                    type: string
+                    minLength: 1
+                  value:
+                    type: string
+                    minLength: 1
+                  inherited:
+                    type: boolean
+                  inheritedFromGroup:
+                    type: integer
+              examples:
+                deleted company address:
+                  value:
+                    groupId: '552'
+                    name: companyAddress
+                    value: ''
+                    inherited: true
+                    inheritedFromGroup: 0
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                description: ''
+                type: object
+                properties:
+                  message:
+                    type: string
+                    minLength: 1
+              examples:
+                cannot delete setting or not permitted:
+                  value:
+                    message: Setting [setting_name] cannot be changed
+      summary: Delete group setting
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  description: name of setting to be deleted
+                  example: companyAddress
+              required:
+              - name
+            examples:
+              delete company address:
+                value:
+                  name: companyAddress
+      security:
+      - api_key_in_header: []
+  /group/{group_id}/user:
+    summary: Manage users in a group
+    parameters:
+    - in: path
+      required: true
+      name: group_id
+      description: group_id
+      schema:
+        type: integer
+    get:
+      operationId: get--group-user
+      description: Get users from given group.
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                description: ''
+                uniqueItems: true
+                items:
+                  type: object
+                  properties:
+                    group_id:
+                      oneOf:
+                      - type: string
+                      - type: integer
+                      minLength: 1
+                    user_id:
+                      oneOf:
+                      - type: string
+                      - type: integer
+                      minLength: 1
+                    activated:
+                      oneOf:
+                      - type: string
+                      - type: integer
+                      minLength: 1
+                    role_id:
+                      oneOf:
+                      - type: string
+                      - type: integer
+                      minLength: 1
+                    id:
+                      oneOf:
+                      - type: string
+                      - type: integer
+                      minLength: 1
+                    email:
+                      type: string
+                      minLength: 1
+                    pass_hash:
+                      type: string
+                      minLength: 1
+                    synch_time:
+                      type: string
+                      minLength: 1
+                    login_time:
+                      type: string
+                      minLength: 1
+                    register_time:
+                      type: string
+                      minLength: 1
+                    time_zone:
+                      oneOf:
+                      - type: string
+                      - type: integer
+                      minLength: 1
+                    start_of_the_week:
+                      oneOf:
+                      - type: string
+                      - type: integer
+                      minLength: 1
+                    display_name:
+                      type: string
+                      minLength: 1
+                    activation_code:
+                      type: string
+                    forgotten_password_code:
+                      type: string
+                      minLength: 1
+                    os_username:
+                      type: string
+                    operating_system:
+                      type: string
+                      minLength: 1
+                    login_count:
+                      type: string
+                      minLength: 1
+                    plan:
+                      oneOf:
+                      - type: string
+                      - type: integer
+                      minLength: 1
+                    language:
+                      oneOf:
+                      - type: string
+                      - type: integer
+                      minLength: 1
+                    admin_pass:
+                      type: string
+                      nullable: true
+                    admin_userid:
+                      type: string
+                      nullable: true
+                    root_group_id:
+                      oneOf:
+                      - type: string
+                      - type: integer
+                      minLength: 1
+                    last_session_id:
+                      oneOf:
+                      - type: string
+                      - type: integer
+                      nullable: true
+                    already:
+                      oneOf:
+                      - type: string
+                      - type: integer
+                      minLength: 1
+                    additional_email:
+                      type: string
+              examples:
+                returned users:
+                  value:
+                  - group_id: '111'
+                    user_id: '23'
+                    activated: '1'
+                    role_id: '1'
+                    id: '23'
+                    email: john@smith.com
+                    pass_hash: gx97b8z7f98as789dfasd
+                    synch_time: '2021-03-18 12:47:10'
+                    login_time: '2021-03-17 07:59:02'
+                    register_time: '2009-03-25 11:35:52'
+                    time_zone: '0'
+                    start_of_the_week: '0'
+                    display_name: John Smith
+                    activation_code: ''
+                    forgotten_password_code: XXXyyyy333
+                    os_username: ''
+                    operating_system: chrome-plugin
+                    login_count: '22352'
+                    plan: '100'
+                    language: '0'
+                    admin_pass: null
+                    admin_userid: null
+                    root_group_id: '111'
+                    last_session_id: null
+                    already: '1'
+                    additional_email: ''
+                  - group_id: '111'
+                    user_id: '32'
+                    activated: '1'
+                    role_id: '1'
+                    id: '32'
+                    email: margaret@smith.com
+                    pass_hash: xxx87sgf8g6as6896g89sa98
+                    synch_time: '2021-03-15 14:26:19'
+                    login_time: '2021-03-15 11:41:14'
+                    register_time: '2018-07-04 08:39:25'
+                    time_zone: '0'
+                    start_of_the_week: '0'
+                    display_name: Margaret Smith
+                    activation_code: null
+                    forgotten_password_code: ''
+                    os_username: DESKTOP-NGFIM9L\msmith
+                    operating_system: Windows 10 (build 19041), 64-bit edition
+                    login_count: '1885'
+                    plan: '0'
+                    language: '1'
+                    admin_pass: 88978fgs98a798s7adasxzbv
+                    admin_userid: '23'
+                    root_group_id: '111'
+                    last_session_id: null
+                    already: '1'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                type: array
+                items: {}
+              examples:
+                group not found:
+                  value: []
+      tags:
+      - '[v1] Group'
+      summary: Get users in group
+      security:
+      - api_key_in_header: []
+    post:
+      operationId: post--group-user
+      description: Invite user to a group.
+      tags:
+      - '[v1] Group'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                description: ''
+                type: object
+                properties:
+                  statuses:
+                    type: object
+                    properties:
+                      '[invited_email]':
+                        type: object
+                        properties:
+                          status:
+                            type: string
+                            minLength: 1
+              examples:
+                invited and send email:
+                  value:
+                    statuses:
+                      some@emal.com:
+                        status: Invite
+                invited without email:
+                  value:
+                    statuses:
+                      some@email.com:
+                        status: Add to group
+                invited two users:
+                  value:
+                    statuses:
+                      some@email.com:
+                        status: Add to group
+                      another@email.com:
+                        status: Add to group
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                description: ''
+                type: object
+                properties:
+                  message:
+                    type: string
+                    minLength: 1
+              examples:
+                invalid email or not provided any:
+                  value:
+                    message: 'invalid email '
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                description: ''
+                type: object
+                properties:
+                  message:
+                    type: string
+                    minLength: 1
+                required:
+                - message
+              examples:
+                not permitted to invite:
+                  value:
+                    message: You cannot invite people to this group
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                tt_global_admin:
+                  type: integer
+                  description: set invited users as time tracking administrators
+                  enum:
+                  - 0
+                  - 1
+                email:
+                  type: array
+                  description: emails to invite
+                  items:
+                    type: string
+                dry_run:
+                  type: integer
+                  enum:
+                  - 0
+                  - 1
+                  default: 0
+                  description: used to simulate invite ie. check for errors in request, because it does not really invite user
+                can_view_rates:
+                  type: integer
+                  description: can invited users view rates
+                  enum:
+                  - 0
+                  - 1
+                tt_can_create_level_1_tasks:
+                  type: integer
+                  description: can invited users create tasks at root level
+                  enum:
+                  - 0
+                  - 1
+                add_to_all_projects:
+                  type: integer
+                  description: adds invited users to all existing tasks
+                  enum:
+                  - 0
+                  - 1
+                projects:
+                  type: array
+                  description: array of tasks ids to add invited users to
+                  items:
+                    type: integer
+                guests:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      guest:
+                        type: boolean
+                        description: is this user guest
+                      email:
+                        type: string
+                        description: guest email
+                send_mail:
+                  type: integer
+                  enum:
+                  - 0
+                  - 1
+                  description: should send invitation email
+                  default: 1
+              required:
+              - email
+            encoding:
+              tt_global_admin:
+                style: form
+                explode: true
+              email:
+                style: form
+                explode: true
+            examples:
+              invite two users without sending email:
+                value:
+                  email:
+                  - some@email.com
+                  - another@email.com
+                  send_email: 0
+              add two guests:
+                value:
+                  email:
+                  - some@email.com
+                  - another@email.com
+                  guests:
+                  - guest: 1
+                    email: some@email.com
+                  - guest: 1
+                    email: another@email.com
+        description: If `tt_global_admin` is set to `1` then fields `tt_can_create_level_1_tasks` and `can_view_rates` are set to `1` too - this behavior is unchangeable.
+      parameters: []
+      summary: Invite user to a group
+      security:
+      - api_key_in_header: []
+    delete:
+      operationId: delete--group-user
+      description: Delete user from group.
+      tags:
+      - '[v1] Group'
+      responses:
+        '200':
+          description: Ok
+          content:
+            application/json:
+              schema:
+                description: ''
+                type: object
+                properties:
+                  status:
+                    type: string
+                    minLength: 1
+                  wiped:
+                    type: boolean
+              examples:
+                deleted user:
+                  value:
+                    status: ok
+                    wiped: true
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                description: ''
+                type: object
+                properties:
+                  message:
+                    type: string
+                    minLength: 1
+              examples:
+                not permitted:
+                  value:
+                    message: You cannot remove users from this group
+                user to delete not found:
+                  value:
+                    message: User with specified ID wasn't found
+                user is not in this group:
+                  value:
+                    message: User does not belong to this group
+      summary: Delete user from group
+      security:
+      - api_key_in_header: []
+    put:
+      operationId: put--group-user
+      description: Update user in group or move user to other group.
+      tags:
+      - '[v1] Group'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                description: ''
+                type: object
+                properties:
+                  user_id:
+                    type: array
+                    items:
+                      type: integer
+                  role_id:
+                    type: number
+                  group_id:
+                    type: number
+              examples:
+                changed role to 1:
+                  value:
+                    user_id:
+                    - 1723605
+                    role_id: 1
+                    group_id: 252
+                moved 2 users to different group:
+                  value:
+                    user_id:
+                    - 51256
+                    - 6362
+                    role_id: 0
+                    group_id: 5526
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+              examples:
+                not permitted to this group:
+                  value:
+                    message: You cannot change roles in this group
+                not permitted to user:
+                  value:
+                    message: 'You cannot change roles of this user: [user_id]'
+                not permitted to move to this group:
+                  value:
+                    message: You cannot move people to this group
+      summary: Update user in group
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                user_id:
+                  oneOf:
+                  - type: integer
+                  - type: array
+                  description: user or users to edit
+                  example: 552
+                  items: {}
+                role_id:
+                  type: integer
+                  description: role id to set for user/users
+                  enum:
+                  - 1 - administrator
+                  - 2 - supervisor
+                  - 3 - user
+                  - 5 - guest
+                group_id:
+                  type: integer
+                  description: group id to move user to
+            examples:
+              move users to new group:
+                value:
+                  user_id:
+                  - 1723605
+                  - 1706128
+                  group_id: 5526
+              change user role:
+                value:
+                  user_id: 1723605
+                  role_id: 1
+      security:
+      - api_key_in_header: []
+  /group/{group_id}/scheduler:
+    parameters:
+    - in: path
+      required: true
+      name: group_id
+      description: group id
+      schema:
+        type: integer
+    get:
+      operationId: get--group-scheduler
+      description: Get group scheduler.
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                description: ''
+                minItems: 1
+                uniqueItems: true
+                items:
+                  type: object
+                  properties:
+                    event_id:
+                      oneOf:
+                      - type: string
+                      - type: integer
+                      minLength: 1
+                    group_id:
+                      oneOf:
+                      - type: string
+                      - type: integer
+                      minLength: 1
+                    start_time:
+                      type: string
+                      minLength: 1
+                    end_time:
+                      type: string
+                      minLength: 1
+                    day:
+                      type: string
+                      minLength: 1
+                    recurring:
+                      oneOf:
+                      - type: string
+                      - type: integer
+                      minLength: 1
+                    type:
+                      oneOf:
+                      - type: string
+                      - type: integer
+                      minLength: 1
+                    variant:
+                      oneOf:
+                      - type: string
+                      - type: integer
+                      minLength: 1
+              examples:
+                example response:
+                  value:
+                  - event_id: '674337'
+                    group_id: '552'
+                    start_time: '11:00:00'
+                    end_time: '18:00:00'
+                    day: '3'
+                    recurring: '1'
+                    type: '0'
+                    variant: '0'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+              examples:
+                not permitted:
+                  value:
+                    message: You cannot see scheduler in this group
+      tags:
+      - '[v1] Group'
+      summary: Get group scheduler
+      security:
+      - api_key_in_header: []
+    delete:
+      operationId: delete--group-scheduler
+      description: Delete group scheduler.
+      tags:
+      - '[v1] Group'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                description: ''
+                type: object
+                properties:
+                  event_id:
+                    oneOf:
+                    - type: string
+                    - type: integer
+                    minLength: 1
+                  group_id:
+                    oneOf:
+                    - type: string
+                    - type: integer
+                    minLength: 1
+                  start_time:
+                    type: string
+                    minLength: 1
+                  end_time:
+                    type: string
+                    minLength: 1
+                  day:
+                    oneOf:
+                    - type: string
+                    - type: integer
+                    minLength: 1
+                  recurring:
+                    oneOf:
+                    - type: string
+                    - type: integer
+                    minLength: 1
+                  type:
+                    oneOf:
+                    - type: string
+                    - type: integer
+                    minLength: 1
+                  variant:
+                    oneOf:
+                    - type: string
+                    - type: integer
+                    minLength: 1
+              examples:
+                example response:
+                  value:
+                    event_id: '6567457'
+                    group_id: '552'
+                    start_time: '11:00:00'
+                    end_time: '18:00:00'
+                    day: '3'
+                    recurring: '1'
+                    type: '0'
+                    variant: '0'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+              examples:
+                not permitted:
+                  value:
+                    message: You cannot edit scheduler in this group
+      summary: Delete group scheduler
+      security:
+      - api_key_in_header: []
+    put:
+      operationId: put--group-scheduler
+      description: Create or update group scheduler.
+      tags:
+      - '[v1] Group'
+      responses:
+        '201':
+          description: Created - empty response is returned with `Location` header.
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+              examples:
+                not permitted:
+                  value:
+                    message: You cannot edit scheduler in this group
+      summary: Create/Update group scheduler
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                day:
+                  type: integer
+                  description: day of scheduler (1 - monday, 7 - sunday)
+                variant:
+                  type: integer
+                  description: scheduler variant
+                  enum:
+                  - 0
+                  - 1
+                start_time:
+                  type: string
+                  description: scheduler start time in `HH:mm:ss` format
+                  example: 08:00:00
+                end_time:
+                  type: string
+                  description: scheduler end time in `HH:mm:ss` format
+                  example: '15:00:00'
+            examples:
+              create new scheduler:
+                value:
+                  day: 3
+                  variant: 0
+                  start_time: '11:11:11'
+                  end_time: '12:12:12'
+              update times in scheduler:
+                value:
+                  day: 3
+                  variant: 0
+                  start_time: '13:13:13'
+                  end_time: '18:18:18'
+        description: If scheduler with given `day` and `variant` is found then this scheduler is updated by fields `day`, `variant`, `start_time` and `end_time`. If the scheduler is not found then new one is created with fields above.
+      security:
+      - api_key_in_header: []
+  /group/{group_id}/company_logo:
+    parameters:
+    - in: path
+      required: true
+      name: group_id
+      schema:
+        type: integer
+      description: group id
+    get:
+      operationId: get--group-company_logo
+      description: Returns url to group logo.
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                description: ''
+                type: string
+              examples:
+                returned logo url:
+                  value: https://url.to.logo/8b5b7c944368381316c8b3ad574f5a92.png
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                description: ''
+                type: object
+                properties:
+                  message:
+                    type: string
+                    minLength: 1
+              examples:
+                invalid user, not permitted or something went wrong:
+                  value:
+                    message: Invalid user
+      tags:
+      - '[v1] Group'
+      summary: Get group logo
+      security:
+      - api_key_in_header: []
+components:
+  securitySchemes:
+    api_key_in_header:
+      type: http
+      scheme: bearer
+      description: ''
+    OIDC:
+      type: openIdConnect
+      openIdConnectUrl: authenticate/oidc
+x-tagGroups:
+- name: TimeCamp API
+  tags:
+  - '[v1] User'
+  - '[v1] Entry'
+  - '[v1] Tags'
+  - '[v1] Group'
+  - '[v1] Approvals'
+  - '[v1] Computer Activities'
+  - '[v1] Timer'
+  - '[v1] Task'
+  - '[v1] Attendance'
+  - '[v1] Roles & Permissions'
+  - '[v1] Billing Rates'
+  - '[v1] Userlog'
+  - '[v1] Activity alert'
+  - '[v3] Timer'
+  - '[v3] Invoices'
+  - '[v3] Computer Activities'
+  - '[v3] Time Entry'
+  - '[v3] Task Archive'
+  - '[v3] Time Entry Restriction'
+  - '[v3] Expense'
+  - '[v3] Plan'
+  - '[v3] Storage'
+  - '[v3] Module'
+  - '[v3] Marketplace'
+  - '[v3] Remote work detection'
+  - '[v3] Data Export'
+  - '[v3] Custom Fields'
+  - '[v3] Approval'
+  - '[v3] Task'
+  - '[v3] Projects'
+  - '[v3] Attendance'
+  - '[v3] Attendance Requests'

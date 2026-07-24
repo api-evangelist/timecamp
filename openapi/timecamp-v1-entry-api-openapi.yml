@@ -1,0 +1,1073 @@
+openapi: 3.0.0
+info:
+  title: TimeCamp [v1] Approvals [v1] Approvals [v1] Entry API
+  version: '1.0'
+  contact:
+    email: support@timecamp.com
+  termsOfService: https://www.timecamp.com/terms-conditions/
+  description: 'Documentation for the TimeCamp system.
+
+
+    Get your API token here:
+
+    https://app.timecamp.com/app#/settings/users/me
+
+
+    Be aware that you can reach API calls limit. Once you do you will get HTTP code 429 response.
+
+
+    Request example:
+
+
+    ```
+
+    GET https://app.timecamp.com/third_party/api/user?user_id=1234567
+
+
+    Headers:
+
+    Authorization: Bearer 87c21299960a88888888fe123
+
+    Accept: application/json
+
+    ```
+
+    '
+servers:
+- url: https://app.timecamp.com/third_party/api
+  description: PRODUCTION
+- url: https://v4.api.timecamp.com
+  description: PRODUCTION
+tags:
+- name: '[v1] Entry'
+  x-displayName: Entry
+paths:
+  /entries_merge:
+    post:
+      operationId: post--entries_merge
+      description: Merge two time entries into one.
+      tags:
+      - '[v1] Entry'
+      summary: Merge time entries
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                id:
+                  type: string
+                  description: 'first entry id to merge '
+                to_id:
+                  type: string
+                  description: second entry id to merge
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                description: ''
+                type: object
+                properties:
+                  entry_id:
+                    oneOf:
+                    - type: string
+                    - type: integer
+                  user_id:
+                    oneOf:
+                    - type: string
+                    - type: integer
+                    minLength: 1
+                  date:
+                    type: string
+                    minLength: 1
+                  task_id:
+                    oneOf:
+                    - type: string
+                    - type: integer
+                    minLength: 1
+                  time_span:
+                    type: number
+                  locked:
+                    oneOf:
+                    - type: string
+                    - type: integer
+                    minLength: 1
+                  last_modify:
+                    type: string
+                    minLength: 1
+                  note:
+                    type: string
+                  start_time_hour:
+                    type: string
+                    minLength: 1
+                  end_time_hour:
+                    type: string
+                    minLength: 1
+                  invoiceId:
+                    oneOf:
+                    - type: string
+                    - type: integer
+                    minLength: 1
+                  billable:
+                    oneOf:
+                    - type: string
+                    - type: integer
+                    minLength: 1
+              examples:
+                merged two entries:
+                  value:
+                    entry_id: 105445325
+                    user_id: '5252'
+                    date: '2020-02-02'
+                    task_id: '0'
+                    time_span: 4857
+                    locked: '0'
+                    last_modify: '2021-03-10 09:08:30'
+                    note: ''
+                    start_time_hour: '13:05:47'
+                    end_time_hour: '14:24:41'
+                    invoiceId: '0'
+                    billable: '0'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+              examples:
+                approval blocked:
+                  value:
+                    message: You can't edit time entry, because it is in approved or pending timesheet approval.
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+              examples:
+                entry not found:
+                  value:
+                    message: Entry not found
+        '406':
+          description: Not Acceptable
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+              examples:
+                provided same entries:
+                  value:
+                    message: You must provide different entries
+                different users:
+                  value:
+                    message: Both entries must belong to the same user
+      security:
+      - api_key_in_header: []
+  /entries_changes:
+    get:
+      operationId: get--entries_changes
+      description: Get time enties changes.
+      responses:
+        '200':
+          description: If task or tasks are not found then empty array is returned with 200 code.
+          content:
+            application/json:
+              schema:
+                type: array
+                items: {}
+              examples:
+                empty:
+                  value: []
+                ok response:
+                  value:
+                  - old_time_span: 0
+                    new_time_span: '0'
+                    event_type: add
+                    edited: '2020-02-10 05:05:05'
+                    entry_id: '104950298'
+                    duration: '0'
+                    user_id: '5343'
+                    description: ''
+                    task_id: '77438101'
+                    date: '2021-02-10'
+                    start_time: '13:04:00'
+                    end_time: '13:04:00'
+                    locked: '0'
+                    billable: 1
+                    invoiceId: '0'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+              examples:
+                dates not provided:
+                  value:
+                    message: 'you must provide "from" and "to" date like 2013-03-20 '
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+              examples:
+                not permitted:
+                  value:
+                    message: you do not have permissions to get task with id {taskId} (you can set yourself as Time Tracking Administrator or Project Manager)
+      tags:
+      - '[v1] Entry'
+      summary: Get time entries changes
+      parameters:
+      - schema:
+          type: string
+          example: 12,13,32
+        in: query
+        name: task_ids
+        description: entry task id or ids
+      - schema:
+          type: string
+          example: 45,55,64
+        in: query
+        name: user_ids
+        description: entry user id or ids
+      - schema:
+          type: integer
+        in: query
+        name: limit
+        description: number of results to get, if empty then get all of them
+      - schema:
+          type: string
+          example: '2020-02-02'
+        in: query
+        name: from
+        description: date in `YYYY-MM-DD` format
+      - schema:
+          type: string
+          example: '2020-02-02'
+        in: query
+        name: to
+        description: date in `YYYY-MM-DD` format
+      security:
+      - api_key_in_header: []
+  /entries_deletions:
+    parameters: []
+    get:
+      operationId: get--entries_deletions
+      description: Get time enties deletions.
+      responses:
+        '200':
+          description: If task or tasks are not found then empty array is returned with 200 code.
+          content:
+            application/json:
+              schema:
+                type: array
+                items: {}
+              examples:
+                empty:
+                  value: []
+                ok response:
+                  value:
+                  - old_time_span: 0
+                    new_time_span: '0'
+                    event_type: add
+                    edited: '2020-02-10 05:05:05'
+                    entry_id: '104950298'
+                    duration: '0'
+                    user_id: '5343'
+                    description: ''
+                    task_id: '77438101'
+                    date: '2021-02-10'
+                    start_time: '13:04:00'
+                    end_time: '13:04:00'
+                    locked: '0'
+                    billable: 1
+                    invoiceId: '0'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+              examples:
+                dates not provided:
+                  value:
+                    message: 'you must provide "from" and "to" date like 2013-03-20 '
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+              examples:
+                not permitted:
+                  value:
+                    message: you do not have permissions to get task with id {taskId} (you can set yourself as Time Tracking Administrator or Project Manager)
+      tags:
+      - '[v1] Entry'
+      summary: Get time entries deletions
+      parameters:
+      - schema:
+          type: string
+          example: 12,13,32
+        in: query
+        name: task_ids
+        description: entry task id or ids
+      - schema:
+          type: string
+          example: 45,55,64
+        in: query
+        name: user_ids
+        description: entry user id or ids
+      - schema:
+          type: integer
+        in: query
+        name: limit
+        description: number of results to get, if empty then get all of them
+      - schema:
+          type: string
+          example: '2020-02-02'
+        in: query
+        name: from
+        description: date in `YYYY-MM-DD` format
+      - schema:
+          type: string
+          example: '2020-02-02'
+        in: query
+        name: to
+        description: date in `YYYY-MM-DD` format
+      security:
+      - api_key_in_header: []
+  /entries:
+    get:
+      operationId: get--entries
+      description: 'Get time entry or entries.
+
+
+        If both `modify_from` and `modify_to` parameters are provided, `from` and `to` are not required.'
+      responses:
+        '200':
+          description: OK response
+          content:
+            application/json:
+              schema:
+                description: ''
+                type: object
+                properties:
+                  id:
+                    type: integer
+                    description: time entry id
+                  duration:
+                    type: string
+                    minLength: 1
+                    description: time entry duration
+                  user_id:
+                    type: string
+                    minLength: 1
+                  user_name:
+                    type: string
+                    minLength: 1
+                  task_id:
+                    type: string
+                    minLength: 1
+                    description: task connected to this time entry
+                  last_modify:
+                    type: string
+                    minLength: 1
+                  date:
+                    type: string
+                    minLength: 1
+                    description: time entry date
+                  start_time:
+                    type: string
+                    minLength: 1
+                    description: time entry start time
+                  end_time:
+                    type: string
+                    minLength: 1
+                    description: time entry end time
+                  locked:
+                    type: string
+                    minLength: 1
+                    description: is this time entry locked
+                  name:
+                    type: string
+                    minLength: 1
+                    description: connected task name
+                  addons_external_id:
+                    type: string
+                  billable:
+                    type: integer
+                    description: is this time entry billable
+                  invoiceId:
+                    type: string
+                    minLength: 1
+                    description: is this time entry invoiced
+                  color:
+                    type: string
+                    minLength: 1
+                    description: time entry color
+                  description:
+                    type: string
+                    minLength: 1
+                    description: time entry note
+                  tags:
+                    type: array
+                    uniqueItems: true
+                    minItems: 1
+                    items:
+                      type: object
+                      properties:
+                        tagListName:
+                          type: string
+                          minLength: 1
+                        tagListId:
+                          type: string
+                          minLength: 1
+                        tagId:
+                          type: string
+                          minLength: 1
+                        name:
+                          type: string
+                          minLength: 1
+                        mandatory:
+                          type: string
+                          minLength: 1
+                  hasEntryLocationHistory:
+                    type: boolean
+              examples:
+                Example:
+                  value:
+                    id: 77181352
+                    duration: '2700'
+                    user_id: '123'
+                    user_name: John Kowalski
+                    task_id: '51218281'
+                    last_modify: '2020-02-02 00:03:50'
+                    date: '2020-02-03'
+                    start_time: 09:00:00
+                    end_time: 09:45:00
+                    locked: '0'
+                    name: Development projects
+                    addons_external_id: ''
+                    billable: 1
+                    invoiceId: '0'
+                    color: '#5DCB73'
+                    description: my description
+                    tags:
+                    - tagListName: tagList
+                      tagListId: '8'
+                      tagId: '13'
+                      name: Dev
+                      mandatory: '0'
+                    hasEntryLocationHistory: false
+        '403':
+          description: When given `user_ids` are not found empty response is retured with code 403. 403 is also returned when you don't have sufficient permissions.
+          content:
+            application/json:
+              schema:
+                type: string
+                description: ''
+                example: '[]'
+              examples: {}
+      tags:
+      - '[v1] Entry'
+      summary: Get time entries
+      parameters:
+      - schema:
+          type: boolean
+          enum:
+          - 'true'
+          - 'false'
+        in: query
+        name: billable
+        description: get billable entries
+      - schema:
+          type: string
+          example: '2021-03-01'
+          format: date
+        in: query
+        name: from
+        description: from date in `YYYY-MM-DD` format
+        required: true
+      - schema:
+          type: string
+          example: '2021-03-11'
+          format: date
+        in: query
+        name: to
+        description: to date in `YYYY-MM-DD` format
+        required: true
+      - schema:
+          type: string
+          format: date
+          example: '2022-02-06'
+        in: query
+        name: modify_from
+        description: minimal latest modification date in `YYYY-MM-DD` format
+      - schema:
+          type: string
+          example: '2022-02-12'
+          format: date
+        in: query
+        name: modify_to
+        description: maximal latest modification date in `YYYY-MM-DD` format
+      - schema:
+          type: integer
+          example: '12, if you want multiple tag ids then you need to repeat the query with different id as in: ...?tags_filter[items][][tag]=12&tags_filter[items][][tag]=15'
+        in: query
+        name: tags_filter[items][][tag]
+        description: filter entries with tag id
+      - schema:
+          type: boolean
+          enum:
+          - 'true'
+          - 'false'
+        in: query
+        name: approvalMode
+        description: get only users that user has acl permissions for
+      - schema:
+          type: string
+          enum:
+          - tags
+          - breadcrumps
+        in: query
+        name: opt_fields
+        description: include fields like `tags` or `breadcrumbs`
+      - schema:
+          type: boolean
+          enum:
+          - 'true'
+          - 'false'
+        in: query
+        name: include_project
+        description: include project/task information
+      - schema:
+          type: boolean
+          enum:
+          - 'true'
+          - 'false'
+        in: query
+        name: include_rates
+        description: include rates
+      - schema:
+          type: boolean
+          enum:
+          - 'true'
+          - 'false'
+        in: query
+        name: with_subtasks
+        description: include subtasks
+      - schema:
+          type: boolean
+          enum:
+          - 'true'
+          - 'false'
+        in: query
+        name: ignoreInvoiced
+        description: ignore invoiced entries
+      - schema:
+          type: boolean
+          enum:
+          - 'true'
+          - 'false'
+        in: query
+        name: round_duration
+        description: round entry duration
+      - schema:
+          type: boolean
+          enum:
+          - 'true'
+          - 'false'
+        in: query
+        name: active_only
+        description: return active entries only, only when `with_subtask` = `true`
+      - schema:
+          type: string
+          example: '`me` for your entries or user_ids like `123,5213,1223`'
+        in: query
+        name: user_ids
+        description: get entries of given user ids
+      security:
+      - api_key_in_header: []
+    delete:
+      operationId: delete--entries
+      description: Delete time entries.
+      tags:
+      - '[v1] Entry'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+              examples:
+                deleted entry:
+                  value:
+                    message: removed
+        '204':
+          description: No Content
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+              examples:
+                no such entry:
+                  value:
+                    message: No such entry
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+              examples:
+                entry id not provided:
+                  value:
+                    message: Missing entry ID
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+              examples:
+                approval blocked:
+                  value:
+                    message: You can't edit time entry, because it is in approved or pending timesheet approval.
+                insufficient permission:
+                  value:
+                    message: You don't have access to this entry
+      summary: Delete time entry
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                id:
+                  type: integer
+                  description: entry id to delete
+      security:
+      - api_key_in_header: []
+    post:
+      operationId: post--entries
+      description: Create time entry.
+      tags:
+      - '[v1] Entry'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                description: ''
+                type: object
+                properties:
+                  entry_id:
+                    type: number
+                required:
+                - entry_id
+              examples:
+                created entry:
+                  value:
+                    entry_id: 1563234
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                description: ''
+                type: object
+                properties:
+                  message:
+                    type: string
+                    minLength: 1
+              examples:
+                Date not  provided:
+                  value:
+                    message: You must provide a date for the time entry
+                Not allowed to edit manually:
+                  value:
+                    message: It is not allowed to enter projects time manually in timesheet on the website. Administrator can disable this option in Settings.
+                Duration not provided (if `start` and `end` are not provided):
+                  value:
+                    message: you must provide a duration in seconds for time entry
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                description: ''
+                type: object
+                properties:
+                  message:
+                    type: string
+                    minLength: 1
+              examples:
+                Not permitted if guest:
+                  value:
+                    message: Sorry, you don’t have permissions to track time as a guest
+                Start time is after end time:
+                  value:
+                    message: Start time (2021-03-05 09:12:52) can not be after end time (2021-03-05 08:23:10).
+      summary: Create time entry
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                get_entries:
+                  type: integer
+                  enum:
+                  - 0
+                  - 1
+                  description: if `true` then this works like `GET`
+                date:
+                  type: string
+                  description: entry will be created on this date
+                  example: '2021-03-02'
+                start:
+                  type: string
+                  description: entry start time, this has higher priority than `start_time` if provided both
+                  example: '2020-02-02 13:05:47'
+                start_time:
+                  type: string
+                  description: entry start time
+                  example: '2020-02-02 13:05:47'
+                end:
+                  type: string
+                  description: entry end time, this has higher priority than `end_time` if provided both
+                  example: '2020-02-02 15:21:31'
+                end_time:
+                  type: string
+                  description: entry end time
+                  example: '2020-02-02 15:21:31'
+                duration:
+                  type: integer
+                  description: duration in seconds, required if `start` and `end` are not given
+                  example: 7200
+                user_id:
+                  oneOf:
+                  - type: string
+                  - type: integer
+                  description: user id for which you create the entry
+                  example: 52315
+                task_id:
+                  type: number
+                  description: entry task
+                  example: 1523
+                tags:
+                  type: array
+                  description: array of tags ids to add to entry
+                  items:
+                    type: object
+                    properties:
+                      tagId:
+                        type: integer
+                        example: '"tags": [         {"tagId": 1},         {"tagId": 4}     ]'
+                note:
+                  type: string
+                  description: note for entry, same as `description`
+                description:
+                  type: string
+                  description: description for entry, same as `note`
+                billable:
+                  type: boolean
+                  description: is entry billable
+                  example: true
+              required:
+              - date
+      security:
+      - api_key_in_header: []
+    put:
+      operationId: put--entries
+      description: Update time entries.
+      tags:
+      - '[v1] Entry'
+      responses:
+        '200':
+          description: OK response
+          content:
+            application/json:
+              schema:
+                description: ''
+                type: object
+                properties:
+                  time_span:
+                    type: number
+                    description: entry duration
+                  entry_id:
+                    oneOf:
+                    - type: string
+                    - type: integer
+                    minLength: 1
+                  user_id:
+                    oneOf:
+                    - type: string
+                    - type: integer
+                    minLength: 1
+                  date:
+                    type: string
+                    minLength: 1
+                  task_id:
+                    oneOf:
+                    - type: string
+                    - type: integer
+                    minLength: 1
+                  locked:
+                    oneOf:
+                    - type: string
+                    - type: integer
+                    minLength: 1
+                  last_modify:
+                    type: string
+                    minLength: 1
+                  note:
+                    type: string
+                  start_time_hour:
+                    type: string
+                    minLength: 1
+                  end_time_hour:
+                    type: string
+                    minLength: 1
+                  invoiceId:
+                    oneOf:
+                    - type: string
+                    - type: integer
+                    minLength: 1
+                  billable:
+                    oneOf:
+                    - type: string
+                    - type: boolean
+                    minLength: 1
+              examples:
+                Changed duration:
+                  value:
+                    time_span: 1800
+                    entry_id: '10544326'
+                    user_id: '425'
+                    date: '2020-02-02'
+                    task_id: '0'
+                    locked: '0'
+                    last_modify: '2021-03-10 10:21:40'
+                    note: ''
+                    start_time_hour: '13:05:47'
+                    end_time_hour: '14:24:41'
+                    invoiceId: '0'
+                    billable: '0'
+        '400':
+          description: some examples of Bad Request responses
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+              examples:
+                bad date format:
+                  value:
+                    message: unrecognized {format_name} format
+                vacation limit time exceeded:
+                  value:
+                    message: Vacation limit time exceeded.
+        '403':
+          description: some examples of Forbidden response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+              examples:
+                entry blocked by approval:
+                  value:
+                    message: You can't edit time entry, because it is in approved or pending timesheet approval.
+                not permitted to edit entry:
+                  value:
+                    message: You do not have permissions to edit this entry
+                guest not permitted:
+                  value:
+                    message: Sorry, you don’t have permissions to track time as a guest
+                entry in archived task:
+                  value:
+                    message: Tracking time for archived tasks is not available. Please select another task.
+      summary: Update time entry
+      requestBody:
+        content:
+          application/json:
+            schema:
+              description: ''
+              type: object
+              properties:
+                id:
+                  type: integer
+                  description: entry id
+                  example: 52321
+                start_time:
+                  type: string
+                  description: entry start hour
+                  example: '14:03:21'
+                end_time:
+                  type: string
+                  description: entry end time
+                  example: '16:02:15'
+                duration:
+                  description: entry duration in seconds
+                  type: integer
+                date:
+                  type: string
+                  description: entry date in `YYYY-MM-DD` format
+                  example: '2021-03-06'
+                note:
+                  type: string
+                  description: note for entry, same as `description`
+                description:
+                  type: string
+                  description: description for entry, same as `note`
+                invoiceId:
+                  type: integer
+                  description: entry invoice id
+                task_id:
+                  type: integer
+                  description: entry task id
+                billable:
+                  type: boolean
+                  description: is entry billable
+                  example: true
+              required:
+              - id
+        description: ''
+      security:
+      - api_key_in_header: []
+  /logged_time_in_week:
+    get:
+      summary: Get logged time in a week
+      tags:
+      - '[v1] Entry'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                description: ''
+                x-examples:
+                  example-1:
+                    '2019-12-02': 17130
+                    '2019-12-03': 27300
+                    '2019-12-04': 36365
+                    '2019-12-05': 198900
+                    '2019-12-06': 27300
+                    '2019-12-07': 4835
+                    '2019-12-08': 1800
+                type: object
+                properties:
+                  '[day]':
+                    type: number
+                    description: number of seconds logged on this day
+              examples:
+                example response for given `day` = "2019-12-05":
+                  value:
+                    '2019-12-02': 17130
+                    '2019-12-03': 27300
+                    '2019-12-04': 36365
+                    '2019-12-05': 198900
+                    '2019-12-06': 27300
+                    '2019-12-07': 4835
+                    '2019-12-08': 1800
+      operationId: get-logged_time_in_week
+      description: This endpoint gets a `day` and returns array with summarized entries time per day for this week. The time is returned in seconds.
+      parameters:
+      - schema:
+          type: string
+          example: '2019-12-07'
+        in: query
+        name: day
+        required: true
+        description: day in `YYYY-MM-DD` format
+      security:
+      - api_key_in_header: []
+components:
+  securitySchemes:
+    api_key_in_header:
+      type: http
+      scheme: bearer
+      description: ''
+    OIDC:
+      type: openIdConnect
+      openIdConnectUrl: authenticate/oidc
+x-tagGroups:
+- name: TimeCamp API
+  tags:
+  - '[v1] User'
+  - '[v1] Entry'
+  - '[v1] Tags'
+  - '[v1] Group'
+  - '[v1] Approvals'
+  - '[v1] Computer Activities'
+  - '[v1] Timer'
+  - '[v1] Task'
+  - '[v1] Attendance'
+  - '[v1] Roles & Permissions'
+  - '[v1] Billing Rates'
+  - '[v1] Userlog'
+  - '[v1] Activity alert'
+  - '[v3] Timer'
+  - '[v3] Invoices'
+  - '[v3] Computer Activities'
+  - '[v3] Time Entry'
+  - '[v3] Task Archive'
+  - '[v3] Time Entry Restriction'
+  - '[v3] Expense'
+  - '[v3] Plan'
+  - '[v3] Storage'
+  - '[v3] Module'
+  - '[v3] Marketplace'
+  - '[v3] Remote work detection'
+  - '[v3] Data Export'
+  - '[v3] Custom Fields'
+  - '[v3] Approval'
+  - '[v3] Task'
+  - '[v3] Projects'
+  - '[v3] Attendance'
+  - '[v3] Attendance Requests'

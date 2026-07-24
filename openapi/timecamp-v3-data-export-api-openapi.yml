@@ -1,0 +1,519 @@
+openapi: 3.0.0
+info:
+  title: TimeCamp [v1] Approvals [v1] Approvals [v3] Data Export API
+  version: '1.0'
+  contact:
+    email: support@timecamp.com
+  termsOfService: https://www.timecamp.com/terms-conditions/
+  description: 'Documentation for the TimeCamp system.
+
+
+    Get your API token here:
+
+    https://app.timecamp.com/app#/settings/users/me
+
+
+    Be aware that you can reach API calls limit. Once you do you will get HTTP code 429 response.
+
+
+    Request example:
+
+
+    ```
+
+    GET https://app.timecamp.com/third_party/api/user?user_id=1234567
+
+
+    Headers:
+
+    Authorization: Bearer 87c21299960a88888888fe123
+
+    Accept: application/json
+
+    ```
+
+    '
+servers:
+- url: https://app.timecamp.com/third_party/api
+  description: PRODUCTION
+- url: https://v4.api.timecamp.com
+  description: PRODUCTION
+tags:
+- name: '[v3] Data Export'
+  x-displayName: Data Export
+paths:
+  /v3/data-export/exports:
+    get:
+      summary: Get exports
+      description: Get exports
+      tags:
+      - '[v3] Data Export'
+      operationId: get-data-export-exports
+      parameters:
+      - name: Accept
+        in: header
+        schema:
+          type: string
+          example: application/json
+      - name: limit
+        in: query
+        schema:
+          type: integer
+          default: 100
+      - name: page
+        in: query
+        schema:
+          type: integer
+          default: 1
+      - name: sortBy
+        in: query
+        schema:
+          type: string
+          default: created_at
+          enum:
+          - created_at
+          - id
+      - name: sortOrder
+        in: query
+        schema:
+          type: string
+          default: desc
+          enum:
+          - desc
+          - asc
+      responses:
+        '200':
+          description: Data exports
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - data
+                - pagination
+                properties:
+                  data:
+                    type: object
+                    required:
+                    - id
+                    - datasets
+                    - file_format
+                    - from
+                    - to
+                    - status
+                    properties:
+                      id:
+                        type: integer
+                        description: ID of data export
+                      datasets:
+                        type: array
+                        description: Datasets of export
+                        items:
+                          type: string
+                          enum:
+                          - computer_activity
+                        example:
+                        - computer_activity
+                      file_format:
+                        type: string
+                        description: Format of the exported file
+                        enum:
+                        - csv
+                        - xls
+                      from:
+                        type: string
+                        description: Start date of the export
+                        example: '2022-01-01'
+                      to:
+                        type: string
+                        description: End date of the export
+                        example: '2022-12-31'
+                      status:
+                        type: string
+                        description: Status of data export
+                        enum:
+                        - created
+                        - pending
+                        - processing
+                        - failed
+                        - completed
+                        - unstable
+                        - disabled
+                  pagination:
+                    type: object
+                    required:
+                    - totalItemQuantity
+                    - page
+                    - limit
+                    properties:
+                      totalItemQuantity:
+                        type: integer
+                        description: total count of items
+                      page:
+                        type: integer
+                        description: current results page
+                      limit:
+                        type: integer
+                        description: current limit on the page
+              examples:
+                Success response:
+                  value:
+                    data:
+                    - id: 15
+                      created_at: '2025-05-01 10:00:00'
+                      datasets:
+                      - computer_activity
+                      file_format: csv
+                      from: '2025-04-01 07:00:00'
+                      to: '2025-04-30 20:00:00'
+                      status: failed
+                    - id: 16
+                      created_at: '2025-05-01 10:00:00'
+                      datasets:
+                      - computer_activity
+                      file_format: csv
+                      from: '2025-03-01 07:00:00'
+                      to: '2025-03-31 20:00:00'
+                      status: pending
+                    pagination:
+                      totalItemQuantity: 20
+                      page: 1
+                      limit: 2
+        '400':
+          description: Invalid request
+          content:
+            application/json:
+              examples:
+                Validation error:
+                  value:
+                    message: Request validation failed
+                    errors:
+                      '0':
+                        property: limit
+                        message: Limit must be greater than 1
+                      value: 0
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              examples:
+                Invalid permissions:
+                  value:
+                    message: You are not allowed to get exports
+      security:
+      - api_key_in_header: []
+  /v3/data-export/open-exports:
+    get:
+      summary: Get open exports
+      description: Get open exports
+      tags:
+      - '[v3] Data Export'
+      operationId: get-data-export-open-exports
+      parameters:
+      - name: Accept
+        in: header
+        schema:
+          type: string
+          example: application/json
+      responses:
+        '200':
+          description: Open data exports
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - data
+                properties:
+                  data:
+                    type: object
+                    required:
+                    - id
+                    - status
+                    properties:
+                      id:
+                        type: integer
+                        description: ID of data export
+                      status:
+                        type: string
+                        description: Status of data export
+                        enum:
+                        - created
+                        - pending
+                        - processing
+              examples:
+                Success response:
+                  value:
+                    data:
+                    - id: 15
+                      status: processing
+                    - id: 16
+                      status: pending
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              examples:
+                Invalid permissions:
+                  value:
+                    message: You are not allowed to get open exports
+      security:
+      - api_key_in_header: []
+  /v3/data-export/export/{exportId}:
+    get:
+      summary: Get export by ID
+      description: Get export by ID
+      tags:
+      - '[v3] Data Export'
+      operationId: get-data-export-id
+      parameters:
+      - name: Accept
+        in: header
+        schema:
+          type: string
+          example: application/json
+      - schema:
+          type: integer
+        name: exportId
+        in: path
+        required: true
+      responses:
+        '200':
+          description: Data export
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - id
+                - status
+                properties:
+                  id:
+                    type: integer
+                    description: ID of data export
+                  status:
+                    type: string
+                    description: Status of data export
+                    enum:
+                    - created
+                    - pending
+                    - processing
+                    - failed
+                    - completed
+                    - unstable
+                    - disabled
+              examples:
+                Success response:
+                  value:
+                    id: 16
+                    status: pending
+        '400':
+          description: Invalid request
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+      security:
+      - api_key_in_header: []
+  /v3/data-export/dataset-availability:
+    get:
+      summary: Get list of dataset availability
+      description: Get list of dataset availability
+      tags:
+      - '[v3] Data Export'
+      operationId: get-dataset-availability
+      parameters:
+      - name: Accept
+        in: header
+        schema:
+          type: string
+          example: application/json
+      responses:
+        '200':
+          description: List dataset availability
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - data
+                properties:
+                  data:
+                    type: array
+                    items:
+                      properties:
+                        dataset:
+                          type: string
+                          enum:
+                          - computer_activity
+                          - time_entry
+                        isAvailable:
+                          type: boolean
+        '401':
+          description: Unauthorized
+      security:
+      - api_key_in_header: []
+  /v3/export-request:
+    post:
+      summary: Create export request
+      description: Create export request
+      tags:
+      - '[v3] Data Export'
+      operationId: post-export-request
+      parameters:
+      - name: Accept
+        in: header
+        schema:
+          type: string
+          example: application/json
+      - name: Content-Type
+        in: header
+        schema:
+          type: string
+          example: application/json
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - from
+              - to
+              - fileFormat
+              - formatterType
+              - datasets
+              properties:
+                from:
+                  type: string
+                  description: Start date of the export
+                  example: '2022-01-01'
+                to:
+                  type: string
+                  description: End date of the export
+                  example: '2022-12-31'
+                fileFormat:
+                  type: string
+                  description: Format of the exported file
+                  enum:
+                  - csv
+                  - xlsx
+                formatterType:
+                  type: string
+                  description: Formatter type
+                  enum:
+                  - default
+                datasets:
+                  type: array
+                  description: Datasets to export
+                  items:
+                    type: string
+                    enum:
+                    - computer_activity
+                    - time_entry
+                  example:
+                  - computer_activity
+                filters:
+                  type: array
+                  description: Filters to apply to the export
+                  items:
+                    type: object
+                    properties:
+                      usePrivileges:
+                        type: integer
+                        description: Whether to use privileges
+                        enum:
+                        - 0
+                        - 1
+            examples:
+              Export request:
+                value:
+                  from: '2025-01-01'
+                  to: '2025-12-31'
+                  fileFormat: csv
+                  formatterType: default
+                  datasets:
+                  - computer_activity
+                  - time_entry
+      responses:
+        '200':
+          description: Export requested
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  requestId:
+                    type: integer
+        '400':
+          description: Invalid request
+          content:
+            application/json:
+              examples:
+                Invalid permissions:
+                  value:
+                    message: You are not allowed to create export for provided data sets
+                Internal error:
+                  value:
+                    message: There was an internal error while trying to save this payload
+                Validation error:
+                  value:
+                    message: Request validation failed
+                    errors:
+                      '0':
+                        field: fileFormat
+                        message: Choose a valid file format
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+      security:
+      - api_key_in_header: []
+components:
+  securitySchemes:
+    api_key_in_header:
+      type: http
+      scheme: bearer
+      description: ''
+    OIDC:
+      type: openIdConnect
+      openIdConnectUrl: authenticate/oidc
+x-tagGroups:
+- name: TimeCamp API
+  tags:
+  - '[v1] User'
+  - '[v1] Entry'
+  - '[v1] Tags'
+  - '[v1] Group'
+  - '[v1] Approvals'
+  - '[v1] Computer Activities'
+  - '[v1] Timer'
+  - '[v1] Task'
+  - '[v1] Attendance'
+  - '[v1] Roles & Permissions'
+  - '[v1] Billing Rates'
+  - '[v1] Userlog'
+  - '[v1] Activity alert'
+  - '[v3] Timer'
+  - '[v3] Invoices'
+  - '[v3] Computer Activities'
+  - '[v3] Time Entry'
+  - '[v3] Task Archive'
+  - '[v3] Time Entry Restriction'
+  - '[v3] Expense'
+  - '[v3] Plan'
+  - '[v3] Storage'
+  - '[v3] Module'
+  - '[v3] Marketplace'
+  - '[v3] Remote work detection'
+  - '[v3] Data Export'
+  - '[v3] Custom Fields'
+  - '[v3] Approval'
+  - '[v3] Task'
+  - '[v3] Projects'
+  - '[v3] Attendance'
+  - '[v3] Attendance Requests'

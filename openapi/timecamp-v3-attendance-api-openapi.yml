@@ -1,0 +1,722 @@
+openapi: 3.0.0
+info:
+  title: TimeCamp [v1] Approvals [v1] Approvals [v3] Attendance API
+  version: '1.0'
+  contact:
+    email: support@timecamp.com
+  termsOfService: https://www.timecamp.com/terms-conditions/
+  description: 'Documentation for the TimeCamp system.
+
+
+    Get your API token here:
+
+    https://app.timecamp.com/app#/settings/users/me
+
+
+    Be aware that you can reach API calls limit. Once you do you will get HTTP code 429 response.
+
+
+    Request example:
+
+
+    ```
+
+    GET https://app.timecamp.com/third_party/api/user?user_id=1234567
+
+
+    Headers:
+
+    Authorization: Bearer 87c21299960a88888888fe123
+
+    Accept: application/json
+
+    ```
+
+    '
+servers:
+- url: https://app.timecamp.com/third_party/api
+  description: PRODUCTION
+- url: https://v4.api.timecamp.com
+  description: PRODUCTION
+tags:
+- name: '[v3] Attendance'
+  x-displayName: Attendance
+paths:
+  /v3/attendance/predefined-days/{groupId}:
+    get:
+      summary: Predefined Days Assigned To Group [beta]
+      description: 'List of all predefined days assigned directly to given group. Note: This is a beta version.'
+      tags:
+      - '[v3] Attendance'
+      operationId: attendance-predefined-days
+      parameters:
+      - schema:
+          type: string
+          example: application/json
+        in: header
+        name: Accept
+      - schema:
+          type: string
+          example: application/json
+        in: header
+        name: Content-Type
+      - schema:
+          type: integer
+          example: 1
+        in: path
+        required: true
+        name: groupId
+      responses:
+        '200':
+          description: List of all predefined days assigned directly to given group
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      properties:
+                        id:
+                          type: integer
+                          description: ID of the assignment
+                        groupId:
+                          type: integer
+                          description: ID of the group day is assigned to
+                        date:
+                          type: string
+                          description: Date
+                        dateTypeId:
+                          type: integer
+                          description: Id of the day type
+                        dayTypeSlug:
+                          type: string
+                          description: String identifier of the day type
+              examples:
+                Success Response:
+                  value:
+                    data:
+                    - id: 15
+                      groupId: 66
+                      date: '2026-01-01'
+                      dayTypeId: 12
+                      dayTypeSlug: holidays
+                    - id: 16
+                    - groupId: 66
+                    - date: '2026-01-06'
+                    - dayTypeId: 9
+                    - dayTypeSlug: remote_work
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+      security:
+      - api_key_in_header: []
+  /v3/attendance/predefined-days/{groupId}/effective:
+    get:
+      summary: Effective Predefined Days Assigned To Group [beta]
+      description: 'List of all day types assigned to a group along with inheritance from parent groups. Note: This is a beta version.'
+      tags:
+      - '[v3] Attendance'
+      operationId: attendance-effective-predefined-days
+      parameters:
+      - schema:
+          type: string
+          example: application/json
+        in: header
+        name: Accept
+      - schema:
+          type: string
+          example: application/json
+        in: header
+        name: Content-Type
+      - schema:
+          type: integer
+          example: 1
+        in: path
+        required: true
+        name: groupId
+      responses:
+        '200':
+          description: List of all day types assigned to a group along with inheritance from parent groups
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      properties:
+                        id:
+                          type: integer
+                          description: ID of the assignment
+                        groupId:
+                          type: integer
+                          description: ID of the group day was assigned to (if different than ID in path assignment was inherited)
+                        date:
+                          type: string
+                          description: Date
+                        dateTypeId:
+                          type: integer
+                          description: Id of the day type
+                        dayTypeSlug:
+                          type: string
+                          description: String identifier of the day type
+              examples:
+                Success Response:
+                  value:
+                    data:
+                    - id: 15
+                      groupId: 66
+                      date: '2026-01-01'
+                      dayTypeId: 12
+                      dayTypeSlug: holidays
+                    - id: 16
+                    - groupId: 420
+                    - date: '2026-01-06'
+                    - dayTypeId: 9
+                    - dayTypeSlug: remote_work
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+      security:
+      - api_key_in_header: []
+  /v3/attendance/predefined-days/create:
+    post:
+      summary: Create Predefined Days [beta]
+      description: 'Create predefined days for a group. Note: This is a beta version.'
+      tags:
+      - '[v3] Attendance'
+      operationId: attendance-predefined-days-create
+      parameters:
+      - schema:
+          type: string
+          example: application/json
+        in: header
+        name: Accept
+      - schema:
+          type: string
+          example: application/json
+        in: header
+        name: Content-Type
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - dayType
+              - dates
+              - groupId
+              properties:
+                dayType:
+                  type: string
+                  description: String identifier of the day type to assign
+                  example: holidays
+                dates:
+                  type: array
+                  description: List of dates to assign
+                  example:
+                  - '2026-01-01'
+                  - '2026-01-06'
+                groupId:
+                  type: integer
+                  description: ID of the group for the assignment
+                  example: 66
+      responses:
+        '200':
+          description: Dates assignment was completed
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: string
+              examples:
+                Success Response:
+                  value:
+                    data: ok
+        '400':
+          description: Bad Request - Validation errors
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+      security:
+      - api_key_in_header: []
+  /v3/attendance/predefined-days/{groupId}/remove/{date}:
+    delete:
+      summary: Remove Predefined Day [beta]
+      description: 'Remove predefined day from a group. Note: This is a beta version.'
+      tags:
+      - '[v3] Attendance'
+      operationId: attendance-predefined-days-remove
+      parameters:
+      - schema:
+          type: string
+          example: application/json
+        in: header
+        name: Accept
+      - schema:
+          type: string
+          example: application/json
+        in: header
+        name: Content-Type
+      - schema:
+          type: integer
+          example: 1
+        in: path
+        required: true
+        name: groupId
+      - schema:
+          type: string
+          example: '2026-01-29'
+        in: path
+        required: true
+        name: date
+      responses:
+        '200':
+          description: Dates assignment removal was completed
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: string
+              examples:
+                Success Response:
+                  value:
+                    data: ok
+        '400':
+          description: Bad Request - Validation errors
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+      security:
+      - api_key_in_header: []
+  /v3/attendance/calendar/search:
+    post:
+      summary: Attendance calendar search [beta]
+      description: 'Returns attendance calendar data for users in a date range. Note: This is a beta version.'
+      tags:
+      - '[v3] Attendance'
+      operationId: attendance-calendar-search
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                periodStart:
+                  type: string
+                  format: date
+                  example: '2025-03-01'
+                periodEnd:
+                  type: string
+                  format: date
+                  example: '2025-03-07'
+                userIds:
+                  type: array
+                  items:
+                    type: integer
+                includeDisabled:
+                  type: boolean
+                  default: false
+              required:
+              - periodStart
+              - periodEnd
+      responses:
+        '200':
+          description: Calendar data
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  meta:
+                    type: object
+                    properties:
+                      users:
+                        type: object
+                        additionalProperties:
+                          type: object
+                          properties:
+                            id:
+                              type: integer
+                            email:
+                              type: string
+                            displayName:
+                              type: string
+                      dayTypes:
+                        type: object
+                        additionalProperties:
+                          type: object
+                          properties:
+                            id:
+                              type: integer
+                            name:
+                              type: string
+                            slug:
+                              type: string
+                  data:
+                    type: object
+                    additionalProperties:
+                      type: object
+                      additionalProperties:
+                        type: object
+                        properties:
+                          date:
+                            type: string
+                            format: date
+                            description: Date in ISO format (Y-m-d)
+                          dayTypeId:
+                            type: integer
+                            description: ID of the day type
+                          shouldBe:
+                            type: integer
+                            description: Expected work time in minutes
+                          vacationTime:
+                            type: integer
+                            description: Vacation time in minutes
+                          note:
+                            type: string
+                            description: Optional note for the day
+                          workStartTime:
+                            type: string
+                            description: Work start time (HH:mm:ss)
+                          workEndTime:
+                            type: string
+                            description: Work end time (HH:mm:ss)
+                          workTime:
+                            type: string
+                            description: Total work time in minutes
+                          requestStatus:
+                            type: string
+                            nullable: true
+                            description: Attendance request status (e.g., "pending", "approved", "rejected") or null if no request
+                          pendingDayTypeId:
+                            type: integer
+                            nullable: true
+                            description: ID of the day type from the pending attendance request or null if there is no pending request
+                          hasRequestHistory:
+                            type: integer
+                            description: Whether attendance record exists (was modified) - 0 or 1
+                          isAttendanceApproved:
+                            type: integer
+                            description: Whether attendance is approved - 0 or 1
+              examples:
+                Success Response:
+                  value:
+                    meta:
+                      users:
+                        '123':
+                          id: 123
+                          email: user@example.com
+                          displayName: Test User
+                      dayTypes:
+                        '1':
+                          id: 1
+                          name: Normal
+                          slug: normal
+                    data:
+                      '123':
+                        '2025-03-01':
+                          date: '2025-03-01'
+                          dayTypeId: 1
+                          shouldBe: 480
+                          vacationTime: 0
+                          note: ''
+                          workStartTime: 08:00:00
+                          workEndTime: '16:00:00'
+                          workTime: '480'
+                          requestStatus: pending
+                          pendingDayTypeId: 5
+                          hasRequestHistory: 1
+                          isAttendanceApproved: 0
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+      security:
+      - api_key_in_header: []
+  /attendance-request:
+    post:
+      summary: Create attendance request [beta]
+      tags:
+      - '[v3] Attendance'
+      description: 'Creates an attendance request for a specified user and date.
+
+        The request can be created by the user themselves or by an administrator/supervisor for another user.
+
+        Depending on permissions and day type settings, the request may be auto-approved or require manual approval.
+
+        Note: This is a beta version.
+
+        '
+      operationId: post-attendance-request
+      x-internal: false
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - targetUserId
+              - date
+              - dayTypeId
+              - shouldBe
+              - vacationHours
+              properties:
+                targetUserId:
+                  type: integer
+                  description: ID of the user for whom the attendance request is created
+                  example: 123
+                date:
+                  type: string
+                  format: date
+                  pattern: ^\d{4}-\d{2}-\d{2}$
+                  description: Date in YYYY-MM-DD format
+                  example: '2026-03-20'
+                dayTypeId:
+                  type: integer
+                  description: ID of the day type (must exist in the user's root group)
+                  example: 5
+                shouldBe:
+                  type: integer
+                  minimum: 0
+                  description: Expected time for this day in minutes (e.g., 480 = 8 hours)
+                  example: 480
+                vacationHours:
+                  type: integer
+                  minimum: 0
+                  description: Time to deduct from vacation limit in minutes
+                  example: 0
+                note:
+                  type: string
+                  description: Optional note for the request
+                  example: Vacation request
+                  nullable: true
+                eraseComputerActivities:
+                  type: boolean
+                  description: Whether to erase computer activities for this day. Requires allowErasingData setting enabled for the root group.
+                  example: false
+                  default: false
+            examples:
+              Example - Vacation request:
+                value:
+                  targetUserId: 123
+                  date: '2026-03-20'
+                  dayTypeId: 5
+                  shouldBe: 480
+                  vacationHours: 480
+                  note: Annual vacation
+                  eraseComputerActivities: false
+              Example - Sick leave:
+                value:
+                  targetUserId: 123
+                  date: '2026-03-21'
+                  dayTypeId: 3
+                  shouldBe: 480
+                  vacationHours: 0
+                  note: Medical appointment
+                  eraseComputerActivities: false
+              Example - Sick leave with erase:
+                value:
+                  targetUserId: 123
+                  date: '2026-03-22'
+                  dayTypeId: 3
+                  shouldBe: 480
+                  vacationHours: 0
+                  note: Medical appointment
+                  eraseComputerActivities: true
+      responses:
+        '201':
+          description: Attendance request created successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                    description: ID of the created request
+                  user_id:
+                    type: integer
+                    description: ID of the user
+                  date:
+                    type: string
+                    format: date
+                    description: Date of the request
+                  day_type_id:
+                    type: integer
+                    description: ID of the day type
+                  status:
+                    type: string
+                    enum:
+                    - pending
+                    - approved
+                    - rejected
+                    description: Status of the request
+                  time:
+                    type: integer
+                    description: Expected time in minutes
+                  vacation_time:
+                    type: integer
+                    description: Vacation time in minutes
+                  note:
+                    type: string
+                    description: Request note
+                  erase_computer_activities:
+                    type: boolean
+                    description: Whether computer activities should be erased. Only included in response if allowErasingData setting is enabled for the root group.
+                  processed_by:
+                    type: integer
+                    nullable: true
+                    description: ID of the user who processed the request (null if pending)
+              examples:
+                Auto-approved request:
+                  value:
+                    id: 456
+                    user_id: 123
+                    date: '2026-03-20'
+                    day_type_id: 5
+                    status: approved
+                    time: 480
+                    vacation_time: 480
+                    note: Annual vacation
+                    erase_computer_activities: false
+                    processed_by: 123
+                Pending request:
+                  value:
+                    id: 457
+                    user_id: 123
+                    date: '2026-03-21'
+                    day_type_id: 3
+                    status: pending
+                    time: 480
+                    vacation_time: 0
+                    note: Medical appointment
+                    erase_computer_activities: false
+                    processed_by: null
+        '400':
+          description: Bad request - validation error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    description: Error message
+              examples:
+                Invalid date format:
+                  value:
+                    message: Date must be in YYYY-MM-DD format
+                Invalid day type:
+                  value:
+                    message: Day type does not exist in this group.
+                Erasing not allowed:
+                  value:
+                    message: Erasing computer activities is not allowed for this user.
+        '401':
+          description: Unauthorized - user not authenticated
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+              examples:
+                Example:
+                  value:
+                    message: Unauthorized
+        '403':
+          description: Forbidden - user does not have permission to create this request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+              examples:
+                Example:
+                  value:
+                    message: You do not have permission to create this attendance request.
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+              examples:
+                Example:
+                  value:
+                    message: An unspecified error occurred.
+      security:
+      - api_key_in_header: []
+components:
+  securitySchemes:
+    api_key_in_header:
+      type: http
+      scheme: bearer
+      description: ''
+    OIDC:
+      type: openIdConnect
+      openIdConnectUrl: authenticate/oidc
+x-tagGroups:
+- name: TimeCamp API
+  tags:
+  - '[v1] User'
+  - '[v1] Entry'
+  - '[v1] Tags'
+  - '[v1] Group'
+  - '[v1] Approvals'
+  - '[v1] Computer Activities'
+  - '[v1] Timer'
+  - '[v1] Task'
+  - '[v1] Attendance'
+  - '[v1] Roles & Permissions'
+  - '[v1] Billing Rates'
+  - '[v1] Userlog'
+  - '[v1] Activity alert'
+  - '[v3] Timer'
+  - '[v3] Invoices'
+  - '[v3] Computer Activities'
+  - '[v3] Time Entry'
+  - '[v3] Task Archive'
+  - '[v3] Time Entry Restriction'
+  - '[v3] Expense'
+  - '[v3] Plan'
+  - '[v3] Storage'
+  - '[v3] Module'
+  - '[v3] Marketplace'
+  - '[v3] Remote work detection'
+  - '[v3] Data Export'
+  - '[v3] Custom Fields'
+  - '[v3] Approval'
+  - '[v3] Task'
+  - '[v3] Projects'
+  - '[v3] Attendance'
+  - '[v3] Attendance Requests'

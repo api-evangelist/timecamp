@@ -1,0 +1,1314 @@
+openapi: 3.0.0
+info:
+  title: TimeCamp [v1] Approvals [v1] Approvals [v3] Expense API
+  version: '1.0'
+  contact:
+    email: support@timecamp.com
+  termsOfService: https://www.timecamp.com/terms-conditions/
+  description: 'Documentation for the TimeCamp system.
+
+
+    Get your API token here:
+
+    https://app.timecamp.com/app#/settings/users/me
+
+
+    Be aware that you can reach API calls limit. Once you do you will get HTTP code 429 response.
+
+
+    Request example:
+
+
+    ```
+
+    GET https://app.timecamp.com/third_party/api/user?user_id=1234567
+
+
+    Headers:
+
+    Authorization: Bearer 87c21299960a88888888fe123
+
+    Accept: application/json
+
+    ```
+
+    '
+servers:
+- url: https://app.timecamp.com/third_party/api
+  description: PRODUCTION
+- url: https://v4.api.timecamp.com
+  description: PRODUCTION
+tags:
+- name: '[v3] Expense'
+  x-displayName: Expense
+paths:
+  /v3/expense/category/{id}:
+    parameters:
+    - schema:
+        type: string
+        example: '50'
+      name: id
+      in: path
+      required: true
+    put:
+      description: ' '
+      summary: Update expense category
+      operationId: put-expense-category
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                x-examples:
+                  Example 1:
+                    message: ok
+                    data:
+                      id: 50
+                      name: My category
+                      color: '#4DC2E8'
+                      unitPrice: 1000
+                      unitName: my unit
+                      currencyId: 2
+                      createdAt: '2023-10-23 16:06:01'
+                      updatedAt: '2023-10-27 08:24:07'
+                properties:
+                  message:
+                    type: string
+                  data:
+                    $ref: '#/components/schemas/Expense-category-response'
+              examples:
+                Example 1:
+                  value:
+                    message: ok
+                    data:
+                      id: 53
+                      name: My category
+                      color: '#4DC2E8'
+                      unitPrice: 1000
+                      unitName: my unit
+                      currencyId: 2
+                      createdAt: '2023-09-07 12:26:34'
+                      updatedAt: null
+      security:
+      - api_key_in_header: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Expense-category-request'
+            examples:
+              Example 1:
+                value:
+                  name: My category
+                  color: '#4DC2E8'
+                  currencyId: 2
+                  unitPrice: 1000
+                  unitName: my unit
+      x-internal: false
+      tags:
+      - '[v3] Expense'
+  /v3/expense/category:
+    get:
+      summary: List expense category
+      tags:
+      - '[v3] Expense'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Expense-category-response'
+              examples:
+                Example 1:
+                  value:
+                  - id: 50
+                    rootGroupId: 12345
+                    name: My category
+                    color: '#4DC2E8'
+                    unitPrice: 1000
+                    unitName: my unit
+                    currencyId: 2
+                    createdAt: '2023-08-29 16:58:56'
+                    updatedAt: 'null'
+          headers: {}
+      operationId: get-expense-category
+      security:
+      - api_key_in_header: []
+      x-internal: false
+    post:
+      summary: Create expense category
+      operationId: post-expense-category
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                x-examples:
+                  Example 1:
+                    message: ok
+                    data:
+                      id: 53
+                      name: My category
+                      color: '#4DC2E8'
+                      unitPrice: 1000
+                      unitName: my unit
+                      currencyId: 2
+                      createdAt: '2023-10-27 08:26:34'
+                      updatedAt: null
+                properties:
+                  message:
+                    type: string
+                  data:
+                    $ref: '#/components/schemas/Expense-category-response'
+      description: ' '
+      parameters: []
+      security:
+      - api_key_in_header: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Expense-category-request'
+            examples:
+              Example 1:
+                value:
+                  name: My category
+                  color: '#4DC2E8'
+                  unitPrice: 1000
+                  unitName: my unit
+                  currencyId: 2
+      x-internal: false
+      tags:
+      - '[v3] Expense'
+  /v3/expense/category/{id}/archive:
+    parameters:
+    - schema:
+        type: string
+        example: '50'
+      name: id
+      in: path
+      required: true
+    patch:
+      summary: Archive expense category
+      tags:
+      - '[v3] Expense'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                x-examples:
+                  Example 1:
+                    message: ok
+              examples:
+                Example 1:
+                  value:
+                    message: ok
+      operationId: patch-expense-category-43-archive
+      x-internal: false
+      security:
+      - api_key_in_header: []
+  /v3/expense/list:
+    get:
+      summary: List expense
+      tags:
+      - '[v3] Expense'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                x-examples:
+                  Example 1:
+                    data: []
+                    pagination:
+                      totalItemQuantity: 0
+                      page: 1
+                      limit: 25
+                    metadata:
+                      totalAmount: 0
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Expense-response'
+                  pagination:
+                    type: object
+                    properties:
+                      totalItemQuantity:
+                        type: integer
+                      page:
+                        type: integer
+                      limit:
+                        type: integer
+                  metadata:
+                    type: object
+                    properties:
+                      totalAmount:
+                        type: integer
+              examples:
+                Example 1:
+                  value:
+                    data:
+                    - id: 74
+                      currencyId: 2
+                      expenseCategory:
+                        id: 53
+                        name: My category
+                        color: '#4DC2E8'
+                        unitPrice: 1000
+                        unitName: my unit
+                        currencyId: 2
+                        createdAt: '2023-09-07 12:26:34'
+                        updatedAt: null
+                      taskId: 128
+                      amount: 2522
+                      description: My description...
+                      status: 0
+                      isBillable: true
+                      invoiceId: null
+                      madeBy: 256
+                      madeAt: '2023-09-12 10:32:22'
+                      createdBy: 512
+                      updatedBy: null
+                      createdAt: '2023-10-17 09:41:33'
+                      updatedAt: null
+                    - id: 75
+                      currencyId: 2
+                      expenseCategory:
+                        id: 53
+                        name: My category
+                        color: '#4DC2E8'
+                        unitPrice: 1000
+                        unitName: my unit
+                        currencyId: 2
+                        createdAt: '2023-09-07 12:26:34'
+                        updatedAt: null
+                      taskId: 256
+                      amount: 2000
+                      description: My description...
+                      status: 0
+                      isBillable: true
+                      invoiceId: null
+                      madeBy: 256
+                      madeAt: '2023-09-12 14:33:47'
+                      createdBy: 512
+                      updatedBy: null
+                      createdAt: '2023-10-17 19:33:23'
+                      updatedAt: null
+                    pagination:
+                      totalItemQuantity: 2
+                      page: 1
+                      limit: 25
+                    metadata:
+                      totalAmount: 4522
+      operationId: get-expense-list
+      x-internal: false
+      parameters:
+      - schema:
+          type: string
+        in: query
+        name: timeFrameStart
+      - schema:
+          type: string
+        in: query
+        name: timeFrameEnd
+      - schema:
+          type: array
+          items:
+            type: integer
+        in: query
+        name: taskIds
+      - schema:
+          type: array
+          items:
+            type: integer
+        in: query
+        name: expenseCategoryIds
+      - schema:
+          type: integer
+        in: query
+        name: invoiced
+      - schema:
+          type: boolean
+        in: query
+        name: billable
+      - schema:
+          type: integer
+        in: query
+        name: invoiceId
+      - schema:
+          type: string
+          default: desc
+        in: query
+        name: sortOrder
+      - schema:
+          type: string
+          default: made_at
+        in: query
+        name: sortBy
+      - schema:
+          type: integer
+          default: 25
+        in: query
+        name: limit
+      - schema:
+          type: integer
+          default: 1
+        in: query
+        name: page
+      security:
+      - api_key_in_header: []
+    post:
+      summary: List expense
+      tags:
+      - '[v3] Expense'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                x-examples:
+                  Example 1:
+                    data: []
+                    pagination:
+                      totalItemQuantity: 0
+                      page: 1
+                      limit: 25
+                    metadata:
+                      totalAmount: 0
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Expense-response'
+                  pagination:
+                    type: object
+                    properties:
+                      totalItemQuantity:
+                        type: integer
+                      page:
+                        type: integer
+                      limit:
+                        type: integer
+                  metadata:
+                    type: object
+                    properties:
+                      totalAmount:
+                        type: integer
+              examples:
+                Example 1:
+                  value:
+                    data:
+                    - id: 74
+                      currencyId: 2
+                      expenseCategory:
+                        id: 53
+                        name: My category
+                        color: '#4DC2E8'
+                        unitPrice: 1000
+                        unitName: my unit
+                        currencyId: 2
+                        createdAt: '2023-09-07 12:26:34'
+                        updatedAt: null
+                      taskId: 128
+                      amount: 2522
+                      description: My description...
+                      status: 0
+                      isBillable: true
+                      invoiceId: null
+                      madeBy: 256
+                      madeAt: '2023-09-12 10:32:22'
+                      createdBy: 512
+                      updatedBy: null
+                      createdAt: '2023-10-17 09:41:33'
+                      updatedAt: null
+                    - id: 75
+                      currencyId: 2
+                      expenseCategory:
+                        id: 53
+                        name: My category
+                        color: '#4DC2E8'
+                        unitPrice: 1000
+                        unitName: my unit
+                        currencyId: 2
+                        createdAt: '2023-09-07 12:26:34'
+                        updatedAt: null
+                      taskId: 256
+                      amount: 2000
+                      description: My description...
+                      status: 0
+                      isBillable: true
+                      invoiceId: null
+                      madeBy: 256
+                      madeAt: '2023-09-12 14:33:47'
+                      createdBy: 512
+                      updatedBy: null
+                      createdAt: '2023-10-17 19:33:23'
+                      updatedAt: null
+                    pagination:
+                      totalItemQuantity: 2
+                      page: 1
+                      limit: 25
+                    metadata:
+                      totalAmount: 4522
+      operationId: post-expense-list
+      x-internal: false
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              x-examples:
+                Example 1:
+                  timeFrameStart: '2023-09-01'
+                  timeFrameEnd: '2023-10-31'
+                  taskIds:
+                  - 1
+                  - 2
+                  expenseCategoryIds:
+                  - 1
+                  - 2
+                  invoiced: true
+                  billable: true
+                  invoiceId: 1
+                  sortOrder: asc
+                  sortBy: madeAt
+              properties:
+                timeFrameStart:
+                  type: string
+                  nullable: true
+                timeFrameEnd:
+                  type: string
+                  nullable: true
+                taskIds:
+                  type: array
+                  nullable: true
+                  items: {}
+                expenseCategoryIds:
+                  type: array
+                  nullable: true
+                  items: {}
+                invoiced:
+                  type: boolean
+                  nullable: true
+                billable:
+                  type: boolean
+                  nullable: true
+                invoiceId:
+                  type: integer
+                  nullable: true
+                sortOrder:
+                  type: string
+                  default: desc
+                  nullable: true
+                sortBy:
+                  type: string
+                  default: made_at
+                  nullable: true
+                limit:
+                  type: number
+                  default: 1
+                page:
+                  type: number
+                  default: 25
+            examples:
+              Example 1:
+                value:
+                  timeFrameStart: '2023-09-01'
+                  timeFrameEnd: '2023-10-31'
+                  taskIds:
+                  - 128
+                  - 256
+                  expenseCategoryIds:
+                  - 74
+                  - 75
+                  invoiced: false
+                  billable: true
+                  invoiceId: null
+                  sortOrder: asc
+                  sortBy: madeAt
+                  limit: 25
+                  page: 1
+      security:
+      - api_key_in_header: []
+  /v3/expense:
+    post:
+      summary: Create expense
+      tags:
+      - '[v3] Expense'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Expense-response'
+              examples:
+                Example 1:
+                  value:
+                    message: ok
+                    data:
+                      id: 74
+                      currencyId: 2
+                      expenseCategory:
+                        id: 53
+                        name: My category
+                        color: '#4DC2E8'
+                        unitPrice: 1000
+                        unitName: my unit
+                        currencyId: 2
+                        createdAt: '2023-09-07 12:26:34'
+                        updatedAt: null
+                      taskId: 512
+                      amount: 2522
+                      description: My description...
+                      status: 0
+                      isBillable: true
+                      invoiceId: null
+                      madeBy: 256
+                      madeAt: '2023-09-12 10:32:22'
+                      createdBy: 256
+                      updatedBy: 256
+                      createdAt: '2023-10-21 09:41:33'
+                      updatedAt: '2023-10-21 09:41:41'
+      operationId: post-expense
+      security:
+      - api_key_in_header: []
+      x-internal: false
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Expense-request'
+            examples:
+              Example 1:
+                value:
+                  currencyId: 2
+                  expenseCategoryId: '50'
+                  taskId: 512
+                  amount: 2522
+                  description: My description...
+                  isBillable: true
+                  madeBy: 256
+                  madeAt: '2023-09-12 10:32:22'
+  /v3/expense/{id}:
+    parameters:
+    - schema:
+        type: string
+        example: '74'
+      name: id
+      in: path
+      required: true
+    put:
+      summary: Update expense
+      tags:
+      - '[v3] Expense'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Expense-response'
+              examples:
+                Example 1:
+                  value:
+                    message: ok
+                    data:
+                      id: 74
+                      currencyId: 2
+                      expenseCategory:
+                        id: 53
+                        name: My category
+                        color: '#4DC2E8'
+                        unitPrice: 1000
+                        unitName: my unit
+                        currencyId: 2
+                        createdAt: '2023-09-07 12:26:34'
+                        updatedAt: null
+                      taskId: 512
+                      amount: 2522
+                      description: My description...
+                      status: 0
+                      isBillable: true
+                      invoiceId: null
+                      madeBy: 256
+                      madeAt: '2023-09-12 10:32:22'
+                      createdBy: 256
+                      updatedBy: 256
+                      createdAt: '2023-10-21 09:41:33'
+                      updatedAt: '2023-10-21 09:41:41'
+      operationId: put-expesne
+      x-internal: false
+      security:
+      - api_key_in_header: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Expense-request'
+            examples:
+              Example 1:
+                value:
+                  currencyId: 2
+                  expenseCategoryId: '50'
+                  taskId: 512
+                  amount: 2522
+                  description: My description...
+                  isBillable: true
+                  madeBy: 256
+                  madeAt: '2023-09-12 10:32:22'
+    delete:
+      summary: Delete expense
+      tags:
+      - '[v3] Expense'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                x-examples:
+                  Example 1:
+                    message: ok
+              examples:
+                Example 1:
+                  value:
+                    message: ok
+      operationId: delete-expesne
+      security:
+      - api_key_in_header: []
+      x-internal: false
+  /v3/expense/{id}/attachment/upload:
+    parameters:
+    - schema:
+        type: string
+        example: '74'
+      name: id
+      in: path
+      required: true
+    post:
+      summary: Upload expense attachment
+      tags:
+      - '[v3] Expense'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                x-examples:
+                  Example 1:
+                    message: ok
+                    data:
+                    - id: 14
+                      userFilename: 02.pdf
+                      mimeType: application/pdf
+                      url: /internal/api/v3/storage/download/14
+                properties:
+                  message:
+                    type: string
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Attachment'
+              examples:
+                Example 1:
+                  value:
+                    message: ok
+                    data:
+                    - id: 14
+                      userFilename: 02.pdf
+                      mimeType: application/pdf
+                      url: /internal/api/v3/storage/download/14
+      operationId: post-expense-id-attachment-upload
+      x-internal: false
+      security:
+      - api_key_in_header: []
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                file:
+                  type: string
+                  format: binary
+        description: ''
+  /v3/expense/{id}/attachment:
+    parameters:
+    - schema:
+        type: string
+        example: '74'
+      name: id
+      in: path
+      required: true
+    get:
+      summary: Get expense attachment
+      tags:
+      - '[v3] Expense'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                x-examples:
+                  Example 1:
+                    message: ok
+                    data:
+                    - id: 14
+                      userFilename: 02.pdf
+                      mimeType: application/pdf
+                      url: /internal/api/v3/storage/download/14
+                properties:
+                  message:
+                    type: string
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Attachment'
+              examples:
+                Example 1:
+                  value:
+                    message: ok
+                    data:
+                    - id: 14
+                      userFilename: 02.pdf
+                      mimeType: application/pdf
+                      url: /internal/api/v3/storage/download/14
+      operationId: get-expense-id-attachment
+      x-internal: false
+      security:
+      - api_key_in_header: []
+  /v3/expense/{id}/attachment/{id_attachment}/delete:
+    parameters:
+    - schema:
+        type: string
+        example: '74'
+      name: id
+      in: path
+      required: true
+    - schema:
+        type: string
+        example: '14'
+      name: id_attachment
+      in: path
+      required: true
+    delete:
+      summary: Delete expense attachment
+      tags:
+      - '[v3] Expense'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                x-examples:
+                  Example 1:
+                    message: ok
+              examples:
+                Example 1:
+                  value:
+                    message: ok
+      operationId: delete-expense-id-attachment-id_attachment-delete
+      x-internal: false
+      security:
+      - api_key_in_header: []
+  /v3/expense/invoice/unassign:
+    put:
+      summary: Invoice unassign from expense
+      tags:
+      - '[v3] Expense'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                x-examples:
+                  Example 1:
+                    message: ok
+                    data:
+                    - id: 74
+                      currencyId: 2
+                      expenseCategory:
+                        id: 50
+                        name: My category
+                        color: '#4DC2E8'
+                        unitPrice: 1000
+                        unitName: my unit
+                        currencyId: 2
+                        createdAt: '2023-10-23 16:06:01'
+                        updatedAt: '2023-10-27 09:18:31'
+                      taskId: 868
+                      amount: 2522
+                      description: ABCD
+                      status: 0
+                      isBillable: true
+                      invoiceId: null
+                      madeBy: 640
+                      madeAt: '2023-09-12 10:32:22'
+                      createdBy: 640
+                      updatedBy: 640
+                      createdAt: '2023-10-27 09:41:33'
+                      updatedAt: '2023-10-27 09:47:51'
+                properties:
+                  message:
+                    type: string
+                  data:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: integer
+                        currencyId:
+                          type: integer
+                        expenseCategory:
+                          $ref: '#/components/schemas/Expense-response'
+                        taskId:
+                          type: integer
+                        amount:
+                          type: integer
+                        description:
+                          type: string
+                        status:
+                          type: integer
+                        isBillable:
+                          type: boolean
+                        invoiceId:
+                          type: integer
+                          nullable: true
+                        madeBy:
+                          type: integer
+                        madeAt:
+                          type: string
+                        createdBy:
+                          type: integer
+                        updatedBy:
+                          type: integer
+                        createdAt:
+                          type: string
+                        updatedAt:
+                          type: string
+              examples:
+                Example 1:
+                  value:
+                    message: ok
+                    data:
+                      id: 74
+                      currencyId: 2
+                      expenseCategory:
+                        id: 53
+                        name: My category
+                        color: '#4DC2E8'
+                        unitPrice: 1000
+                        unitName: my unit
+                        currencyId: 2
+                        createdAt: '2023-09-07 12:26:34'
+                        updatedAt: null
+                      taskId: 512
+                      amount: 2522
+                      description: My description...
+                      status: 0
+                      isBillable: true
+                      invoiceId: null
+                      madeBy: 256
+                      madeAt: '2023-09-12 10:32:22'
+                      createdBy: 256
+                      updatedBy: 256
+                      createdAt: '2023-10-21 09:41:33'
+                      updatedAt: '2023-10-21 09:41:41'
+      operationId: put-expense-invoice-unassign
+      x-internal: false
+      security:
+      - api_key_in_header: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                expenseIds:
+                  type: array
+                  items:
+                    type: integer
+              x-examples:
+                Example 1:
+                  expenseIds:
+                  - 45
+                  - 46
+            examples:
+              Example 1:
+                value:
+                  expenseIds:
+                  - 45
+                  - 46
+  /v3/expense/invoice/assign:
+    put:
+      summary: Invoice assign to expense
+      tags:
+      - '[v3] Expense'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                x-examples:
+                  Example 1:
+                    message: ok
+                    data:
+                      id: 74
+                      currencyId: 2
+                      expenseCategory:
+                        id: 53
+                        name: My category
+                        color: '#4DC2E8'
+                        unitPrice: 1000
+                        unitName: my unit
+                        currencyId: 2
+                        createdAt: '2023-09-07 12:26:34'
+                        updatedAt: null
+                      taskId: 512
+                      amount: 2522
+                      description: My description...
+                      status: 0
+                      isBillable: true
+                      invoiceId: null
+                      madeBy: 256
+                      madeAt: '2023-09-12 10:32:22'
+                      createdBy: 256
+                      updatedBy: 256
+                      createdAt: '2023-10-21 09:41:33'
+                      updatedAt: '2023-10-21 09:41:41'
+                properties:
+                  message:
+                    type: string
+                  data:
+                    $ref: '#/components/schemas/Expense-response'
+              examples:
+                Example 1:
+                  value:
+                    message: ok
+                    data:
+                      id: 74
+                      currencyId: 2
+                      expenseCategory:
+                        id: 53
+                        name: My category
+                        color: '#4DC2E8'
+                        unitPrice: 1000
+                        unitName: my unit
+                        currencyId: 2
+                        createdAt: '2023-09-07 12:26:34'
+                        updatedAt: null
+                      taskId: 512
+                      amount: 2522
+                      description: My description...
+                      status: 0
+                      isBillable: true
+                      invoiceId: 236
+                      madeBy: 256
+                      madeAt: '2023-09-12 10:32:22'
+                      createdBy: 256
+                      updatedBy: 256
+                      createdAt: '2023-10-21 09:41:33'
+                      updatedAt: '2023-10-21 09:41:41'
+      operationId: put-expense-invoice-assign
+      security:
+      - api_key_in_header: []
+      x-internal: false
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                invoiceId:
+                  type: integer
+                expenseIds:
+                  type: array
+                  items:
+                    type: integer
+              x-examples:
+                Example 1:
+                  invoiceId: 236
+                  expenseIds:
+                  - 45
+                  - 46
+            examples:
+              Example 1:
+                value:
+                  invoiceId: 236
+                  expenseIds:
+                  - 45
+                  - 46
+components:
+  schemas:
+    Expense-request:
+      type: object
+      x-examples:
+        Example 1:
+          currencyId: 2
+          expenseCategoryId: '50'
+          taskId: 512
+          amount: 2522
+          description: My description...
+          isBillable: true
+          madeBy: 256
+          madeAt: '2023-09-12 10:32:22'
+      title: Expense request
+      x-internal: false
+      properties:
+        currencyId:
+          type: integer
+        expenseCategoryId:
+          type: integer
+        taskId:
+          type: integer
+        amount:
+          type: integer
+        description:
+          type: string
+        isBillable:
+          type: boolean
+        madeBy:
+          type: integer
+        madeAt:
+          type: string
+      required:
+      - currencyId
+      - expenseCategoryId
+      - taskId
+      - amount
+      - isBillable
+      - madeBy
+      - madeAt
+      x-tags:
+      - Expense
+    Attachment:
+      type: object
+      properties:
+        id:
+          type: integer
+        userFilename:
+          type: string
+        mimeType:
+          type: string
+        url:
+          type: string
+      x-examples:
+        Example 1:
+          id: 14
+          userFilename: 02.pdf
+          mimeType: application/pdf
+          url: /internal/api/v3/storage/download/14
+      x-internal: false
+      x-tags:
+      - Expense
+    Expense-response:
+      type: object
+      x-examples:
+        Example 1:
+          message: ok
+          data:
+            id: 74
+            currencyId: 2
+            expenseCategory:
+              id: 53
+              name: My category
+              color: '#4DC2E8'
+              unitPrice: 1000
+              unitName: my unit
+              currencyId: 2
+              createdAt: '2023-09-07 12:26:34'
+              updatedAt: null
+            taskId: 512
+            amount: 2522
+            description: My description...
+            status: 0
+            isBillable: true
+            invoiceId: null
+            madeBy: 256
+            madeAt: '2023-09-12 10:32:22'
+            createdBy: 256
+            updatedBy: 256
+            createdAt: '2023-10-21 09:41:33'
+            updatedAt: '2023-10-21 09:41:41'
+      x-internal: false
+      properties:
+        id:
+          type: integer
+        currencyId:
+          type: integer
+        expenseCategory:
+          $ref: '#/components/schemas/Expense-category-response'
+        taskId:
+          type: integer
+        amount:
+          type: integer
+        description:
+          type: string
+          nullable: true
+        status:
+          type: integer
+        isBillable:
+          type: boolean
+        invoiceId:
+          type: integer
+          nullable: true
+        madeBy:
+          type: integer
+        madeAt:
+          type: string
+        createdBy:
+          type: integer
+        updatedBy:
+          type: integer
+          nullable: true
+        createdAt:
+          type: string
+        updatedAt:
+          type: string
+          nullable: true
+    Expense-category-response:
+      type: object
+      x-examples:
+        Example 1:
+          id: 53
+          name: My category
+          color: '#4DC2E8'
+          unitPrice: 1000
+          unitName: my unit
+          currencyId: 2
+          createdAt: '2023-09-07 12:26:34'
+          updatedAt: null
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        color:
+          type: string
+        unitPrice:
+          type: integer
+          nullable: true
+        unitName:
+          type: string
+          nullable: true
+        currencyId:
+          type: integer
+        createdAt:
+          type: string
+        updatedAt:
+          type: string
+          nullable: true
+      x-internal: false
+      title: Expense-category response
+      x-tags:
+      - Expense
+    Expense-category-request:
+      type: object
+      x-examples:
+        Example 1:
+          name: My category
+          color: '#4DC2E8'
+          unitPrice: 1000
+          unitName: my unit
+          currencyId: 2
+      x-internal: false
+      title: Expense-category request
+      x-tags:
+      - Expense
+      properties:
+        name:
+          type: string
+        color:
+          type: string
+        unitPrice:
+          type: integer
+          nullable: true
+        unitName:
+          type: string
+          nullable: true
+        currencyId:
+          type: integer
+      required:
+      - name
+      - color
+      - currencyId
+  securitySchemes:
+    api_key_in_header:
+      type: http
+      scheme: bearer
+      description: ''
+    OIDC:
+      type: openIdConnect
+      openIdConnectUrl: authenticate/oidc
+x-tagGroups:
+- name: TimeCamp API
+  tags:
+  - '[v1] User'
+  - '[v1] Entry'
+  - '[v1] Tags'
+  - '[v1] Group'
+  - '[v1] Approvals'
+  - '[v1] Computer Activities'
+  - '[v1] Timer'
+  - '[v1] Task'
+  - '[v1] Attendance'
+  - '[v1] Roles & Permissions'
+  - '[v1] Billing Rates'
+  - '[v1] Userlog'
+  - '[v1] Activity alert'
+  - '[v3] Timer'
+  - '[v3] Invoices'
+  - '[v3] Computer Activities'
+  - '[v3] Time Entry'
+  - '[v3] Task Archive'
+  - '[v3] Time Entry Restriction'
+  - '[v3] Expense'
+  - '[v3] Plan'
+  - '[v3] Storage'
+  - '[v3] Module'
+  - '[v3] Marketplace'
+  - '[v3] Remote work detection'
+  - '[v3] Data Export'
+  - '[v3] Custom Fields'
+  - '[v3] Approval'
+  - '[v3] Task'
+  - '[v3] Projects'
+  - '[v3] Attendance'
+  - '[v3] Attendance Requests'

@@ -1,0 +1,215 @@
+openapi: 3.0.0
+info:
+  title: TimeCamp [v1] Approvals [v1] Approvals [v3] Tags API
+  version: '1.0'
+  contact:
+    email: support@timecamp.com
+  termsOfService: https://www.timecamp.com/terms-conditions/
+  description: 'Documentation for the TimeCamp system.
+
+
+    Get your API token here:
+
+    https://app.timecamp.com/app#/settings/users/me
+
+
+    Be aware that you can reach API calls limit. Once you do you will get HTTP code 429 response.
+
+
+    Request example:
+
+
+    ```
+
+    GET https://app.timecamp.com/third_party/api/user?user_id=1234567
+
+
+    Headers:
+
+    Authorization: Bearer 87c21299960a88888888fe123
+
+    Accept: application/json
+
+    ```
+
+    '
+servers:
+- url: https://app.timecamp.com/third_party/api
+  description: PRODUCTION
+- url: https://v4.api.timecamp.com
+  description: PRODUCTION
+tags:
+- name: '[v3] Tags'
+  x-displayName: Tags
+paths:
+  /v3/task/{taskId}/tag-list/{tagListId}:
+    parameters:
+    - schema:
+        type: integer
+        example: 2500464
+      name: taskId
+      in: path
+      required: true
+      description: Task ID the tag list assignment relates to.
+    - schema:
+        type: integer
+        example: 1234
+      name: tagListId
+      in: path
+      required: true
+      description: Tag list ID being assigned to or detached from the task.
+    put:
+      summary: Assign or update a tag list assignment for a task
+      description: Idempotent upsert of a direct assignment between a tag list and a task in the `tc_tt_task_tag_lists` table. If a direct row for the given pair `(taskId, tagListId)` already exists, only the `mandatory` flag is updated. If no direct row exists, a new one is created — even when the tag list is already inherited from an ancestor task. This mirrors legacy behaviour from `time_tracking/ajax_edit_save` (`TtModel::updateAssignedTags`) and allows a child task to override or extend an inherited tag list. Single tag assignments (`tc_tt_task_tags`) are out of scope for this endpoint.
+      tags:
+      - '[v3] Tags'
+      operationId: put-task-tag-list-assignment
+      security:
+      - api_key_in_header: []
+      parameters:
+      - schema:
+          type: string
+          example: application/json
+        in: header
+        name: Accept
+      - schema:
+          type: string
+          example: application/json
+        in: header
+        name: Content-Type
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - mandatory
+              properties:
+                mandatory:
+                  type: boolean
+                  description: Whether the tag list is mandatory for time entries logged on this task.
+            examples:
+              Example 1:
+                value:
+                  mandatory: true
+      responses:
+        '200':
+          description: OK — assignment was created or updated.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+              examples:
+                Example 1:
+                  value:
+                    message: Tag list assignment saved.
+        '403':
+          description: Forbidden — user lacks permission to edit task settings.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+        '404':
+          description: Not found — task or tag list does not exist within the user's root group.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+        '422':
+          description: Unprocessable entity — tag list belongs to a different root group than the task, or payload is invalid.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+    delete:
+      summary: Detach a tag list from a task
+      description: Idempotent deletion of the direct assignment row between a tag list and a task in `tc_tt_task_tag_lists`. Only the row with `task_id = taskId` is deleted; rows on ancestor tasks remain untouched, so an inherited tag list will still be visible via `getForTask` after this operation. Returns `204 No Content` even when no direct row existed (mirrors legacy `TtModel::removeTagList`).
+      tags:
+      - '[v3] Tags'
+      operationId: delete-task-tag-list-assignment
+      security:
+      - api_key_in_header: []
+      parameters:
+      - schema:
+          type: string
+          example: application/json
+        in: header
+        name: Accept
+      responses:
+        '204':
+          description: No Content — direct assignment removed (or no-op if it did not exist).
+        '403':
+          description: Forbidden — user lacks permission to edit task settings.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+        '404':
+          description: Not found — task does not exist within the user's root group.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+components:
+  securitySchemes:
+    api_key_in_header:
+      type: http
+      scheme: bearer
+      description: ''
+    OIDC:
+      type: openIdConnect
+      openIdConnectUrl: authenticate/oidc
+x-tagGroups:
+- name: TimeCamp API
+  tags:
+  - '[v1] User'
+  - '[v1] Entry'
+  - '[v1] Tags'
+  - '[v1] Group'
+  - '[v1] Approvals'
+  - '[v1] Computer Activities'
+  - '[v1] Timer'
+  - '[v1] Task'
+  - '[v1] Attendance'
+  - '[v1] Roles & Permissions'
+  - '[v1] Billing Rates'
+  - '[v1] Userlog'
+  - '[v1] Activity alert'
+  - '[v3] Timer'
+  - '[v3] Invoices'
+  - '[v3] Computer Activities'
+  - '[v3] Time Entry'
+  - '[v3] Task Archive'
+  - '[v3] Time Entry Restriction'
+  - '[v3] Expense'
+  - '[v3] Plan'
+  - '[v3] Storage'
+  - '[v3] Module'
+  - '[v3] Marketplace'
+  - '[v3] Remote work detection'
+  - '[v3] Data Export'
+  - '[v3] Custom Fields'
+  - '[v3] Approval'
+  - '[v3] Task'
+  - '[v3] Projects'
+  - '[v3] Attendance'
+  - '[v3] Attendance Requests'

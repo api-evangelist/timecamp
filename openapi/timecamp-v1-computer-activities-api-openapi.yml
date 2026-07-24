@@ -1,0 +1,197 @@
+openapi: 3.0.0
+info:
+  title: TimeCamp [v1] Approvals [v1] Approvals [v1] Computer Activities API
+  version: '1.0'
+  contact:
+    email: support@timecamp.com
+  termsOfService: https://www.timecamp.com/terms-conditions/
+  description: 'Documentation for the TimeCamp system.
+
+
+    Get your API token here:
+
+    https://app.timecamp.com/app#/settings/users/me
+
+
+    Be aware that you can reach API calls limit. Once you do you will get HTTP code 429 response.
+
+
+    Request example:
+
+
+    ```
+
+    GET https://app.timecamp.com/third_party/api/user?user_id=1234567
+
+
+    Headers:
+
+    Authorization: Bearer 87c21299960a88888888fe123
+
+    Accept: application/json
+
+    ```
+
+    '
+servers:
+- url: https://app.timecamp.com/third_party/api
+  description: PRODUCTION
+- url: https://v4.api.timecamp.com
+  description: PRODUCTION
+tags:
+- name: '[v1] Computer Activities'
+  x-displayName: Computer Activities
+paths:
+  /activity:
+    get:
+      operationId: get--activity
+      description: Get computer activities.
+      tags:
+      - '[v1] Computer Activities'
+      responses:
+        '200':
+          description: Array of computer activities.
+          content:
+            application/json:
+              schema:
+                description: ''
+                type: object
+                properties:
+                  user_id:
+                    oneOf:
+                    - type: string
+                    - type: integer
+                  application_id:
+                    oneOf:
+                    - type: string
+                    - type: integer
+                  end_time:
+                    type: string
+                    minLength: 1
+                  time_span:
+                    type: integer
+                    description: number of seconds
+                  window_title_id:
+                    oneOf:
+                    - type: string
+                    - type: integer
+                  end_date:
+                    type: string
+                    minLength: 1
+                  task_id:
+                    oneOf:
+                    - type: string
+                    - type: integer
+                  entry_id:
+                    oneOf:
+                    - type: string
+                    - type: integer
+                  application:
+                    type: string
+                    description: Field with application name if DTO was extended with include parameter
+                  window_title:
+                    type: string
+                    description: Field with window title if DTO was extended with include parameter
+              examples:
+                Example:
+                  value:
+                  - user_id: '123'
+                    application_id: '795630'
+                    end_time: '2020-02-02 09:30:07'
+                    time_span: 9
+                    window_title_id: '26079668'
+                    end_date: '2020-02-02'
+                    task_id: '0'
+                    entry_id: '0'
+                  - user_id: '123'
+                    application_id: '795630'
+                    end_time: '2020-02-02 09:30:11'
+                    time_span: 4
+                    window_title_id: '23745620'
+                    end_date: '2020-02-02'
+                    task_id: '0'
+                    entry_id: '0'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                description: ''
+                type: object
+                properties:
+                  message:
+                    type: string
+                    minLength: 1
+              examples:
+                dates not provided:
+                  value:
+                    message: 'you must provide "date" like 2013-03-20 '
+      summary: Get computer activities
+      parameters:
+      - schema:
+          type: string
+          example: 123, 124
+        in: query
+        name: user_id
+        description: user ids separated by commas
+      - schema:
+          type: string
+          example: '2021-03-02'
+          format: date
+        in: query
+        name: dates[]
+        description: dates (you can provide max 20 dates)
+        required: true
+      - schema:
+          type: string
+          example: application,window_title
+        in: query
+        name: include
+        description: 'Join additional data to result, possible options are: application and window_title'
+      x-internal: false
+      security:
+      - api_key_in_header: []
+components:
+  securitySchemes:
+    api_key_in_header:
+      type: http
+      scheme: bearer
+      description: ''
+    OIDC:
+      type: openIdConnect
+      openIdConnectUrl: authenticate/oidc
+x-tagGroups:
+- name: TimeCamp API
+  tags:
+  - '[v1] User'
+  - '[v1] Entry'
+  - '[v1] Tags'
+  - '[v1] Group'
+  - '[v1] Approvals'
+  - '[v1] Computer Activities'
+  - '[v1] Timer'
+  - '[v1] Task'
+  - '[v1] Attendance'
+  - '[v1] Roles & Permissions'
+  - '[v1] Billing Rates'
+  - '[v1] Userlog'
+  - '[v1] Activity alert'
+  - '[v3] Timer'
+  - '[v3] Invoices'
+  - '[v3] Computer Activities'
+  - '[v3] Time Entry'
+  - '[v3] Task Archive'
+  - '[v3] Time Entry Restriction'
+  - '[v3] Expense'
+  - '[v3] Plan'
+  - '[v3] Storage'
+  - '[v3] Module'
+  - '[v3] Marketplace'
+  - '[v3] Remote work detection'
+  - '[v3] Data Export'
+  - '[v3] Custom Fields'
+  - '[v3] Approval'
+  - '[v3] Task'
+  - '[v3] Projects'
+  - '[v3] Attendance'
+  - '[v3] Attendance Requests'

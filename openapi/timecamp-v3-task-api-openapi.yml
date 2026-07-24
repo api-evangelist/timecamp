@@ -1,0 +1,554 @@
+openapi: 3.0.0
+info:
+  title: TimeCamp [v1] Approvals [v1] Approvals [v3] Task API
+  version: '1.0'
+  contact:
+    email: support@timecamp.com
+  termsOfService: https://www.timecamp.com/terms-conditions/
+  description: 'Documentation for the TimeCamp system.
+
+
+    Get your API token here:
+
+    https://app.timecamp.com/app#/settings/users/me
+
+
+    Be aware that you can reach API calls limit. Once you do you will get HTTP code 429 response.
+
+
+    Request example:
+
+
+    ```
+
+    GET https://app.timecamp.com/third_party/api/user?user_id=1234567
+
+
+    Headers:
+
+    Authorization: Bearer 87c21299960a88888888fe123
+
+    Accept: application/json
+
+    ```
+
+    '
+servers:
+- url: https://app.timecamp.com/third_party/api
+  description: PRODUCTION
+- url: https://v4.api.timecamp.com
+  description: PRODUCTION
+tags:
+- name: '[v3] Task'
+  x-displayName: Task
+paths:
+  /v3/task/remove:
+    post:
+      summary: Task remove
+      tags:
+      - '[v3] Task'
+      operationId: post-task-remove
+      security:
+      - api_key_in_header: []
+      parameters:
+      - schema:
+          type: string
+          example: application/json
+        in: header
+        name: Accept
+      - schema:
+          type: string
+          example: application/json
+        in: header
+        name: Content-Type
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                taskIds:
+                  type: array
+                  items:
+                    type: integer
+              required:
+              - taskIds
+              x-examples:
+                Example 1:
+                  taskIds:
+                  - 2500464
+                  - 91423694
+            examples:
+              Example 1:
+                value:
+                  taskIds:
+                  - 2500464
+                  - 91423694
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                x-examples:
+                  Example 1:
+                    message: Tasks have been queued for removal
+              examples:
+                Example 1:
+                  value:
+                    message: Tasks have been queued for removal
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                x-examples:
+                  Example 1:
+                    message: Can't remove task
+              examples:
+                Example 1:
+                  value:
+                    message: Can't remove task
+  /v3/task/duplicate:
+    post:
+      summary: Task duplicate
+      tags:
+      - '[v3] Task'
+      operationId: post-task-duplicate
+      security:
+      - api_key_in_header: []
+      parameters:
+      - schema:
+          type: string
+          example: application/json
+        in: header
+        name: Accept
+      - schema:
+          type: string
+          example: application/json
+        in: header
+        name: Content-Type
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                taskId:
+                  type: integer
+              required:
+              - taskId
+              x-examples:
+                Example 1:
+                  taskId: 2500464
+            examples:
+              Example 1:
+                value:
+                  taskId: 2500464
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                x-examples:
+                  Example 1:
+                    message: Task has been queued for duplication
+              examples:
+                Example 1:
+                  value:
+                    message: Task has been queued for duplication
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                x-examples:
+                  Example 1:
+                    message: Can't duplicate task
+              examples:
+                Example 1:
+                  value:
+                    message: Can't duplicate task
+  /v3/task/duplicate-batch:
+    post:
+      summary: Task duplicate batch
+      tags:
+      - '[v3] Task'
+      operationId: post-task-duplicate-batch
+      security:
+      - api_key_in_header: []
+      parameters:
+      - schema:
+          type: string
+          example: application/json
+        in: header
+        name: Accept
+      - schema:
+          type: string
+          example: application/json
+        in: header
+        name: Content-Type
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                taskIds:
+                  type: array
+                  items:
+                    type: integer
+                  minItems: 1
+                  description: If both an ancestor task ID and its descendant task ID are provided, only the highest selected ancestor is queued for duplication.
+              required:
+              - taskIds
+              x-examples:
+                Example 1:
+                  taskIds:
+                  - 2500464
+                  - 2500465
+            examples:
+              Example 1:
+                value:
+                  taskIds:
+                  - 2500464
+                  - 2500465
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                x-examples:
+                  Example 1:
+                    message: 1 tasks out of 2 have been queued for duplication
+              examples:
+                Example 1:
+                  value:
+                    message: 1 tasks out of 2 have been queued for duplication
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                x-examples:
+                  Example 1:
+                    message: Can't duplicate tasks
+              examples:
+                Example 1:
+                  value:
+                    message: Can't duplicate tasks
+  /v3/task/{id}/worklogs/move:
+    post:
+      summary: Task worklog move
+      tags:
+      - '[v3] Task'
+      operationId: post-task-worklog-move
+      security:
+      - api_key_in_header: []
+      parameters:
+      - schema:
+          type: string
+          example: application/json
+        in: header
+        name: Accept
+      - schema:
+          type: string
+          example: application/json
+        in: header
+        name: Content-Type
+      - schema:
+          type: integer
+        name: id
+        in: path
+        required: true
+        description: Source task ID.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                destinationTaskId:
+                  type: integer
+                  description: Destination task ID.
+                from:
+                  type: string
+                  format: date
+                  description: Start date of the period to move in `Y-m-d` format.
+                to:
+                  type: string
+                  format: date
+                  description: End date of the period to move in `Y-m-d` format.
+                userIds:
+                  type: array
+                  items:
+                    type: integer
+              required:
+              - destinationTaskId
+            examples:
+              MoveSelectedPeriod:
+                value:
+                  destinationTaskId: 2500465
+                  from: '2026-04-01'
+                  to: '2026-04-10'
+                  userIds:
+                  - 15
+              MoveAllAvailableTime:
+                value:
+                  destinationTaskId: 2500465
+                  userIds:
+                  - 15
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  entriesMoved:
+                    type: integer
+                  userLogsMoved:
+                    type: integer
+              examples:
+                Example 1:
+                  value:
+                    message: Task worklogs have been moved.
+                    entriesMoved: 12
+                    userLogsMoved: 24
+        '400':
+          description: Validation failure or payload processing error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  errors:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        property:
+                          type: string
+                        message:
+                          type: string
+              examples:
+                ValidationError:
+                  value:
+                    message: Request validation failed
+                    errors:
+                    - property: from
+                      message: Invalid time range
+                PayloadProcessingError:
+                  value:
+                    message: There was an internal error while trying to save this payload
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+              examples:
+                Example 1:
+                  value:
+                    message: You are not allowed to move worklogs
+  /v3/task/{id}/change-parent:
+    post:
+      summary: Task change parent
+      tags:
+      - '[v3] Task'
+      operationId: post-task-change-parent
+      security:
+      - api_key_in_header: []
+      parameters:
+      - schema:
+          type: string
+          example: application/json
+        in: header
+        name: Accept
+      - schema:
+          type: string
+          example: application/json
+        in: header
+        name: Content-Type
+      - schema:
+          type: integer
+        name: id
+        in: path
+        required: true
+        description: Task ID to move.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                parentId:
+                  type: integer
+                  description: New parent task ID. Use `0` to move the task to the root level.
+              required:
+              - parentId
+            examples:
+              MoveUnderParent:
+                value:
+                  parentId: 2500465
+              MoveToRoot:
+                value:
+                  parentId: 0
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+              examples:
+                Example 1:
+                  value:
+                    message: Task has been queued for change parent
+        '400':
+          description: Validation failure
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  errors:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        property:
+                          type: string
+                        message:
+                          type: string
+              examples:
+                Example 1:
+                  value:
+                    message: Request validation failed
+                    errors:
+                    - property: parentId
+                      message: Parent task ID must be an integer.
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+              examples:
+                Example 1:
+                  value:
+                    message: You are not allowed to change parent task
+        '409':
+          description: Change parent job already in progress
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+              examples:
+                Example 1:
+                  value:
+                    message: Task change parent is already in progress for taskId 2500465.
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+              examples:
+                Example 1:
+                  value:
+                    message: An unspecified error occurred.
+components:
+  securitySchemes:
+    api_key_in_header:
+      type: http
+      scheme: bearer
+      description: ''
+    OIDC:
+      type: openIdConnect
+      openIdConnectUrl: authenticate/oidc
+x-tagGroups:
+- name: TimeCamp API
+  tags:
+  - '[v1] User'
+  - '[v1] Entry'
+  - '[v1] Tags'
+  - '[v1] Group'
+  - '[v1] Approvals'
+  - '[v1] Computer Activities'
+  - '[v1] Timer'
+  - '[v1] Task'
+  - '[v1] Attendance'
+  - '[v1] Roles & Permissions'
+  - '[v1] Billing Rates'
+  - '[v1] Userlog'
+  - '[v1] Activity alert'
+  - '[v3] Timer'
+  - '[v3] Invoices'
+  - '[v3] Computer Activities'
+  - '[v3] Time Entry'
+  - '[v3] Task Archive'
+  - '[v3] Time Entry Restriction'
+  - '[v3] Expense'
+  - '[v3] Plan'
+  - '[v3] Storage'
+  - '[v3] Module'
+  - '[v3] Marketplace'
+  - '[v3] Remote work detection'
+  - '[v3] Data Export'
+  - '[v3] Custom Fields'
+  - '[v3] Approval'
+  - '[v3] Task'
+  - '[v3] Projects'
+  - '[v3] Attendance'
+  - '[v3] Attendance Requests'

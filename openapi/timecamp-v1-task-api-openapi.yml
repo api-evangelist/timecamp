@@ -1,0 +1,1218 @@
+openapi: 3.0.0
+info:
+  title: TimeCamp [v1] Approvals [v1] Approvals [v1] Task API
+  version: '1.0'
+  contact:
+    email: support@timecamp.com
+  termsOfService: https://www.timecamp.com/terms-conditions/
+  description: 'Documentation for the TimeCamp system.
+
+
+    Get your API token here:
+
+    https://app.timecamp.com/app#/settings/users/me
+
+
+    Be aware that you can reach API calls limit. Once you do you will get HTTP code 429 response.
+
+
+    Request example:
+
+
+    ```
+
+    GET https://app.timecamp.com/third_party/api/user?user_id=1234567
+
+
+    Headers:
+
+    Authorization: Bearer 87c21299960a88888888fe123
+
+    Accept: application/json
+
+    ```
+
+    '
+servers:
+- url: https://app.timecamp.com/third_party/api
+  description: PRODUCTION
+- url: https://v4.api.timecamp.com
+  description: PRODUCTION
+tags:
+- name: '[v1] Task'
+  x-displayName: Task
+paths:
+  /tasks:
+    get:
+      operationId: get--tasks
+      description: 'Returns information about task or tasks.
+
+
+        If asked about specific task (`task_id` or `external_task_id` was provided) and no task was found it returns error status of `404 Not Found`.'
+      responses:
+        '200':
+          description: It returns an object of objects keyed with ID of a task in a tree structure.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  '[task_id]':
+                    type: object
+                    properties:
+                      task_id:
+                        type: integer
+                      parent_id:
+                        type: integer
+                        nullable: true
+                      assigned_by:
+                        type: integer
+                        nullable: true
+                      name:
+                        type: string
+                        minLength: 1
+                      external_task_id:
+                        type: string
+                        nullable: true
+                      external_parent_id:
+                        type: string
+                        nullable: true
+                      level:
+                        type: integer
+                      archived:
+                        type: integer
+                      tags:
+                        type: string
+                        deprecated: true
+                        nullable: true
+                      budgeted:
+                        type: integer
+                      budget_unit:
+                        type: string
+                        minLength: 1
+                      root_group_id:
+                        type: integer
+                        nullable: true
+                      billable:
+                        type: integer
+                      note:
+                        type: string
+                        nullable: true
+                      public_hash:
+                        type: string
+                        nullable: true
+                      add_date:
+                        type: string
+                        minLength: 1
+                      modify_time:
+                        type: string
+                        minLength: 1
+                        nullable: true
+                      color:
+                        type: string
+                        minLength: 1
+                      users:
+                        type: object
+                        properties:
+                          '[user_id]':
+                            type: object
+                            properties:
+                              user_id:
+                                type: integer
+                              role_id:
+                                type: integer
+                      perms:
+                        type: object
+                        minProperties: 6
+                        maxProperties: 6
+                        properties:
+                          '1':
+                            type: integer
+                          '2':
+                            type: integer
+                          '3':
+                            type: integer
+                          '5':
+                            type: integer
+                          '6':
+                            type: integer
+                          '7':
+                            type: integer
+                      user_access_type:
+                        type: integer
+                      keywords:
+                        type: string
+                        nullable: true
+              examples:
+                Example:
+                  value:
+                    '73479227':
+                      task_id: '12312'
+                      parent_id: '424244'
+                      assigned_by: '1513337'
+                      name: task name
+                      external_task_id: null
+                      external_parent_id: null
+                      level: '2'
+                      archived: '1'
+                      tags: ''
+                      keywords: ''
+                      budgeted: '0'
+                      budget_unit: fee
+                      root_group_id: '123'
+                      billable: '1'
+                      note: null
+                      public_hash: null
+                      add_date: '2020-07-03 09:14:21'
+                      modify_time: '2020-07-03 12:36:10'
+                      color: '#4B5A74'
+                      users:
+                        '5551':
+                          user_id: '5551'
+                          role_id: '1'
+                        '5552':
+                          user_id: '5552'
+                          role_id: '3'
+                      user_access_type: 4
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                required:
+                - message
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                description: ''
+                type: object
+                properties:
+                  message:
+                    type: string
+                    minLength: 1
+                required:
+                - message
+      tags:
+      - '[v1] Task'
+      summary: Get task info
+      parameters:
+      - schema:
+          type: string
+        in: query
+        name: task_id
+        description: asks for specific task with `task_id` that is number, can be multiple tasks separated by ,
+      - schema:
+          type: string
+        in: query
+        name: external_task_id
+        description: asks for specific task with `external_task_id`
+      - schema:
+          type: string
+          enum:
+          - create_subtask
+          - edit_task_settings
+          - track_time
+          - view_detailed_data
+          example: create_subtask,track_time
+        in: query
+        name: perms
+        description: comma separated permission names to filter tasks by
+      - schema:
+          type: integer
+          enum:
+          - 0
+          - 1
+        in: query
+        name: exclude_archived
+        deprecated: true
+        description: '`0` -> show only archived, `1` -> show all tasks'
+      - schema:
+          type: string
+          enum:
+          - active
+          - archived
+          - all
+          default: active
+        in: query
+        name: status
+        description: filters tasks by status
+      - schema:
+          type: string
+          enum:
+          - '0'
+          - '1'
+          default: '0'
+        in: query
+        description: returns minimal tasks info - works only if specific task **was not** requested
+        name: minimal
+      - schema:
+          type: boolean
+        in: query
+        name: ignoreAdminRights
+        description: only return tasks that user would have access to regardless of being a time tracking admin
+      security:
+      - api_key_in_header: []
+    post:
+      operationId: post--tasks
+      description: Create new task. To ceate new task you should have proper permissions.
+      tags:
+      - '[v1] Task'
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  '[task_id]':
+                    type: object
+                    properties:
+                      task_id:
+                        oneOf:
+                        - type: string
+                        - type: integer
+                        minLength: 1
+                      parent_id:
+                        oneOf:
+                        - type: string
+                        - type: integer
+                        minLength: 1
+                      name:
+                        type: string
+                        minLength: 1
+                      external_task_id:
+                        oneOf:
+                        - type: string
+                        - type: integer
+                        nullable: true
+                      external_parent_id:
+                        oneOf:
+                        - type: string
+                        - type: integer
+                        nullable: true
+                      level:
+                        oneOf:
+                        - type: string
+                        - type: integer
+                        minLength: 1
+                      add_date:
+                        type: string
+                        minLength: 1
+                      archived:
+                        oneOf:
+                        - type: string
+                        - type: integer
+                        minLength: 1
+                      color:
+                        type: string
+                        minLength: 1
+                      tags:
+                        type: string
+                        deprecated: true
+                      budgeted:
+                        oneOf:
+                        - type: string
+                        - type: integer
+                        minLength: 1
+                      checked_date:
+                        type: string
+                        nullable: true
+                      root_group_id:
+                        oneOf:
+                        - type: string
+                        - type: integer
+                        minLength: 1
+                      assigned_to:
+                        oneOf:
+                        - type: string
+                        - type: integer
+                        nullable: true
+                      assigned_by:
+                        oneOf:
+                        - type: string
+                        - type: integer
+                        minLength: 1
+                      due_date:
+                        type: string
+                        nullable: true
+                      note:
+                        type: string
+                        nullable: true
+                      context:
+                        type: string
+                        nullable: true
+                      folder:
+                        type: string
+                        nullable: true
+                      repeat:
+                        oneOf:
+                        - type: string
+                        - type: integer
+                        nullable: true
+                      billable:
+                        oneOf:
+                        - type: string
+                        - type: integer
+                        minLength: 1
+                      budget_unit:
+                        type: string
+                        minLength: 1
+                      public_hash:
+                        type: string
+                        nullable: true
+                      modify_time:
+                        type: string
+                        nullable: true
+                      keywords:
+                        type: string
+              examples:
+                Created task named "API TEST":
+                  value:
+                    '81278270':
+                      task_id: '81278270'
+                      parent_id: '0'
+                      name: API TEST
+                      external_task_id: null
+                      external_parent_id: null
+                      level: '1'
+                      add_date: '2021-03-15 14:36:06'
+                      archived: '0'
+                      color: '#34C644'
+                      tags: ''
+                      budgeted: '0'
+                      checked_date: null
+                      root_group_id: '123'
+                      assigned_to: null
+                      assigned_by: '111'
+                      due_date: null
+                      note: null
+                      context: null
+                      folder: null
+                      repeat: null
+                      billable: '1'
+                      budget_unit: hours
+                      public_hash: null
+                      modify_time: null
+                      keywords: ''
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                description: ''
+                type: object
+                properties:
+                  message:
+                    type: string
+                    minLength: 1
+              examples:
+                task name not provided:
+                  value:
+                    message: 'You must provide a name for the task with post field: name'
+      summary: Create new task
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - name
+              properties:
+                name:
+                  type: string
+                  description: task name
+                  example: Development
+                tags:
+                  type: string
+                  description: comma separated tags' names
+                  example: IT, R&D
+                  deprecated: true
+                parent_id:
+                  oneOf:
+                  - type: string
+                  - type: integer
+                  description: task parent id
+                  example: 523
+                external_task_id:
+                  type: string
+                  description: external task id ie. id of task in other system/integration
+                  example: xero_g8g89s78ds8
+                external_parent_id:
+                  type: string
+                  description: external parent id ie. id of parent task in other system/integration
+                  example: xero_2b5b26tb295bb9
+                budgeted:
+                  type: integer
+                  description: task budget value, defined in the unit specified by `budget_unit`
+                  example: 1000
+                note:
+                  type: string
+                  description: description for task
+                  example: Development task note
+                archived:
+                  type: integer
+                  description: is task archived
+                  enum:
+                  - '0'
+                  - '1'
+                billable:
+                  type: integer
+                  description: is task billable
+                  enum:
+                  - 0
+                  - 1
+                budget_unit:
+                  type: string
+                  description: 'budget unit: `hours`, `fee` or empty'
+                  enum:
+                  - hours
+                  - fee
+                user_ids:
+                  type: string
+                  description: comma separated user ids to add to task
+                  example: 22,521,2,25
+                role:
+                  description: works only if `user_ids` are provided - sets given role to given `user_ids` in created task
+                  example: '5325'
+                  type: integer
+                keywords:
+                  type: string
+                  example: IT, R&D
+                  description: comma separated keywords
+      security:
+      - api_key_in_header: []
+    put:
+      operationId: put--tasks
+      description: Modify existing task. To modify a task you should have proper permissions.
+      tags:
+      - '[v1] Task'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  task_id:
+                    oneOf:
+                    - type: string
+                    - type: integer
+                    minLength: 1
+                  parent_id:
+                    oneOf:
+                    - type: string
+                    - type: integer
+                    minLength: 1
+                  name:
+                    type: string
+                    minLength: 1
+                  external_task_id:
+                    oneOf:
+                    - type: string
+                    - type: integer
+                    nullable: true
+                  external_parent_id:
+                    oneOf:
+                    - type: string
+                    - type: integer
+                    nullable: true
+                  level:
+                    oneOf:
+                    - type: string
+                    - type: integer
+                    minLength: 1
+                  add_date:
+                    type: string
+                    minLength: 1
+                  archived:
+                    oneOf:
+                    - type: string
+                    - type: integer
+                    minLength: 1
+                  color:
+                    type: string
+                    minLength: 1
+                  tags:
+                    type: string
+                    minLength: 1
+                    deprecated: true
+                  budgeted:
+                    oneOf:
+                    - type: string
+                    - type: integer
+                    minLength: 1
+                    deprecated: true
+                    description: 'Deprecated — use `GET /v3/task/{taskId}/billing-settings` (`budget` field) instead.
+
+                      '
+                  checked_date:
+                    type: string
+                    nullable: true
+                  root_group_id:
+                    oneOf:
+                    - type: string
+                    - type: integer
+                    minLength: 1
+                  assigned_to:
+                    oneOf:
+                    - type: string
+                    - type: integer
+                    nullable: true
+                  assigned_by:
+                    oneOf:
+                    - type: string
+                    - type: integer
+                    minLength: 1
+                  due_date:
+                    type: string
+                    nullable: true
+                  note:
+                    type: string
+                    nullable: true
+                  context:
+                    type: string
+                    nullable: true
+                  folder:
+                    type: string
+                    nullable: true
+                  repeat:
+                    type: string
+                    nullable: true
+                  billable:
+                    oneOf:
+                    - type: string
+                    - type: integer
+                    minLength: 1
+                    deprecated: true
+                    description: 'Deprecated — use `GET /v3/task/{taskId}/billing-settings` (`billable` field) instead.
+
+                      '
+                  budget_unit:
+                    type: string
+                    minLength: 1
+                    deprecated: true
+                    description: 'Deprecated — use `GET /v3/task/{taskId}/billing-settings` (`budgetUnit` field) instead.
+
+                      '
+                  public_hash:
+                    type: string
+                    nullable: true
+                  modify_time:
+                    type: string
+                    minLength: 1
+                  keywords:
+                    type: string
+              examples:
+                changed name and tags:
+                  value:
+                    task_id: '81278276'
+                    parent_id: '0'
+                    name: new name
+                    external_task_id: null
+                    external_parent_id: null
+                    level: '1'
+                    add_date: '2021-03-16 09:00:03'
+                    archived: '0'
+                    color: '#34C644'
+                    tags: new tags
+                    budgeted: '0'
+                    checked_date: null
+                    root_group_id: '1234'
+                    assigned_to: null
+                    assigned_by: '24'
+                    due_date: null
+                    note: null
+                    context: null
+                    folder: null
+                    repeat: null
+                    billable: '1'
+                    budget_unit: hours
+                    public_hash: null
+                    modify_time: '2021-03-16 10:54:59'
+                    keywords: new tags
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                description: ''
+                type: object
+                properties:
+                  message:
+                    type: string
+                    minLength: 1
+              examples:
+                not permitted to edit this task:
+                  value:
+                    message: You do not have permissions to modify this task or it does not exist
+        '404':
+          description: Not Found is returned with empty body when given `task_id` is not found.
+      summary: Update task info
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - task_id
+              properties:
+                task_id:
+                  oneOf:
+                  - type: string
+                  - type: integer
+                  description: task id to update
+                  example: '52525'
+                name:
+                  type: string
+                  description: new task name
+                  example: SomeNewTaskName
+                tags:
+                  type: string
+                  description: comma separated tags' names
+                  example: IT,R&D
+                  deprecated: true
+                parent_id:
+                  oneOf:
+                  - type: string
+                  - type: integer
+                  description: new parent id
+                  example: 5252
+                external_task_id:
+                  type: string
+                  description: external task id ie. id of task in other system/integration
+                  example: xero_g8g89s78ds8
+                external_parent_id:
+                  type: string
+                  description: external parent id ie. id of parent task in other system/integration
+                  example: xero_2b5b26tb295bb9
+                budgeted:
+                  type: integer
+                  description: 'Deprecated — use `PATCH /v3/task/{taskId}/billing-settings` with `budget` field instead. Task budget value, defined in the unit specified by `budget_unit`.
+
+                    '
+                  example: 1000
+                  deprecated: true
+                note:
+                  type: string
+                  description: description for task
+                  example: SomeNewNote
+                archived:
+                  type: integer
+                  description: is task archived
+                  enum:
+                  - 0
+                  - 1
+                billable:
+                  type: integer
+                  description: 'Deprecated — use `PATCH /v3/task/{taskId}/billing-settings` with `billable` field instead. Is task billable.
+
+                    '
+                  enum:
+                  - 0
+                  - 1
+                  deprecated: true
+                budget_unit:
+                  type: string
+                  description: 'Deprecated — use `PATCH /v3/task/{taskId}/billing-settings` with `budgetUnit` field instead. Budget unit: `hours`, `fee` or empty.
+
+                    '
+                  enum:
+                  - hours
+                  - fee
+                  deprecated: true
+                user_ids:
+                  type: string
+                  description: comma separated user ids to update role in task
+                  example: 22,521,2,25
+                role:
+                  type: integer
+                  description: works only if `user_ids` are provided - updates role for`user_ids`
+                  example: 5215
+                keywords:
+                  type: string
+                  example: IT,R&D
+                  description: comma separated keywords
+            examples:
+              change name and tags:
+                value:
+                  task_id: 81209723
+                  name: new name
+                  tags: new,tags,added
+        description: ''
+      security:
+      - api_key_in_header: []
+    delete:
+      deprecated: true
+      operationId: delete--tasks
+      description: '>Endpoint deprecated instead use <a href="/#/operations/post-task-remove">this</a>
+
+        Delete task. To delete a task you should have proper permissions. You need to include `task_id` in GET.'
+      tags:
+      - '[v1] Task'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  task_id:
+                    oneOf:
+                    - type: string
+                    - type: integer
+                    minLength: 1
+                  parent_id:
+                    oneOf:
+                    - type: string
+                    - type: integer
+                    minLength: 1
+                  name:
+                    type: string
+                    minLength: 1
+                  external_task_id:
+                    oneOf:
+                    - type: string
+                    - type: integer
+                    nullable: true
+                  external_parent_id:
+                    oneOf:
+                    - type: string
+                    - type: integer
+                    nullable: true
+                  level:
+                    oneOf:
+                    - type: string
+                    - type: integer
+                    minLength: 1
+                  add_date:
+                    type: string
+                    minLength: 1
+                  archived:
+                    oneOf:
+                    - type: string
+                    - type: integer
+                    minLength: 1
+                  color:
+                    type: string
+                    minLength: 1
+                  tags:
+                    type: string
+                    deprecated: true
+                  budgeted:
+                    oneOf:
+                    - type: string
+                    - type: integer
+                    minLength: 1
+                  checked_date:
+                    type: string
+                    nullable: true
+                  root_group_id:
+                    oneOf:
+                    - type: string
+                    - type: integer
+                    minLength: 1
+                  assigned_to:
+                    oneOf:
+                    - type: string
+                    - type: integer
+                    nullable: true
+                  assigned_by:
+                    oneOf:
+                    - type: string
+                    - type: integer
+                    minLength: 1
+                  due_date:
+                    type: string
+                    nullable: true
+                  note:
+                    type: string
+                    nullable: true
+                  context:
+                    type: string
+                    nullable: true
+                  folder:
+                    type: string
+                    nullable: true
+                  repeat:
+                    type: string
+                    nullable: true
+                  billable:
+                    oneOf:
+                    - type: string
+                    - type: integer
+                    minLength: 1
+                  budget_unit:
+                    type: string
+                    minLength: 1
+                  public_hash:
+                    type: string
+                    nullable: true
+                  modify_time:
+                    type: string
+                    nullable: true
+                  keywords:
+                    type: string
+              examples:
+                deleted task:
+                  value:
+                    task_id: '81278270'
+                    parent_id: '0'
+                    name: API TEST
+                    external_task_id: null
+                    external_parent_id: null
+                    level: '1'
+                    add_date: '2021-03-15 14:36:06'
+                    archived: '0'
+                    color: '#34C644'
+                    tags: ''
+                    budgeted: '0'
+                    checked_date: null
+                    root_group_id: '1234'
+                    assigned_to: null
+                    assigned_by: '12'
+                    due_date: null
+                    note: null
+                    context: null
+                    folder: null
+                    repeat: null
+                    billable: '1'
+                    budget_unit: hours
+                    public_hash: null
+                    modify_time: null
+                    keywords: ''
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+      summary: Delete task
+      parameters:
+      - schema:
+          type: string
+        in: query
+        name: task_id
+        description: task id to delete
+        required: true
+      security:
+      - api_key_in_header: []
+  /task_color:
+    put:
+      operationId: put--task_color
+      description: Creates job to add/change a task color (for everyone).
+      tags:
+      - '[v1] Task'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                description: ''
+                type: object
+                properties:
+                  changedTasks:
+                    type: object
+                    properties:
+                      '[hex_color]':
+                        type: array
+                        items:
+                          type: object
+                  taskJobResultId:
+                    type: boolean
+              examples:
+                successfully changed color:
+                  value:
+                    changedTasks:
+                      '#688fe3':
+                      - '81278276'
+                    taskJobResultId: false
+                changing color failed - note lack of task_id in response:
+                  value:
+                    changedTasks:
+                      '#688fe3':
+                      - null
+                    taskJobResultId: false
+      summary: Add/change color in task
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                task_id:
+                  oneOf:
+                  - type: string
+                  - type: integer
+                  description: task id
+                  example: 521523
+                color:
+                  type: string
+                  description: color in hex
+                  example: '#688fe3'
+                is_for_all_subtasks:
+                  type: boolean
+                  description: 'is color for all subtasks, default: `false`'
+              required:
+              - task_id
+              - color
+            examples:
+              change color in task:
+                value:
+                  task_id: 81278276
+                  color: '#688fe3'
+        description: ''
+      security:
+      - api_key_in_header: []
+  /task_details:
+    get:
+      operationId: get--task_details
+      description: Get task details.
+      responses:
+        '200':
+          description: OK - if given ids are not found an empty array is returned.
+          content:
+            application/json:
+              schema:
+                type: array
+                description: ''
+                minItems: 1
+                uniqueItems: true
+                items:
+                  type: object
+                  properties:
+                    task_id:
+                      type: number
+                    parent_id:
+                      type: number
+                    name:
+                      type: string
+                      minLength: 1
+                    color:
+                      type: string
+                      minLength: 1
+                    breadcrumb:
+                      type: string
+              examples:
+                Tasks info:
+                  value:
+                  - task_id: 81278274
+                    parent_id: 0
+                    name: TEST3
+                    color: '#34C644'
+                    breadcrumb: ''
+                  - task_id: 81278275
+                    parent_id: 0
+                    name: TEST4
+                    color: '#34C644'
+                    breadcrumb: ''
+                Task not found:
+                  value: []
+      tags:
+      - '[v1] Task'
+      summary: Get task details
+      parameters:
+      - schema:
+          type: string
+        in: query
+        name: tasks
+        description: comma separated tasks ids to get
+        required: true
+      security:
+      - api_key_in_header: []
+  /task/{task_id}/tag:
+    parameters:
+    - schema:
+        type: string
+      name: task_id
+      in: path
+      required: true
+    delete:
+      summary: Remove tags from task
+      tags:
+      - '[v1] Task'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+      operationId: delete-task-task_id-tag
+      security:
+      - api_key_in_header: []
+    post:
+      summary: Add tags to task
+      tags:
+      - '[v1] Task'
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+      operationId: post-task-task_id-tag
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                tags:
+                  type: array
+                  description: "{\n    \"tag_id\": integer,\n    \"mandatory\" boolean\n}"
+                  items: {}
+            examples:
+              Example 1:
+                value:
+                  tags:
+                  - tag_id: 1
+                    mandatory: 'false'
+      security:
+      - api_key_in_header: []
+    put:
+      summary: Edit tags assignment type
+      tags:
+      - '[v1] Task'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+      operationId: put-task-task_id-tag
+      description: ''
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                tags:
+                  type: array
+                  description: "{\n    \"tag_id\": integer,\n    \"mandatory\" boolean\n}"
+                  items: {}
+            examples:
+              Example 1:
+                value:
+                  tags:
+                  - tag_id: 1
+                    mandatory: true
+      security:
+      - api_key_in_header: []
+components:
+  securitySchemes:
+    api_key_in_header:
+      type: http
+      scheme: bearer
+      description: ''
+    OIDC:
+      type: openIdConnect
+      openIdConnectUrl: authenticate/oidc
+x-tagGroups:
+- name: TimeCamp API
+  tags:
+  - '[v1] User'
+  - '[v1] Entry'
+  - '[v1] Tags'
+  - '[v1] Group'
+  - '[v1] Approvals'
+  - '[v1] Computer Activities'
+  - '[v1] Timer'
+  - '[v1] Task'
+  - '[v1] Attendance'
+  - '[v1] Roles & Permissions'
+  - '[v1] Billing Rates'
+  - '[v1] Userlog'
+  - '[v1] Activity alert'
+  - '[v3] Timer'
+  - '[v3] Invoices'
+  - '[v3] Computer Activities'
+  - '[v3] Time Entry'
+  - '[v3] Task Archive'
+  - '[v3] Time Entry Restriction'
+  - '[v3] Expense'
+  - '[v3] Plan'
+  - '[v3] Storage'
+  - '[v3] Module'
+  - '[v3] Marketplace'
+  - '[v3] Remote work detection'
+  - '[v3] Data Export'
+  - '[v3] Custom Fields'
+  - '[v3] Approval'
+  - '[v3] Task'
+  - '[v3] Projects'
+  - '[v3] Attendance'
+  - '[v3] Attendance Requests'

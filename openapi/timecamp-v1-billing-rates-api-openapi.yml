@@ -1,0 +1,1052 @@
+openapi: 3.0.0
+info:
+  title: TimeCamp [v1] Approvals [v1] Approvals [v1] Billing Rates API
+  version: '1.0'
+  contact:
+    email: support@timecamp.com
+  termsOfService: https://www.timecamp.com/terms-conditions/
+  description: 'Documentation for the TimeCamp system.
+
+
+    Get your API token here:
+
+    https://app.timecamp.com/app#/settings/users/me
+
+
+    Be aware that you can reach API calls limit. Once you do you will get HTTP code 429 response.
+
+
+    Request example:
+
+
+    ```
+
+    GET https://app.timecamp.com/third_party/api/user?user_id=1234567
+
+
+    Headers:
+
+    Authorization: Bearer 87c21299960a88888888fe123
+
+    Accept: application/json
+
+    ```
+
+    '
+servers:
+- url: https://app.timecamp.com/third_party/api
+  description: PRODUCTION
+- url: https://v4.api.timecamp.com
+  description: PRODUCTION
+tags:
+- name: '[v1] Billing Rates'
+  x-displayName: Billing Rates
+paths:
+  /task/{task_id}/rate:
+    parameters:
+    - schema:
+        type: string
+        example: 44 or 44,45,252
+      name: task_id
+      in: path
+      required: true
+      description: task id
+    get:
+      summary: Get billing rate for task
+      tags:
+      - '[v1] Billing Rates'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                description: ''
+                type: object
+                x-examples:
+                  example-1:
+                    '75091248':
+                    - rateId: 145996
+                      rateTypeId: 12
+                      value: '21.00'
+                      refType: task
+                      addDate: '2000-01-01'
+                      refId: '75091248'
+                properties:
+                  '[task_id]':
+                    type: array
+                    uniqueItems: true
+                    items:
+                      type: object
+                      properties:
+                        rateId:
+                          type: number
+                        rateTypeId:
+                          type: number
+                        value:
+                          type: string
+                        refType:
+                          type: string
+                        addDate:
+                          type: string
+                        refId:
+                          type: string
+              examples:
+                returned all billing rates for task 75091248:
+                  value:
+                    '75091248':
+                    - rateId: 145996
+                      rateTypeId: 12
+                      value: '21.00'
+                      refType: task
+                      addDate: '2000-01-01'
+                      refId: '75091248'
+                    - rateId: 145995
+                      rateTypeId: 13
+                      value: '12.00'
+                      refType: task
+                      addDate: '2000-01-01'
+                      refId: '75091248'
+                returned billing rate with given rate_id 13 for task 75091248:
+                  value:
+                    '75091248':
+                    - rateId: 145995
+                      rateTypeId: 13
+                      value: '12.00'
+                      refType: task
+                      addDate: '2000-01-01'
+                      refId: '75091248'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                description: ''
+                type: object
+                properties:
+                  message:
+                    type: string
+                    minLength: 1
+                required:
+                - message
+                x-examples:
+                  example-1:
+                    message: You are not allowed to browse rates
+              examples:
+                not allowed:
+                  value:
+                    message: You are not allowed to browse rates
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                description: ''
+                type: object
+                properties:
+                  message:
+                    type: string
+                    minLength: 1
+                required:
+                - message
+                x-examples:
+                  example-1:
+                    message: Task 23 not found
+              examples:
+                task not found:
+                  value:
+                    message: Task 23 not found
+      operationId: get-task-task_id-rate
+      description: Returns all billing rates for given `task_id` or returns specific `rate_id` data for given `task_id`.
+      parameters:
+      - schema:
+          type: string
+        in: query
+        name: rate_id
+        description: rateTypeId to get (can be empty, `all` or comma-separated)
+      security:
+      - api_key_in_header: []
+    post:
+      summary: Update/create billing rate for task
+      operationId: post-task-task_id-rate
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                description: ''
+                type: object
+                x-examples:
+                  example-1:
+                    rateId: 145999
+                    rateTypeId: 23
+                    value: 333
+                    refType: task
+                    addDate: '2021-09-09'
+                    refId: '75091248'
+                properties:
+                  rateId:
+                    type: number
+                  rateTypeId:
+                    type: number
+                  value:
+                    type: number
+                  refType:
+                    type: string
+                  addDate:
+                    type: string
+                  refId:
+                    type: string
+              examples:
+                created/updated rate:
+                  value:
+                    rateId: 145999
+                    rateTypeId: 23
+                    value: 333
+                    refType: task
+                    addDate: '2021-09-09'
+                    refId: '75091248'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                description: ''
+                type: object
+                x-examples:
+                  example-1:
+                    message: Task 3 not found
+                properties:
+                  message:
+                    type: string
+                    minLength: 1
+              examples:
+                not allowed because of permissions:
+                  value:
+                    message: You are not allowed to browse rates
+                not allowed because of your plan:
+                  value:
+                    message: You are not allowed to use specific billing rates. Please upgrade Your plan.
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                description: ''
+                type: object
+                x-examples:
+                  example-1:
+                    message: Task 3 not found
+                properties:
+                  message:
+                    type: string
+                    minLength: 1
+              examples:
+                task id not found:
+                  value:
+                    message: Task 3 not found
+                rateTypeId not found:
+                  value:
+                    message: RateType 123 not found
+      description: This endpoint updates value or creates new rate for given `rateTypeId` and `task_id`.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              description: ''
+              type: object
+              x-examples:
+                example-1:
+                  rateTypeId: 23
+                  value: 333
+                  addDate: '2021-09-09'
+              properties:
+                rateTypeId:
+                  type: number
+                  description: rateTypeId for rate to modify or create new one
+                value:
+                  type: number
+                  description: value of rate
+                addDate:
+                  type: string
+                  description: optional date in `YY-MM-DD` format
+                  example: '2021-09-09'
+              required:
+              - rateTypeId
+            examples:
+              create new rate, which type id is `23` and value `333` with date:
+                value:
+                  rateTypeId: 23
+                  value: 333
+                  addDate: '2021-09-09'
+      tags:
+      - '[v1] Billing Rates'
+      security:
+      - api_key_in_header: []
+  /user/{user_id}/rate:
+    parameters:
+    - schema:
+        type: string
+      name: user_id
+      in: path
+      required: true
+      description: user id or comma-separated users ids
+    get:
+      summary: Get billing rate for user
+      tags:
+      - '[v1] Billing Rates'
+      responses:
+        '200':
+          description: OK - returns empty array when given `user_id` does not exist or given `rate_id` does not exist or simply billing rates were not found.
+          content:
+            application/json:
+              schema:
+                description: ''
+                type: object
+                x-examples:
+                  example-1:
+                    '1787724':
+                    - rateId: 146002
+                      rateTypeId: 12
+                      value: '22.00'
+                      refType: user
+                      addDate: '2000-01-01'
+                      refId: '1787724'
+                properties:
+                  '[user_id]':
+                    type: array
+                    uniqueItems: true
+                    minItems: 1
+                    items:
+                      type: object
+                      properties:
+                        rateId:
+                          type: number
+                        rateTypeId:
+                          type: number
+                        value:
+                          type: string
+                        refType:
+                          type: string
+                        addDate:
+                          type: string
+                        refId:
+                          type: string
+                required:
+                - '[user_id]'
+              examples:
+                returned billing rates for user 1787724:
+                  value:
+                    '1787724':
+                    - rateId: 146002
+                      rateTypeId: 12
+                      value: '22.00'
+                      refType: user
+                      addDate: '2000-01-01'
+                      refId: '1787724'
+                    - rateId: 146001
+                      rateTypeId: 13
+                      value: '11.00'
+                      refType: user
+                      addDate: '2000-01-01'
+                      refId: '1787724'
+                returned billing rate for rateTypeId 12 for user 1787724:
+                  value:
+                    '1787724':
+                    - rateId: 146002
+                      rateTypeId: 12
+                      value: '22.00'
+                      refType: user
+                      addDate: '2000-01-01'
+                      refId: '1787724'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                description: ''
+                type: object
+                properties:
+                  message:
+                    type: string
+                    minLength: 1
+                required:
+                - message
+                x-examples:
+                  example-1:
+                    message: You are not allowed to browse rates
+              examples:
+                not allowed:
+                  value:
+                    message: You are not allowed to browse rates
+      operationId: get-user-user_id-rate
+      description: Returns billing rate for given user or users.
+      parameters:
+      - schema:
+          type: string
+        in: query
+        name: rate_id
+        description: rateTypeId or comma-separated rateTypeIds
+      security:
+      - api_key_in_header: []
+    post:
+      summary: Update/create billing rate for user
+      tags:
+      - '[v1] Billing Rates'
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                description: ''
+                type: object
+                properties:
+                  rateId:
+                    type: number
+                  rateTypeId:
+                    type: number
+                  value:
+                    type: number
+                  refType:
+                    type: string
+                    minLength: 1
+                  addDate:
+                    type: string
+                    minLength: 1
+                  refId:
+                    type: string
+                    minLength: 1
+                required:
+                - rateId
+                - rateTypeId
+                - value
+                - refType
+                - addDate
+                - refId
+                x-examples:
+                  example-1:
+                    rateId: 146003
+                    rateTypeId: 23
+                    value: 3
+                    refType: user
+                    addDate: '2021-05-27'
+                    refId: '1787724'
+              examples:
+                updated/created rate:
+                  value:
+                    rateId: 146003
+                    rateTypeId: 23
+                    value: 3
+                    refType: user
+                    addDate: '2021-05-27'
+                    refId: '1787724'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                description: ''
+                type: object
+                properties:
+                  message:
+                    type: string
+                    minLength: 1
+                required:
+                - message
+                x-examples:
+                  example-1:
+                    message: You are not allowed to browse rates
+              examples:
+                not allowed due to permissions:
+                  value:
+                    message: You are not allowed to browse rates
+                not allowed due to plan:
+                  value:
+                    message: You are not allowed to use specific billing rates. Please upgrade Your plan.
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                description: ''
+                type: string
+                x-examples:
+                  example-1: RateType 1 not found
+              examples:
+                given rateTypeId not found:
+                  value: RateType 1 not found
+      operationId: post-user-user_id-rate
+      description: This endpoint updates value or creates new rate for given `rateTypeId` and `user_id`.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              description: ''
+              type: object
+              x-examples:
+                example-1:
+                  rateTypeId: 23
+                  value: 333
+                  addDate: '2021-09-09'
+              properties:
+                rateTypeId:
+                  type: number
+                  description: rateTypeId to add or update
+                value:
+                  type: number
+                  description: rate's value
+                addDate:
+                  type: string
+                  minLength: 1
+                  description: date in `YY-MM-DD` format
+              required:
+              - rateTypeId
+            examples:
+              create rateTypeId 23 to value 333 with date 2021-09-09:
+                value:
+                  rateTypeId: 23
+                  value: 333
+                  addDate: '2021-09-09'
+              update rateTypeId 23 to value 3:
+                value:
+                  rateTypeId: 23
+                  value: 3
+      security:
+      - api_key_in_header: []
+  /task/{task_id}/user/{user_id}/rate:
+    parameters:
+    - schema:
+        type: string
+        example: 44 or 44,45,252
+      name: task_id
+      in: path
+      required: true
+      description: task id
+    - schema:
+        type: string
+        example: 12 or 12,15,16 or all
+      name: user_id
+      in: path
+      required: true
+      description: user id or comma-separated users ids or "all"
+    get:
+      summary: Get billing rate for "task user"
+      tags:
+      - '[v1] Billing Rates'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                description: ''
+                type: object
+                x-examples:
+                  example-1:
+                    '75091248':
+                    - rateId: 145996
+                      rateTypeId: 12
+                      value: '21.00'
+                      refType: task_user
+                      addDate: '2000-01-01'
+                      refId: '75091248'
+                properties:
+                  '[rate]':
+                    type: array
+                    uniqueItems: true
+                    items:
+                      type: object
+                      properties:
+                        rateId:
+                          type: number
+                        rateTypeId:
+                          type: number
+                        value:
+                          type: string
+                        refType:
+                          type: string
+                        addDate:
+                          type: string
+                        refId:
+                          type: string
+              examples:
+                returned all billing rates for task 75091248 and user 12343:
+                  value:
+                    '75091248':
+                    - rateId: 145996
+                      rateTypeId: 12
+                      value: '21.00'
+                      refType: task_user
+                      addDate: '2000-01-01'
+                      refId: '75091248_12343'
+                    - rateId: 145995
+                      rateTypeId: 13
+                      value: '12.00'
+                      refType: task_user
+                      addDate: '2000-01-01'
+                      refId: '75091248_12343'
+                returned billing rate with given rate_id 13 for task 75091248 and user 12343:
+                  value:
+                    '75091248':
+                    - rateId: 145995
+                      rateTypeId: 13
+                      value: '12.00'
+                      refType: task_user
+                      addDate: '2000-01-01'
+                      refId: '75091248_12343'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                description: ''
+                type: object
+                properties:
+                  message:
+                    type: string
+                    minLength: 1
+                required:
+                - message
+                x-examples:
+                  example-1:
+                    message: You are not allowed to browse rates
+              examples:
+                not allowed:
+                  value:
+                    message: You are not allowed to browse rates
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                description: ''
+                type: object
+                properties:
+                  message:
+                    type: string
+                    minLength: 1
+                required:
+                - message
+                x-examples:
+                  example-1:
+                    message: Task 23 not found
+              examples:
+                task not found:
+                  value:
+                    message: Task 23 not found
+      operationId: get-task-user-rate
+      description: Returns all billing rates for given `task_id` and `user_id` or returns specific `rate_id` data for given `task_id` and `user_id`.
+      parameters:
+      - schema:
+          type: string
+        in: query
+        name: rate_id
+        description: rateTypeId to get (can be empty, `all` or comma-separated)
+      security:
+      - api_key_in_header: []
+    post:
+      summary: Update/create billing rate for "task user"
+      operationId: post-task-user-rate
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                description: ''
+                type: object
+                x-examples:
+                  example-1:
+                    rateId: 145999
+                    rateTypeId: 23
+                    value: 333
+                    refType: task_user
+                    addDate: '2021-09-09'
+                    refId: '75091248_12343'
+                properties:
+                  rateId:
+                    type: number
+                  rateTypeId:
+                    type: number
+                  value:
+                    type: number
+                  refType:
+                    type: string
+                  addDate:
+                    type: string
+                  refId:
+                    type: string
+              examples:
+                created/updated rate:
+                  value:
+                    rateId: 145999
+                    rateTypeId: 23
+                    value: 333
+                    refType: task_user
+                    addDate: '2021-09-09'
+                    refId: '75091248_12343'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                description: ''
+                type: object
+                x-examples:
+                  example-1:
+                    message: Task 3 not found
+                properties:
+                  message:
+                    type: string
+                    minLength: 1
+              examples:
+                not allowed because of permissions:
+                  value:
+                    message: You are not allowed to browse rates
+                not allowed because of your plan:
+                  value:
+                    message: You are not allowed to use specific billing rates. Please upgrade Your plan.
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                description: ''
+                type: object
+                x-examples:
+                  example-1:
+                    message: Task 3 not found
+                properties:
+                  message:
+                    type: string
+                    minLength: 1
+              examples:
+                task id not found:
+                  value:
+                    message: Task 3 not found
+                rateTypeId not found:
+                  value:
+                    message: RateType 123 not found
+      description: This endpoint updates value or creates new rate for given `rateTypeId` and `task_id`.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              description: ''
+              type: object
+              x-examples:
+                example-1:
+                  rateTypeId: 23
+                  value: 333
+                  addDate: '2021-09-09'
+              properties:
+                rateTypeId:
+                  type: number
+                  description: rateTypeId for rate to modify or create new one
+                value:
+                  type: number
+                  description: value of rate
+                addDate:
+                  type: string
+                  description: optional date in `YY-MM-DD` format
+                  example: '2021-09-09'
+              required:
+              - rateTypeId
+            examples:
+              create new rate, which type id is `23` and value `333` with date:
+                value:
+                  rateTypeId: 23
+                  value: 333
+                  addDate: '2021-09-09'
+      tags:
+      - '[v1] Billing Rates'
+      security:
+      - api_key_in_header: []
+  /group/{group_id}/rate:
+    parameters:
+    - schema:
+        type: string
+        example: 11 or 11,12,17
+      name: group_id
+      in: path
+      required: true
+      description: group id
+    get:
+      summary: Get billing rate for group
+      tags:
+      - '[v1] Billing Rates'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                description: ''
+                type: object
+                x-examples:
+                  example-1:
+                    '75091248':
+                    - rateId: 145996
+                      rateTypeId: 12
+                      value: '21.00'
+                      refType: task
+                      addDate: '2000-01-01'
+                      refId: '75091248'
+                properties:
+                  '[group_id]':
+                    type: array
+                    uniqueItems: true
+                    items:
+                      type: object
+                      properties:
+                        rateId:
+                          type: number
+                        rateTypeId:
+                          type: number
+                        value:
+                          type: string
+                        refType:
+                          type: string
+                        addDate:
+                          type: string
+                        refId:
+                          type: string
+              examples:
+                returned all billing rates for group 75091248:
+                  value:
+                    '75091248':
+                    - rateId: 145996
+                      rateTypeId: 12
+                      value: '21.00'
+                      refType: group
+                      addDate: '2000-01-01'
+                      refId: '75091248'
+                    - rateId: 145995
+                      rateTypeId: 13
+                      value: '12.00'
+                      refType: group
+                      addDate: '2000-01-01'
+                      refId: '75091248'
+                returned billing rate with given rate_id 13 for group 75091248:
+                  value:
+                    '75091248':
+                    - rateId: 145995
+                      rateTypeId: 13
+                      value: '12.00'
+                      refType: group
+                      addDate: '2000-01-01'
+                      refId: '75091248'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                description: ''
+                type: object
+                properties:
+                  message:
+                    type: string
+                    minLength: 1
+                required:
+                - message
+                x-examples:
+                  example-1:
+                    message: You are not allowed to browse rates
+              examples:
+                not allowed:
+                  value:
+                    message: You are not allowed to browse rates
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                description: ''
+                type: object
+                properties:
+                  message:
+                    type: string
+                    minLength: 1
+                required:
+                - message
+                x-examples:
+                  example-1:
+                    message: Group 23 not found
+              examples:
+                task not found:
+                  value:
+                    message: Group 23 not found
+      operationId: get-group-rate
+      description: Returns all billing rates for given `group_id` or returns specific `rate_id` data for given `group_id`.
+      parameters:
+      - schema:
+          type: string
+        in: query
+        name: rate_id
+        description: rateTypeId to get (can be empty, `all` or comma-separated)
+      security:
+      - api_key_in_header: []
+    post:
+      summary: Update/create billing rate for group
+      operationId: post-group-rate
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                description: ''
+                type: object
+                x-examples:
+                  example-1:
+                    rateId: 145999
+                    rateTypeId: 23
+                    value: 333
+                    refType: group
+                    addDate: '2021-09-09'
+                    refId: '75091248'
+                properties:
+                  rateId:
+                    type: number
+                  rateTypeId:
+                    type: number
+                  value:
+                    type: number
+                  refType:
+                    type: string
+                  addDate:
+                    type: string
+                  refId:
+                    type: string
+              examples:
+                created/updated rate:
+                  value:
+                    rateId: 145999
+                    rateTypeId: 23
+                    value: 333
+                    refType: group
+                    addDate: '2021-09-09'
+                    refId: '75091248'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                description: ''
+                type: object
+                x-examples:
+                  example-1:
+                    message: Group 3 not found
+                properties:
+                  message:
+                    type: string
+                    minLength: 1
+              examples:
+                not allowed because of permissions:
+                  value:
+                    message: You are not allowed to browse rates
+                not allowed because of your plan:
+                  value:
+                    message: You are not allowed to use specific billing rates. Please upgrade Your plan.
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                description: ''
+                type: object
+                x-examples:
+                  example-1:
+                    message: Group 3 not found
+                properties:
+                  message:
+                    type: string
+                    minLength: 1
+              examples:
+                task id not found:
+                  value:
+                    message: Group 3 not found
+                rateTypeId not found:
+                  value:
+                    message: RateType 123 not found
+      description: This endpoint updates value or creates new rate for given `rateTypeId` and `group_id`.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              description: ''
+              type: object
+              x-examples:
+                example-1:
+                  rateTypeId: 23
+                  value: 333
+                  addDate: '2021-09-09'
+              properties:
+                rateTypeId:
+                  type: number
+                  description: rateTypeId for rate to modify or create new one
+                value:
+                  type: number
+                  description: value of rate
+                addDate:
+                  type: string
+                  description: optional date in `YY-MM-DD` format
+                  example: '2021-09-09'
+              required:
+              - rateTypeId
+            examples:
+              create new rate, which type id is `23` and value `333` with date:
+                value:
+                  rateTypeId: 23
+                  value: 333
+                  addDate: '2021-09-09'
+      tags:
+      - '[v1] Billing Rates'
+      security:
+      - api_key_in_header: []
+components:
+  securitySchemes:
+    api_key_in_header:
+      type: http
+      scheme: bearer
+      description: ''
+    OIDC:
+      type: openIdConnect
+      openIdConnectUrl: authenticate/oidc
+x-tagGroups:
+- name: TimeCamp API
+  tags:
+  - '[v1] User'
+  - '[v1] Entry'
+  - '[v1] Tags'
+  - '[v1] Group'
+  - '[v1] Approvals'
+  - '[v1] Computer Activities'
+  - '[v1] Timer'
+  - '[v1] Task'
+  - '[v1] Attendance'
+  - '[v1] Roles & Permissions'
+  - '[v1] Billing Rates'
+  - '[v1] Userlog'
+  - '[v1] Activity alert'
+  - '[v3] Timer'
+  - '[v3] Invoices'
+  - '[v3] Computer Activities'
+  - '[v3] Time Entry'
+  - '[v3] Task Archive'
+  - '[v3] Time Entry Restriction'
+  - '[v3] Expense'
+  - '[v3] Plan'
+  - '[v3] Storage'
+  - '[v3] Module'
+  - '[v3] Marketplace'
+  - '[v3] Remote work detection'
+  - '[v3] Data Export'
+  - '[v3] Custom Fields'
+  - '[v3] Approval'
+  - '[v3] Task'
+  - '[v3] Projects'
+  - '[v3] Attendance'
+  - '[v3] Attendance Requests'
