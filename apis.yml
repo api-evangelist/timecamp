@@ -8,7 +8,20 @@ description: TimeCamp is a time tracking and timesheet platform used by teams to
   including the free tier - covers time entries, timers, tasks and projects, users
   and groups, attendance, approvals, tags, billing rates, expenses, and computer
   activity data, authenticated with a per-user API token sent as a bearer header.
-image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+accessModel:
+  pricing: freemium
+  onboarding: self-serve
+  trial: false
+  try_now: true
+  public: false
+  label: Freemium · Self-serve signup
+  confidence: high
+  source:
+  - plans
+  - authentication
+  generated: '2026-07-22'
+  method: derived
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/timecamp.png
 tags:
 - Time Tracking
 - Timesheets
@@ -20,189 +33,875 @@ created: '2026-07-11'
 modified: '2026-07-11'
 specificationVersion: '0.19'
 apis:
-- aid: timecamp:timecamp-time-entries-api
-  name: TimeCamp Time Entries API
-  tags:
-  - Time Tracking
-  - Time Entries
-  - Timesheets
-  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+- aid: timecamp:timecamp-v1-approvals-api
+  name: TimeCamp [v1] Approvals API
+  description: The [v1] Approvals API from TimeCamp — 2 operation(s) for [v1] approvals.
   humanURL: https://developer.timecamp.com/#/operations/get--entries
   baseURL: https://app.timecamp.com/third_party/api
-  properties:
-  - url: https://developer.timecamp.com/
-    type: Documentation
-  - url: https://developer.timecamp.com/#/operations/get--entries
-    type: APIReference
-  - url: openapi/timecamp-openapi.yml
-    type: OpenAPI
-  description: Create, read, update, and delete time entries - the core timesheet
-    records. Filter entries by date range, users, tasks, and tags, merge duplicate
-    entries, track entry changes and deletions for sync, and pull logged time per
-    week. A v3 surface adds permission-aware entry listing and time entry
-    restrictions.
-- aid: timecamp:timecamp-timer-api
-  name: TimeCamp Timer API
   tags:
-  - Timer
-  - Time Tracking
-  - Real Time
-  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
-  humanURL: https://developer.timecamp.com/#/operations/post-timer
-  baseURL: https://app.timecamp.com/third_party/api
+  - '[v1] Approvals'
   properties:
-  - url: https://developer.timecamp.com/#/operations/post-timer
-    type: APIReference
-  - url: openapi/timecamp-openapi.yml
-    type: OpenAPI
-  description: Start, stop, and inspect running timers. A single POST /timer
-    endpoint switches on an action parameter (start, stop, status), and GET
-    /timer_running returns all currently running timers so integrations can mirror
-    live tracking state.
-- aid: timecamp:timecamp-tasks-projects-api
-  name: TimeCamp Tasks and Projects API
+  - type: OpenAPI
+    url: openapi/timecamp-v1-approvals-api-openapi.yml
+  - type: Documentation
+    url: https://developer.timecamp.com/
+  - type: APIReference
+    url: https://developer.timecamp.com/#/operations/get--entries
+  - type: APIReference
+    url: https://developer.timecamp.com/#/operations/post-timer
+  - type: APIReference
+    url: https://developer.timecamp.com/#/operations/get--tasks
+  - type: APIReference
+    url: https://developer.timecamp.com/#/operations/get-users
+  - type: APIReference
+    url: https://developer.timecamp.com/#/operations/get--attendance
+  - type: APIReference
+    url: https://developer.timecamp.com/#/operations/get--approval
+  - type: APIReference
+    url: https://developer.timecamp.com/#/operations/get--activity
+  - type: APIReference
+    url: https://developer.timecamp.com/#/operations/get--tag_list-
+  - type: APIReference
+    url: https://developer.timecamp.com/#/operations/get-task-task_id-rate
+  - type: APIReference
+    url: https://developer.timecamp.com/#/operations/get-data-export-exports
+- aid: timecamp:timecamp-v1-attendance-api
+  name: TimeCamp [v1] Attendance API
+  description: The [v1] Attendance API from TimeCamp — 4 operation(s) for [v1] attendance.
+  humanURL: https://developer.timecamp.com/#/operations/get--entries
+  baseURL: https://app.timecamp.com/third_party/api
   tags:
-  - Tasks
-  - Projects
-  - Project Management
-  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
-  humanURL: https://developer.timecamp.com/#/operations/get--tasks
-  baseURL: https://app.timecamp.com/third_party/api
+  - '[v1] Attendance'
   properties:
-  - url: https://developer.timecamp.com/#/operations/get--tasks
-    type: APIReference
-  - url: openapi/timecamp-openapi.yml
-    type: OpenAPI
-  description: Manage the task and project tree that time is tracked against -
-    create, update, and delete tasks, fetch task details, set task colors and tags.
-    The v3 surface adds project listing and search, user assignment to projects,
-    task duplication, archiving and restoring in batches, moving worklogs, and
-    re-parenting tasks.
-- aid: timecamp:timecamp-users-groups-api
-  name: TimeCamp Users and Groups API
+  - type: OpenAPI
+    url: openapi/timecamp-v1-attendance-api-openapi.yml
+  - type: Documentation
+    url: https://developer.timecamp.com/
+  - type: APIReference
+    url: https://developer.timecamp.com/#/operations/get--entries
+  - type: APIReference
+    url: https://developer.timecamp.com/#/operations/post-timer
+  - type: APIReference
+    url: https://developer.timecamp.com/#/operations/get--tasks
+  - type: APIReference
+    url: https://developer.timecamp.com/#/operations/get-users
+  - type: APIReference
+    url: https://developer.timecamp.com/#/operations/get--attendance
+  - type: APIReference
+    url: https://developer.timecamp.com/#/operations/get--approval
+  - type: APIReference
+    url: https://developer.timecamp.com/#/operations/get--activity
+  - type: APIReference
+    url: https://developer.timecamp.com/#/operations/get--tag_list-
+  - type: APIReference
+    url: https://developer.timecamp.com/#/operations/get-task-task_id-rate
+  - type: APIReference
+    url: https://developer.timecamp.com/#/operations/get-data-export-exports
+- aid: timecamp:timecamp-v1-billing-rates-api
+  name: TimeCamp [v1] Billing Rates API
+  description: The [v1] Billing Rates API from TimeCamp — 4 operation(s) for [v1] billing rates.
+  humanURL: https://developer.timecamp.com/#/operations/get--entries
+  baseURL: https://app.timecamp.com/third_party/api
   tags:
-  - Users
-  - Groups
-  - Administration
-  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
-  humanURL: https://developer.timecamp.com/#/operations/get-users
-  baseURL: https://app.timecamp.com/third_party/api
+  - '[v1] Billing Rates'
   properties:
-  - url: https://developer.timecamp.com/#/operations/get-users
-    type: APIReference
-  - url: openapi/timecamp-openapi.yml
-    type: OpenAPI
-  description: Administer the account - list all users, fetch your own profile
-    (/me), invite and update users, manage per-user settings, and organize users
-    into groups with group-level settings, schedulers, and roles and permissions
-    (tt_role).
-- aid: timecamp:timecamp-attendance-api
-  name: TimeCamp Attendance API
+  - type: OpenAPI
+    url: openapi/timecamp-v1-billing-rates-api-openapi.yml
+  - type: Documentation
+    url: https://developer.timecamp.com/
+  - type: APIReference
+    url: https://developer.timecamp.com/#/operations/get--entries
+  - type: APIReference
+    url: https://developer.timecamp.com/#/operations/post-timer
+  - type: APIReference
+    url: https://developer.timecamp.com/#/operations/get--tasks
+  - type: APIReference
+    url: https://developer.timecamp.com/#/operations/get-users
+  - type: APIReference
+    url: https://developer.timecamp.com/#/operations/get--attendance
+  - type: APIReference
+    url: https://developer.timecamp.com/#/operations/get--approval
+  - type: APIReference
+    url: https://developer.timecamp.com/#/operations/get--activity
+  - type: APIReference
+    url: https://developer.timecamp.com/#/operations/get--tag_list-
+  - type: APIReference
+    url: https://developer.timecamp.com/#/operations/get-task-task_id-rate
+  - type: APIReference
+    url: https://developer.timecamp.com/#/operations/get-data-export-exports
+- aid: timecamp:timecamp-v1-computer-activities-api
+  name: TimeCamp [v1] Computer Activities API
+  description: >-
+    The [v1] Computer Activities API from TimeCamp — 1 operation(s) for [v1] computer activities.
+  humanURL: https://developer.timecamp.com/#/operations/get--entries
+  baseURL: https://app.timecamp.com/third_party/api
   tags:
-  - Attendance
-  - Time Off
-  - Leave Management
-  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
-  humanURL: https://developer.timecamp.com/#/operations/get--attendance
-  baseURL: https://app.timecamp.com/third_party/api
+  - '[v1] Computer Activities'
   properties:
-  - url: https://developer.timecamp.com/#/operations/get--attendance
-    type: APIReference
-  - url: openapi/timecamp-openapi.yml
-    type: OpenAPI
-  description: Attendance and time-off surface - pull attendance records per
-    period, read and set per-user day types (working day, vacation, sick leave),
-    submit attendance requests, and use the v3 endpoints for predefined holiday
-    calendars per group and attendance calendar search.
-- aid: timecamp:timecamp-approvals-api
-  name: TimeCamp Timesheet Approvals API
+  - type: OpenAPI
+    url: openapi/timecamp-v1-computer-activities-api-openapi.yml
+  - type: Documentation
+    url: https://developer.timecamp.com/
+  - type: APIReference
+    url: https://developer.timecamp.com/#/operations/get--entries
+  - type: APIReference
+    url: https://developer.timecamp.com/#/operations/post-timer
+  - type: APIReference
+    url: https://developer.timecamp.com/#/operations/get--tasks
+  - type: APIReference
+    url: https://developer.timecamp.com/#/operations/get-users
+  - type: APIReference
+    url: https://developer.timecamp.com/#/operations/get--attendance
+  - type: APIReference
+    url: https://developer.timecamp.com/#/operations/get--approval
+  - type: APIReference
+    url: https://developer.timecamp.com/#/operations/get--activity
+  - type: APIReference
+    url: https://developer.timecamp.com/#/operations/get--tag_list-
+  - type: APIReference
+    url: https://developer.timecamp.com/#/operations/get-task-task_id-rate
+  - type: APIReference
+    url: https://developer.timecamp.com/#/operations/get-data-export-exports
+- aid: timecamp:timecamp-v1-entry-api
+  name: TimeCamp [v1] Entry API
+  description: The [v1] Entry API from TimeCamp — 5 operation(s) for [v1] entry.
+  humanURL: https://developer.timecamp.com/#/operations/get--entries
+  baseURL: https://app.timecamp.com/third_party/api
   tags:
-  - Approvals
-  - Timesheets
-  - Workflow
-  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
-  humanURL: https://developer.timecamp.com/#/operations/get--approval
-  baseURL: https://app.timecamp.com/third_party/api
+  - '[v1] Entry'
   properties:
-  - url: https://developer.timecamp.com/#/operations/get--approval
-    type: APIReference
-  - url: openapi/timecamp-openapi.yml
-    type: OpenAPI
-  description: Timesheet approval workflow - fetch and create approvals for user
-    timesheet periods, list users subject to approval, and drive the v3 flow with
-    approval listing, status changes (single and bulk), approval activity history,
-    messages, and reminder sending.
-- aid: timecamp:timecamp-computer-activities-api
-  name: TimeCamp Computer Activities API
+  - type: OpenAPI
+    url: openapi/timecamp-v1-entry-api-openapi.yml
+  - type: Documentation
+    url: https://developer.timecamp.com/
+  - type: APIReference
+    url: https://developer.timecamp.com/#/operations/get--entries
+  - type: APIReference
+    url: https://developer.timecamp.com/#/operations/post-timer
+  - type: APIReference
+    url: https://developer.timecamp.com/#/operations/get--tasks
+  - type: APIReference
+    url: https://developer.timecamp.com/#/operations/get-users
+  - type: APIReference
+    url: https://developer.timecamp.com/#/operations/get--attendance
+  - type: APIReference
+    url: https://developer.timecamp.com/#/operations/get--approval
+  - type: APIReference
+    url: https://developer.timecamp.com/#/operations/get--activity
+  - type: APIReference
+    url: https://developer.timecamp.com/#/operations/get--tag_list-
+  - type: APIReference
+    url: https://developer.timecamp.com/#/operations/get-task-task_id-rate
+  - type: APIReference
+    url: https://developer.timecamp.com/#/operations/get-data-export-exports
+- aid: timecamp:timecamp-v1-group-api
+  name: TimeCamp [v1] Group API
+  description: The [v1] Group API from TimeCamp — 5 operation(s) for [v1] group.
+  humanURL: https://developer.timecamp.com/#/operations/get--entries
+  baseURL: https://app.timecamp.com/third_party/api
   tags:
-  - Productivity
-  - Activity Tracking
-  - Monitoring
-  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
-  humanURL: https://developer.timecamp.com/#/operations/get--activity
-  baseURL: https://app.timecamp.com/third_party/api
+  - '[v1] Group'
   properties:
-  - url: https://developer.timecamp.com/#/operations/get--activity
-    type: APIReference
-  - url: openapi/timecamp-openapi.yml
-    type: OpenAPI
-  description: Read the desktop-agent productivity data - application and website
-    usage captured by the TimeCamp tracker - via GET /activity, plus v3 endpoints
-    for sites-and-apps activity logs, activity categories, and per-group
-    productivity classification of applications.
-- aid: timecamp:timecamp-tags-api
-  name: TimeCamp Tags API
+  - type: OpenAPI
+    url: openapi/timecamp-v1-group-api-openapi.yml
+  - type: Documentation
+    url: https://developer.timecamp.com/
+  - type: APIReference
+    url: https://developer.timecamp.com/#/operations/get--entries
+  - type: APIReference
+    url: https://developer.timecamp.com/#/operations/post-timer
+  - type: APIReference
+    url: https://developer.timecamp.com/#/operations/get--tasks
+  - type: APIReference
+    url: https://developer.timecamp.com/#/operations/get-users
+  - type: APIReference
+    url: https://developer.timecamp.com/#/operations/get--attendance
+  - type: APIReference
+    url: https://developer.timecamp.com/#/operations/get--approval
+  - type: APIReference
+    url: https://developer.timecamp.com/#/operations/get--activity
+  - type: APIReference
+    url: https://developer.timecamp.com/#/operations/get--tag_list-
+  - type: APIReference
+    url: https://developer.timecamp.com/#/operations/get-task-task_id-rate
+  - type: APIReference
+    url: https://developer.timecamp.com/#/operations/get-data-export-exports
+- aid: timecamp:timecamp-v1-roles-permissions-api
+  name: TimeCamp [v1] Roles & Permissions API
+  description: >-
+    The [v1] Roles & Permissions API from TimeCamp — 1 operation(s) for [v1] roles & permissions.
+  humanURL: https://developer.timecamp.com/#/operations/get--entries
+  baseURL: https://app.timecamp.com/third_party/api
   tags:
-  - Tags
-  - Metadata
-  - Time Entries
-  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
-  humanURL: https://developer.timecamp.com/#/operations/get--tag_list-
-  baseURL: https://app.timecamp.com/third_party/api
+  - '[v1] Roles & Permissions'
   properties:
-  - url: https://developer.timecamp.com/#/operations/get--tag_list-
-    type: APIReference
-  - url: openapi/timecamp-openapi.yml
-    type: OpenAPI
-  description: Manage tag lists and tags used to slice time entries for reporting -
-    create and update tag lists, add tags, scope tags to groups, and attach or
-    remove tags on individual time entries and tasks.
-- aid: timecamp:timecamp-billing-rates-expenses-api
-  name: TimeCamp Billing Rates and Expenses API
+  - type: OpenAPI
+    url: openapi/timecamp-v1-roles-permissions-api-openapi.yml
+  - type: Documentation
+    url: https://developer.timecamp.com/
+  - type: APIReference
+    url: https://developer.timecamp.com/#/operations/get--entries
+  - type: APIReference
+    url: https://developer.timecamp.com/#/operations/post-timer
+  - type: APIReference
+    url: https://developer.timecamp.com/#/operations/get--tasks
+  - type: APIReference
+    url: https://developer.timecamp.com/#/operations/get-users
+  - type: APIReference
+    url: https://developer.timecamp.com/#/operations/get--attendance
+  - type: APIReference
+    url: https://developer.timecamp.com/#/operations/get--approval
+  - type: APIReference
+    url: https://developer.timecamp.com/#/operations/get--activity
+  - type: APIReference
+    url: https://developer.timecamp.com/#/operations/get--tag_list-
+  - type: APIReference
+    url: https://developer.timecamp.com/#/operations/get-task-task_id-rate
+  - type: APIReference
+    url: https://developer.timecamp.com/#/operations/get-data-export-exports
+- aid: timecamp:timecamp-v1-tags-api
+  name: TimeCamp [v1] Tags API
+  description: The [v1] Tags API from TimeCamp — 9 operation(s) for [v1] tags.
+  humanURL: https://developer.timecamp.com/#/operations/get--entries
+  baseURL: https://app.timecamp.com/third_party/api
   tags:
-  - Billing
-  - Rates
-  - Expenses
-  - Invoicing
-  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
-  humanURL: https://developer.timecamp.com/#/operations/get-task-task_id-rate
-  baseURL: https://app.timecamp.com/third_party/api
+  - '[v1] Tags'
   properties:
-  - url: https://developer.timecamp.com/#/operations/get-task-task_id-rate
-    type: APIReference
-  - url: openapi/timecamp-openapi.yml
-    type: OpenAPI
-  description: Monetize tracked time - get and set billing rates per task, per
-    user, per task-user pair, and per group, and manage expenses through the v3
-    endpoints including expense categories, attachments, and assigning expenses to
-    invoices.
-- aid: timecamp:timecamp-data-export-api
-  name: TimeCamp Data Export API
+  - type: OpenAPI
+    url: openapi/timecamp-v1-tags-api-openapi.yml
+  - type: Documentation
+    url: https://developer.timecamp.com/
+  - type: APIReference
+    url: https://developer.timecamp.com/#/operations/get--entries
+  - type: APIReference
+    url: https://developer.timecamp.com/#/operations/post-timer
+  - type: APIReference
+    url: https://developer.timecamp.com/#/operations/get--tasks
+  - type: APIReference
+    url: https://developer.timecamp.com/#/operations/get-users
+  - type: APIReference
+    url: https://developer.timecamp.com/#/operations/get--attendance
+  - type: APIReference
+    url: https://developer.timecamp.com/#/operations/get--approval
+  - type: APIReference
+    url: https://developer.timecamp.com/#/operations/get--activity
+  - type: APIReference
+    url: https://developer.timecamp.com/#/operations/get--tag_list-
+  - type: APIReference
+    url: https://developer.timecamp.com/#/operations/get-task-task_id-rate
+  - type: APIReference
+    url: https://developer.timecamp.com/#/operations/get-data-export-exports
+- aid: timecamp:timecamp-v1-task-api
+  name: TimeCamp [v1] Task API
+  description: The [v1] Task API from TimeCamp — 4 operation(s) for [v1] task.
+  humanURL: https://developer.timecamp.com/#/operations/get--entries
+  baseURL: https://app.timecamp.com/third_party/api
   tags:
-  - Data Export
-  - Reporting
-  - Custom Fields
-  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
-  humanURL: https://developer.timecamp.com/#/operations/get-data-export-exports
-  baseURL: https://app.timecamp.com/third_party/api
+  - '[v1] Task'
   properties:
-  - url: https://developer.timecamp.com/#/operations/get-data-export-exports
-    type: APIReference
-  - url: openapi/timecamp-openapi.yml
-    type: OpenAPI
-  description: Bulk reporting surface on the v3 API - request dataset exports,
-    poll export status, check dataset availability, and download results, plus
-    custom field templates and values that enrich exported time and project data.
+  - type: OpenAPI
+    url: openapi/timecamp-v1-task-api-openapi.yml
+  - type: Documentation
+    url: https://developer.timecamp.com/
+  - type: APIReference
+    url: https://developer.timecamp.com/#/operations/get--entries
+  - type: APIReference
+    url: https://developer.timecamp.com/#/operations/post-timer
+  - type: APIReference
+    url: https://developer.timecamp.com/#/operations/get--tasks
+  - type: APIReference
+    url: https://developer.timecamp.com/#/operations/get-users
+  - type: APIReference
+    url: https://developer.timecamp.com/#/operations/get--attendance
+  - type: APIReference
+    url: https://developer.timecamp.com/#/operations/get--approval
+  - type: APIReference
+    url: https://developer.timecamp.com/#/operations/get--activity
+  - type: APIReference
+    url: https://developer.timecamp.com/#/operations/get--tag_list-
+  - type: APIReference
+    url: https://developer.timecamp.com/#/operations/get-task-task_id-rate
+  - type: APIReference
+    url: https://developer.timecamp.com/#/operations/get-data-export-exports
+- aid: timecamp:timecamp-v1-timer-api
+  name: TimeCamp [v1] Timer API
+  description: The [v1] Timer API from TimeCamp — 2 operation(s) for [v1] timer.
+  humanURL: https://developer.timecamp.com/#/operations/get--entries
+  baseURL: https://app.timecamp.com/third_party/api
+  tags:
+  - '[v1] Timer'
+  properties:
+  - type: OpenAPI
+    url: openapi/timecamp-v1-timer-api-openapi.yml
+  - type: Documentation
+    url: https://developer.timecamp.com/
+  - type: APIReference
+    url: https://developer.timecamp.com/#/operations/get--entries
+  - type: APIReference
+    url: https://developer.timecamp.com/#/operations/post-timer
+  - type: APIReference
+    url: https://developer.timecamp.com/#/operations/get--tasks
+  - type: APIReference
+    url: https://developer.timecamp.com/#/operations/get-users
+  - type: APIReference
+    url: https://developer.timecamp.com/#/operations/get--attendance
+  - type: APIReference
+    url: https://developer.timecamp.com/#/operations/get--approval
+  - type: APIReference
+    url: https://developer.timecamp.com/#/operations/get--activity
+  - type: APIReference
+    url: https://developer.timecamp.com/#/operations/get--tag_list-
+  - type: APIReference
+    url: https://developer.timecamp.com/#/operations/get-task-task_id-rate
+  - type: APIReference
+    url: https://developer.timecamp.com/#/operations/get-data-export-exports
+- aid: timecamp:timecamp-v1-user-api
+  name: TimeCamp [v1] User API
+  description: The [v1] User API from TimeCamp — 5 operation(s) for [v1] user.
+  humanURL: https://developer.timecamp.com/#/operations/get--entries
+  baseURL: https://app.timecamp.com/third_party/api
+  tags:
+  - '[v1] User'
+  properties:
+  - type: OpenAPI
+    url: openapi/timecamp-v1-user-api-openapi.yml
+  - type: Documentation
+    url: https://developer.timecamp.com/
+  - type: APIReference
+    url: https://developer.timecamp.com/#/operations/get--entries
+  - type: APIReference
+    url: https://developer.timecamp.com/#/operations/post-timer
+  - type: APIReference
+    url: https://developer.timecamp.com/#/operations/get--tasks
+  - type: APIReference
+    url: https://developer.timecamp.com/#/operations/get-users
+  - type: APIReference
+    url: https://developer.timecamp.com/#/operations/get--attendance
+  - type: APIReference
+    url: https://developer.timecamp.com/#/operations/get--approval
+  - type: APIReference
+    url: https://developer.timecamp.com/#/operations/get--activity
+  - type: APIReference
+    url: https://developer.timecamp.com/#/operations/get--tag_list-
+  - type: APIReference
+    url: https://developer.timecamp.com/#/operations/get-task-task_id-rate
+  - type: APIReference
+    url: https://developer.timecamp.com/#/operations/get-data-export-exports
+- aid: timecamp:timecamp-v3-approval-api
+  name: TimeCamp [v3] Approval API
+  description: The [v3] Approval API from TimeCamp — 7 operation(s) for [v3] approval.
+  humanURL: https://developer.timecamp.com/#/operations/get--entries
+  baseURL: https://app.timecamp.com/third_party/api
+  tags:
+  - '[v3] Approval'
+  properties:
+  - type: OpenAPI
+    url: openapi/timecamp-v3-approval-api-openapi.yml
+  - type: Documentation
+    url: https://developer.timecamp.com/
+  - type: APIReference
+    url: https://developer.timecamp.com/#/operations/get--entries
+  - type: APIReference
+    url: https://developer.timecamp.com/#/operations/post-timer
+  - type: APIReference
+    url: https://developer.timecamp.com/#/operations/get--tasks
+  - type: APIReference
+    url: https://developer.timecamp.com/#/operations/get-users
+  - type: APIReference
+    url: https://developer.timecamp.com/#/operations/get--attendance
+  - type: APIReference
+    url: https://developer.timecamp.com/#/operations/get--approval
+  - type: APIReference
+    url: https://developer.timecamp.com/#/operations/get--activity
+  - type: APIReference
+    url: https://developer.timecamp.com/#/operations/get--tag_list-
+  - type: APIReference
+    url: https://developer.timecamp.com/#/operations/get-task-task_id-rate
+  - type: APIReference
+    url: https://developer.timecamp.com/#/operations/get-data-export-exports
+- aid: timecamp:timecamp-v3-attendance-api
+  name: TimeCamp [v3] Attendance API
+  description: The [v3] Attendance API from TimeCamp — 6 operation(s) for [v3] attendance.
+  humanURL: https://developer.timecamp.com/#/operations/get--entries
+  baseURL: https://app.timecamp.com/third_party/api
+  tags:
+  - '[v3] Attendance'
+  properties:
+  - type: OpenAPI
+    url: openapi/timecamp-v3-attendance-api-openapi.yml
+  - type: Documentation
+    url: https://developer.timecamp.com/
+  - type: APIReference
+    url: https://developer.timecamp.com/#/operations/get--entries
+  - type: APIReference
+    url: https://developer.timecamp.com/#/operations/post-timer
+  - type: APIReference
+    url: https://developer.timecamp.com/#/operations/get--tasks
+  - type: APIReference
+    url: https://developer.timecamp.com/#/operations/get-users
+  - type: APIReference
+    url: https://developer.timecamp.com/#/operations/get--attendance
+  - type: APIReference
+    url: https://developer.timecamp.com/#/operations/get--approval
+  - type: APIReference
+    url: https://developer.timecamp.com/#/operations/get--activity
+  - type: APIReference
+    url: https://developer.timecamp.com/#/operations/get--tag_list-
+  - type: APIReference
+    url: https://developer.timecamp.com/#/operations/get-task-task_id-rate
+  - type: APIReference
+    url: https://developer.timecamp.com/#/operations/get-data-export-exports
+- aid: timecamp:timecamp-v3-attendance-requests-api
+  name: TimeCamp [v3] Attendance Requests API
+  description: >-
+    The [v3] Attendance Requests API from TimeCamp — 1 operation(s) for [v3] attendance requests.
+  humanURL: https://developer.timecamp.com/#/operations/get--entries
+  baseURL: https://app.timecamp.com/third_party/api
+  tags:
+  - '[v3] Attendance Requests'
+  properties:
+  - type: OpenAPI
+    url: openapi/timecamp-v3-attendance-requests-api-openapi.yml
+  - type: Documentation
+    url: https://developer.timecamp.com/
+  - type: APIReference
+    url: https://developer.timecamp.com/#/operations/get--entries
+  - type: APIReference
+    url: https://developer.timecamp.com/#/operations/post-timer
+  - type: APIReference
+    url: https://developer.timecamp.com/#/operations/get--tasks
+  - type: APIReference
+    url: https://developer.timecamp.com/#/operations/get-users
+  - type: APIReference
+    url: https://developer.timecamp.com/#/operations/get--attendance
+  - type: APIReference
+    url: https://developer.timecamp.com/#/operations/get--approval
+  - type: APIReference
+    url: https://developer.timecamp.com/#/operations/get--activity
+  - type: APIReference
+    url: https://developer.timecamp.com/#/operations/get--tag_list-
+  - type: APIReference
+    url: https://developer.timecamp.com/#/operations/get-task-task_id-rate
+  - type: APIReference
+    url: https://developer.timecamp.com/#/operations/get-data-export-exports
+- aid: timecamp:timecamp-v3-computer-activities-api
+  name: TimeCamp [v3] Computer Activities API
+  description: >-
+    The [v3] Computer Activities API from TimeCamp — 1 operation(s) for [v3] computer activities.
+  humanURL: https://developer.timecamp.com/#/operations/get--entries
+  baseURL: https://app.timecamp.com/third_party/api
+  tags:
+  - '[v3] Computer Activities'
+  properties:
+  - type: OpenAPI
+    url: openapi/timecamp-v3-computer-activities-api-openapi.yml
+  - type: Documentation
+    url: https://developer.timecamp.com/
+  - type: APIReference
+    url: https://developer.timecamp.com/#/operations/get--entries
+  - type: APIReference
+    url: https://developer.timecamp.com/#/operations/post-timer
+  - type: APIReference
+    url: https://developer.timecamp.com/#/operations/get--tasks
+  - type: APIReference
+    url: https://developer.timecamp.com/#/operations/get-users
+  - type: APIReference
+    url: https://developer.timecamp.com/#/operations/get--attendance
+  - type: APIReference
+    url: https://developer.timecamp.com/#/operations/get--approval
+  - type: APIReference
+    url: https://developer.timecamp.com/#/operations/get--activity
+  - type: APIReference
+    url: https://developer.timecamp.com/#/operations/get--tag_list-
+  - type: APIReference
+    url: https://developer.timecamp.com/#/operations/get-task-task_id-rate
+  - type: APIReference
+    url: https://developer.timecamp.com/#/operations/get-data-export-exports
+- aid: timecamp:timecamp-v3-custom-fields-api
+  name: TimeCamp [v3] Custom Fields API
+  description: The [v3] Custom Fields API from TimeCamp — 8 operation(s) for [v3] custom fields.
+  humanURL: https://developer.timecamp.com/#/operations/get--entries
+  baseURL: https://app.timecamp.com/third_party/api
+  tags:
+  - '[v3] Custom Fields'
+  properties:
+  - type: OpenAPI
+    url: openapi/timecamp-v3-custom-fields-api-openapi.yml
+  - type: Documentation
+    url: https://developer.timecamp.com/
+  - type: APIReference
+    url: https://developer.timecamp.com/#/operations/get--entries
+  - type: APIReference
+    url: https://developer.timecamp.com/#/operations/post-timer
+  - type: APIReference
+    url: https://developer.timecamp.com/#/operations/get--tasks
+  - type: APIReference
+    url: https://developer.timecamp.com/#/operations/get-users
+  - type: APIReference
+    url: https://developer.timecamp.com/#/operations/get--attendance
+  - type: APIReference
+    url: https://developer.timecamp.com/#/operations/get--approval
+  - type: APIReference
+    url: https://developer.timecamp.com/#/operations/get--activity
+  - type: APIReference
+    url: https://developer.timecamp.com/#/operations/get--tag_list-
+  - type: APIReference
+    url: https://developer.timecamp.com/#/operations/get-task-task_id-rate
+  - type: APIReference
+    url: https://developer.timecamp.com/#/operations/get-data-export-exports
+- aid: timecamp:timecamp-v3-data-export-api
+  name: TimeCamp [v3] Data Export API
+  description: The [v3] Data Export API from TimeCamp — 5 operation(s) for [v3] data export.
+  humanURL: https://developer.timecamp.com/#/operations/get--entries
+  baseURL: https://app.timecamp.com/third_party/api
+  tags:
+  - '[v3] Data Export'
+  properties:
+  - type: OpenAPI
+    url: openapi/timecamp-v3-data-export-api-openapi.yml
+  - type: Documentation
+    url: https://developer.timecamp.com/
+  - type: APIReference
+    url: https://developer.timecamp.com/#/operations/get--entries
+  - type: APIReference
+    url: https://developer.timecamp.com/#/operations/post-timer
+  - type: APIReference
+    url: https://developer.timecamp.com/#/operations/get--tasks
+  - type: APIReference
+    url: https://developer.timecamp.com/#/operations/get-users
+  - type: APIReference
+    url: https://developer.timecamp.com/#/operations/get--attendance
+  - type: APIReference
+    url: https://developer.timecamp.com/#/operations/get--approval
+  - type: APIReference
+    url: https://developer.timecamp.com/#/operations/get--activity
+  - type: APIReference
+    url: https://developer.timecamp.com/#/operations/get--tag_list-
+  - type: APIReference
+    url: https://developer.timecamp.com/#/operations/get-task-task_id-rate
+  - type: APIReference
+    url: https://developer.timecamp.com/#/operations/get-data-export-exports
+- aid: timecamp:timecamp-v3-expense-api
+  name: TimeCamp [v3] Expense API
+  description: The [v3] Expense API from TimeCamp — 11 operation(s) for [v3] expense.
+  humanURL: https://developer.timecamp.com/#/operations/get--entries
+  baseURL: https://app.timecamp.com/third_party/api
+  tags:
+  - '[v3] Expense'
+  properties:
+  - type: OpenAPI
+    url: openapi/timecamp-v3-expense-api-openapi.yml
+  - type: Documentation
+    url: https://developer.timecamp.com/
+  - type: APIReference
+    url: https://developer.timecamp.com/#/operations/get--entries
+  - type: APIReference
+    url: https://developer.timecamp.com/#/operations/post-timer
+  - type: APIReference
+    url: https://developer.timecamp.com/#/operations/get--tasks
+  - type: APIReference
+    url: https://developer.timecamp.com/#/operations/get-users
+  - type: APIReference
+    url: https://developer.timecamp.com/#/operations/get--attendance
+  - type: APIReference
+    url: https://developer.timecamp.com/#/operations/get--approval
+  - type: APIReference
+    url: https://developer.timecamp.com/#/operations/get--activity
+  - type: APIReference
+    url: https://developer.timecamp.com/#/operations/get--tag_list-
+  - type: APIReference
+    url: https://developer.timecamp.com/#/operations/get-task-task_id-rate
+  - type: APIReference
+    url: https://developer.timecamp.com/#/operations/get-data-export-exports
+- aid: timecamp:timecamp-v3-invoices-api
+  name: TimeCamp [v3] Invoices API
+  description: The [v3] Invoices API from TimeCamp — 2 operation(s) for [v3] invoices.
+  humanURL: https://developer.timecamp.com/#/operations/get--entries
+  baseURL: https://app.timecamp.com/third_party/api
+  tags:
+  - '[v3] Invoices'
+  properties:
+  - type: OpenAPI
+    url: openapi/timecamp-v3-invoices-api-openapi.yml
+  - type: Documentation
+    url: https://developer.timecamp.com/
+  - type: APIReference
+    url: https://developer.timecamp.com/#/operations/get--entries
+  - type: APIReference
+    url: https://developer.timecamp.com/#/operations/post-timer
+  - type: APIReference
+    url: https://developer.timecamp.com/#/operations/get--tasks
+  - type: APIReference
+    url: https://developer.timecamp.com/#/operations/get-users
+  - type: APIReference
+    url: https://developer.timecamp.com/#/operations/get--attendance
+  - type: APIReference
+    url: https://developer.timecamp.com/#/operations/get--approval
+  - type: APIReference
+    url: https://developer.timecamp.com/#/operations/get--activity
+  - type: APIReference
+    url: https://developer.timecamp.com/#/operations/get--tag_list-
+  - type: APIReference
+    url: https://developer.timecamp.com/#/operations/get-task-task_id-rate
+  - type: APIReference
+    url: https://developer.timecamp.com/#/operations/get-data-export-exports
+- aid: timecamp:timecamp-v3-projects-api
+  name: TimeCamp [v3] Projects API
+  description: The [v3] Projects API from TimeCamp — 5 operation(s) for [v3] projects.
+  humanURL: https://developer.timecamp.com/#/operations/get--entries
+  baseURL: https://app.timecamp.com/third_party/api
+  tags:
+  - '[v3] Projects'
+  properties:
+  - type: OpenAPI
+    url: openapi/timecamp-v3-projects-api-openapi.yml
+  - type: Documentation
+    url: https://developer.timecamp.com/
+  - type: APIReference
+    url: https://developer.timecamp.com/#/operations/get--entries
+  - type: APIReference
+    url: https://developer.timecamp.com/#/operations/post-timer
+  - type: APIReference
+    url: https://developer.timecamp.com/#/operations/get--tasks
+  - type: APIReference
+    url: https://developer.timecamp.com/#/operations/get-users
+  - type: APIReference
+    url: https://developer.timecamp.com/#/operations/get--attendance
+  - type: APIReference
+    url: https://developer.timecamp.com/#/operations/get--approval
+  - type: APIReference
+    url: https://developer.timecamp.com/#/operations/get--activity
+  - type: APIReference
+    url: https://developer.timecamp.com/#/operations/get--tag_list-
+  - type: APIReference
+    url: https://developer.timecamp.com/#/operations/get-task-task_id-rate
+  - type: APIReference
+    url: https://developer.timecamp.com/#/operations/get-data-export-exports
+- aid: timecamp:timecamp-v3-storage-api
+  name: TimeCamp [v3] Storage API
+  description: The [v3] Storage API from TimeCamp — 2 operation(s) for [v3] storage.
+  humanURL: https://developer.timecamp.com/#/operations/get--entries
+  baseURL: https://app.timecamp.com/third_party/api
+  tags:
+  - '[v3] Storage'
+  properties:
+  - type: OpenAPI
+    url: openapi/timecamp-v3-storage-api-openapi.yml
+  - type: Documentation
+    url: https://developer.timecamp.com/
+  - type: APIReference
+    url: https://developer.timecamp.com/#/operations/get--entries
+  - type: APIReference
+    url: https://developer.timecamp.com/#/operations/post-timer
+  - type: APIReference
+    url: https://developer.timecamp.com/#/operations/get--tasks
+  - type: APIReference
+    url: https://developer.timecamp.com/#/operations/get-users
+  - type: APIReference
+    url: https://developer.timecamp.com/#/operations/get--attendance
+  - type: APIReference
+    url: https://developer.timecamp.com/#/operations/get--approval
+  - type: APIReference
+    url: https://developer.timecamp.com/#/operations/get--activity
+  - type: APIReference
+    url: https://developer.timecamp.com/#/operations/get--tag_list-
+  - type: APIReference
+    url: https://developer.timecamp.com/#/operations/get-task-task_id-rate
+  - type: APIReference
+    url: https://developer.timecamp.com/#/operations/get-data-export-exports
+- aid: timecamp:timecamp-v3-tags-api
+  name: TimeCamp [v3] Tags API
+  description: The [v3] Tags API from TimeCamp — 1 operation(s) for [v3] tags.
+  humanURL: https://developer.timecamp.com/#/operations/get--entries
+  baseURL: https://app.timecamp.com/third_party/api
+  tags:
+  - '[v3] Tags'
+  properties:
+  - type: OpenAPI
+    url: openapi/timecamp-v3-tags-api-openapi.yml
+  - type: Documentation
+    url: https://developer.timecamp.com/
+  - type: APIReference
+    url: https://developer.timecamp.com/#/operations/get--entries
+  - type: APIReference
+    url: https://developer.timecamp.com/#/operations/post-timer
+  - type: APIReference
+    url: https://developer.timecamp.com/#/operations/get--tasks
+  - type: APIReference
+    url: https://developer.timecamp.com/#/operations/get-users
+  - type: APIReference
+    url: https://developer.timecamp.com/#/operations/get--attendance
+  - type: APIReference
+    url: https://developer.timecamp.com/#/operations/get--approval
+  - type: APIReference
+    url: https://developer.timecamp.com/#/operations/get--activity
+  - type: APIReference
+    url: https://developer.timecamp.com/#/operations/get--tag_list-
+  - type: APIReference
+    url: https://developer.timecamp.com/#/operations/get-task-task_id-rate
+  - type: APIReference
+    url: https://developer.timecamp.com/#/operations/get-data-export-exports
+- aid: timecamp:timecamp-v3-task-api
+  name: TimeCamp [v3] Task API
+  description: The [v3] Task API from TimeCamp — 5 operation(s) for [v3] task.
+  humanURL: https://developer.timecamp.com/#/operations/get--entries
+  baseURL: https://app.timecamp.com/third_party/api
+  tags:
+  - '[v3] Task'
+  properties:
+  - type: OpenAPI
+    url: openapi/timecamp-v3-task-api-openapi.yml
+  - type: Documentation
+    url: https://developer.timecamp.com/
+  - type: APIReference
+    url: https://developer.timecamp.com/#/operations/get--entries
+  - type: APIReference
+    url: https://developer.timecamp.com/#/operations/post-timer
+  - type: APIReference
+    url: https://developer.timecamp.com/#/operations/get--tasks
+  - type: APIReference
+    url: https://developer.timecamp.com/#/operations/get-users
+  - type: APIReference
+    url: https://developer.timecamp.com/#/operations/get--attendance
+  - type: APIReference
+    url: https://developer.timecamp.com/#/operations/get--approval
+  - type: APIReference
+    url: https://developer.timecamp.com/#/operations/get--activity
+  - type: APIReference
+    url: https://developer.timecamp.com/#/operations/get--tag_list-
+  - type: APIReference
+    url: https://developer.timecamp.com/#/operations/get-task-task_id-rate
+  - type: APIReference
+    url: https://developer.timecamp.com/#/operations/get-data-export-exports
+- aid: timecamp:timecamp-v3-task-archive-api
+  name: TimeCamp [v3] Task Archive API
+  description: The [v3] Task Archive API from TimeCamp — 2 operation(s) for [v3] task archive.
+  humanURL: https://developer.timecamp.com/#/operations/get--entries
+  baseURL: https://app.timecamp.com/third_party/api
+  tags:
+  - '[v3] Task Archive'
+  properties:
+  - type: OpenAPI
+    url: openapi/timecamp-v3-task-archive-api-openapi.yml
+  - type: Documentation
+    url: https://developer.timecamp.com/
+  - type: APIReference
+    url: https://developer.timecamp.com/#/operations/get--entries
+  - type: APIReference
+    url: https://developer.timecamp.com/#/operations/post-timer
+  - type: APIReference
+    url: https://developer.timecamp.com/#/operations/get--tasks
+  - type: APIReference
+    url: https://developer.timecamp.com/#/operations/get-users
+  - type: APIReference
+    url: https://developer.timecamp.com/#/operations/get--attendance
+  - type: APIReference
+    url: https://developer.timecamp.com/#/operations/get--approval
+  - type: APIReference
+    url: https://developer.timecamp.com/#/operations/get--activity
+  - type: APIReference
+    url: https://developer.timecamp.com/#/operations/get--tag_list-
+  - type: APIReference
+    url: https://developer.timecamp.com/#/operations/get-task-task_id-rate
+  - type: APIReference
+    url: https://developer.timecamp.com/#/operations/get-data-export-exports
+- aid: timecamp:timecamp-v3-task-picker-api
+  name: TimeCamp [v3] Task Picker API
+  description: The [v3] Task Picker API from TimeCamp — 3 operation(s) for [v3] task picker.
+  humanURL: https://developer.timecamp.com/#/operations/get--entries
+  baseURL: https://app.timecamp.com/third_party/api
+  tags:
+  - '[v3] Task Picker'
+  properties:
+  - type: OpenAPI
+    url: openapi/timecamp-v3-task-picker-api-openapi.yml
+  - type: Documentation
+    url: https://developer.timecamp.com/
+  - type: APIReference
+    url: https://developer.timecamp.com/#/operations/get--entries
+  - type: APIReference
+    url: https://developer.timecamp.com/#/operations/post-timer
+  - type: APIReference
+    url: https://developer.timecamp.com/#/operations/get--tasks
+  - type: APIReference
+    url: https://developer.timecamp.com/#/operations/get-users
+  - type: APIReference
+    url: https://developer.timecamp.com/#/operations/get--attendance
+  - type: APIReference
+    url: https://developer.timecamp.com/#/operations/get--approval
+  - type: APIReference
+    url: https://developer.timecamp.com/#/operations/get--activity
+  - type: APIReference
+    url: https://developer.timecamp.com/#/operations/get--tag_list-
+  - type: APIReference
+    url: https://developer.timecamp.com/#/operations/get-task-task_id-rate
+  - type: APIReference
+    url: https://developer.timecamp.com/#/operations/get-data-export-exports
+- aid: timecamp:timecamp-v3-time-entry-api
+  name: TimeCamp [v3] Time Entry API
+  description: The [v3] Time Entry API from TimeCamp — 4 operation(s) for [v3] time entry.
+  humanURL: https://developer.timecamp.com/#/operations/get--entries
+  baseURL: https://app.timecamp.com/third_party/api
+  tags:
+  - '[v3] Time Entry'
+  properties:
+  - type: OpenAPI
+    url: openapi/timecamp-v3-time-entry-api-openapi.yml
+  - type: Documentation
+    url: https://developer.timecamp.com/
+  - type: APIReference
+    url: https://developer.timecamp.com/#/operations/get--entries
+  - type: APIReference
+    url: https://developer.timecamp.com/#/operations/post-timer
+  - type: APIReference
+    url: https://developer.timecamp.com/#/operations/get--tasks
+  - type: APIReference
+    url: https://developer.timecamp.com/#/operations/get-users
+  - type: APIReference
+    url: https://developer.timecamp.com/#/operations/get--attendance
+  - type: APIReference
+    url: https://developer.timecamp.com/#/operations/get--approval
+  - type: APIReference
+    url: https://developer.timecamp.com/#/operations/get--activity
+  - type: APIReference
+    url: https://developer.timecamp.com/#/operations/get--tag_list-
+  - type: APIReference
+    url: https://developer.timecamp.com/#/operations/get-task-task_id-rate
+  - type: APIReference
+    url: https://developer.timecamp.com/#/operations/get-data-export-exports
+- aid: timecamp:timecamp-v3-time-entry-restriction-api
+  name: TimeCamp [v3] Time Entry Restriction API
+  description: >-
+    The [v3] Time Entry Restriction API from TimeCamp — 3 operation(s) for [v3] time entry restriction.
+  humanURL: https://developer.timecamp.com/#/operations/get--entries
+  baseURL: https://app.timecamp.com/third_party/api
+  tags:
+  - '[v3] Time Entry Restriction'
+  properties:
+  - type: OpenAPI
+    url: openapi/timecamp-v3-time-entry-restriction-api-openapi.yml
+  - type: Documentation
+    url: https://developer.timecamp.com/
+  - type: APIReference
+    url: https://developer.timecamp.com/#/operations/get--entries
+  - type: APIReference
+    url: https://developer.timecamp.com/#/operations/post-timer
+  - type: APIReference
+    url: https://developer.timecamp.com/#/operations/get--tasks
+  - type: APIReference
+    url: https://developer.timecamp.com/#/operations/get-users
+  - type: APIReference
+    url: https://developer.timecamp.com/#/operations/get--attendance
+  - type: APIReference
+    url: https://developer.timecamp.com/#/operations/get--approval
+  - type: APIReference
+    url: https://developer.timecamp.com/#/operations/get--activity
+  - type: APIReference
+    url: https://developer.timecamp.com/#/operations/get--tag_list-
+  - type: APIReference
+    url: https://developer.timecamp.com/#/operations/get-task-task_id-rate
+  - type: APIReference
+    url: https://developer.timecamp.com/#/operations/get-data-export-exports
 common:
 - type: AgenticAccess
   url: agentic-access/timecamp-agentic-access.yml
