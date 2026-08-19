@@ -1,0 +1,458 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "TimeCamp [v1] Approvals [v1] Approvals [v1] Tags API",
+    "version": "1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "[v1] Tags",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Create tag",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://app.timecamp.com/third_party/api/tag",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Create tag. Do not provide `tag_id` in url, because while creating new tag a new, unique `tag_id` will be made. If you provide `tag_id` in url, a 400 HTTP response is returned."
+        },
+        {
+          "info": {
+            "name": "Get tag data",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://app.timecamp.com/third_party/api/tag/:tag_id",
+            "params": [
+              {
+                "name": "tag_id",
+                "value": "",
+                "type": "path",
+                "description": "tag id"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Get tag data."
+        },
+        {
+          "info": {
+            "name": "Update tag",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://app.timecamp.com/third_party/api/tag/:tag_id",
+            "params": [
+              {
+                "name": "tag_id",
+                "value": "",
+                "type": "path",
+                "description": "tag id"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Modify tag data."
+        },
+        {
+          "info": {
+            "name": "Get tag allowed groups",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://app.timecamp.com/third_party/api/tag/:tag_id/groups",
+            "params": [
+              {
+                "name": "tag_id",
+                "value": "",
+                "type": "path",
+                "description": "tag id"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Get tag allowed groups\n\nReturns tags available in a group"
+        },
+        {
+          "info": {
+            "name": "Add allowed group to tag",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://app.timecamp.com/third_party/api/tag/:tag_id/group/:group_id",
+            "params": [
+              {
+                "name": "tag_id",
+                "value": "",
+                "type": "path",
+                "description": "tag id"
+              },
+              {
+                "name": "group_id",
+                "value": "",
+                "type": "path",
+                "description": "group id to delete (only for DELETE option)"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Add allowed group to tag. Do not provide `group_id` in url."
+        },
+        {
+          "info": {
+            "name": "Delete allowed group from tag",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://app.timecamp.com/third_party/api/tag/:tag_id/group/:group_id",
+            "params": [
+              {
+                "name": "tag_id",
+                "value": "",
+                "type": "path",
+                "description": "tag id"
+              },
+              {
+                "name": "group_id",
+                "value": "",
+                "type": "path",
+                "description": "group id to delete (only for DELETE option)"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Delete allowed group from tag."
+        },
+        {
+          "info": {
+            "name": "Get tag list",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://app.timecamp.com/third_party/api/tag_list",
+            "params": [
+              {
+                "name": "task_id",
+                "value": "",
+                "type": "query",
+                "description": "get tag list data from task"
+              },
+              {
+                "name": "archived",
+                "value": "",
+                "type": "query",
+                "description": "include archived tag lists"
+              },
+              {
+                "name": "tags",
+                "value": "",
+                "type": "query",
+                "description": "include tags"
+              },
+              {
+                "name": "exclude_empty_tag_lists",
+                "value": "",
+                "type": "query",
+                "description": "include empty tag lists"
+              },
+              {
+                "name": "use_restrictions",
+                "value": "",
+                "type": "query",
+                "description": "get group tag list -> default option (1) or root group tag lists (0)"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Get tag list data."
+        },
+        {
+          "info": {
+            "name": "Create new tag list",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://app.timecamp.com/third_party/api/tag_list",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Create new tag list."
+        },
+        {
+          "info": {
+            "name": "Get tag list with tags",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://app.timecamp.com/third_party/api/tag_list/:tag_list_id",
+            "params": [
+              {
+                "name": "tag_list_id",
+                "value": "",
+                "type": "path",
+                "description": "tag list id"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Get tag list tags."
+        },
+        {
+          "info": {
+            "name": "Update tag list data",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://app.timecamp.com/third_party/api/tag_list/:tag_list_id",
+            "params": [
+              {
+                "name": "tag_list_id",
+                "value": "",
+                "type": "path",
+                "description": "tag list id"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Update tag list data."
+        },
+        {
+          "info": {
+            "name": "Get only tags of a tag list",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://app.timecamp.com/third_party/api/tag_list/:tag_list_id/tags",
+            "params": [
+              {
+                "name": "tag_list_id",
+                "value": "",
+                "type": "path",
+                "description": "tag list id"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Get tags from a specific tag list.\n"
+        },
+        {
+          "info": {
+            "name": "Get time entry tags",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://app.timecamp.com/third_party/api/entries/:entry_id/tags",
+            "params": [
+              {
+                "name": "entry_id",
+                "value": "",
+                "type": "path",
+                "description": "entry id, possible multiple in GET method ie. `123,124,125`"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Get tags for a given time entry ID."
+        },
+        {
+          "info": {
+            "name": "Add tags to time entry",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://app.timecamp.com/third_party/api/entries/:entry_id/tags",
+            "params": [
+              {
+                "name": "entry_id",
+                "value": "",
+                "type": "path",
+                "description": "entry id, possible multiple in GET method ie. `123,124,125`"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Assing tags to time entry or entries."
+        },
+        {
+          "info": {
+            "name": "Delete tags from time entry",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://app.timecamp.com/third_party/api/entries/:entry_id/tags",
+            "params": [
+              {
+                "name": "entry_id",
+                "value": "",
+                "type": "path",
+                "description": "entry id, possible multiple in GET method ie. `123,124,125`"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Delete tags from time entry."
+        },
+        {
+          "info": {
+            "name": "Add tags to task",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://app.timecamp.com/third_party/api/task/:task_id/tag",
+            "params": [
+              {
+                "name": "task_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Add tags to task"
+        },
+        {
+          "info": {
+            "name": "Edit tags assignment type",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://app.timecamp.com/third_party/api/task/:task_id/tag",
+            "params": [
+              {
+                "name": "task_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Edit tags assignment type"
+        },
+        {
+          "info": {
+            "name": "Remove tags from task",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://app.timecamp.com/third_party/api/task/:task_id/tag",
+            "params": [
+              {
+                "name": "task_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Remove tags from task"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

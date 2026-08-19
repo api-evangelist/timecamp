@@ -1,0 +1,160 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "TimeCamp [v1] Approvals [v1] Approvals [v3] Data Export API",
+    "version": "1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "[v3] Data Export",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get exports",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://app.timecamp.com/third_party/api/v3/data-export/exports",
+            "headers": [
+              {
+                "name": "Accept",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "sortBy",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "sortOrder",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Get exports"
+        },
+        {
+          "info": {
+            "name": "Get open exports",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://app.timecamp.com/third_party/api/v3/data-export/open-exports",
+            "headers": [
+              {
+                "name": "Accept",
+                "value": ""
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Get open exports"
+        },
+        {
+          "info": {
+            "name": "Get export by ID",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://app.timecamp.com/third_party/api/v3/data-export/export/:exportId",
+            "headers": [
+              {
+                "name": "Accept",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "exportId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Get export by ID"
+        },
+        {
+          "info": {
+            "name": "Get list of dataset availability",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://app.timecamp.com/third_party/api/v3/data-export/dataset-availability",
+            "headers": [
+              {
+                "name": "Accept",
+                "value": ""
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Get list of dataset availability"
+        },
+        {
+          "info": {
+            "name": "Create export request",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://app.timecamp.com/third_party/api/v3/export-request",
+            "headers": [
+              {
+                "name": "Accept",
+                "value": ""
+              },
+              {
+                "name": "Content-Type",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Create export request"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

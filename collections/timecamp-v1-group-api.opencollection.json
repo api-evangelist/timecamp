@@ -1,0 +1,369 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "TimeCamp [v1] Approvals [v1] Approvals [v1] Group API",
+    "version": "1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "[v1] Group",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get all groups",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://app.timecamp.com/third_party/api/group",
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Get all groups."
+        },
+        {
+          "info": {
+            "name": "Update group",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://app.timecamp.com/third_party/api/group",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Modify existing group. Edit permission is required.\n\nWARNING: backend might not return a response, but changes will be applied!"
+        },
+        {
+          "info": {
+            "name": "Create group",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://app.timecamp.com/third_party/api/group",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Add new group. Edit permission is required.\n\n\nThere cannot be more than one root group (with parent_id = 0).\nMaximum group tree depth is 4 levels.\n\nIf you get an error 403 `You can not change this group` try to wait about one minute and retry."
+        },
+        {
+          "info": {
+            "name": "Delete group",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://app.timecamp.com/third_party/api/group",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Delete a group. Edit permission is required.\n\nRoot Group (`parent_id == 0`) cannot be deleted.\n\nAll subgroups of deleted group have their `parent_id` changed to `root_group_id`.\n\n\nWARNING: backend might not return a response, but changes will be applied!"
+        },
+        {
+          "info": {
+            "name": "Get group setting",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://app.timecamp.com/third_party/api/group/:group_id/setting",
+            "params": [
+              {
+                "name": "group_id",
+                "value": "",
+                "type": "path",
+                "description": "group id"
+              },
+              {
+                "name": "name",
+                "value": "",
+                "type": "query",
+                "description": "name of setting to get"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Returns setting for given group_id."
+        },
+        {
+          "info": {
+            "name": "Update group setting",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://app.timecamp.com/third_party/api/group/:group_id/setting",
+            "params": [
+              {
+                "name": "group_id",
+                "value": "",
+                "type": "path",
+                "description": "group id"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Update group setting."
+        },
+        {
+          "info": {
+            "name": "Delete group setting",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://app.timecamp.com/third_party/api/group/:group_id/setting",
+            "params": [
+              {
+                "name": "group_id",
+                "value": "",
+                "type": "path",
+                "description": "group id"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Delete group setting."
+        },
+        {
+          "info": {
+            "name": "Get users in group",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://app.timecamp.com/third_party/api/group/:group_id/user",
+            "params": [
+              {
+                "name": "group_id",
+                "value": "",
+                "type": "path",
+                "description": "group_id"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Get users from given group."
+        },
+        {
+          "info": {
+            "name": "Invite user to a group",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://app.timecamp.com/third_party/api/group/:group_id/user",
+            "params": [
+              {
+                "name": "group_id",
+                "value": "",
+                "type": "path",
+                "description": "group_id"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Invite user to a group."
+        },
+        {
+          "info": {
+            "name": "Update user in group",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://app.timecamp.com/third_party/api/group/:group_id/user",
+            "params": [
+              {
+                "name": "group_id",
+                "value": "",
+                "type": "path",
+                "description": "group_id"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Update user in group or move user to other group."
+        },
+        {
+          "info": {
+            "name": "Delete user from group",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://app.timecamp.com/third_party/api/group/:group_id/user",
+            "params": [
+              {
+                "name": "group_id",
+                "value": "",
+                "type": "path",
+                "description": "group_id"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Delete user from group."
+        },
+        {
+          "info": {
+            "name": "Get group scheduler",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://app.timecamp.com/third_party/api/group/:group_id/scheduler",
+            "params": [
+              {
+                "name": "group_id",
+                "value": "",
+                "type": "path",
+                "description": "group id"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Get group scheduler."
+        },
+        {
+          "info": {
+            "name": "Create/Update group scheduler",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://app.timecamp.com/third_party/api/group/:group_id/scheduler",
+            "params": [
+              {
+                "name": "group_id",
+                "value": "",
+                "type": "path",
+                "description": "group id"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Create or update group scheduler."
+        },
+        {
+          "info": {
+            "name": "Delete group scheduler",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://app.timecamp.com/third_party/api/group/:group_id/scheduler",
+            "params": [
+              {
+                "name": "group_id",
+                "value": "",
+                "type": "path",
+                "description": "group id"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Delete group scheduler."
+        },
+        {
+          "info": {
+            "name": "Get group logo",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://app.timecamp.com/third_party/api/group/:group_id/company_logo",
+            "params": [
+              {
+                "name": "group_id",
+                "value": "",
+                "type": "path",
+                "description": "group id"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Returns url to group logo."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,67 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "TimeCamp [v1] Approvals [v1] Approvals [v1] Timer API",
+    "version": "1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "[v1] Timer",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get information about running timer",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://app.timecamp.com/third_party/api/timer_running",
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Returns information about running timer."
+        },
+        {
+          "info": {
+            "name": "Start, stop, get timer",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://app.timecamp.com/third_party/api/timer",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Get timer status, start new timer or stop one."
+        },
+        {
+          "info": {
+            "name": "Delete timer",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://app.timecamp.com/third_party/api/timer",
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Deletes timer without saving tracked time."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

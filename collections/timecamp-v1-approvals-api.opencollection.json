@@ -1,0 +1,87 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "TimeCamp [v1] Approvals [v1] Approvals [v1] Approvals API",
+    "version": "1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "[v1] Approvals",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get approvals",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://app.timecamp.com/third_party/api/approval",
+            "params": [
+              {
+                "name": "from",
+                "value": "",
+                "type": "query",
+                "description": "date in `YYYY-MM-DD` format"
+              },
+              {
+                "name": "to",
+                "value": "",
+                "type": "query",
+                "description": "date in `YYYY-MM-DD` format"
+              },
+              {
+                "name": "with_attendance",
+                "value": "",
+                "type": "query",
+                "description": "return with attendance, default: 0"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Get approval or approvals"
+        },
+        {
+          "info": {
+            "name": "Create/Update approval",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://app.timecamp.com/third_party/api/approval",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Create new approval or update existing one."
+        },
+        {
+          "info": {
+            "name": "Get approval users",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://app.timecamp.com/third_party/api/approval_users",
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Returns list with user ids which you are able to either approve or reject."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

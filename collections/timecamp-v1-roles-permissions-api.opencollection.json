@@ -1,0 +1,90 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "TimeCamp [v1] Approvals [v1] Approvals [v1] Roles & Permissions API",
+    "version": "1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "[v1] Roles & Permissions",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get time tracking roles",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://app.timecamp.com/third_party/api/tt_role",
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Returns roles allowed for your root group with permissions."
+        },
+        {
+          "info": {
+            "name": "Create time tracking role",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://app.timecamp.com/third_party/api/tt_role",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Create time tracking role."
+        },
+        {
+          "info": {
+            "name": "Update time tracking role",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://app.timecamp.com/third_party/api/tt_role",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Update time tracking role. Note you can't edit `Regular User` role."
+        },
+        {
+          "info": {
+            "name": "Delete time tracking role",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://app.timecamp.com/third_party/api/tt_role",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Delete time tracking role."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

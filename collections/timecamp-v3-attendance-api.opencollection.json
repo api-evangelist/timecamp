@@ -1,0 +1,186 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "TimeCamp [v1] Approvals [v1] Approvals [v3] Attendance API",
+    "version": "1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "[v3] Attendance",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Predefined Days Assigned To Group [beta]",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://app.timecamp.com/third_party/api/v3/attendance/predefined-days/:groupId",
+            "headers": [
+              {
+                "name": "Accept",
+                "value": ""
+              },
+              {
+                "name": "Content-Type",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "groupId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "List of all predefined days assigned directly to given group. Note: This is a beta version."
+        },
+        {
+          "info": {
+            "name": "Effective Predefined Days Assigned To Group [beta]",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://app.timecamp.com/third_party/api/v3/attendance/predefined-days/:groupId/effective",
+            "headers": [
+              {
+                "name": "Accept",
+                "value": ""
+              },
+              {
+                "name": "Content-Type",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "groupId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "List of all day types assigned to a group along with inheritance from parent groups. Note: This is a beta version."
+        },
+        {
+          "info": {
+            "name": "Create Predefined Days [beta]",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://app.timecamp.com/third_party/api/v3/attendance/predefined-days/create",
+            "headers": [
+              {
+                "name": "Accept",
+                "value": ""
+              },
+              {
+                "name": "Content-Type",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Create predefined days for a group. Note: This is a beta version."
+        },
+        {
+          "info": {
+            "name": "Remove Predefined Day [beta]",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://app.timecamp.com/third_party/api/v3/attendance/predefined-days/:groupId/remove/:date",
+            "headers": [
+              {
+                "name": "Accept",
+                "value": ""
+              },
+              {
+                "name": "Content-Type",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "groupId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "date",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Remove predefined day from a group. Note: This is a beta version."
+        },
+        {
+          "info": {
+            "name": "Attendance calendar search [beta]",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://app.timecamp.com/third_party/api/v3/attendance/calendar/search",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Returns attendance calendar data for users in a date range. Note: This is a beta version."
+        },
+        {
+          "info": {
+            "name": "Create attendance request [beta]",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://app.timecamp.com/third_party/api/attendance-request",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Creates an attendance request for a specified user and date.\nThe request can be created by the user themselves or by an administrator/supervisor for another user.\nDepending on permissions and day type settings, the request may be auto-approved or require manual approval.\nNote: This is a beta version.\n"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

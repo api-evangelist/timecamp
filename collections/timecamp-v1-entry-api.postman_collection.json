@@ -1,0 +1,1942 @@
+{
+  "item": [
+    {
+      "id": "f07b35a6-86c8-47b8-a09d-7b1553285967",
+      "name": "[v1] Entry",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "924802b9-64a4-4bc5-a1a5-018b8c81018f",
+          "name": "Merge time entries",
+          "request": {
+            "name": "Merge time entries",
+            "description": {
+              "content": "Merge two time entries into one.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "entries_merge"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"id\": \"<string>\",\n  \"to_id\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "dcf3cc5d-5b79-4f1f-b6e6-e598fa331f78",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "entries_merge"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"id\": \"<string>\",\n  \"to_id\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"entry_id\": 105445325,\n  \"user_id\": \"5252\",\n  \"date\": \"2020-02-02\",\n  \"task_id\": \"0\",\n  \"time_span\": 4857,\n  \"locked\": \"0\",\n  \"last_modify\": \"2021-03-10 09:08:30\",\n  \"note\": \"\",\n  \"start_time_hour\": \"13:05:47\",\n  \"end_time_hour\": \"14:24:41\",\n  \"invoiceId\": \"0\",\n  \"billable\": \"0\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "10bb7efc-acad-40cf-bfd5-b41f44efc41c",
+              "name": "Forbidden",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "entries_merge"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"id\": \"<string>\",\n  \"to_id\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"You can't edit time entry, because it is in approved or pending timesheet approval.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "c9963848-bc7b-4467-a339-0d0c6856cba8",
+              "name": "Not Found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "entries_merge"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"id\": \"<string>\",\n  \"to_id\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"Entry not found\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "f8a99b67-d3e0-4be9-84e8-574b8503f6b3",
+              "name": "Not Acceptable",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "entries_merge"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"id\": \"<string>\",\n  \"to_id\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Acceptable",
+              "code": 406,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"You must provide different entries\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "dd856785-b471-4587-85db-3096c22d0bf8",
+          "name": "Get time entries changes",
+          "request": {
+            "name": "Get time entries changes",
+            "description": {
+              "content": "Get time enties changes.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "entries_changes"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "task_ids",
+                  "value": "<string>",
+                  "description": "entry task id or ids"
+                },
+                {
+                  "disabled": false,
+                  "key": "user_ids",
+                  "value": "<string>",
+                  "description": "entry user id or ids"
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "<integer>",
+                  "description": "number of results to get, if empty then get all of them"
+                },
+                {
+                  "disabled": false,
+                  "key": "from",
+                  "value": "<string>",
+                  "description": "date in `YYYY-MM-DD` format"
+                },
+                {
+                  "disabled": false,
+                  "key": "to",
+                  "value": "<string>",
+                  "description": "date in `YYYY-MM-DD` format"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "4ae54088-a72d-43e9-a1cd-1c54a853a436",
+              "name": "If task or tasks are not found then empty array is returned with 200 code.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "entries_changes"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "task_ids",
+                      "value": "12,13,32"
+                    },
+                    {
+                      "key": "user_ids",
+                      "value": "45,55,64"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "from",
+                      "value": "2020-02-02"
+                    },
+                    {
+                      "key": "to",
+                      "value": "2020-02-02"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "bb6504d5-5525-4a48-b142-01b231e883dd",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "entries_changes"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "task_ids",
+                      "value": "12,13,32"
+                    },
+                    {
+                      "key": "user_ids",
+                      "value": "45,55,64"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "from",
+                      "value": "2020-02-02"
+                    },
+                    {
+                      "key": "to",
+                      "value": "2020-02-02"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"you must provide \\\"from\\\" and \\\"to\\\" date like 2013-03-20 \"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "0e2a7717-84eb-47bb-b86d-7ab0237ece53",
+              "name": "Forbidden",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "entries_changes"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "task_ids",
+                      "value": "12,13,32"
+                    },
+                    {
+                      "key": "user_ids",
+                      "value": "45,55,64"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "from",
+                      "value": "2020-02-02"
+                    },
+                    {
+                      "key": "to",
+                      "value": "2020-02-02"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"you do not have permissions to get task with id {taskId} (you can set yourself as Time Tracking Administrator or Project Manager)\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "d3d2572a-f4e4-4458-9f7f-506600c9b441",
+          "name": "Get time entries deletions",
+          "request": {
+            "name": "Get time entries deletions",
+            "description": {
+              "content": "Get time enties deletions.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "entries_deletions"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "task_ids",
+                  "value": "<string>",
+                  "description": "entry task id or ids"
+                },
+                {
+                  "disabled": false,
+                  "key": "user_ids",
+                  "value": "<string>",
+                  "description": "entry user id or ids"
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "<integer>",
+                  "description": "number of results to get, if empty then get all of them"
+                },
+                {
+                  "disabled": false,
+                  "key": "from",
+                  "value": "<string>",
+                  "description": "date in `YYYY-MM-DD` format"
+                },
+                {
+                  "disabled": false,
+                  "key": "to",
+                  "value": "<string>",
+                  "description": "date in `YYYY-MM-DD` format"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "400b4639-337a-47d3-bb03-55a9ad41b8a6",
+              "name": "If task or tasks are not found then empty array is returned with 200 code.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "entries_deletions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "task_ids",
+                      "value": "12,13,32"
+                    },
+                    {
+                      "key": "user_ids",
+                      "value": "45,55,64"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "from",
+                      "value": "2020-02-02"
+                    },
+                    {
+                      "key": "to",
+                      "value": "2020-02-02"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "c827b977-8433-43c3-b54e-46e9b41b8ed4",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "entries_deletions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "task_ids",
+                      "value": "12,13,32"
+                    },
+                    {
+                      "key": "user_ids",
+                      "value": "45,55,64"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "from",
+                      "value": "2020-02-02"
+                    },
+                    {
+                      "key": "to",
+                      "value": "2020-02-02"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"you must provide \\\"from\\\" and \\\"to\\\" date like 2013-03-20 \"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "f06da601-d2e5-45a6-9a43-661d001313c6",
+              "name": "Forbidden",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "entries_deletions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "task_ids",
+                      "value": "12,13,32"
+                    },
+                    {
+                      "key": "user_ids",
+                      "value": "45,55,64"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "from",
+                      "value": "2020-02-02"
+                    },
+                    {
+                      "key": "to",
+                      "value": "2020-02-02"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"you do not have permissions to get task with id {taskId} (you can set yourself as Time Tracking Administrator or Project Manager)\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "81349c0f-aa9e-4da9-9d5f-e9eba3f341cd",
+          "name": "Get time entries",
+          "request": {
+            "name": "Get time entries",
+            "description": {
+              "content": "Get time entry or entries.\n\nIf both `modify_from` and `modify_to` parameters are provided, `from` and `to` are not required.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "entries"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "billable",
+                  "value": "<boolean>",
+                  "description": "get billable entries"
+                },
+                {
+                  "disabled": false,
+                  "key": "from",
+                  "value": "<date>",
+                  "description": "(Required) from date in `YYYY-MM-DD` format"
+                },
+                {
+                  "disabled": false,
+                  "key": "to",
+                  "value": "<date>",
+                  "description": "(Required) to date in `YYYY-MM-DD` format"
+                },
+                {
+                  "disabled": false,
+                  "key": "modify_from",
+                  "value": "<date>",
+                  "description": "minimal latest modification date in `YYYY-MM-DD` format"
+                },
+                {
+                  "disabled": false,
+                  "key": "modify_to",
+                  "value": "<date>",
+                  "description": "maximal latest modification date in `YYYY-MM-DD` format"
+                },
+                {
+                  "disabled": false,
+                  "key": "tags_filter[items][][tag]",
+                  "value": "<integer>",
+                  "description": "filter entries with tag id"
+                },
+                {
+                  "disabled": false,
+                  "key": "approvalMode",
+                  "value": "<boolean>",
+                  "description": "get only users that user has acl permissions for"
+                },
+                {
+                  "disabled": false,
+                  "key": "opt_fields",
+                  "value": "<string>",
+                  "description": "include fields like `tags` or `breadcrumbs`"
+                },
+                {
+                  "disabled": false,
+                  "key": "include_project",
+                  "value": "<boolean>",
+                  "description": "include project/task information"
+                },
+                {
+                  "disabled": false,
+                  "key": "include_rates",
+                  "value": "<boolean>",
+                  "description": "include rates"
+                },
+                {
+                  "disabled": false,
+                  "key": "with_subtasks",
+                  "value": "<boolean>",
+                  "description": "include subtasks"
+                },
+                {
+                  "disabled": false,
+                  "key": "ignoreInvoiced",
+                  "value": "<boolean>",
+                  "description": "ignore invoiced entries"
+                },
+                {
+                  "disabled": false,
+                  "key": "round_duration",
+                  "value": "<boolean>",
+                  "description": "round entry duration"
+                },
+                {
+                  "disabled": false,
+                  "key": "active_only",
+                  "value": "<boolean>",
+                  "description": "return active entries only, only when `with_subtask` = `true`"
+                },
+                {
+                  "disabled": false,
+                  "key": "user_ids",
+                  "value": "<string>",
+                  "description": "get entries of given user ids"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "90df6585-4d34-4a6a-82ce-af68be1b8a8f",
+              "name": "OK response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "entries"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "billable",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "from",
+                      "value": "2021-03-01"
+                    },
+                    {
+                      "key": "to",
+                      "value": "2021-03-11"
+                    },
+                    {
+                      "key": "modify_from",
+                      "value": "2022-02-06"
+                    },
+                    {
+                      "key": "modify_to",
+                      "value": "2022-02-12"
+                    },
+                    {
+                      "key": "tags_filter[items][][tag]",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "approvalMode",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "opt_fields",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "include_project",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "include_rates",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "with_subtasks",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "ignoreInvoiced",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "round_duration",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "active_only",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "user_ids",
+                      "value": "`me` for your entries or user_ids like `123,5213,1223`"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": 77181352,\n  \"duration\": \"2700\",\n  \"user_id\": \"123\",\n  \"user_name\": \"John Kowalski\",\n  \"task_id\": \"51218281\",\n  \"last_modify\": \"2020-02-02 00:03:50\",\n  \"date\": \"2020-02-03\",\n  \"start_time\": \"09:00:00\",\n  \"end_time\": \"09:45:00\",\n  \"locked\": \"0\",\n  \"name\": \"Development projects\",\n  \"addons_external_id\": \"\",\n  \"billable\": 1,\n  \"invoiceId\": \"0\",\n  \"color\": \"#5DCB73\",\n  \"description\": \"my description\",\n  \"tags\": [\n    {\n      \"tagListName\": \"tagList\",\n      \"tagListId\": \"8\",\n      \"tagId\": \"13\",\n      \"name\": \"Dev\",\n      \"mandatory\": \"0\"\n    }\n  ],\n  \"hasEntryLocationHistory\": false\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "b026a1e5-1e42-49cd-8d5e-6c4aa2d5b090",
+              "name": "When given `user_ids` are not found empty response is retured with code 403. 403 is also returned when you don't have sufficient permissions.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "entries"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "billable",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "from",
+                      "value": "2021-03-01"
+                    },
+                    {
+                      "key": "to",
+                      "value": "2021-03-11"
+                    },
+                    {
+                      "key": "modify_from",
+                      "value": "2022-02-06"
+                    },
+                    {
+                      "key": "modify_to",
+                      "value": "2022-02-12"
+                    },
+                    {
+                      "key": "tags_filter[items][][tag]",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "approvalMode",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "opt_fields",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "include_project",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "include_rates",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "with_subtasks",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "ignoreInvoiced",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "round_duration",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "active_only",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "user_ids",
+                      "value": "`me` for your entries or user_ids like `123,5213,1223`"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "\"[]\"",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "befe33eb-16c9-42d7-aa36-4f75ff869ce2",
+          "name": "Delete time entry",
+          "request": {
+            "name": "Delete time entry",
+            "description": {
+              "content": "Delete time entries.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "entries"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"id\": \"<integer>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "55fd71d4-c019-470f-be05-6d3176fb01fb",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "entries"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"id\": \"<integer>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"removed\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "b14e027d-e911-411f-9037-e6007ce57fb9",
+              "name": "No Content",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "entries"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"id\": \"<integer>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"No such entry\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "f7d659b8-f73f-445a-91c3-b6b38c4027fd",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "entries"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"id\": \"<integer>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"Missing entry ID\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "dfe5737e-8823-4b4d-839a-dffd2026a0c5",
+              "name": "Forbidden",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "entries"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"id\": \"<integer>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"You can't edit time entry, because it is in approved or pending timesheet approval.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "a46f3fd0-fa70-498a-8974-34ace7b1f947",
+          "name": "Create time entry",
+          "request": {
+            "name": "Create time entry",
+            "description": {
+              "content": "Create time entry.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "entries"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"date\": \"<string>\",\n  \"get_entries\": \"<integer>\",\n  \"start\": \"<string>\",\n  \"start_time\": \"<string>\",\n  \"end\": \"<string>\",\n  \"end_time\": \"<string>\",\n  \"duration\": \"<integer>\",\n  \"user_id\": \"<string>\",\n  \"task_id\": \"<number>\",\n  \"tags\": [\n    {\n      \"tagId\": \"<integer>\"\n    },\n    {\n      \"tagId\": \"<integer>\"\n    }\n  ],\n  \"note\": \"<string>\",\n  \"description\": \"<string>\",\n  \"billable\": \"<boolean>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "210a8fd0-bb44-4ab8-83ef-c25a2c8c4e53",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "entries"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"date\": \"2021-03-02\",\n  \"get_entries\": \"<integer>\",\n  \"start\": \"2020-02-02 13:05:47\",\n  \"start_time\": \"2020-02-02 13:05:47\",\n  \"end\": \"2020-02-02 15:21:31\",\n  \"end_time\": \"2020-02-02 15:21:31\",\n  \"duration\": 7200,\n  \"user_id\": \"<string>\",\n  \"task_id\": 1523,\n  \"tags\": [\n    {\n      \"tagId\": \"<integer>\"\n    },\n    {\n      \"tagId\": \"<integer>\"\n    }\n  ],\n  \"note\": \"<string>\",\n  \"description\": \"<string>\",\n  \"billable\": true\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"entry_id\": 1563234\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "5e38f818-c010-4df3-bca2-a3e1cc8e17c9",
+              "name": "Bad request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "entries"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"date\": \"2021-03-02\",\n  \"get_entries\": \"<integer>\",\n  \"start\": \"2020-02-02 13:05:47\",\n  \"start_time\": \"2020-02-02 13:05:47\",\n  \"end\": \"2020-02-02 15:21:31\",\n  \"end_time\": \"2020-02-02 15:21:31\",\n  \"duration\": 7200,\n  \"user_id\": \"<string>\",\n  \"task_id\": 1523,\n  \"tags\": [\n    {\n      \"tagId\": \"<integer>\"\n    },\n    {\n      \"tagId\": \"<integer>\"\n    }\n  ],\n  \"note\": \"<string>\",\n  \"description\": \"<string>\",\n  \"billable\": true\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"You must provide a date for the time entry\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "3b290733-9e05-4cff-83cc-2b18ac1d2c86",
+              "name": "Forbidden",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "entries"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"date\": \"2021-03-02\",\n  \"get_entries\": \"<integer>\",\n  \"start\": \"2020-02-02 13:05:47\",\n  \"start_time\": \"2020-02-02 13:05:47\",\n  \"end\": \"2020-02-02 15:21:31\",\n  \"end_time\": \"2020-02-02 15:21:31\",\n  \"duration\": 7200,\n  \"user_id\": \"<string>\",\n  \"task_id\": 1523,\n  \"tags\": [\n    {\n      \"tagId\": \"<integer>\"\n    },\n    {\n      \"tagId\": \"<integer>\"\n    }\n  ],\n  \"note\": \"<string>\",\n  \"description\": \"<string>\",\n  \"billable\": true\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"Sorry, you don’t have permissions to track time as a guest\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "63ccaff2-e259-41cb-b2c6-48b79027d59e",
+          "name": "Update time entry",
+          "request": {
+            "name": "Update time entry",
+            "description": {
+              "content": "Update time entries.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "entries"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"id\": \"<integer>\",\n  \"start_time\": \"<string>\",\n  \"end_time\": \"<string>\",\n  \"duration\": \"<integer>\",\n  \"date\": \"<string>\",\n  \"note\": \"<string>\",\n  \"description\": \"<string>\",\n  \"invoiceId\": \"<integer>\",\n  \"task_id\": \"<integer>\",\n  \"billable\": \"<boolean>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "7d62e595-5c26-4e58-86b5-c0eea2c964b1",
+              "name": "OK response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "entries"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"id\": 52321,\n  \"start_time\": \"14:03:21\",\n  \"end_time\": \"16:02:15\",\n  \"duration\": \"<integer>\",\n  \"date\": \"2021-03-06\",\n  \"note\": \"<string>\",\n  \"description\": \"<string>\",\n  \"invoiceId\": \"<integer>\",\n  \"task_id\": \"<integer>\",\n  \"billable\": true\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"time_span\": 1800,\n  \"entry_id\": \"10544326\",\n  \"user_id\": \"425\",\n  \"date\": \"2020-02-02\",\n  \"task_id\": \"0\",\n  \"locked\": \"0\",\n  \"last_modify\": \"2021-03-10 10:21:40\",\n  \"note\": \"\",\n  \"start_time_hour\": \"13:05:47\",\n  \"end_time_hour\": \"14:24:41\",\n  \"invoiceId\": \"0\",\n  \"billable\": \"0\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "63ede79a-7b2f-4afd-8dc2-b7fcabd2fa08",
+              "name": "some examples of Bad Request responses",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "entries"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"id\": 52321,\n  \"start_time\": \"14:03:21\",\n  \"end_time\": \"16:02:15\",\n  \"duration\": \"<integer>\",\n  \"date\": \"2021-03-06\",\n  \"note\": \"<string>\",\n  \"description\": \"<string>\",\n  \"invoiceId\": \"<integer>\",\n  \"task_id\": \"<integer>\",\n  \"billable\": true\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"unrecognized {format_name} format\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "acf60b9f-99b1-4b4c-9f01-a138e851c700",
+              "name": "some examples of Forbidden response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "entries"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"id\": 52321,\n  \"start_time\": \"14:03:21\",\n  \"end_time\": \"16:02:15\",\n  \"duration\": \"<integer>\",\n  \"date\": \"2021-03-06\",\n  \"note\": \"<string>\",\n  \"description\": \"<string>\",\n  \"invoiceId\": \"<integer>\",\n  \"task_id\": \"<integer>\",\n  \"billable\": true\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"You can't edit time entry, because it is in approved or pending timesheet approval.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "c2c14ad3-beab-41b9-b948-88e02e16c24b",
+          "name": "Get logged time in a week",
+          "request": {
+            "name": "Get logged time in a week",
+            "description": {
+              "content": "This endpoint gets a `day` and returns array with summarized entries time per day for this week. The time is returned in seconds.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "logged_time_in_week"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "day",
+                  "value": "<string>",
+                  "description": "(Required) day in `YYYY-MM-DD` format"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "9e5eab71-a579-4744-b465-4d0e941c8fb8",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "logged_time_in_week"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "day",
+                      "value": "2019-12-07"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"2019-12-02\": 17130,\n  \"2019-12-03\": 27300,\n  \"2019-12-04\": 36365,\n  \"2019-12-05\": 198900,\n  \"2019-12-06\": 27300,\n  \"2019-12-07\": 4835,\n  \"2019-12-08\": 1800\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://app.timecamp.com/third_party/api",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "b95f28fa-48e7-4adc-9479-6c2214760fed",
+    "name": "TimeCamp [v1] Approvals [v1] Approvals [v1] Entry API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Documentation for the TimeCamp system.\n\nGet your API token here:\nhttps://app.timecamp.com/app#/settings/users/me\n\nBe aware that you can reach API calls limit. Once you do you will get HTTP code 429 response.\n\nRequest example:\n\n```\nGET https://app.timecamp.com/third_party/api/user?user_id=1234567\n\nHeaders:\nAuthorization: Bearer 87c21299960a88888888fe123\nAccept: application/json\n```\n\n\nContact Support:\n Email: support@timecamp.com",
+      "type": "text/plain"
+    }
+  }
+}

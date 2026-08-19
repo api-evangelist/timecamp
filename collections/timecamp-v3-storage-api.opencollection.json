@@ -1,0 +1,69 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "TimeCamp [v1] Approvals [v1] Approvals [v3] Storage API",
+    "version": "1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "[v3] Storage",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Storage get file",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://app.timecamp.com/third_party/api/v3/storage/download/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Storage get file"
+        },
+        {
+          "info": {
+            "name": "Get the list of files from the user's main group",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://app.timecamp.com/third_party/api/v3/storage/file/list/root-group",
+            "params": [
+              {
+                "name": "createdFrom",
+                "value": "",
+                "type": "query",
+                "description": "Optional timestamp from which files are searched. ISO 8601 format"
+              },
+              {
+                "name": "createdTo",
+                "value": "",
+                "type": "query",
+                "description": "Optional timestamp to which files are searched. ISO 8601 format"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Get the list of files from the user's main group"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

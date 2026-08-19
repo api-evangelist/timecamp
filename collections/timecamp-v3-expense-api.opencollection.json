@@ -1,0 +1,377 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "TimeCamp [v1] Approvals [v1] Approvals [v3] Expense API",
+    "version": "1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "[v3] Expense",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Update expense category",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://app.timecamp.com/third_party/api/v3/expense/category/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": " "
+        },
+        {
+          "info": {
+            "name": "List expense category",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://app.timecamp.com/third_party/api/v3/expense/category",
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "List expense category"
+        },
+        {
+          "info": {
+            "name": "Create expense category",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://app.timecamp.com/third_party/api/v3/expense/category",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": " "
+        },
+        {
+          "info": {
+            "name": "Archive expense category",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://app.timecamp.com/third_party/api/v3/expense/category/:id/archive",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Archive expense category"
+        },
+        {
+          "info": {
+            "name": "List expense",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://app.timecamp.com/third_party/api/v3/expense/list",
+            "params": [
+              {
+                "name": "timeFrameStart",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "timeFrameEnd",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "taskIds",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "expenseCategoryIds",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "invoiced",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "billable",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "invoiceId",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "sortOrder",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "sortBy",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "List expense"
+        },
+        {
+          "info": {
+            "name": "List expense",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://app.timecamp.com/third_party/api/v3/expense/list",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "List expense"
+        },
+        {
+          "info": {
+            "name": "Create expense",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://app.timecamp.com/third_party/api/v3/expense",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Create expense"
+        },
+        {
+          "info": {
+            "name": "Update expense",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://app.timecamp.com/third_party/api/v3/expense/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Update expense"
+        },
+        {
+          "info": {
+            "name": "Delete expense",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://app.timecamp.com/third_party/api/v3/expense/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Delete expense"
+        },
+        {
+          "info": {
+            "name": "Upload expense attachment",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://app.timecamp.com/third_party/api/v3/expense/:id/attachment/upload",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "multipart-form",
+              "data": [
+                {
+                  "name": "file",
+                  "type": "text",
+                  "value": ""
+                }
+              ]
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Upload expense attachment"
+        },
+        {
+          "info": {
+            "name": "Get expense attachment",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://app.timecamp.com/third_party/api/v3/expense/:id/attachment",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Get expense attachment"
+        },
+        {
+          "info": {
+            "name": "Delete expense attachment",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://app.timecamp.com/third_party/api/v3/expense/:id/attachment/:id_attachment/delete",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "id_attachment",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Delete expense attachment"
+        },
+        {
+          "info": {
+            "name": "Invoice unassign from expense",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://app.timecamp.com/third_party/api/v3/expense/invoice/unassign",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Invoice unassign from expense"
+        },
+        {
+          "info": {
+            "name": "Invoice assign to expense",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://app.timecamp.com/third_party/api/v3/expense/invoice/assign",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Invoice assign to expense"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

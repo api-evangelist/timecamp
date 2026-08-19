@@ -1,0 +1,78 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "TimeCamp [v1] Approvals [v1] Approvals [v3] Time Entry Restriction API",
+    "version": "1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "[v3] Time Entry Restriction",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List restrictions",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://app.timecamp.com/third_party/api/v3/time-entry-restriction/list",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "List all time entry restriction filtered by given params. An additional setting must be enabled for this endpoint to work - please contact support if you would like us to enable it."
+        },
+        {
+          "info": {
+            "name": "Create Time Entry restriction",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://app.timecamp.com/third_party/api/v3/time-entry-restriction",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Create specific restriction. An additional setting must be enabled for this endpoint to work - please contact support if you would like us to enable it."
+        },
+        {
+          "info": {
+            "name": "Delete Time Entry restriction",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://app.timecamp.com/third_party/api/v3/time-entry-restriction/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Delete specific restriction. If you don't know id of restriction you want to delete see time-entry-restriction/list endpoint. An additional setting must be enabled for this endpoint to work - please contact support if you would like us to enable it."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

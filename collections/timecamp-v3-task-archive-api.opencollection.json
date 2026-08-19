@@ -1,0 +1,56 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "TimeCamp [v1] Approvals [v1] Approvals [v3] Task Archive API",
+    "version": "1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "[v3] Task Archive",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Archive a batch of tasks",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://app.timecamp.com/third_party/api/v3/task-archive/archive-batch",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Queues multiple active tasks for archiving. Tasks that are already archived are skipped.\n"
+        },
+        {
+          "info": {
+            "name": "Restore a batch of archived tasks and their parent hierarchy",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://app.timecamp.com/third_party/api/v3/task-archive/restore-batch",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Restores a batch of archived tasks. When restoring tasks, their parent tasks (if archived) will also be restored to maintain task tree consistency. However, siblings of restored tasks will remain archived unless explicitly included in the batch. This endpoint ensures that the recalculation of the task tree hierarchy is performed once per batch, preventing inconsistencies and race conditions that may occur if multiple single-task restore requests are made concurrently.\n"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,254 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "TimeCamp [v1] Approvals [v1] Approvals [v1] Billing Rates API",
+    "version": "1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "[v1] Billing Rates",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get billing rate for task",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://app.timecamp.com/third_party/api/task/:task_id/rate",
+            "params": [
+              {
+                "name": "task_id",
+                "value": "",
+                "type": "path",
+                "description": "task id"
+              },
+              {
+                "name": "rate_id",
+                "value": "",
+                "type": "query",
+                "description": "rateTypeId to get (can be empty, `all` or comma-separated)"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Returns all billing rates for given `task_id` or returns specific `rate_id` data for given `task_id`."
+        },
+        {
+          "info": {
+            "name": "Update/create billing rate for task",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://app.timecamp.com/third_party/api/task/:task_id/rate",
+            "params": [
+              {
+                "name": "task_id",
+                "value": "",
+                "type": "path",
+                "description": "task id"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "This endpoint updates value or creates new rate for given `rateTypeId` and `task_id`."
+        },
+        {
+          "info": {
+            "name": "Get billing rate for user",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://app.timecamp.com/third_party/api/user/:user_id/rate",
+            "params": [
+              {
+                "name": "user_id",
+                "value": "",
+                "type": "path",
+                "description": "user id or comma-separated users ids"
+              },
+              {
+                "name": "rate_id",
+                "value": "",
+                "type": "query",
+                "description": "rateTypeId or comma-separated rateTypeIds"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Returns billing rate for given user or users."
+        },
+        {
+          "info": {
+            "name": "Update/create billing rate for user",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://app.timecamp.com/third_party/api/user/:user_id/rate",
+            "params": [
+              {
+                "name": "user_id",
+                "value": "",
+                "type": "path",
+                "description": "user id or comma-separated users ids"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "This endpoint updates value or creates new rate for given `rateTypeId` and `user_id`."
+        },
+        {
+          "info": {
+            "name": "Get billing rate for \"task user\"",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://app.timecamp.com/third_party/api/task/:task_id/user/:user_id/rate",
+            "params": [
+              {
+                "name": "task_id",
+                "value": "",
+                "type": "path",
+                "description": "task id"
+              },
+              {
+                "name": "user_id",
+                "value": "",
+                "type": "path",
+                "description": "user id or comma-separated users ids or \"all\""
+              },
+              {
+                "name": "rate_id",
+                "value": "",
+                "type": "query",
+                "description": "rateTypeId to get (can be empty, `all` or comma-separated)"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Returns all billing rates for given `task_id` and `user_id` or returns specific `rate_id` data for given `task_id` and `user_id`."
+        },
+        {
+          "info": {
+            "name": "Update/create billing rate for \"task user\"",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://app.timecamp.com/third_party/api/task/:task_id/user/:user_id/rate",
+            "params": [
+              {
+                "name": "task_id",
+                "value": "",
+                "type": "path",
+                "description": "task id"
+              },
+              {
+                "name": "user_id",
+                "value": "",
+                "type": "path",
+                "description": "user id or comma-separated users ids or \"all\""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "This endpoint updates value or creates new rate for given `rateTypeId` and `task_id`."
+        },
+        {
+          "info": {
+            "name": "Get billing rate for group",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://app.timecamp.com/third_party/api/group/:group_id/rate",
+            "params": [
+              {
+                "name": "group_id",
+                "value": "",
+                "type": "path",
+                "description": "group id"
+              },
+              {
+                "name": "rate_id",
+                "value": "",
+                "type": "query",
+                "description": "rateTypeId to get (can be empty, `all` or comma-separated)"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Returns all billing rates for given `group_id` or returns specific `rate_id` data for given `group_id`."
+        },
+        {
+          "info": {
+            "name": "Update/create billing rate for group",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://app.timecamp.com/third_party/api/group/:group_id/rate",
+            "params": [
+              {
+                "name": "group_id",
+                "value": "",
+                "type": "path",
+                "description": "group id"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "This endpoint updates value or creates new rate for given `rateTypeId` and `group_id`."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

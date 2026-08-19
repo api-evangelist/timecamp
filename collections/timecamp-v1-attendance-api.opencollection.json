@@ -1,0 +1,177 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "TimeCamp [v1] Approvals [v1] Approvals [v1] Attendance API",
+    "version": "1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "[v1] Attendance",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get attendance",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://app.timecamp.com/third_party/api/attendance",
+            "headers": [
+              {
+                "name": "Accept",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "from",
+                "value": "",
+                "type": "query",
+                "description": "date in `YYYY-MM-DD` format"
+              },
+              {
+                "name": "to",
+                "value": "",
+                "type": "query",
+                "description": "date in `YYYY-MM-DD` format"
+              },
+              {
+                "name": "users",
+                "value": "",
+                "type": "query",
+                "description": "user Id's separated by coma"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Get attendance"
+        },
+        {
+          "info": {
+            "name": "Retrieves day types declared by users in given timeframe",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://app.timecamp.com/third_party/api/attendance/day_type",
+            "headers": [
+              {
+                "name": "Accept",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "from",
+                "value": "",
+                "type": "query",
+                "description": "date in `YYYY-MM-DD` format"
+              },
+              {
+                "name": "to",
+                "value": "",
+                "type": "query",
+                "description": "date in `YYYY-MM-DD` format"
+              },
+              {
+                "name": "usersIds",
+                "value": "",
+                "type": "query",
+                "description": "user Id's separated by comma"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Get day types for giver period for team"
+        },
+        {
+          "info": {
+            "name": "Retrieve attendance data for a user within a date range",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://app.timecamp.com/third_party/api/attendance/:userId/user",
+            "params": [
+              {
+                "name": "userId",
+                "value": "",
+                "type": "path",
+                "description": "ID of the user whose attendance is being retrieved"
+              },
+              {
+                "name": "start",
+                "value": "",
+                "type": "query",
+                "description": "Start date in YYYY-MM-DD format"
+              },
+              {
+                "name": "end",
+                "value": "",
+                "type": "query",
+                "description": "End date in YYYY-MM-DD format"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Retrieve attendance data for a user within a date range"
+        },
+        {
+          "info": {
+            "name": "Insert or update user attendance records",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://app.timecamp.com/third_party/api/attendance/:userId/user",
+            "params": [
+              {
+                "name": "userId",
+                "value": "",
+                "type": "path",
+                "description": "ID of the user whose attendance is being updated"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Inserts or updates attendance records for a user. Each entry corresponds to one day.\nThe `shouldBe` and `vacationTime` fields are optional.\n\n**Important:** The date range constraint does not mean a limit of 100 entries, but rather that the maximum range between the earliest and latest dates in the payload must not exceed 100 days.\n"
+        },
+        {
+          "info": {
+            "name": "Retrieve all possible day types for attendance",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://app.timecamp.com/third_party/api/attendance/day_types",
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Returns a list of all possible day types to declare in attendance."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

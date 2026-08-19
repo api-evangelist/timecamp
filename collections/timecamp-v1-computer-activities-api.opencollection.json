@@ -1,0 +1,53 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "TimeCamp [v1] Approvals [v1] Approvals [v1] Computer Activities API",
+    "version": "1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "[v1] Computer Activities",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get computer activities",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://app.timecamp.com/third_party/api/activity",
+            "params": [
+              {
+                "name": "user_id",
+                "value": "",
+                "type": "query",
+                "description": "user ids separated by commas"
+              },
+              {
+                "name": "dates[]",
+                "value": "",
+                "type": "query",
+                "description": "dates (you can provide max 20 dates)"
+              },
+              {
+                "name": "include",
+                "value": "",
+                "type": "query",
+                "description": "Join additional data to result, possible options are: application and window_title"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Get computer activities."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

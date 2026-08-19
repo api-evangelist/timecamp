@@ -1,0 +1,318 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "TimeCamp [v1] Approvals [v1] Approvals [v1] Entry API",
+    "version": "1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "[v1] Entry",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Merge time entries",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://app.timecamp.com/third_party/api/entries_merge",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Merge two time entries into one."
+        },
+        {
+          "info": {
+            "name": "Get time entries changes",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://app.timecamp.com/third_party/api/entries_changes",
+            "params": [
+              {
+                "name": "task_ids",
+                "value": "",
+                "type": "query",
+                "description": "entry task id or ids"
+              },
+              {
+                "name": "user_ids",
+                "value": "",
+                "type": "query",
+                "description": "entry user id or ids"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "number of results to get, if empty then get all of them"
+              },
+              {
+                "name": "from",
+                "value": "",
+                "type": "query",
+                "description": "date in `YYYY-MM-DD` format"
+              },
+              {
+                "name": "to",
+                "value": "",
+                "type": "query",
+                "description": "date in `YYYY-MM-DD` format"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Get time enties changes."
+        },
+        {
+          "info": {
+            "name": "Get time entries deletions",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://app.timecamp.com/third_party/api/entries_deletions",
+            "params": [
+              {
+                "name": "task_ids",
+                "value": "",
+                "type": "query",
+                "description": "entry task id or ids"
+              },
+              {
+                "name": "user_ids",
+                "value": "",
+                "type": "query",
+                "description": "entry user id or ids"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "number of results to get, if empty then get all of them"
+              },
+              {
+                "name": "from",
+                "value": "",
+                "type": "query",
+                "description": "date in `YYYY-MM-DD` format"
+              },
+              {
+                "name": "to",
+                "value": "",
+                "type": "query",
+                "description": "date in `YYYY-MM-DD` format"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Get time enties deletions."
+        },
+        {
+          "info": {
+            "name": "Get time entries",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://app.timecamp.com/third_party/api/entries",
+            "params": [
+              {
+                "name": "billable",
+                "value": "",
+                "type": "query",
+                "description": "get billable entries"
+              },
+              {
+                "name": "from",
+                "value": "",
+                "type": "query",
+                "description": "from date in `YYYY-MM-DD` format"
+              },
+              {
+                "name": "to",
+                "value": "",
+                "type": "query",
+                "description": "to date in `YYYY-MM-DD` format"
+              },
+              {
+                "name": "modify_from",
+                "value": "",
+                "type": "query",
+                "description": "minimal latest modification date in `YYYY-MM-DD` format"
+              },
+              {
+                "name": "modify_to",
+                "value": "",
+                "type": "query",
+                "description": "maximal latest modification date in `YYYY-MM-DD` format"
+              },
+              {
+                "name": "tags_filter[items][][tag]",
+                "value": "",
+                "type": "query",
+                "description": "filter entries with tag id"
+              },
+              {
+                "name": "approvalMode",
+                "value": "",
+                "type": "query",
+                "description": "get only users that user has acl permissions for"
+              },
+              {
+                "name": "opt_fields",
+                "value": "",
+                "type": "query",
+                "description": "include fields like `tags` or `breadcrumbs`"
+              },
+              {
+                "name": "include_project",
+                "value": "",
+                "type": "query",
+                "description": "include project/task information"
+              },
+              {
+                "name": "include_rates",
+                "value": "",
+                "type": "query",
+                "description": "include rates"
+              },
+              {
+                "name": "with_subtasks",
+                "value": "",
+                "type": "query",
+                "description": "include subtasks"
+              },
+              {
+                "name": "ignoreInvoiced",
+                "value": "",
+                "type": "query",
+                "description": "ignore invoiced entries"
+              },
+              {
+                "name": "round_duration",
+                "value": "",
+                "type": "query",
+                "description": "round entry duration"
+              },
+              {
+                "name": "active_only",
+                "value": "",
+                "type": "query",
+                "description": "return active entries only, only when `with_subtask` = `true`"
+              },
+              {
+                "name": "user_ids",
+                "value": "",
+                "type": "query",
+                "description": "get entries of given user ids"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Get time entry or entries.\n\nIf both `modify_from` and `modify_to` parameters are provided, `from` and `to` are not required."
+        },
+        {
+          "info": {
+            "name": "Create time entry",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://app.timecamp.com/third_party/api/entries",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Create time entry."
+        },
+        {
+          "info": {
+            "name": "Update time entry",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://app.timecamp.com/third_party/api/entries",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Update time entries."
+        },
+        {
+          "info": {
+            "name": "Delete time entry",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://app.timecamp.com/third_party/api/entries",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Delete time entries."
+        },
+        {
+          "info": {
+            "name": "Get logged time in a week",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://app.timecamp.com/third_party/api/logged_time_in_week",
+            "params": [
+              {
+                "name": "day",
+                "value": "",
+                "type": "query",
+                "description": "day in `YYYY-MM-DD` format"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "This endpoint gets a `day` and returns array with summarized entries time per day for this week. The time is returned in seconds."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,1035 @@
+{
+  "item": [
+    {
+      "id": "6ae41aab-55a0-4d95-96b7-b18af8821752",
+      "name": "[v1] Attendance",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "9b542935-eb6c-4a1e-a437-9486231dc2db",
+          "name": "Get attendance",
+          "request": {
+            "name": "Get attendance",
+            "description": {
+              "content": "Get attendance",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "attendance"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "from",
+                  "value": "<string>",
+                  "description": "(Required) date in `YYYY-MM-DD` format"
+                },
+                {
+                  "disabled": false,
+                  "key": "to",
+                  "value": "<string>",
+                  "description": "(Required) date in `YYYY-MM-DD` format"
+                },
+                {
+                  "disabled": false,
+                  "key": "users",
+                  "value": "<string>",
+                  "description": "user Id's separated by coma"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "f0eea749-8439-4ffb-9919-ebe4fcc71b17",
+              "name": "OK - even if no attendance match given filters, an empty array is returned",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "attendance"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "from",
+                      "value": "2021-03-01"
+                    },
+                    {
+                      "key": "to",
+                      "value": "2021-03-05"
+                    },
+                    {
+                      "key": "users",
+                      "value": "1234,321,4567"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Header for json data format",
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"user_id\": \"640\",\n    \"user_name\": \"Test User\",\n    \"start_time\": \"12:38:05\",\n    \"end_time\": \"17:46:45\",\n    \"total_time\": \"2717\",\n    \"date\": \"2021-12-01\"\n  },\n  {\n    \"user_id\": \"1933\",\n    \"user_name\": \"Test User2\",\n    \"start_time\": \"08:24:31\",\n    \"end_time\": \"18:10:37\",\n    \"total_time\": \"27359\",\n    \"date\": \"2021-12-01\"\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "18015a4d-4c7a-4eb5-a76c-1ca2cfb506a8",
+          "name": "Retrieves day types declared by users in given timeframe",
+          "request": {
+            "name": "Retrieves day types declared by users in given timeframe",
+            "description": {
+              "content": "Get day types for giver period for team",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "attendance",
+                "day_type"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "from",
+                  "value": "<string>",
+                  "description": "(Required) date in `YYYY-MM-DD` format"
+                },
+                {
+                  "disabled": false,
+                  "key": "to",
+                  "value": "<string>",
+                  "description": "(Required) date in `YYYY-MM-DD` format"
+                },
+                {
+                  "disabled": false,
+                  "key": "usersIds",
+                  "value": "<string>",
+                  "description": "user Id's separated by comma"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "842c39bf-1514-476d-94c2-149fd29f680b",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "attendance",
+                    "day_type"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "from",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "to",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "usersIds",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Header for json data format",
+                    "key": "Accept",
+                    "value": "string"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "675fe04a-0c08-4fe9-84d3-df3360608fbc",
+          "name": "Retrieve attendance data for a user within a date range",
+          "request": {
+            "name": "Retrieve attendance data for a user within a date range",
+            "description": {},
+            "url": {
+              "path": [
+                "attendance",
+                ":userId",
+                "user"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "start",
+                  "value": "<date>",
+                  "description": "(Required) Start date in YYYY-MM-DD format"
+                },
+                {
+                  "disabled": false,
+                  "key": "end",
+                  "value": "<date>",
+                  "description": "(Required) End date in YYYY-MM-DD format"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "userId",
+                  "description": "(Required) ID of the user whose attendance is being retrieved"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "5be0bd9c-c313-4c65-b09d-f492f19bdad1",
+              "name": "Successfully retrieved attendance data",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "attendance",
+                    ":userId",
+                    "user"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "start",
+                      "value": "<date>"
+                    },
+                    {
+                      "key": "end",
+                      "value": "<date>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "userId",
+                      "description": "(Required) ID of the user whose attendance is being retrieved"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"key_0\": {\n      \"userId\": 8277,\n      \"day\": \"1978-12-02\",\n      \"dayTypeId\": 6788,\n      \"dayType\": \"string\",\n      \"shouldBe\": 7368,\n      \"vacationTime\": 9069\n    },\n    \"key_1\": {\n      \"userId\": 2310,\n      \"day\": \"2025-11-05\",\n      \"dayTypeId\": 5281,\n      \"dayType\": \"string\",\n      \"shouldBe\": 6605,\n      \"vacationTime\": 2452\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "20e3d15d-b379-47eb-b36d-1a15d527ed63",
+              "name": "Bad request due to missing or invalid parameters",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "attendance",
+                    ":userId",
+                    "user"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "start",
+                      "value": "<date>"
+                    },
+                    {
+                      "key": "end",
+                      "value": "<date>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "userId",
+                      "description": "(Required) ID of the user whose attendance is being retrieved"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"error\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "0b3c767d-4772-4880-a08a-9a3ce819c76b",
+              "name": "Forbidden access due to permissions or disabled module",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "attendance",
+                    ":userId",
+                    "user"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "start",
+                      "value": "<date>"
+                    },
+                    {
+                      "key": "end",
+                      "value": "<date>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "userId",
+                      "description": "(Required) ID of the user whose attendance is being retrieved"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"error\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "4196bfce-d722-4424-afb8-626fedcb283c",
+              "name": "User not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "attendance",
+                    ":userId",
+                    "user"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "start",
+                      "value": "<date>"
+                    },
+                    {
+                      "key": "end",
+                      "value": "<date>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "userId",
+                      "description": "(Required) ID of the user whose attendance is being retrieved"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"error\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "c58f2438-63be-4eb3-b303-9373ee1249a0",
+          "name": "Insert or update user attendance records",
+          "request": {
+            "name": "Insert or update user attendance records",
+            "description": {
+              "content": "Inserts or updates attendance records for a user. Each entry corresponds to one day.\nThe `shouldBe` and `vacationTime` fields are optional.\n\n**Important:** The date range constraint does not mean a limit of 100 entries, but rather that the maximum range between the earliest and latest dates in the payload must not exceed 100 days.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "attendance",
+                ":userId",
+                "user"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "userId",
+                  "description": "(Required) ID of the user whose attendance is being updated"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "[\n  {\n    \"day\": \"<date>\",\n    \"dayTypeId\": \"<integer>\",\n    \"shouldBe\": \"<integer>\",\n    \"vacationTime\": \"<integer>\"\n  },\n  {\n    \"day\": \"<date>\",\n    \"dayTypeId\": \"<integer>\",\n    \"shouldBe\": \"<integer>\",\n    \"vacationTime\": \"<integer>\"\n  }\n]",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "f55cf4ed-204e-4e40-920a-188f89a4b95f",
+              "name": "Attendance was updated successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "attendance",
+                    ":userId",
+                    "user"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "userId",
+                      "description": "(Required) ID of the user whose attendance is being updated"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "[\n  {\n    \"day\": \"2025-03-01\",\n    \"dayTypeId\": 12,\n    \"shouldBe\": 480,\n    \"vacationTime\": 0\n  },\n  {\n    \"day\": \"2025-03-01\",\n    \"dayTypeId\": 12,\n    \"shouldBe\": 480,\n    \"vacationTime\": 0\n  }\n]",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"Attendance was updated successfully.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "6f100d7e-e1f5-4777-890c-8be03f7da4d4",
+              "name": "Bad Request - Invalid payload",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "attendance",
+                    ":userId",
+                    "user"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "userId",
+                      "description": "(Required) ID of the user whose attendance is being updated"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "[\n  {\n    \"day\": \"2025-03-01\",\n    \"dayTypeId\": 12,\n    \"shouldBe\": 480,\n    \"vacationTime\": 0\n  },\n  {\n    \"day\": \"2025-03-01\",\n    \"dayTypeId\": 12,\n    \"shouldBe\": 480,\n    \"vacationTime\": 0\n  }\n]",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"Invalid payload.\",\n  \"error\": \"The provided date range exceeds the allowed limit of 100 days. Given range: 385 days.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "4e35417d-c043-4bca-9b10-91c8c510df2b",
+              "name": "Forbidden - Not allowed to modify attendance or attendance module is disabled",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "attendance",
+                    ":userId",
+                    "user"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "userId",
+                      "description": "(Required) ID of the user whose attendance is being updated"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "[\n  {\n    \"day\": \"2025-03-01\",\n    \"dayTypeId\": 12,\n    \"shouldBe\": 480,\n    \"vacationTime\": 0\n  },\n  {\n    \"day\": \"2025-03-01\",\n    \"dayTypeId\": 12,\n    \"shouldBe\": 480,\n    \"vacationTime\": 0\n  }\n]",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "8896a326-bf23-4a40-8ba9-28dcf5138b67",
+              "name": "Not Found - User was not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "attendance",
+                    ":userId",
+                    "user"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "userId",
+                      "description": "(Required) ID of the user whose attendance is being updated"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "[\n  {\n    \"day\": \"2025-03-01\",\n    \"dayTypeId\": 12,\n    \"shouldBe\": 480,\n    \"vacationTime\": 0\n  },\n  {\n    \"day\": \"2025-03-01\",\n    \"dayTypeId\": 12,\n    \"shouldBe\": 480,\n    \"vacationTime\": 0\n  }\n]",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "3ca141ee-dd94-40d3-a89d-a0dbed77a0f9",
+          "name": "Retrieve all possible day types for attendance",
+          "request": {
+            "name": "Retrieve all possible day types for attendance",
+            "description": {
+              "content": "Returns a list of all possible day types to declare in attendance.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "attendance",
+                "day_types"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "17b6ec03-820d-47c2-9982-ebe5e9a28402",
+              "name": "A list of day types.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "attendance",
+                    "day_types"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"key_0\": {\n      \"id\": 12,\n      \"slug\": \"normal\",\n      \"name\": \"Working Day\",\n      \"isDayOff\": false,\n      \"isDefault\": true,\n      \"isActive\": true,\n      \"options\": {\n        \"color\": \"eeeeee\"\n      }\n    },\n    \"key_1\": {\n      \"id\": 12,\n      \"slug\": \"normal\",\n      \"name\": \"Working Day\",\n      \"isDayOff\": false,\n      \"isDefault\": true,\n      \"isActive\": true,\n      \"options\": {\n        \"color\": \"eeeeee\"\n      }\n    },\n    \"key_2\": {\n      \"id\": 12,\n      \"slug\": \"normal\",\n      \"name\": \"Working Day\",\n      \"isDayOff\": false,\n      \"isDefault\": true,\n      \"isActive\": true,\n      \"options\": {\n        \"color\": \"eeeeee\"\n      }\n    },\n    \"key_3\": {\n      \"id\": 12,\n      \"slug\": \"normal\",\n      \"name\": \"Working Day\",\n      \"isDayOff\": false,\n      \"isDefault\": true,\n      \"isActive\": true,\n      \"options\": {\n        \"color\": \"eeeeee\"\n      }\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "9c119d5c-b160-4e50-b977-fce74da7fbae",
+              "name": "Forbidden - Attendance module is not enabled",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "attendance",
+                    "day_types"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://app.timecamp.com/third_party/api",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "a3bfb121-e087-41ad-998b-b6c1914ee0e5",
+    "name": "TimeCamp [v1] Approvals [v1] Approvals [v1] Attendance API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Documentation for the TimeCamp system.\n\nGet your API token here:\nhttps://app.timecamp.com/app#/settings/users/me\n\nBe aware that you can reach API calls limit. Once you do you will get HTTP code 429 response.\n\nRequest example:\n\n```\nGET https://app.timecamp.com/third_party/api/user?user_id=1234567\n\nHeaders:\nAuthorization: Bearer 87c21299960a88888888fe123\nAccept: application/json\n```\n\n\nContact Support:\n Email: support@timecamp.com",
+      "type": "text/plain"
+    }
+  }
+}

@@ -1,0 +1,96 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "TimeCamp [v1] Approvals [v1] Approvals [v3] Tags API",
+    "version": "1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "[v3] Tags",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Assign or update a tag list assignment for a task",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://app.timecamp.com/third_party/api/v3/task/:taskId/tag-list/:tagListId",
+            "headers": [
+              {
+                "name": "Accept",
+                "value": ""
+              },
+              {
+                "name": "Content-Type",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "taskId",
+                "value": "",
+                "type": "path",
+                "description": "Task ID the tag list assignment relates to."
+              },
+              {
+                "name": "tagListId",
+                "value": "",
+                "type": "path",
+                "description": "Tag list ID being assigned to or detached from the task."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Idempotent upsert of a direct assignment between a tag list and a task in the `tc_tt_task_tag_lists` table. If a direct row for the given pair `(taskId, tagListId)` already exists, only the `mandatory` flag is updated. If no direct row exists, a new one is created — even when the tag list is already inherited from an ancestor task. This mirrors legacy behaviour from `time_tracking/ajax_edit_save` (`TtModel::updateAssignedTags`) and allows a child task to override or extend an inherited tag list."
+        },
+        {
+          "info": {
+            "name": "Detach a tag list from a task",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://app.timecamp.com/third_party/api/v3/task/:taskId/tag-list/:tagListId",
+            "headers": [
+              {
+                "name": "Accept",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "taskId",
+                "value": "",
+                "type": "path",
+                "description": "Task ID the tag list assignment relates to."
+              },
+              {
+                "name": "tagListId",
+                "value": "",
+                "type": "path",
+                "description": "Tag list ID being assigned to or detached from the task."
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Idempotent deletion of the direct assignment row between a tag list and a task in `tc_tt_task_tag_lists`. Only the row with `task_id = taskId` is deleted; rows on ancestor tasks remain untouched, so an inherited tag list will still be visible via `getForTask` after this operation. Returns `204 No Content` even when no direct row existed (mirrors legacy `TtModel::removeTagList`)."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

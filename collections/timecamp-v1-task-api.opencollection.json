@@ -1,0 +1,254 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "TimeCamp [v1] Approvals [v1] Approvals [v1] Task API",
+    "version": "1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "[v1] Task",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get task info",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://app.timecamp.com/third_party/api/tasks",
+            "params": [
+              {
+                "name": "task_id",
+                "value": "",
+                "type": "query",
+                "description": "asks for specific task with `task_id` that is number, can be multiple tasks separated by ,"
+              },
+              {
+                "name": "external_task_id",
+                "value": "",
+                "type": "query",
+                "description": "asks for specific task with `external_task_id`"
+              },
+              {
+                "name": "perms",
+                "value": "",
+                "type": "query",
+                "description": "comma separated permission names to filter tasks by"
+              },
+              {
+                "name": "exclude_archived",
+                "value": "",
+                "type": "query",
+                "description": "`0` -> show only archived, `1` -> show all tasks"
+              },
+              {
+                "name": "status",
+                "value": "",
+                "type": "query",
+                "description": "filters tasks by status"
+              },
+              {
+                "name": "minimal",
+                "value": "",
+                "type": "query",
+                "description": "returns minimal tasks info - works only if specific task **was not** requested"
+              },
+              {
+                "name": "ignoreAdminRights",
+                "value": "",
+                "type": "query",
+                "description": "only return tasks that user would have access to regardless of being a time tracking admin"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Returns information about task or tasks.\n\nIf asked about specific task (`task_id` or `external_task_id` was provided) and no task was found it returns error status of `404 Not Found`."
+        },
+        {
+          "info": {
+            "name": "Create new task",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://app.timecamp.com/third_party/api/tasks",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Create new task. To ceate new task you should have proper permissions."
+        },
+        {
+          "info": {
+            "name": "Update task info",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://app.timecamp.com/third_party/api/tasks",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Modify existing task. To modify a task you should have proper permissions."
+        },
+        {
+          "info": {
+            "name": "Delete task",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://app.timecamp.com/third_party/api/tasks",
+            "params": [
+              {
+                "name": "task_id",
+                "value": "",
+                "type": "query",
+                "description": "task id to delete"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": ">Endpoint deprecated instead use <a href=\"/#/operations/post-task-remove\">this</a>\nDelete task. To delete a task you should have proper permissions. You need to include `task_id` in GET."
+        },
+        {
+          "info": {
+            "name": "Add/change color in task",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://app.timecamp.com/third_party/api/task_color",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Creates job to add/change a task color (for everyone)."
+        },
+        {
+          "info": {
+            "name": "Get task details",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://app.timecamp.com/third_party/api/task_details",
+            "params": [
+              {
+                "name": "tasks",
+                "value": "",
+                "type": "query",
+                "description": "comma separated tasks ids to get"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Get task details."
+        },
+        {
+          "info": {
+            "name": "Add tags to task",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://app.timecamp.com/third_party/api/task/:task_id/tag",
+            "params": [
+              {
+                "name": "task_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Add tags to task"
+        },
+        {
+          "info": {
+            "name": "Edit tags assignment type",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://app.timecamp.com/third_party/api/task/:task_id/tag",
+            "params": [
+              {
+                "name": "task_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Edit tags assignment type"
+        },
+        {
+          "info": {
+            "name": "Remove tags from task",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://app.timecamp.com/third_party/api/task/:task_id/tag",
+            "params": [
+              {
+                "name": "task_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Remove tags from task"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

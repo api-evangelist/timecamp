@@ -1,0 +1,1695 @@
+{
+  "item": [
+    {
+      "id": "47d4bf0e-96e0-484d-a0b7-eff07618743d",
+      "name": "[v3] Expense",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "093e90d2-91c6-4f31-9df9-594df085f8da",
+          "name": "Update expense category",
+          "request": {
+            "name": "Update expense category",
+            "description": {
+              "content": " ",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v3",
+                "expense",
+                "category",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"<string>\",\n  \"color\": \"<string>\",\n  \"currencyId\": \"<integer>\",\n  \"unitPrice\": \"<integer>\",\n  \"unitName\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "034be758-bf48-4da5-8def-dcd32b2aa4f0",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v3",
+                    "expense",
+                    "category",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"My category\",\n  \"color\": \"#4DC2E8\",\n  \"currencyId\": 2,\n  \"unitPrice\": 1000,\n  \"unitName\": \"my unit\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"ok\",\n  \"data\": {\n    \"id\": 53,\n    \"name\": \"My category\",\n    \"color\": \"#4DC2E8\",\n    \"unitPrice\": 1000,\n    \"unitName\": \"my unit\",\n    \"currencyId\": 2,\n    \"createdAt\": \"2023-09-07 12:26:34\",\n    \"updatedAt\": null\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "acf9c9b7-b0a5-43ca-8a31-0b654b11b6bb",
+          "name": "List expense category",
+          "request": {
+            "name": "List expense category",
+            "description": {},
+            "url": {
+              "path": [
+                "v3",
+                "expense",
+                "category"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "6cc8fc33-318e-4ee6-9b7a-68de2225b62d",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v3",
+                    "expense",
+                    "category"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"id\": 50,\n    \"rootGroupId\": 12345,\n    \"name\": \"My category\",\n    \"color\": \"#4DC2E8\",\n    \"unitPrice\": 1000,\n    \"unitName\": \"my unit\",\n    \"currencyId\": 2,\n    \"createdAt\": \"2023-08-29 16:58:56\",\n    \"updatedAt\": \"null\"\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "b1cde9ee-ba8f-4a03-bf8a-b0f8e6dbb517",
+          "name": "Create expense category",
+          "request": {
+            "name": "Create expense category",
+            "description": {
+              "content": " ",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v3",
+                "expense",
+                "category"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"<string>\",\n  \"color\": \"<string>\",\n  \"currencyId\": \"<integer>\",\n  \"unitPrice\": \"<integer>\",\n  \"unitName\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "0a935696-f620-4f65-ac62-2755030b3cf7",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v3",
+                    "expense",
+                    "category"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"My category\",\n  \"color\": \"#4DC2E8\",\n  \"unitPrice\": 1000,\n  \"unitName\": \"my unit\",\n  \"currencyId\": 2\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"data\": {\n    \"id\": 4033,\n    \"name\": \"string\",\n    \"color\": \"string\",\n    \"unitPrice\": 5919,\n    \"unitName\": \"string\",\n    \"currencyId\": 912,\n    \"createdAt\": \"string\",\n    \"updatedAt\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "16ec3139-f011-4570-8840-0b0dc892c10c",
+          "name": "Archive expense category",
+          "request": {
+            "name": "Archive expense category",
+            "description": {},
+            "url": {
+              "path": [
+                "v3",
+                "expense",
+                "category",
+                ":id",
+                "archive"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PATCH",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "6dbec475-08d3-4e93-bf99-607d8cbc10d2",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v3",
+                    "expense",
+                    "category",
+                    ":id",
+                    "archive"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"ok\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "00c353c9-9d0a-4879-bf20-ad6e46d974e4",
+          "name": "List expense",
+          "request": {
+            "name": "List expense",
+            "description": {},
+            "url": {
+              "path": [
+                "v3",
+                "expense",
+                "list"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "timeFrameStart",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "timeFrameEnd",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "taskIds",
+                  "value": "<integer>"
+                },
+                {
+                  "disabled": false,
+                  "key": "taskIds",
+                  "value": "<integer>"
+                },
+                {
+                  "disabled": false,
+                  "key": "expenseCategoryIds",
+                  "value": "<integer>"
+                },
+                {
+                  "disabled": false,
+                  "key": "expenseCategoryIds",
+                  "value": "<integer>"
+                },
+                {
+                  "disabled": false,
+                  "key": "invoiced",
+                  "value": "<integer>"
+                },
+                {
+                  "disabled": false,
+                  "key": "billable",
+                  "value": "<boolean>"
+                },
+                {
+                  "disabled": false,
+                  "key": "invoiceId",
+                  "value": "<integer>"
+                },
+                {
+                  "disabled": false,
+                  "key": "sortOrder",
+                  "value": "desc"
+                },
+                {
+                  "disabled": false,
+                  "key": "sortBy",
+                  "value": "made_at"
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "25"
+                },
+                {
+                  "disabled": false,
+                  "key": "page",
+                  "value": "1"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "238b6544-8961-4335-b57d-003ee4b195c7",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v3",
+                    "expense",
+                    "list"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "timeFrameStart",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "timeFrameEnd",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "taskIds",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "taskIds",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "expenseCategoryIds",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "expenseCategoryIds",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "invoiced",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "billable",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "invoiceId",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "sortOrder",
+                      "value": "desc"
+                    },
+                    {
+                      "key": "sortBy",
+                      "value": "made_at"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "25"
+                    },
+                    {
+                      "key": "page",
+                      "value": "1"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    {\n      \"id\": 74,\n      \"currencyId\": 2,\n      \"expenseCategory\": {\n        \"id\": 53,\n        \"name\": \"My category\",\n        \"color\": \"#4DC2E8\",\n        \"unitPrice\": 1000,\n        \"unitName\": \"my unit\",\n        \"currencyId\": 2,\n        \"createdAt\": \"2023-09-07 12:26:34\",\n        \"updatedAt\": null\n      },\n      \"taskId\": 128,\n      \"amount\": 2522,\n      \"description\": \"My description...\",\n      \"status\": 0,\n      \"isBillable\": true,\n      \"invoiceId\": null,\n      \"madeBy\": 256,\n      \"madeAt\": \"2023-09-12 10:32:22\",\n      \"createdBy\": 512,\n      \"updatedBy\": null,\n      \"createdAt\": \"2023-10-17 09:41:33\",\n      \"updatedAt\": null\n    },\n    {\n      \"id\": 75,\n      \"currencyId\": 2,\n      \"expenseCategory\": {\n        \"id\": 53,\n        \"name\": \"My category\",\n        \"color\": \"#4DC2E8\",\n        \"unitPrice\": 1000,\n        \"unitName\": \"my unit\",\n        \"currencyId\": 2,\n        \"createdAt\": \"2023-09-07 12:26:34\",\n        \"updatedAt\": null\n      },\n      \"taskId\": 256,\n      \"amount\": 2000,\n      \"description\": \"My description...\",\n      \"status\": 0,\n      \"isBillable\": true,\n      \"invoiceId\": null,\n      \"madeBy\": 256,\n      \"madeAt\": \"2023-09-12 14:33:47\",\n      \"createdBy\": 512,\n      \"updatedBy\": null,\n      \"createdAt\": \"2023-10-17 19:33:23\",\n      \"updatedAt\": null\n    }\n  ],\n  \"pagination\": {\n    \"totalItemQuantity\": 2,\n    \"page\": 1,\n    \"limit\": 25\n  },\n  \"metadata\": {\n    \"totalAmount\": 4522\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "2368c741-69ca-48bd-be2c-18fbb040bbc7",
+          "name": "List expense",
+          "request": {
+            "name": "List expense",
+            "description": {},
+            "url": {
+              "path": [
+                "v3",
+                "expense",
+                "list"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"timeFrameStart\": \"<string>\",\n  \"timeFrameEnd\": \"<string>\",\n  \"invoiced\": \"<boolean>\",\n  \"billable\": \"<boolean>\",\n  \"invoiceId\": \"<integer>\",\n  \"sortOrder\": \"desc\",\n  \"sortBy\": \"made_at\",\n  \"limit\": 1,\n  \"page\": 25\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "e5c623dd-9c90-46ee-be55-7557812cfd6d",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v3",
+                    "expense",
+                    "list"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"timeFrameStart\": \"2023-09-01\",\n  \"timeFrameEnd\": \"2023-10-31\",\n  \"taskIds\": [\n    128,\n    256\n  ],\n  \"expenseCategoryIds\": [\n    74,\n    75\n  ],\n  \"invoiced\": false,\n  \"billable\": true,\n  \"invoiceId\": null,\n  \"sortOrder\": \"asc\",\n  \"sortBy\": \"madeAt\",\n  \"limit\": 25,\n  \"page\": 1\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    {\n      \"id\": 74,\n      \"currencyId\": 2,\n      \"expenseCategory\": {\n        \"id\": 53,\n        \"name\": \"My category\",\n        \"color\": \"#4DC2E8\",\n        \"unitPrice\": 1000,\n        \"unitName\": \"my unit\",\n        \"currencyId\": 2,\n        \"createdAt\": \"2023-09-07 12:26:34\",\n        \"updatedAt\": null\n      },\n      \"taskId\": 128,\n      \"amount\": 2522,\n      \"description\": \"My description...\",\n      \"status\": 0,\n      \"isBillable\": true,\n      \"invoiceId\": null,\n      \"madeBy\": 256,\n      \"madeAt\": \"2023-09-12 10:32:22\",\n      \"createdBy\": 512,\n      \"updatedBy\": null,\n      \"createdAt\": \"2023-10-17 09:41:33\",\n      \"updatedAt\": null\n    },\n    {\n      \"id\": 75,\n      \"currencyId\": 2,\n      \"expenseCategory\": {\n        \"id\": 53,\n        \"name\": \"My category\",\n        \"color\": \"#4DC2E8\",\n        \"unitPrice\": 1000,\n        \"unitName\": \"my unit\",\n        \"currencyId\": 2,\n        \"createdAt\": \"2023-09-07 12:26:34\",\n        \"updatedAt\": null\n      },\n      \"taskId\": 256,\n      \"amount\": 2000,\n      \"description\": \"My description...\",\n      \"status\": 0,\n      \"isBillable\": true,\n      \"invoiceId\": null,\n      \"madeBy\": 256,\n      \"madeAt\": \"2023-09-12 14:33:47\",\n      \"createdBy\": 512,\n      \"updatedBy\": null,\n      \"createdAt\": \"2023-10-17 19:33:23\",\n      \"updatedAt\": null\n    }\n  ],\n  \"pagination\": {\n    \"totalItemQuantity\": 2,\n    \"page\": 1,\n    \"limit\": 25\n  },\n  \"metadata\": {\n    \"totalAmount\": 4522\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "d8c1f883-e464-4c61-bd11-f83792ce56f6",
+          "name": "Create expense",
+          "request": {
+            "name": "Create expense",
+            "description": {},
+            "url": {
+              "path": [
+                "v3",
+                "expense"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"currencyId\": \"<integer>\",\n  \"expenseCategoryId\": \"<integer>\",\n  \"taskId\": \"<integer>\",\n  \"amount\": \"<integer>\",\n  \"isBillable\": \"<boolean>\",\n  \"madeBy\": \"<integer>\",\n  \"madeAt\": \"<string>\",\n  \"description\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "aa927e35-b97e-4f38-9a2a-4e0083f41d65",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v3",
+                    "expense"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"currencyId\": 2,\n  \"expenseCategoryId\": \"50\",\n  \"taskId\": 512,\n  \"amount\": 2522,\n  \"description\": \"My description...\",\n  \"isBillable\": true,\n  \"madeBy\": 256,\n  \"madeAt\": \"2023-09-12 10:32:22\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"ok\",\n  \"data\": {\n    \"id\": 74,\n    \"currencyId\": 2,\n    \"expenseCategory\": {\n      \"id\": 53,\n      \"name\": \"My category\",\n      \"color\": \"#4DC2E8\",\n      \"unitPrice\": 1000,\n      \"unitName\": \"my unit\",\n      \"currencyId\": 2,\n      \"createdAt\": \"2023-09-07 12:26:34\",\n      \"updatedAt\": null\n    },\n    \"taskId\": 512,\n    \"amount\": 2522,\n    \"description\": \"My description...\",\n    \"status\": 0,\n    \"isBillable\": true,\n    \"invoiceId\": null,\n    \"madeBy\": 256,\n    \"madeAt\": \"2023-09-12 10:32:22\",\n    \"createdBy\": 256,\n    \"updatedBy\": 256,\n    \"createdAt\": \"2023-10-21 09:41:33\",\n    \"updatedAt\": \"2023-10-21 09:41:41\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "d212f887-ccba-4599-907e-e47fee895cea",
+          "name": "Update expense",
+          "request": {
+            "name": "Update expense",
+            "description": {},
+            "url": {
+              "path": [
+                "v3",
+                "expense",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"currencyId\": \"<integer>\",\n  \"expenseCategoryId\": \"<integer>\",\n  \"taskId\": \"<integer>\",\n  \"amount\": \"<integer>\",\n  \"isBillable\": \"<boolean>\",\n  \"madeBy\": \"<integer>\",\n  \"madeAt\": \"<string>\",\n  \"description\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "a9571cd1-0295-447e-aef8-c480eb73b4c6",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v3",
+                    "expense",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"currencyId\": 2,\n  \"expenseCategoryId\": \"50\",\n  \"taskId\": 512,\n  \"amount\": 2522,\n  \"description\": \"My description...\",\n  \"isBillable\": true,\n  \"madeBy\": 256,\n  \"madeAt\": \"2023-09-12 10:32:22\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"ok\",\n  \"data\": {\n    \"id\": 74,\n    \"currencyId\": 2,\n    \"expenseCategory\": {\n      \"id\": 53,\n      \"name\": \"My category\",\n      \"color\": \"#4DC2E8\",\n      \"unitPrice\": 1000,\n      \"unitName\": \"my unit\",\n      \"currencyId\": 2,\n      \"createdAt\": \"2023-09-07 12:26:34\",\n      \"updatedAt\": null\n    },\n    \"taskId\": 512,\n    \"amount\": 2522,\n    \"description\": \"My description...\",\n    \"status\": 0,\n    \"isBillable\": true,\n    \"invoiceId\": null,\n    \"madeBy\": 256,\n    \"madeAt\": \"2023-09-12 10:32:22\",\n    \"createdBy\": 256,\n    \"updatedBy\": 256,\n    \"createdAt\": \"2023-10-21 09:41:33\",\n    \"updatedAt\": \"2023-10-21 09:41:41\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "10ce8510-d955-4318-a8cf-d7cc8777f62a",
+          "name": "Delete expense",
+          "request": {
+            "name": "Delete expense",
+            "description": {},
+            "url": {
+              "path": [
+                "v3",
+                "expense",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "24aa255e-f9eb-4681-9734-1a90264482fc",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v3",
+                    "expense",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"ok\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "1502c82b-d442-40d4-b732-05a860dac2b9",
+          "name": "Upload expense attachment",
+          "request": {
+            "name": "Upload expense attachment",
+            "description": {},
+            "url": {
+              "path": [
+                "v3",
+                "expense",
+                ":id",
+                "attachment",
+                "upload"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "multipart/form-data"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            },
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "file",
+                  "type": "file",
+                  "description": ""
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "2017bbe9-059a-4fc0-99da-e7389d1579a6",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v3",
+                    "expense",
+                    ":id",
+                    "attachment",
+                    "upload"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "formdata",
+                  "formdata": [
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "key": "file",
+                      "value": "<binary>",
+                      "type": "text"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"ok\",\n  \"data\": [\n    {\n      \"id\": 14,\n      \"userFilename\": \"02.pdf\",\n      \"mimeType\": \"application/pdf\",\n      \"url\": \"/internal/api/v3/storage/download/14\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "93871ee2-76d0-4a3e-b06c-093aa3f1bdb8",
+          "name": "Get expense attachment",
+          "request": {
+            "name": "Get expense attachment",
+            "description": {},
+            "url": {
+              "path": [
+                "v3",
+                "expense",
+                ":id",
+                "attachment"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "e8f6f69d-a9da-49e3-a9c0-a09a9775e1bf",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v3",
+                    "expense",
+                    ":id",
+                    "attachment"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"ok\",\n  \"data\": [\n    {\n      \"id\": 14,\n      \"userFilename\": \"02.pdf\",\n      \"mimeType\": \"application/pdf\",\n      \"url\": \"/internal/api/v3/storage/download/14\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "5bf56d24-f47f-483b-a206-c6d0a303e8a5",
+          "name": "Delete expense attachment",
+          "request": {
+            "name": "Delete expense attachment",
+            "description": {},
+            "url": {
+              "path": [
+                "v3",
+                "expense",
+                ":id",
+                "attachment",
+                ":id_attachment",
+                "delete"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id_attachment",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "45bbaf30-1614-4858-a7ef-c4ccebd69822",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v3",
+                    "expense",
+                    ":id",
+                    "attachment",
+                    ":id_attachment",
+                    "delete"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id_attachment",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"ok\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "7ff97538-48d9-4810-9c6a-d296de345c45",
+          "name": "Invoice unassign from expense",
+          "request": {
+            "name": "Invoice unassign from expense",
+            "description": {},
+            "url": {
+              "path": [
+                "v3",
+                "expense",
+                "invoice",
+                "unassign"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"expenseIds\": [\n    \"<integer>\",\n    \"<integer>\"\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "3bf60d48-36c7-4f67-87c6-1d8df6667a01",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v3",
+                    "expense",
+                    "invoice",
+                    "unassign"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"expenseIds\": [\n    45,\n    46\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"ok\",\n  \"data\": {\n    \"id\": 74,\n    \"currencyId\": 2,\n    \"expenseCategory\": {\n      \"id\": 53,\n      \"name\": \"My category\",\n      \"color\": \"#4DC2E8\",\n      \"unitPrice\": 1000,\n      \"unitName\": \"my unit\",\n      \"currencyId\": 2,\n      \"createdAt\": \"2023-09-07 12:26:34\",\n      \"updatedAt\": null\n    },\n    \"taskId\": 512,\n    \"amount\": 2522,\n    \"description\": \"My description...\",\n    \"status\": 0,\n    \"isBillable\": true,\n    \"invoiceId\": null,\n    \"madeBy\": 256,\n    \"madeAt\": \"2023-09-12 10:32:22\",\n    \"createdBy\": 256,\n    \"updatedBy\": 256,\n    \"createdAt\": \"2023-10-21 09:41:33\",\n    \"updatedAt\": \"2023-10-21 09:41:41\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "111d1399-11ad-4ab4-8554-7c61986979b1",
+          "name": "Invoice assign to expense",
+          "request": {
+            "name": "Invoice assign to expense",
+            "description": {},
+            "url": {
+              "path": [
+                "v3",
+                "expense",
+                "invoice",
+                "assign"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"invoiceId\": \"<integer>\",\n  \"expenseIds\": [\n    \"<integer>\",\n    \"<integer>\"\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "9cbb1551-debc-4bba-b946-d0dd5f75bc7c",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v3",
+                    "expense",
+                    "invoice",
+                    "assign"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"invoiceId\": 236,\n  \"expenseIds\": [\n    45,\n    46\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"ok\",\n  \"data\": {\n    \"id\": 74,\n    \"currencyId\": 2,\n    \"expenseCategory\": {\n      \"id\": 53,\n      \"name\": \"My category\",\n      \"color\": \"#4DC2E8\",\n      \"unitPrice\": 1000,\n      \"unitName\": \"my unit\",\n      \"currencyId\": 2,\n      \"createdAt\": \"2023-09-07 12:26:34\",\n      \"updatedAt\": null\n    },\n    \"taskId\": 512,\n    \"amount\": 2522,\n    \"description\": \"My description...\",\n    \"status\": 0,\n    \"isBillable\": true,\n    \"invoiceId\": 236,\n    \"madeBy\": 256,\n    \"madeAt\": \"2023-09-12 10:32:22\",\n    \"createdBy\": 256,\n    \"updatedBy\": 256,\n    \"createdAt\": \"2023-10-21 09:41:33\",\n    \"updatedAt\": \"2023-10-21 09:41:41\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://app.timecamp.com/third_party/api",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "8f3166f1-1fd3-47f5-b28f-d51bb80e7e70",
+    "name": "TimeCamp [v1] Approvals [v1] Approvals [v3] Expense API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Documentation for the TimeCamp system.\n\nGet your API token here:\nhttps://app.timecamp.com/app#/settings/users/me\n\nBe aware that you can reach API calls limit. Once you do you will get HTTP code 429 response.\n\nRequest example:\n\n```\nGET https://app.timecamp.com/third_party/api/user?user_id=1234567\n\nHeaders:\nAuthorization: Bearer 87c21299960a88888888fe123\nAccept: application/json\n```\n\n\nContact Support:\n Email: support@timecamp.com",
+      "type": "text/plain"
+    }
+  }
+}

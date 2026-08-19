@@ -1,0 +1,33 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "TimeCamp [v1] Approvals [v1] Approvals [v3] Attendance Requests API",
+    "version": "1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "[v3] Attendance Requests",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Has Pending Attendance Requests [beta]",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://app.timecamp.com/third_party/api/attendance-request/has-pending",
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Checks if the current user has any pending attendance requests to process. Note: This is a beta version."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
