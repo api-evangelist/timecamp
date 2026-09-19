@@ -374,6 +374,8 @@ apis:
   humanURL: https://developer.timecamp.com/#/operations/get--entries
   baseURL: https://app.timecamp.com/third_party/api
   tags:
+  - V1 User
+  tags_raw:
   - '[v1] User'
   properties:
   - type: OpenAPI
