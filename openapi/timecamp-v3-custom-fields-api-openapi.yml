@@ -1,6 +1,6 @@
-openapi: 3.0.0
+openapi: 3.2.0
 info:
-  title: TimeCamp [v1] Approvals [v1] Approvals [v3] Custom Fields API
+  title: TimeCamp [v3] Custom Fields API
   version: '1.0'
   contact:
     email: support@timecamp.com
@@ -30,9 +30,7 @@ info:
 
     Accept: application/json
 
-    ```
-
-    '
+    ```'
 servers:
 - url: https://app.timecamp.com/third_party/api
   description: PRODUCTION
@@ -45,7 +43,6 @@ paths:
   /v3/custom-fields/template/list:
     get:
       summary: List Custom Field Templates
-      description: List Custom Field Templates
       tags:
       - '[v3] Custom Fields'
       operationId: get-custom-fields-template-list
@@ -91,12 +88,14 @@ paths:
                           type: string
                           description: Field type
                         defaultValue:
-                          type: string
-                          nullable: true
+                          type:
+                          - string
+                          - 'null'
                           description: Default value
                         fieldOptions:
-                          type: array
-                          nullable: true
+                          type:
+                          - array
+                          - 'null'
                           description: Field options
                           items:
                             type: object
@@ -132,7 +131,6 @@ paths:
   /v3/custom-fields/template/create:
     post:
       summary: Create Custom Field Template
-      description: Create Custom Field Template
       tags:
       - '[v3] Custom Fields'
       operationId: post-custom-fields-template-create
@@ -187,13 +185,15 @@ paths:
                   - string
                   example: number
                 defaultValue:
-                  type: string
-                  nullable: true
+                  type:
+                  - string
+                  - 'null'
                   description: Default value for the field (must match field type), must be provided if field is required
                   example: Medium
                 fieldOptions:
-                  type: array
-                  nullable: true
+                  type:
+                  - array
+                  - 'null'
                   description: Configuration options for the field
                   items:
                     type: object
@@ -247,12 +247,14 @@ paths:
                         type: string
                         description: Field type
                       defaultValue:
-                        type: string
-                        nullable: true
+                        type:
+                        - string
+                        - 'null'
                         description: Default value
                       fieldOptions:
-                        type: array
-                        nullable: true
+                        type:
+                        - array
+                        - 'null'
                         description: Field options
                         items:
                           type: object
@@ -304,7 +306,6 @@ paths:
   /v3/custom-fields/template/{templateId}/modify:
     put:
       summary: Modify Custom Field Template
-      description: Modify Custom Field Template
       tags:
       - '[v3] Custom Fields'
       operationId: put-custom-fields-template-modify
@@ -346,13 +347,15 @@ paths:
                   description: Status of the template
                   example: 0
                 defaultValue:
-                  type: string
-                  nullable: true
+                  type:
+                  - string
+                  - 'null'
                   description: Default value for the field (must match field type), must be provided if field is required
                   example: Medium
                 fieldOptions:
-                  type: array
-                  nullable: true
+                  type:
+                  - array
+                  - 'null'
                   description: Configuration options for the field
                   items:
                     type: object
@@ -402,12 +405,14 @@ paths:
                         type: string
                         description: Field type
                       defaultValue:
-                        type: string
-                        nullable: true
+                        type:
+                        - string
+                        - 'null'
                         description: Default value
                       fieldOptions:
-                        type: array
-                        nullable: true
+                        type:
+                        - array
+                        - 'null'
                         description: Field options
                         items:
                           type: object
@@ -457,7 +462,6 @@ paths:
   /v3/custom-fields/template/{templateId}/remove:
     delete:
       summary: Remove Custom Field Template
-      description: Remove Custom Field Template
       tags:
       - '[v3] Custom Fields'
       operationId: delete-custom-fields-template-remove
@@ -504,7 +508,6 @@ paths:
   /v3/custom-fields/{templateId}/assign/{resourceId}:
     post:
       summary: Assign value to custom fields
-      description: Assign value to custom fields
       tags:
       - '[v3] Custom Fields'
       operationId: post-custom-fields-resource-assign
@@ -589,9 +592,10 @@ paths:
                         description: Start date for the custom field assignment
                         example: '2025-07-08 10:45:15'
                       endDate:
-                        type: string
+                        type:
+                        - string
+                        - 'null'
                         format: date-time
-                        nullable: true
                         description: End date for the custom field assignment (null means it's active value, date is for values in the past)
                         example: null
                       createdBy:
@@ -657,7 +661,6 @@ paths:
   /v3/custom-fields/{templateId}/unassign/{resourceId}:
     delete:
       summary: Unassign value from custom fields
-      description: Unassign value from custom fields
       tags:
       - '[v3] Custom Fields'
       operationId: delete-custom-fields-resource-unassign
@@ -725,9 +728,10 @@ paths:
                         description: Start date for the custom field assignment
                         example: '2025-07-08 10:45:15'
                       endDate:
-                        type: string
+                        type:
+                        - string
+                        - 'null'
                         format: date-time
-                        nullable: true
                         description: End date for the custom field assignment (null means it's active value, date is for values in the past)
                         example: '2025-07-08 12:45:15'
                       createdBy:
@@ -793,7 +797,6 @@ paths:
   /v3/custom-fields/{templateId}/value/{resourceId}:
     get:
       summary: Retrieve value for custom field in resource
-      description: Retrieve value for custom field in resource
       tags:
       - '[v3] Custom Fields'
       operationId: get-custom-fields-resource-value
@@ -861,9 +864,10 @@ paths:
                         description: Start date for the custom field assignment
                         example: '2025-07-08 10:45:15'
                       endDate:
-                        type: string
+                        type:
+                        - string
+                        - 'null'
                         format: date-time
-                        nullable: true
                         description: End date for the custom field assignment (null means it's active value, date is for values in the past)
                         example: null
                       createdBy:
@@ -907,7 +911,6 @@ paths:
   /v3/custom-fields/values/resource/{resourceId}/type/{resourceType}:
     get:
       summary: Retrieve values for all custom fields in resource
-      description: Retrieve values for all custom fields in resource
       tags:
       - '[v3] Custom Fields'
       operationId: get-custom-fields-resource-values

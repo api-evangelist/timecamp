@@ -1,6 +1,6 @@
-openapi: 3.0.0
+openapi: 3.2.0
 info:
-  title: TimeCamp [v1] Approvals [v1] Approvals [v1] User API
+  title: TimeCamp [v1] User API
   version: '1.0'
   contact:
     email: support@timecamp.com
@@ -30,23 +30,21 @@ info:
 
     Accept: application/json
 
-    ```
-
-    '
+    ```'
 servers:
 - url: https://app.timecamp.com/third_party/api
   description: PRODUCTION
 - url: https://v4.api.timecamp.com
   description: PRODUCTION
 tags:
-- name: '[v1] User'
+- name: V1 User
   x-displayName: User
 paths:
   /users:
     get:
       summary: Get all users data
       tags:
-      - '[v1] User'
+      - V1 User
       responses:
         '200':
           description: OK
@@ -174,7 +172,7 @@ paths:
                 Example:
                   value: []
       tags:
-      - '[v1] User'
+      - V1 User
       summary: Get user setting
       parameters:
       - schema:
@@ -249,7 +247,7 @@ paths:
               required:
               - name
       tags:
-      - '[v1] User'
+      - V1 User
       security:
       - api_key_in_header: []
     delete:
@@ -297,7 +295,7 @@ paths:
                 value:
                   name: hideChatWidget
       tags:
-      - '[v1] User'
+      - V1 User
       security:
       - api_key_in_header: []
   /me:
@@ -325,11 +323,13 @@ paths:
                     type: string
                     minLength: 1
                   display_name:
-                    type: string
-                    nullable: true
+                    type:
+                    - string
+                    - 'null'
                   synch_time:
-                    type: string
-                    nullable: true
+                    type:
+                    - string
+                    - 'null'
                   root_group_id:
                     oneOf:
                     - type: string
@@ -358,7 +358,7 @@ paths:
                       create_projects: true
                       can_view_rates: true
       tags:
-      - '[v1] User'
+      - V1 User
       summary: Get your user data
       security:
       - api_key_in_header: []
@@ -405,9 +405,7 @@ paths:
                 not permitted to edit user or user does not exist:
                   value:
                     message: You can not change this user
-      description: 'Update user''s data. If `user_id` is not provided, the data for the user associated with the API key will be updated.
-
-        '
+      description: Update user's data. If `user_id` is not provided, the data for the user associated with the API key will be updated.
       requestBody:
         content:
           application/json:
@@ -426,7 +424,7 @@ paths:
                   description: user display name, typically name and surname
         description: ''
       tags:
-      - '[v1] User'
+      - V1 User
       security:
       - api_key_in_header: []
   /user/{user_id}:
@@ -440,7 +438,7 @@ paths:
     get:
       summary: Get user
       tags:
-      - '[v1] User'
+      - V1 User
       responses:
         '200':
           description: OK

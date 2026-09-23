@@ -1,6 +1,6 @@
-openapi: 3.0.0
+openapi: 3.2.0
 info:
-  title: TimeCamp [v1] Approvals [v1] Approvals [v1] Task API
+  title: TimeCamp [v1] Task API
   version: '1.0'
   contact:
     email: support@timecamp.com
@@ -30,9 +30,7 @@ info:
 
     Accept: application/json
 
-    ```
-
-    '
+    ```'
 servers:
 - url: https://app.timecamp.com/third_party/api
   description: PRODUCTION
@@ -63,51 +61,60 @@ paths:
                       task_id:
                         type: integer
                       parent_id:
-                        type: integer
-                        nullable: true
+                        type:
+                        - integer
+                        - 'null'
                       assigned_by:
-                        type: integer
-                        nullable: true
+                        type:
+                        - integer
+                        - 'null'
                       name:
                         type: string
                         minLength: 1
                       external_task_id:
-                        type: string
-                        nullable: true
+                        type:
+                        - string
+                        - 'null'
                       external_parent_id:
-                        type: string
-                        nullable: true
+                        type:
+                        - string
+                        - 'null'
                       level:
                         type: integer
                       archived:
                         type: integer
                       tags:
-                        type: string
+                        type:
+                        - string
+                        - 'null'
                         deprecated: true
-                        nullable: true
                       budgeted:
                         type: integer
                       budget_unit:
                         type: string
                         minLength: 1
                       root_group_id:
-                        type: integer
-                        nullable: true
+                        type:
+                        - integer
+                        - 'null'
                       billable:
                         type: integer
                       note:
-                        type: string
-                        nullable: true
+                        type:
+                        - string
+                        - 'null'
                       public_hash:
-                        type: string
-                        nullable: true
+                        type:
+                        - string
+                        - 'null'
                       add_date:
                         type: string
                         minLength: 1
                       modify_time:
-                        type: string
+                        type:
+                        - string
+                        - 'null'
                         minLength: 1
-                        nullable: true
                       color:
                         type: string
                         minLength: 1
@@ -141,8 +148,9 @@ paths:
                       user_access_type:
                         type: integer
                       keywords:
-                        type: string
-                        nullable: true
+                        type:
+                        - string
+                        - 'null'
               examples:
                 Example:
                   value:
@@ -291,12 +299,10 @@ paths:
                         oneOf:
                         - type: string
                         - type: integer
-                        nullable: true
                       external_parent_id:
                         oneOf:
                         - type: string
                         - type: integer
-                        nullable: true
                       level:
                         oneOf:
                         - type: string
@@ -322,8 +328,9 @@ paths:
                         - type: integer
                         minLength: 1
                       checked_date:
-                        type: string
-                        nullable: true
+                        type:
+                        - string
+                        - 'null'
                       root_group_id:
                         oneOf:
                         - type: string
@@ -333,29 +340,31 @@ paths:
                         oneOf:
                         - type: string
                         - type: integer
-                        nullable: true
                       assigned_by:
                         oneOf:
                         - type: string
                         - type: integer
                         minLength: 1
                       due_date:
-                        type: string
-                        nullable: true
+                        type:
+                        - string
+                        - 'null'
                       note:
-                        type: string
-                        nullable: true
+                        type:
+                        - string
+                        - 'null'
                       context:
-                        type: string
-                        nullable: true
+                        type:
+                        - string
+                        - 'null'
                       folder:
-                        type: string
-                        nullable: true
+                        type:
+                        - string
+                        - 'null'
                       repeat:
                         oneOf:
                         - type: string
                         - type: integer
-                        nullable: true
                       billable:
                         oneOf:
                         - type: string
@@ -365,11 +374,13 @@ paths:
                         type: string
                         minLength: 1
                       public_hash:
-                        type: string
-                        nullable: true
+                        type:
+                        - string
+                        - 'null'
                       modify_time:
-                        type: string
-                        nullable: true
+                        type:
+                        - string
+                        - 'null'
                       keywords:
                         type: string
               examples:
@@ -518,12 +529,10 @@ paths:
                     oneOf:
                     - type: string
                     - type: integer
-                    nullable: true
                   external_parent_id:
                     oneOf:
                     - type: string
                     - type: integer
-                    nullable: true
                   level:
                     oneOf:
                     - type: string
@@ -554,8 +563,9 @@ paths:
 
                       '
                   checked_date:
-                    type: string
-                    nullable: true
+                    type:
+                    - string
+                    - 'null'
                   root_group_id:
                     oneOf:
                     - type: string
@@ -565,27 +575,31 @@ paths:
                     oneOf:
                     - type: string
                     - type: integer
-                    nullable: true
                   assigned_by:
                     oneOf:
                     - type: string
                     - type: integer
                     minLength: 1
                   due_date:
-                    type: string
-                    nullable: true
+                    type:
+                    - string
+                    - 'null'
                   note:
-                    type: string
-                    nullable: true
+                    type:
+                    - string
+                    - 'null'
                   context:
-                    type: string
-                    nullable: true
+                    type:
+                    - string
+                    - 'null'
                   folder:
-                    type: string
-                    nullable: true
+                    type:
+                    - string
+                    - 'null'
                   repeat:
-                    type: string
-                    nullable: true
+                    type:
+                    - string
+                    - 'null'
                   billable:
                     oneOf:
                     - type: string
@@ -603,8 +617,9 @@ paths:
 
                       '
                   public_hash:
-                    type: string
-                    nullable: true
+                    type:
+                    - string
+                    - 'null'
                   modify_time:
                     type: string
                     minLength: 1
@@ -752,7 +767,7 @@ paths:
     delete:
       deprecated: true
       operationId: delete--tasks
-      description: '>Endpoint deprecated instead use <a href="/#/operations/post-task-remove">this</a>
+      description: '>Endpoint deprecated instead use this
 
         Delete task. To delete a task you should have proper permissions. You need to include `task_id` in GET.'
       tags:
@@ -782,12 +797,10 @@ paths:
                     oneOf:
                     - type: string
                     - type: integer
-                    nullable: true
                   external_parent_id:
                     oneOf:
                     - type: string
                     - type: integer
-                    nullable: true
                   level:
                     oneOf:
                     - type: string
@@ -813,8 +826,9 @@ paths:
                     - type: integer
                     minLength: 1
                   checked_date:
-                    type: string
-                    nullable: true
+                    type:
+                    - string
+                    - 'null'
                   root_group_id:
                     oneOf:
                     - type: string
@@ -824,27 +838,31 @@ paths:
                     oneOf:
                     - type: string
                     - type: integer
-                    nullable: true
                   assigned_by:
                     oneOf:
                     - type: string
                     - type: integer
                     minLength: 1
                   due_date:
-                    type: string
-                    nullable: true
+                    type:
+                    - string
+                    - 'null'
                   note:
-                    type: string
-                    nullable: true
+                    type:
+                    - string
+                    - 'null'
                   context:
-                    type: string
-                    nullable: true
+                    type:
+                    - string
+                    - 'null'
                   folder:
-                    type: string
-                    nullable: true
+                    type:
+                    - string
+                    - 'null'
                   repeat:
-                    type: string
-                    nullable: true
+                    type:
+                    - string
+                    - 'null'
                   billable:
                     oneOf:
                     - type: string
@@ -854,11 +872,13 @@ paths:
                     type: string
                     minLength: 1
                   public_hash:
-                    type: string
-                    nullable: true
+                    type:
+                    - string
+                    - 'null'
                   modify_time:
-                    type: string
-                    nullable: true
+                    type:
+                    - string
+                    - 'null'
                   keywords:
                     type: string
               examples:

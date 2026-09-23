@@ -1,0 +1,1 @@
+{"resource":"https://mcp.timecamp.com/mcp","authorization_servers":["https://mcp-auth.timecamp.com"],"scopes_supported":["mcp:tools"],"bearer_methods_supported":["header"],"resource_name":"TimeCamp MCP Server"}

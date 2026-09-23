@@ -1,6 +1,6 @@
-openapi: 3.0.0
+openapi: 3.2.0
 info:
-  title: TimeCamp [v1] Approvals [v1] Approvals [v3] Data Export API
+  title: TimeCamp [v3] Data Export API
   version: '1.0'
   contact:
     email: support@timecamp.com
@@ -30,9 +30,7 @@ info:
 
     Accept: application/json
 
-    ```
-
-    '
+    ```'
 servers:
 - url: https://app.timecamp.com/third_party/api
   description: PRODUCTION
@@ -45,7 +43,6 @@ paths:
   /v3/data-export/exports:
     get:
       summary: Get exports
-      description: Get exports
       tags:
       - '[v3] Data Export'
       operationId: get-data-export-exports
@@ -207,7 +204,6 @@ paths:
   /v3/data-export/open-exports:
     get:
       summary: Get open exports
-      description: Get open exports
       tags:
       - '[v3] Data Export'
       operationId: get-data-export-open-exports
@@ -266,7 +262,6 @@ paths:
   /v3/data-export/export/{exportId}:
     get:
       summary: Get export by ID
-      description: Get export by ID
       tags:
       - '[v3] Data Export'
       operationId: get-data-export-id
@@ -322,7 +317,6 @@ paths:
   /v3/data-export/dataset-availability:
     get:
       summary: Get list of dataset availability
-      description: Get list of dataset availability
       tags:
       - '[v3] Data Export'
       operationId: get-dataset-availability
@@ -360,7 +354,6 @@ paths:
   /v3/export-request:
     post:
       summary: Create export request
-      description: Create export request
       tags:
       - '[v3] Data Export'
       operationId: post-export-request

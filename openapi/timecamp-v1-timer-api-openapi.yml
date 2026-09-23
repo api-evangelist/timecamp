@@ -1,6 +1,6 @@
-openapi: 3.0.0
+openapi: 3.2.0
 info:
-  title: TimeCamp [v1] Approvals [v1] Approvals [v1] Timer API
+  title: TimeCamp [v1] Timer API
   version: '1.0'
   contact:
     email: support@timecamp.com
@@ -30,9 +30,7 @@ info:
 
     Accept: application/json
 
-    ```
-
-    '
+    ```'
 servers:
 - url: https://app.timecamp.com/third_party/api
   description: PRODUCTION
@@ -74,13 +72,13 @@ paths:
                       oneOf:
                       - type: number
                       - type: string
-                      nullable: true
                     started_at:
                       type: string
                       minLength: 1
                     name:
-                      type: string
-                      nullable: true
+                      type:
+                      - string
+                      - 'null'
                   required:
                   - timer_id
                   - user_id

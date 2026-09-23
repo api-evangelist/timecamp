@@ -1,6 +1,6 @@
-openapi: 3.0.0
+openapi: 3.2.0
 info:
-  title: TimeCamp [v1] Approvals [v1] Approvals [v1] Attendance API
+  title: TimeCamp [v1] Attendance API
   version: '1.0'
   contact:
     email: support@timecamp.com
@@ -30,9 +30,7 @@ info:
 
     Accept: application/json
 
-    ```
-
-    '
+    ```'
 servers:
 - url: https://app.timecamp.com/third_party/api
   description: PRODUCTION
@@ -46,7 +44,6 @@ paths:
     parameters: []
     get:
       operationId: get--attendance
-      description: Get attendance
       responses:
         '200':
           description: OK - even if no attendance match given filters, an empty array is returned
@@ -283,9 +280,7 @@ paths:
         The `shouldBe` and `vacationTime` fields are optional.
 
 
-        **Important:** The date range constraint does not mean a limit of 100 entries, but rather that the maximum range between the earliest and latest dates in the payload must not exceed 100 days.
-
-        '
+        **Important:** The date range constraint does not mean a limit of 100 entries, but rather that the maximum range between the earliest and latest dates in the payload must not exceed 100 days.'
       parameters:
       - name: userId
         in: path

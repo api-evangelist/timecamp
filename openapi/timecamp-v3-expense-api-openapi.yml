@@ -1,6 +1,6 @@
-openapi: 3.0.0
+openapi: 3.2.0
 info:
-  title: TimeCamp [v1] Approvals [v1] Approvals [v3] Expense API
+  title: TimeCamp [v3] Expense API
   version: '1.0'
   contact:
     email: support@timecamp.com
@@ -30,9 +30,7 @@ info:
 
     Accept: application/json
 
-    ```
-
-    '
+    ```'
 servers:
 - url: https://app.timecamp.com/third_party/api
   description: PRODUCTION
@@ -492,36 +490,45 @@ paths:
                   sortBy: madeAt
               properties:
                 timeFrameStart:
-                  type: string
-                  nullable: true
+                  type:
+                  - string
+                  - 'null'
                 timeFrameEnd:
-                  type: string
-                  nullable: true
+                  type:
+                  - string
+                  - 'null'
                 taskIds:
-                  type: array
-                  nullable: true
+                  type:
+                  - array
+                  - 'null'
                   items: {}
                 expenseCategoryIds:
-                  type: array
-                  nullable: true
+                  type:
+                  - array
+                  - 'null'
                   items: {}
                 invoiced:
-                  type: boolean
-                  nullable: true
+                  type:
+                  - boolean
+                  - 'null'
                 billable:
-                  type: boolean
-                  nullable: true
+                  type:
+                  - boolean
+                  - 'null'
                 invoiceId:
-                  type: integer
-                  nullable: true
+                  type:
+                  - integer
+                  - 'null'
                 sortOrder:
-                  type: string
+                  type:
+                  - string
+                  - 'null'
                   default: desc
-                  nullable: true
                 sortBy:
-                  type: string
+                  type:
+                  - string
+                  - 'null'
                   default: made_at
-                  nullable: true
                 limit:
                   type: number
                   default: 1
@@ -907,8 +914,9 @@ paths:
                         isBillable:
                           type: boolean
                         invoiceId:
-                          type: integer
-                          nullable: true
+                          type:
+                          - integer
+                          - 'null'
                         madeBy:
                           type: integer
                         madeAt:
@@ -1077,45 +1085,43 @@ paths:
                   - 46
 components:
   schemas:
-    Expense-request:
+    Expense-category-response:
       type: object
       x-examples:
         Example 1:
+          id: 53
+          name: My category
+          color: '#4DC2E8'
+          unitPrice: 1000
+          unitName: my unit
           currencyId: 2
-          expenseCategoryId: '50'
-          taskId: 512
-          amount: 2522
-          description: My description...
-          isBillable: true
-          madeBy: 256
-          madeAt: '2023-09-12 10:32:22'
-      title: Expense request
-      x-internal: false
+          createdAt: '2023-09-07 12:26:34'
+          updatedAt: null
       properties:
+        id:
+          type: integer
+        name:
+          type: string
+        color:
+          type: string
+        unitPrice:
+          type:
+          - integer
+          - 'null'
+        unitName:
+          type:
+          - string
+          - 'null'
         currencyId:
           type: integer
-        expenseCategoryId:
-          type: integer
-        taskId:
-          type: integer
-        amount:
-          type: integer
-        description:
+        createdAt:
           type: string
-        isBillable:
-          type: boolean
-        madeBy:
-          type: integer
-        madeAt:
-          type: string
-      required:
-      - currencyId
-      - expenseCategoryId
-      - taskId
-      - amount
-      - isBillable
-      - madeBy
-      - madeAt
+        updatedAt:
+          type:
+          - string
+          - 'null'
+      x-internal: false
+      title: Expense-category response
       x-tags:
       - Expense
     Attachment:
@@ -1180,15 +1186,17 @@ components:
         amount:
           type: integer
         description:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
         status:
           type: integer
         isBillable:
           type: boolean
         invoiceId:
-          type: integer
-          nullable: true
+          type:
+          - integer
+          - 'null'
         madeBy:
           type: integer
         madeAt:
@@ -1196,47 +1204,54 @@ components:
         createdBy:
           type: integer
         updatedBy:
-          type: integer
-          nullable: true
+          type:
+          - integer
+          - 'null'
         createdAt:
           type: string
         updatedAt:
-          type: string
-          nullable: true
-    Expense-category-response:
+          type:
+          - string
+          - 'null'
+    Expense-request:
       type: object
       x-examples:
         Example 1:
-          id: 53
-          name: My category
-          color: '#4DC2E8'
-          unitPrice: 1000
-          unitName: my unit
           currencyId: 2
-          createdAt: '2023-09-07 12:26:34'
-          updatedAt: null
+          expenseCategoryId: '50'
+          taskId: 512
+          amount: 2522
+          description: My description...
+          isBillable: true
+          madeBy: 256
+          madeAt: '2023-09-12 10:32:22'
+      title: Expense request
+      x-internal: false
       properties:
-        id:
-          type: integer
-        name:
-          type: string
-        color:
-          type: string
-        unitPrice:
-          type: integer
-          nullable: true
-        unitName:
-          type: string
-          nullable: true
         currencyId:
           type: integer
-        createdAt:
+        expenseCategoryId:
+          type: integer
+        taskId:
+          type: integer
+        amount:
+          type: integer
+        description:
           type: string
-        updatedAt:
+        isBillable:
+          type: boolean
+        madeBy:
+          type: integer
+        madeAt:
           type: string
-          nullable: true
-      x-internal: false
-      title: Expense-category response
+      required:
+      - currencyId
+      - expenseCategoryId
+      - taskId
+      - amount
+      - isBillable
+      - madeBy
+      - madeAt
       x-tags:
       - Expense
     Expense-category-request:
@@ -1258,11 +1273,13 @@ components:
         color:
           type: string
         unitPrice:
-          type: integer
-          nullable: true
+          type:
+          - integer
+          - 'null'
         unitName:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
         currencyId:
           type: integer
       required:

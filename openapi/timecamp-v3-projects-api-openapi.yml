@@ -1,6 +1,6 @@
-openapi: 3.0.0
+openapi: 3.2.0
 info:
-  title: TimeCamp [v1] Approvals [v1] Approvals [v3] Projects API
+  title: TimeCamp [v3] Projects API
   version: '1.0'
   contact:
     email: support@timecamp.com
@@ -30,9 +30,7 @@ info:
 
     Accept: application/json
 
-    ```
-
-    '
+    ```'
 servers:
 - url: https://app.timecamp.com/third_party/api
   description: PRODUCTION
@@ -45,7 +43,6 @@ paths:
   /v3/projects:
     post:
       summary: List projects tree
-      description: List projects tree
       tags:
       - '[v3] Projects'
       operationId: projects-list
@@ -168,7 +165,6 @@ paths:
   /v3/projects/search:
     post:
       summary: Search in projects tree
-      description: Search in projects tree
       tags:
       - '[v3] Projects'
       operationId: projects-search
@@ -340,8 +336,9 @@ paths:
                         roleId:
                           type: integer
                         taskId:
-                          type: integer
-                          nullable: true
+                          type:
+                          - integer
+                          - 'null'
                   meta:
                     type: object
                     properties:

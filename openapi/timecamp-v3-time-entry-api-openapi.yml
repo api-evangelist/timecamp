@@ -1,6 +1,6 @@
-openapi: 3.0.0
+openapi: 3.2.0
 info:
-  title: TimeCamp [v1] Approvals [v1] Approvals [v3] Time Entry API
+  title: TimeCamp [v3] Time Entry API
   version: '1.0'
   contact:
     email: support@timecamp.com
@@ -30,9 +30,7 @@ info:
 
     Accept: application/json
 
-    ```
-
-    '
+    ```'
 servers:
 - url: https://app.timecamp.com/third_party/api
   description: PRODUCTION
@@ -49,9 +47,7 @@ paths:
       deprecated: true
       description: 'Deprecated. This endpoint is being moved to `/time-entries/list`.
 
-        Get time entries by user access and permissions.
-
-        '
+        Get time entries by user access and permissions.'
       summary: Get time entries by user permissions
       security:
       - api_key_in_header: []
@@ -198,13 +194,15 @@ paths:
                       type: boolean
                       description: Is billable
                     description:
-                      type: string
+                      type:
+                      - string
+                      - 'null'
                       description: Time entry description
-                      nullable: true
                     user:
-                      type: object
+                      type:
+                      - object
+                      - 'null'
                       description: Related user data
-                      nullable: true
                       properties:
                         id:
                           type: integer
@@ -219,9 +217,10 @@ paths:
                           description: User display name
                           example: John Doe
                     task:
-                      type: object
+                      type:
+                      - object
+                      - 'null'
                       description: Related task data
-                      nullable: true
                       properties:
                         id:
                           type: number
@@ -479,13 +478,15 @@ paths:
                       type: boolean
                       description: Is billable
                     description:
-                      type: string
+                      type:
+                      - string
+                      - 'null'
                       description: Time entry description
-                      nullable: true
                     user:
-                      type: object
+                      type:
+                      - object
+                      - 'null'
                       description: Related user data
-                      nullable: true
                       properties:
                         id:
                           type: integer
@@ -500,9 +501,10 @@ paths:
                           description: User display name
                           example: John Doe
                     task:
-                      type: object
+                      type:
+                      - object
+                      - 'null'
                       description: Related task data
-                      nullable: true
                       properties:
                         id:
                           type: number
@@ -747,15 +749,17 @@ paths:
                         type: string
                         example: '10:00:00'
                       description:
-                        type: string
-                        nullable: true
+                        type:
+                        - string
+                        - 'null'
                         example: Work note
                       billable:
                         type: boolean
                         example: true
                       tags:
-                        type: array
-                        nullable: true
+                        type:
+                        - array
+                        - 'null'
                         items:
                           type: integer
                           format: int32
@@ -950,8 +954,9 @@ paths:
                         type: string
                         example: '10:00:00'
                       note:
-                        type: string
-                        nullable: true
+                        type:
+                        - string
+                        - 'null'
                         example: Updated work note
                       billable:
                         type: boolean
@@ -961,8 +966,9 @@ paths:
                         format: int32
                         example: 44
                       color:
-                        type: string
-                        nullable: true
+                        type:
+                        - string
+                        - 'null'
                         example: '#4DC2E8'
                       tags:
                         type: array

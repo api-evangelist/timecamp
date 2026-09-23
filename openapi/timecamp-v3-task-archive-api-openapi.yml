@@ -1,6 +1,6 @@
-openapi: 3.0.0
+openapi: 3.2.0
 info:
-  title: TimeCamp [v1] Approvals [v1] Approvals [v3] Task Archive API
+  title: TimeCamp [v3] Task Archive API
   version: '1.0'
   contact:
     email: support@timecamp.com
@@ -30,9 +30,7 @@ info:
 
     Accept: application/json
 
-    ```
-
-    '
+    ```'
 servers:
 - url: https://app.timecamp.com/third_party/api
   description: PRODUCTION
@@ -45,9 +43,7 @@ paths:
   /v3/task-archive/archive-batch:
     patch:
       summary: Archive a batch of tasks
-      description: 'Queues multiple active tasks for archiving. Tasks that are already archived are skipped.
-
-        '
+      description: Queues multiple active tasks for archiving. Tasks that are already archived are skipped.
       tags:
       - '[v3] Task Archive'
       requestBody:
@@ -93,9 +89,7 @@ paths:
   /v3/task-archive/restore-batch:
     patch:
       summary: Restore a batch of archived tasks and their parent hierarchy
-      description: 'Restores a batch of archived tasks. When restoring tasks, their parent tasks (if archived) will also be restored to maintain task tree consistency. However, siblings of restored tasks will remain archived unless explicitly included in the batch. This endpoint ensures that the recalculation of the task tree hierarchy is performed once per batch, preventing inconsistencies and race conditions that may occur if multiple single-task restore requests are made concurrently.
-
-        '
+      description: Restores a batch of archived tasks. When restoring tasks, their parent tasks (if archived) will also be restored to maintain task tree consistency. However, siblings of restored tasks will remain archived unless explicitly included in the batch. This endpoint ensures that the recalculation of the task tree hierarchy is performed once per batch, preventing inconsistencies and race conditions that may occur if multiple single-task restore requests are made concurrently.
       tags:
       - '[v3] Task Archive'
       requestBody:
