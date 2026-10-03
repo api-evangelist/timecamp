@@ -1105,75 +1105,47 @@ components:
       x-internal: false
       x-tags:
       - Expense
-    Expense-response:
+    Expense-request:
       type: object
       x-examples:
         Example 1:
-          message: ok
-          data:
-            id: 74
-            currencyId: 2
-            expenseCategory:
-              id: 53
-              name: My category
-              color: '#4DC2E8'
-              unitPrice: 1000
-              unitName: my unit
-              currencyId: 2
-              createdAt: '2023-09-07 12:26:34'
-              updatedAt: null
-            taskId: 512
-            amount: 2522
-            description: My description...
-            status: 0
-            isBillable: true
-            invoiceId: null
-            madeBy: 256
-            madeAt: '2023-09-12 10:32:22'
-            createdBy: 256
-            updatedBy: 256
-            createdAt: '2023-10-21 09:41:33'
-            updatedAt: '2023-10-21 09:41:41'
+          currencyId: 2
+          expenseCategoryId: '50'
+          taskId: 512
+          amount: 2522
+          description: My description...
+          isBillable: true
+          madeBy: 256
+          madeAt: '2023-09-12 10:32:22'
+      title: Expense request
       x-internal: false
       properties:
-        id:
-          type: integer
         currencyId:
           type: integer
-        expenseCategory:
-          $ref: '#/components/schemas/Expense-category-response'
+        expenseCategoryId:
+          type: integer
         taskId:
           type: integer
         amount:
           type: integer
         description:
-          type:
-          - string
-          - 'null'
-        status:
-          type: integer
+          type: string
         isBillable:
           type: boolean
-        invoiceId:
-          type:
-          - integer
-          - 'null'
         madeBy:
           type: integer
         madeAt:
           type: string
-        createdBy:
-          type: integer
-        updatedBy:
-          type:
-          - integer
-          - 'null'
-        createdAt:
-          type: string
-        updatedAt:
-          type:
-          - string
-          - 'null'
+      required:
+      - currencyId
+      - expenseCategoryId
+      - taskId
+      - amount
+      - isBillable
+      - madeBy
+      - madeAt
+      x-tags:
+      - Expense
     Expense-category-request:
       type: object
       x-examples:
@@ -1245,47 +1217,75 @@ components:
       title: Expense-category response
       x-tags:
       - Expense
-    Expense-request:
+    Expense-response:
       type: object
       x-examples:
         Example 1:
-          currencyId: 2
-          expenseCategoryId: '50'
-          taskId: 512
-          amount: 2522
-          description: My description...
-          isBillable: true
-          madeBy: 256
-          madeAt: '2023-09-12 10:32:22'
-      title: Expense request
+          message: ok
+          data:
+            id: 74
+            currencyId: 2
+            expenseCategory:
+              id: 53
+              name: My category
+              color: '#4DC2E8'
+              unitPrice: 1000
+              unitName: my unit
+              currencyId: 2
+              createdAt: '2023-09-07 12:26:34'
+              updatedAt: null
+            taskId: 512
+            amount: 2522
+            description: My description...
+            status: 0
+            isBillable: true
+            invoiceId: null
+            madeBy: 256
+            madeAt: '2023-09-12 10:32:22'
+            createdBy: 256
+            updatedBy: 256
+            createdAt: '2023-10-21 09:41:33'
+            updatedAt: '2023-10-21 09:41:41'
       x-internal: false
       properties:
+        id:
+          type: integer
         currencyId:
           type: integer
-        expenseCategoryId:
-          type: integer
+        expenseCategory:
+          $ref: '#/components/schemas/Expense-category-response'
         taskId:
           type: integer
         amount:
           type: integer
         description:
-          type: string
+          type:
+          - string
+          - 'null'
+        status:
+          type: integer
         isBillable:
           type: boolean
+        invoiceId:
+          type:
+          - integer
+          - 'null'
         madeBy:
           type: integer
         madeAt:
           type: string
-      required:
-      - currencyId
-      - expenseCategoryId
-      - taskId
-      - amount
-      - isBillable
-      - madeBy
-      - madeAt
-      x-tags:
-      - Expense
+        createdBy:
+          type: integer
+        updatedBy:
+          type:
+          - integer
+          - 'null'
+        createdAt:
+          type: string
+        updatedAt:
+          type:
+          - string
+          - 'null'
   securitySchemes:
     api_key_in_header:
       type: http
