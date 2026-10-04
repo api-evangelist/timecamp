@@ -275,6 +275,45 @@ paths:
                   - 46
 components:
   schemas:
+    Expense-category-response:
+      type: object
+      x-examples:
+        Example 1:
+          id: 53
+          name: My category
+          color: '#4DC2E8'
+          unitPrice: 1000
+          unitName: my unit
+          currencyId: 2
+          createdAt: '2023-09-07 12:26:34'
+          updatedAt: null
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        color:
+          type: string
+        unitPrice:
+          type:
+          - integer
+          - 'null'
+        unitName:
+          type:
+          - string
+          - 'null'
+        currencyId:
+          type: integer
+        createdAt:
+          type: string
+        updatedAt:
+          type:
+          - string
+          - 'null'
+      x-internal: false
+      title: Expense-category response
+      x-tags:
+      - Expense
     Expense-response:
       type: object
       x-examples:
@@ -344,45 +383,6 @@ components:
           type:
           - string
           - 'null'
-    Expense-category-response:
-      type: object
-      x-examples:
-        Example 1:
-          id: 53
-          name: My category
-          color: '#4DC2E8'
-          unitPrice: 1000
-          unitName: my unit
-          currencyId: 2
-          createdAt: '2023-09-07 12:26:34'
-          updatedAt: null
-      properties:
-        id:
-          type: integer
-        name:
-          type: string
-        color:
-          type: string
-        unitPrice:
-          type:
-          - integer
-          - 'null'
-        unitName:
-          type:
-          - string
-          - 'null'
-        currencyId:
-          type: integer
-        createdAt:
-          type: string
-        updatedAt:
-          type:
-          - string
-          - 'null'
-      x-internal: false
-      title: Expense-category response
-      x-tags:
-      - Expense
   securitySchemes:
     api_key_in_header:
       type: http
