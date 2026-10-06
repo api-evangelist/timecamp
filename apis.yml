@@ -43,7 +43,7 @@ tags:
 - Project Management
 - Billing
 created: '2026-07-11'
-modified: '2026-07-11'
+modified: '2026-10-06'
 specificationVersion: '0.23'
 apis:
 - aid: timecamp:timecamp-v1-approvals-api
@@ -918,6 +918,8 @@ apis:
   - type: APIReference
     url: https://developer.timecamp.com/#/operations/get-data-export-exports
 common:
+- url: https://www.timecamp.com/blog/feed/
+  type: BlogRSS
 - type: CapabilityMap
   url: capabilities/timecamp-capability-edges.yml
   name: TimeCamp Business Capability Map
