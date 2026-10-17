@@ -1085,38 +1085,6 @@ paths:
                   - 46
 components:
   schemas:
-    Expense-category-request:
-      type: object
-      x-examples:
-        Example 1:
-          name: My category
-          color: '#4DC2E8'
-          unitPrice: 1000
-          unitName: my unit
-          currencyId: 2
-      x-internal: false
-      title: Expense-category request
-      x-tags:
-      - Expense
-      properties:
-        name:
-          type: string
-        color:
-          type: string
-        unitPrice:
-          type:
-          - integer
-          - 'null'
-        unitName:
-          type:
-          - string
-          - 'null'
-        currencyId:
-          type: integer
-      required:
-      - name
-      - color
-      - currencyId
     Expense-request:
       type: object
       x-examples:
@@ -1156,6 +1124,26 @@ components:
       - isBillable
       - madeBy
       - madeAt
+      x-tags:
+      - Expense
+    Attachment:
+      type: object
+      properties:
+        id:
+          type: integer
+        userFilename:
+          type: string
+        mimeType:
+          type: string
+        url:
+          type: string
+      x-examples:
+        Example 1:
+          id: 14
+          userFilename: 02.pdf
+          mimeType: application/pdf
+          url: /internal/api/v3/storage/download/14
+      x-internal: false
       x-tags:
       - Expense
     Expense-response:
@@ -1227,6 +1215,38 @@ components:
           type:
           - string
           - 'null'
+    Expense-category-request:
+      type: object
+      x-examples:
+        Example 1:
+          name: My category
+          color: '#4DC2E8'
+          unitPrice: 1000
+          unitName: my unit
+          currencyId: 2
+      x-internal: false
+      title: Expense-category request
+      x-tags:
+      - Expense
+      properties:
+        name:
+          type: string
+        color:
+          type: string
+        unitPrice:
+          type:
+          - integer
+          - 'null'
+        unitName:
+          type:
+          - string
+          - 'null'
+        currencyId:
+          type: integer
+      required:
+      - name
+      - color
+      - currencyId
     Expense-category-response:
       type: object
       x-examples:
@@ -1264,26 +1284,6 @@ components:
           - 'null'
       x-internal: false
       title: Expense-category response
-      x-tags:
-      - Expense
-    Attachment:
-      type: object
-      properties:
-        id:
-          type: integer
-        userFilename:
-          type: string
-        mimeType:
-          type: string
-        url:
-          type: string
-      x-examples:
-        Example 1:
-          id: 14
-          userFilename: 02.pdf
-          mimeType: application/pdf
-          url: /internal/api/v3/storage/download/14
-      x-internal: false
       x-tags:
       - Expense
   securitySchemes:
