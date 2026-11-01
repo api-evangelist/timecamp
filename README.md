@@ -1,4 +1,4 @@
-# TimeCamp (timecamp)
+# TimeCamp
 
 <!-- API-EVANGELIST-PROVENANCE:BEGIN -->
 > ### About this repository
@@ -64,245 +64,177 @@
 > Full detail: **[Where this data comes from](https://apievangelist.com/about/where-our-data-comes-from)**
 <!-- API-EVANGELIST-PROVENANCE:END -->
 
-TimeCamp is a time tracking and timesheet platform used by teams to log billable hours, run attendance and time-off, approve timesheets, and measure productivity across projects. Its documented REST API - free on every plan, including the free tier - covers time entries, timers, tasks and projects, users and groups, attendance, approvals, tags, billing rates, expenses, and computer activity data.
+TimeCamp is a time tracking and timesheet platform used by teams to log billable hours, run attendance and time-off, approve timesheets, and measure productivity across projects. Its documented REST API - free on every plan, including the free tier - covers time entries, timers, tasks and projects, users and groups, attendance, approvals, tags, billing rates, expenses, and computer activity data, authenticated with a per-user API token sent as a bearer header.
+
+**Areas:** Time Tracking · Timesheets · Productivity · Attendance · Project Management · Billing
+
+## TimeCamp on APIs.io
+
+Everything profiled for TimeCamp is published on APIs.io rather than in this repository. Start at the provider page — **[apis.io/providers/timecamp/](https://apis.io/providers/timecamp/)** — or go straight to one of the APIs or properties below.
 
-**Access model:** The API is public and documented at [developer.timecamp.com](https://developer.timecamp.com/), but every call requires a TimeCamp account. Authentication uses a per-user API token (found at the bottom of Profile Settings in the app) sent as an `Authorization: Bearer <token>` header. TimeCamp states the API "is available to all subscription plans and is free of charge" - there is no separate API fee, and a free-forever plan means you can integrate without paying. Request limits are tied to your subscription plan; exceeding them returns HTTP 429. Feature coverage follows your plan: endpoints for attendance, approvals, billing rates, expenses, custom fields, and data export operate against features gated to the Starter, Premium, or Ultimate tiers.
+### APIs (27)
 
-**Surfaces:** The primary base URL is `https://app.timecamp.com/third_party/api` (the published OpenAPI also lists `https://v4.api.timecamp.com` as a production server). The developer portal is a Stoplight Elements site rendering TimeCamp's own OpenAPI 3.0 document, which is published at [developer.timecamp.com/reference/dist/api-prod.yaml](https://developer.timecamp.com/reference/dist/api-prod.yaml) and mirrored in this repository. It spans 122 paths across a stable v1 surface and a growing v3 surface. No public WebSocket API is documented.
+- [TimeCamp [v1] Approvals API](https://apis.io/apis/timecamp/timecamp-v1-approvals-api/) — The [v1] Approvals API from TimeCamp — 2 operation(s) for [v1] approvals.
+- [TimeCamp [v1] Attendance API](https://apis.io/apis/timecamp/timecamp-v1-attendance-api/) — The [v1] Attendance API from TimeCamp — 4 operation(s) for [v1] attendance.
+- [TimeCamp [v1] Billing Rates API](https://apis.io/apis/timecamp/timecamp-v1-billing-rates-api/) — The [v1] Billing Rates API from TimeCamp — 4 operation(s) for [v1] billing rates.
+- [TimeCamp [v1] Computer Activities API](https://apis.io/apis/timecamp/timecamp-v1-computer-activities-api/) — The [v1] Computer Activities API from TimeCamp — 1 operation(s) for [v1] computer activities.
+- [TimeCamp [v1] Entry API](https://apis.io/apis/timecamp/timecamp-v1-entry-api/) — The [v1] Entry API from TimeCamp — 5 operation(s) for [v1] entry.
+- [TimeCamp [v1] Group API](https://apis.io/apis/timecamp/timecamp-v1-group-api/) — The [v1] Group API from TimeCamp — 5 operation(s) for [v1] group.
+- [TimeCamp [v1] Roles & Permissions API](https://apis.io/apis/timecamp/timecamp-v1-roles-permissions-api/) — The [v1] Roles & Permissions API from TimeCamp — 1 operation(s) for [v1] roles & permissions.
+- [TimeCamp [v1] Tags API](https://apis.io/apis/timecamp/timecamp-v1-tags-api/) — The [v1] Tags API from TimeCamp — 9 operation(s) for [v1] tags.
+- [TimeCamp [v1] Task API](https://apis.io/apis/timecamp/timecamp-v1-task-api/) — The [v1] Task API from TimeCamp — 4 operation(s) for [v1] task.
+- [TimeCamp [v1] Timer API](https://apis.io/apis/timecamp/timecamp-v1-timer-api/) — The [v1] Timer API from TimeCamp — 2 operation(s) for [v1] timer.
+- [TimeCamp [v1] User API](https://apis.io/apis/timecamp/timecamp-v1-user-api/) — The [v1] User API from TimeCamp — 5 operation(s) for [v1] user.
+- [TimeCamp [v3] Approval API](https://apis.io/apis/timecamp/timecamp-v3-approval-api/) — The [v3] Approval API from TimeCamp — 7 operation(s) for [v3] approval.
+- [TimeCamp [v3] Attendance API](https://apis.io/apis/timecamp/timecamp-v3-attendance-api/) — The [v3] Attendance API from TimeCamp — 6 operation(s) for [v3] attendance.
+- [TimeCamp [v3] Attendance Requests API](https://apis.io/apis/timecamp/timecamp-v3-attendance-requests-api/) — The [v3] Attendance Requests API from TimeCamp — 1 operation(s) for [v3] attendance requests.
+- [TimeCamp [v3] Computer Activities API](https://apis.io/apis/timecamp/timecamp-v3-computer-activities-api/) — The [v3] Computer Activities API from TimeCamp — 1 operation(s) for [v3] computer activities.
+- [TimeCamp [v3] Custom Fields API](https://apis.io/apis/timecamp/timecamp-v3-custom-fields-api/) — The [v3] Custom Fields API from TimeCamp — 8 operation(s) for [v3] custom fields.
+- [TimeCamp [v3] Data Export API](https://apis.io/apis/timecamp/timecamp-v3-data-export-api/) — The [v3] Data Export API from TimeCamp — 5 operation(s) for [v3] data export.
+- [TimeCamp [v3] Expense API](https://apis.io/apis/timecamp/timecamp-v3-expense-api/) — The [v3] Expense API from TimeCamp — 11 operation(s) for [v3] expense.
+- [TimeCamp [v3] Invoices API](https://apis.io/apis/timecamp/timecamp-v3-invoices-api/) — The [v3] Invoices API from TimeCamp — 2 operation(s) for [v3] invoices.
+- [TimeCamp [v3] Projects API](https://apis.io/apis/timecamp/timecamp-v3-projects-api/) — The [v3] Projects API from TimeCamp — 5 operation(s) for [v3] projects.
+- [TimeCamp [v3] Storage API](https://apis.io/apis/timecamp/timecamp-v3-storage-api/) — The [v3] Storage API from TimeCamp — 2 operation(s) for [v3] storage.
+- [TimeCamp [v3] Tags API](https://apis.io/apis/timecamp/timecamp-v3-tags-api/) — The [v3] Tags API from TimeCamp — 1 operation(s) for [v3] tags.
+- [TimeCamp [v3] Task API](https://apis.io/apis/timecamp/timecamp-v3-task-api/) — The [v3] Task API from TimeCamp — 5 operation(s) for [v3] task.
+- [TimeCamp [v3] Task Archive API](https://apis.io/apis/timecamp/timecamp-v3-task-archive-api/) — The [v3] Task Archive API from TimeCamp — 2 operation(s) for [v3] task archive.
+- [TimeCamp [v3] Task Picker API](https://apis.io/apis/timecamp/timecamp-v3-task-picker-api/) — The [v3] Task Picker API from TimeCamp — 3 operation(s) for [v3] task picker.
+- [TimeCamp [v3] Time Entry API](https://apis.io/apis/timecamp/timecamp-v3-time-entry-api/) — The [v3] Time Entry API from TimeCamp — 4 operation(s) for [v3] time entry.
+- [TimeCamp [v3] Time Entry Restriction API](https://apis.io/apis/timecamp/timecamp-v3-time-entry-restriction-api/) — The [v3] Time Entry Restriction API from TimeCamp — 3 operation(s) for [v3] time entry restriction.
 
-**APIs.json:** [https://raw.githubusercontent.com/api-evangelist/timecamp/refs/heads/main/apis.yml](https://raw.githubusercontent.com/api-evangelist/timecamp/refs/heads/main/apis.yml)
+### Published properties
 
-## Tags
+Each property below is a page on APIs.io carrying the machine-readable artifact and what it says.
 
-- Time Tracking
-- Timesheets
-- Productivity
-- Attendance
-- Project Management
-- Billing
+#### MCP servers (1)
 
-## Timestamps
+Model Context Protocol servers that expose the API to agents.
 
-- **Created:** 2026-07-11
-- **Modified:** 2026-07-11
+- [timecamp](https://apis.io/servers/timecamp/timecamp/)
 
-## APIs
+#### Agentic access (1)
 
-### TimeCamp Time Entries API
+Which operations an agent can call, which act, and which need a human in the loop.
 
-Create, read, update, and delete time entries - the core timesheet records. Filter entries by date range, users, tasks, and tags, merge duplicate entries, track entry changes and deletions for sync, and pull logged time per week. A v3 surface adds permission-aware entry listing and time entry restrictions.
+- [Timecamp Agentic Access](https://apis.io/agentic-access/timecamp/timecamp-agentic-access/)
 
-- **Human URL:** [https://developer.timecamp.com/#/operations/get--entries](https://developer.timecamp.com/#/operations/get--entries)
-- **Base URL:** `https://app.timecamp.com/third_party/api`
+#### Collections (28)
 
-#### Tags
+Postman and Open Collection request collections.
 
-- Time Tracking
-- Time Entries
-- Timesheets
+- [TimeCamp API](https://apis.io/collections/timecamp/open-timecamp/)
+- [TimeCamp [v1] Approvals [v1] Approvals [v1] Approvals API](https://apis.io/collections/timecamp/open-timecamp-v1-approvals-api/)
+- [TimeCamp [v1] Approvals [v1] Approvals [v1] Attendance API](https://apis.io/collections/timecamp/open-timecamp-v1-attendance-api/)
+- [TimeCamp [v1] Approvals [v1] Approvals [v1] Billing Rates API](https://apis.io/collections/timecamp/open-timecamp-v1-billing-rates-api/)
+- [TimeCamp [v1] Approvals [v1] Approvals [v1] Computer Activities API](https://apis.io/collections/timecamp/open-timecamp-v1-computer-activities-api/)
+- [TimeCamp [v1] Approvals [v1] Approvals [v1] Entry API](https://apis.io/collections/timecamp/open-timecamp-v1-entry-api/)
+- [TimeCamp [v1] Approvals [v1] Approvals [v1] Group API](https://apis.io/collections/timecamp/open-timecamp-v1-group-api/)
+- [TimeCamp [v1] Approvals [v1] Approvals [v1] Roles & Permissions API](https://apis.io/collections/timecamp/open-timecamp-v1-roles-permissions-api/)
+- [TimeCamp [v1] Approvals [v1] Approvals [v1] Tags API](https://apis.io/collections/timecamp/open-timecamp-v1-tags-api/)
+- [TimeCamp [v1] Approvals [v1] Approvals [v1] Task API](https://apis.io/collections/timecamp/open-timecamp-v1-task-api/)
+- [TimeCamp [v1] Approvals [v1] Approvals [v1] Timer API](https://apis.io/collections/timecamp/open-timecamp-v1-timer-api/)
+- [TimeCamp [v1] Approvals [v1] Approvals [v1] User API](https://apis.io/collections/timecamp/open-timecamp-v1-user-api/)
+- [TimeCamp [v1] Approvals [v1] Approvals [v3] Approval API](https://apis.io/collections/timecamp/open-timecamp-v3-approval-api/)
+- [TimeCamp [v1] Approvals [v1] Approvals [v3] Attendance API](https://apis.io/collections/timecamp/open-timecamp-v3-attendance-api/)
+- [TimeCamp [v1] Approvals [v1] Approvals [v3] Attendance Requests API](https://apis.io/collections/timecamp/open-timecamp-v3-attendance-requests-api/)
+- [TimeCamp [v1] Approvals [v1] Approvals [v3] Computer Activities API](https://apis.io/collections/timecamp/open-timecamp-v3-computer-activities-api/)
+- [TimeCamp [v1] Approvals [v1] Approvals [v3] Custom Fields API](https://apis.io/collections/timecamp/open-timecamp-v3-custom-fields-api/)
+- [TimeCamp [v1] Approvals [v1] Approvals [v3] Data Export API](https://apis.io/collections/timecamp/open-timecamp-v3-data-export-api/)
+- [TimeCamp [v1] Approvals [v1] Approvals [v3] Expense API](https://apis.io/collections/timecamp/open-timecamp-v3-expense-api/)
+- [TimeCamp [v1] Approvals [v1] Approvals [v3] Invoices API](https://apis.io/collections/timecamp/open-timecamp-v3-invoices-api/)
+- [TimeCamp [v1] Approvals [v1] Approvals [v3] Projects API](https://apis.io/collections/timecamp/open-timecamp-v3-projects-api/)
+- [TimeCamp [v1] Approvals [v1] Approvals [v3] Storage API](https://apis.io/collections/timecamp/open-timecamp-v3-storage-api/)
+- [TimeCamp [v1] Approvals [v1] Approvals [v3] Tags API](https://apis.io/collections/timecamp/open-timecamp-v3-tags-api/)
+- [TimeCamp [v1] Approvals [v1] Approvals [v3] Task API](https://apis.io/collections/timecamp/open-timecamp-v3-task-api/)
+- [TimeCamp [v1] Approvals [v1] Approvals [v3] Task Archive API](https://apis.io/collections/timecamp/open-timecamp-v3-task-archive-api/)
+- …and 3 more published on APIs.io
 
-#### Properties
+#### Security (2)
 
-- [Documentation](https://developer.timecamp.com/)
-- [API Reference](https://developer.timecamp.com/#/operations/get--entries)
-- [OpenAPI](openapi/timecamp-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/timecamp.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/timecamp.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+Authentication, trust centre, and vulnerability disclosure.
 
-### TimeCamp Timer API
+- [Timecamp Authentication](https://apis.io/security/timecamp/timecamp-authentication/)
+- [Timecamp Domain Security](https://apis.io/security/timecamp/timecamp-domain-security/)
 
-Start, stop, and inspect running timers. A single `POST /timer` endpoint switches on an action parameter (start, stop, status), and `GET /timer_running` returns all currently running timers so integrations can mirror live tracking state.
+#### Plans and pricing (1)
 
-- **Human URL:** [https://developer.timecamp.com/#/operations/post-timer](https://developer.timecamp.com/#/operations/post-timer)
-- **Base URL:** `https://app.timecamp.com/third_party/api`
+Published plans, tiers and prices.
 
-#### Tags
+- [Timecamp Plans Pricing](https://apis.io/plans/timecamp/timecamp-plans-pricing/)
 
-- Timer
-- Time Tracking
-- Real Time
+#### Rate limits (1)
 
-#### Properties
+Published request limits.
 
-- [API Reference](https://developer.timecamp.com/#/operations/post-timer)
-- [OpenAPI](openapi/timecamp-openapi.yml)
-- [Postman Collection](collections/timecamp.postman_collection.json)
-- [Open Collection](collections/timecamp.opencollection.json)
+- [Timecamp Rate Limits](https://apis.io/rate-limits/timecamp/timecamp-rate-limits/)
 
-### TimeCamp Tasks and Projects API
+#### FinOps (1)
 
-Manage the task and project tree that time is tracked against - create, update, and delete tasks, fetch task details, set task colors and tags. The v3 surface adds project listing and search, user assignment to projects, task duplication, archiving and restoring in batches, moving worklogs, and re-parenting tasks.
+What the API costs to run, by operation.
 
-- **Human URL:** [https://developer.timecamp.com/#/operations/get--tasks](https://developer.timecamp.com/#/operations/get--tasks)
-- **Base URL:** `https://app.timecamp.com/third_party/api`
+- [Timecamp Finops](https://apis.io/finops/timecamp/timecamp-finops/)
 
-#### Tags
+## Where to find this API
 
-- Tasks
-- Projects
-- Project Management
+Links to the company's own pages. This repository publishes no copy of their specifications — the canonical document is theirs and lives at the URLs below.
 
-#### Properties
-
-- [API Reference](https://developer.timecamp.com/#/operations/get--tasks)
-- [OpenAPI](openapi/timecamp-openapi.yml)
-- [Postman Collection](collections/timecamp.postman_collection.json)
-- [Open Collection](collections/timecamp.opencollection.json)
-
-### TimeCamp Users and Groups API
-
-Administer the account - list all users, fetch your own profile (`/me`), invite and update users, manage per-user settings, and organize users into groups with group-level settings, schedulers, and roles and permissions.
-
-- **Human URL:** [https://developer.timecamp.com/#/operations/get-users](https://developer.timecamp.com/#/operations/get-users)
-- **Base URL:** `https://app.timecamp.com/third_party/api`
-
-#### Tags
-
-- Users
-- Groups
-- Administration
-
-#### Properties
-
-- [API Reference](https://developer.timecamp.com/#/operations/get-users)
-- [OpenAPI](openapi/timecamp-openapi.yml)
-- [Postman Collection](collections/timecamp.postman_collection.json)
-- [Open Collection](collections/timecamp.opencollection.json)
-
-### TimeCamp Attendance API
-
-Attendance and time-off surface - pull attendance records per period, read and set per-user day types (working day, vacation, sick leave), submit attendance requests, and use the v3 endpoints for predefined holiday calendars per group and attendance calendar search.
-
-- **Human URL:** [https://developer.timecamp.com/#/operations/get--attendance](https://developer.timecamp.com/#/operations/get--attendance)
-- **Base URL:** `https://app.timecamp.com/third_party/api`
-
-#### Tags
-
-- Attendance
-- Time Off
-- Leave Management
-
-#### Properties
-
-- [API Reference](https://developer.timecamp.com/#/operations/get--attendance)
-- [OpenAPI](openapi/timecamp-openapi.yml)
-- [Postman Collection](collections/timecamp.postman_collection.json)
-- [Open Collection](collections/timecamp.opencollection.json)
-
-### TimeCamp Timesheet Approvals API
-
-Timesheet approval workflow - fetch and create approvals for user timesheet periods, list users subject to approval, and drive the v3 flow with approval listing, status changes (single and bulk), approval activity history, messages, and reminder sending.
-
-- **Human URL:** [https://developer.timecamp.com/#/operations/get--approval](https://developer.timecamp.com/#/operations/get--approval)
-- **Base URL:** `https://app.timecamp.com/third_party/api`
-
-#### Tags
-
-- Approvals
-- Timesheets
-- Workflow
-
-#### Properties
-
-- [API Reference](https://developer.timecamp.com/#/operations/get--approval)
-- [OpenAPI](openapi/timecamp-openapi.yml)
-- [Postman Collection](collections/timecamp.postman_collection.json)
-- [Open Collection](collections/timecamp.opencollection.json)
-
-### TimeCamp Computer Activities API
-
-Read the desktop-agent productivity data - application and website usage captured by the TimeCamp tracker - via `GET /activity`, plus v3 endpoints for sites-and-apps activity logs, activity categories, and per-group productivity classification of applications.
-
-- **Human URL:** [https://developer.timecamp.com/#/operations/get--activity](https://developer.timecamp.com/#/operations/get--activity)
-- **Base URL:** `https://app.timecamp.com/third_party/api`
-
-#### Tags
-
-- Productivity
-- Activity Tracking
-- Monitoring
-
-#### Properties
-
-- [API Reference](https://developer.timecamp.com/#/operations/get--activity)
-- [OpenAPI](openapi/timecamp-openapi.yml)
-- [Postman Collection](collections/timecamp.postman_collection.json)
-- [Open Collection](collections/timecamp.opencollection.json)
-
-### TimeCamp Tags API
-
-Manage tag lists and tags used to slice time entries for reporting - create and update tag lists, add tags, scope tags to groups, and attach or remove tags on individual time entries and tasks.
-
-- **Human URL:** [https://developer.timecamp.com/#/operations/get--tag_list-](https://developer.timecamp.com/#/operations/get--tag_list-)
-- **Base URL:** `https://app.timecamp.com/third_party/api`
-
-#### Tags
-
-- Tags
-- Metadata
-- Time Entries
-
-#### Properties
-
-- [API Reference](https://developer.timecamp.com/#/operations/get--tag_list-)
-- [OpenAPI](openapi/timecamp-openapi.yml)
-- [Postman Collection](collections/timecamp.postman_collection.json)
-- [Open Collection](collections/timecamp.opencollection.json)
-
-### TimeCamp Billing Rates and Expenses API
-
-Monetize tracked time - get and set billing rates per task, per user, per task-user pair, and per group, and manage expenses through the v3 endpoints including expense categories, attachments, and assigning expenses to invoices.
-
-- **Human URL:** [https://developer.timecamp.com/#/operations/get-task-task_id-rate](https://developer.timecamp.com/#/operations/get-task-task_id-rate)
-- **Base URL:** `https://app.timecamp.com/third_party/api`
-
-#### Tags
-
-- Billing
-- Rates
-- Expenses
-- Invoicing
-
-#### Properties
-
-- [API Reference](https://developer.timecamp.com/#/operations/get-task-task_id-rate)
-- [OpenAPI](openapi/timecamp-openapi.yml)
-- [Postman Collection](collections/timecamp.postman_collection.json)
-- [Open Collection](collections/timecamp.opencollection.json)
-
-### TimeCamp Data Export API
-
-Bulk reporting surface on the v3 API - request dataset exports, poll export status, check dataset availability, and download results, plus custom field templates and values that enrich exported time and project data.
-
-- **Human URL:** [https://developer.timecamp.com/#/operations/get-data-export-exports](https://developer.timecamp.com/#/operations/get-data-export-exports)
-- **Base URL:** `https://app.timecamp.com/third_party/api`
-
-#### Tags
-
-- Data Export
-- Reporting
-- Custom Fields
-
-#### Properties
-
-- [API Reference](https://developer.timecamp.com/#/operations/get-data-export-exports)
-- [OpenAPI](openapi/timecamp-openapi.yml)
-- [Postman Collection](collections/timecamp.postman_collection.json)
-- [Open Collection](collections/timecamp.opencollection.json)
-
-## Common Properties
-
-- [LinkedIn](https://www.linkedin.com/company/timecamp)
 - [Website](https://www.timecamp.com)
 - [Documentation](https://developer.timecamp.com/)
-- [Support](https://help.timecamp.com/help/api)
 - [Pricing](https://www.timecamp.com/pricing/)
+- [Support](https://help.timecamp.com/help/api)
 - [Blog](https://www.timecamp.com/blog/)
-- [Plans](plans/timecamp-plans-pricing.yml)
-- [Rate Limits](rate-limits/timecamp-rate-limits.yml)
-- [Fin Ops](finops/timecamp-finops.yml)
 
-## Maintainers
+## API Evangelist rating
 
-**FN:** Kin Lane
-**Email:** kin@apievangelist.com
+**Kin Score 27.8** — thin · rubric 0.25.0 · scored 2026-10-23
+
+| Facet | Score |
+|---|---|
+| Discoverability | 68.3 |
+| Contract quality | 51.4 |
+| Contract governance | 0.0 |
+| Operational transparency | 5.3 |
+| Developer ergonomics | 19.0 |
+| Access clarity | 18.4 |
+
+**Agent readiness 50.5** — agent-ready (gated down from agent-native)
+
+| Agent-readiness dimension | Result |
+|---|---|
+| Spec Presence | yes |
+| Agentic Access | derived (partial credit) |
+| Reversibility Documented | documented (partial credit) |
+| MCP Server | verified |
+| Auth Clarity | served (partial credit) |
+| Idempotency | — |
+| Error Semantics | — |
+| OpenAPI Examples | verified |
+| Rate Limit Signal | derived (partial credit) |
+| Event Surface Described | — |
+| Agent Skills | — |
+| Well Known Catalog | — |
+| Consent Identity | — |
+| Agent Card | — |
+| Dry Run Mode | yes |
+| Delegated Identity | served (partial credit) |
+| Protected Resource Metadata | verified |
+| Dynamic Client Registration | yes |
+| Agentic Commerce | — |
+| Pagination Ratio | — |
+| Operation Distinctiveness | mostly (partial credit) |
+
+**Regulatory alignment 11.8** — Horizontal (data, software, accessibility, platform)
+
+The rubric is published at [github.com/api-evangelist/kin-score](https://github.com/api-evangelist/kin-score). The per-check breakdown behind these numbers — which checks were earned, partial or missed — along with score history and how this provider compares to its peers, is available at [apis.io/providers/timecamp/](https://apis.io/providers/timecamp/).
+
+## How this profile is made
+
+API Evangelist profiles a company's public API surface the way a developer would find it: the website, developer portal and documentation, the specifications it publishes, its public repositories, and its pricing, status and changelog pages. From that it derives the properties above — contracts split per API, workflows, schemas, collections, governance rules, plans and rate limits — and scores them against the published [Kin Score rubric](https://github.com/api-evangelist/kin-score).
+
+The artifacts are published on [APIs.io](https://apis.io), not in this repository. This repository is the public record for TimeCamp: the place to say something is wrong, missing or out of date, and to ask for a re-score or a removal.
+
+## Open an issue
+
+- **Something about this listing** — a wrong description, a missing API, a stale artifact or a question about the rating: [open an issue on this repository](https://github.com/api-evangelist/timecamp/issues/new).
+- **A new API, or one that is not in the catalog yet** — [submit it on APIs.io](https://apis.io/add/).
+- **Anything else** — [the APIs.io inbox](https://github.com/api-search/inbox/issues/new) or [info@apievangelist.com](mailto:info@apievangelist.com).
